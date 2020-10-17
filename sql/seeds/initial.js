@@ -1,7 +1,3 @@
-
-const dummy = require('../../data/dummy')
-
-// TODO: Sample seed data, to be deleted.
 exports.seed = (knex) => {
   const collectible = knex('collectible')
     .del()

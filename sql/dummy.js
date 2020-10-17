@@ -1,7 +1,6 @@
+// TODO: add a generate all table data method that accounts for foreign keys.
 const faker = require('faker');
 const lego = require('../templates/lego')
-
-// TODO: add a generate all table data method that accounts for foreign keys.
 
 
 class SchemaData {
@@ -113,9 +112,3 @@ class SchemaData {
         console.log('gen')
     }
 }
-
-const schema = new SchemaData()
-schema.generateRandomKeysAndValues()
-const match = schema.getMatch()
-console.log(match)
-// console.log(schema)
