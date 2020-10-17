@@ -21,7 +21,47 @@ Welcome to Collector's Trading Platform
 
 ```
 {
-  "data": [],
-  "total": 0
+  "data": [
+    {
+      "collectible_id": "1",
+      "collectible_type_id": null,
+      "name": "test",
+      "image_url": "google.com",
+      "attributes": {
+        "color": "green",
+        "style": "cool"
+      },
+      "total_quantity": "445",
+      "created_at": "2020-10-17T16:39:25.718Z",
+      "updated_at": "2020-10-17T16:39:25.718Z"
+    },
+    {
+      "collectible_id": "2",
+      "collectible_type_id": null,
+      "name": "test",
+      "image_url": "google.com",
+      "attributes": {
+        "color": "green",
+        "style": "cool"
+      },
+      "total_quantity": "445",
+      "created_at": "2020-10-17T16:39:25.718Z",
+      "updated_at": "2020-10-17T16:39:25.718Z"
+    },
+    {
+      "collectible_id": "3",
+      "collectible_type_id": null,
+      "name": "test",
+      "image_url": "google.com",
+      "attributes": {
+        "color": "green",
+        "style": "cool"
+      },
+      "total_quantity": "445",
+      "created_at": "2020-10-17T16:39:25.718Z",
+      "updated_at": "2020-10-17T16:39:25.718Z"
+    }
+  ],
+  "total": 3
 }
 ```
