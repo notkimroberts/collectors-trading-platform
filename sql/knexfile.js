@@ -12,6 +12,6 @@ module.exports = {
         database : process.env.DATABASE_NAME,
         ssl: { rejectUnauthorized: false }
     },
-    migrations: { tableName: 'knex_migrati/ons' },
+    migrations: { tableName: 'knex_migrations' },
     seeds: { directory: './seeds' },
 }
