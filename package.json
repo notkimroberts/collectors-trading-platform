@@ -18,5 +18,8 @@
     "knex": "^0.21.6",
     "morgan": "~1.9.1",
     "pg": "^8.4.1"
+  },
+  "devDependencies": {
+    "faker": "^5.1.0"
   }
 }
