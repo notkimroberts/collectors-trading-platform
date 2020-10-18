@@ -13,7 +13,8 @@ const indexRouter = require('./routes/index');
 const collectibleRouter = require('./routes/collectible');
 const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
-
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 const app = express();
 
 // view engine setup
@@ -31,6 +32,8 @@ app.use('/', indexRouter);
 app.use('/collectible', collectibleRouter); // TODO: Sample route, to be deleted.
 app.use('/rules', rulesRouter);
 app.use('/profile', profileRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
