@@ -30,7 +30,7 @@ app.use('/', indexRouter);
 app.use('/collectible', collectibleRouter); // TODO: Sample route, to be deleted.
 app.use('/rules', rulesRouter);
 
-hbs.registerPartials(path.join(__dirname, '/views/partials'))
+hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
 
 // catch 404 and forward to error handler
