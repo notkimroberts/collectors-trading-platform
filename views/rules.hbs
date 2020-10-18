@@ -10,18 +10,30 @@
 
  
     <body>
-        <nav class="menu">
-            <ul>
-                {{#each navItems}}
-                 <li><a href="{{navLink}}">{{navTitle}}</a></li>
-                {{/each}}
-             </ul>
-        </nav>
-        
-       <p>Welcome to {{title}}</p>
+      
+        {{{title}}}
+
+
+        <div class="container">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a href="/">Home</a></li>
+		<li class="breadcrumb-item"><a href="/customers">Customers</a></li>
+		<li class="breadcrumb-item"><a href="/products">Products</a></li>
+		<li class="breadcrumb-item"><a href="/workers">Workers</a></li>
+		<li class="breadcrumb-item"><a href="/sections">Sections</a></li>
+		<li class="breadcrumb-item"><a href="/locations">Locations</a></li>
+		<li class="breadcrumb-item"><a href="/customersproducts">Customers Purchase History</a></li>
+	</ol>
+	
+        <div class="container">
+            <h1 class="display-4">Locations</h1>
+            <p class="lead">Supermarket Tonkatsu Database</p>
+        </div>
+     
+</div>
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/nav.js"></script>
+
         
     </body>
 </html>

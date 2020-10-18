@@ -11,7 +11,6 @@ dotenv.config()
 const indexRouter = require('./routes/index');
 const collectibleRouter = require('./routes/collectible');
 const rulesRouter = require('./routes/rules');
-const navRouter = require('./js/nav');
 
 const app = express();
 
@@ -29,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/collectible', collectibleRouter); // TODO: Sample route, to be deleted.
 app.use('/rules', rulesRouter);
-app.use('/nav', navRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
