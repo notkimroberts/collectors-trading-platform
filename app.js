@@ -37,7 +37,6 @@ app.use('/register', registerRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
