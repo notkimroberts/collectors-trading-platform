@@ -12,6 +12,7 @@ dotenv.config()
 const indexRouter = require('./routes/index');
 const collectibleRouter = require('./routes/collectible');
 const rulesRouter = require('./routes/rules');
+const profileRouter = require('./routes/profile');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/collectible', collectibleRouter); // TODO: Sample route, to be deleted.
 app.use('/rules', rulesRouter);
+app.use('/profile', profileRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
