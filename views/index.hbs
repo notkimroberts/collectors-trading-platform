@@ -1,1 +1,11 @@
 <p>Welcome to {{title}}</p>
+
+<nav class="menu">
+  <ul>
+    {{#each navItems}}
+      <li><a href="{{navLink}}">{{navTitle}}</a></li>
+    {{/each}}
+  </ul>
+</nav>
+
+<script src="js/nav.js"></script>
