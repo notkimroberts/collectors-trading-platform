@@ -2,14 +2,14 @@
 var navigation = {
     'navItems' : [
       {
-        'navTitle' : 'Style Guide',
-        'navLink' : '/style-guide/index.html'
+        'navTitle' : 'Rules',
+        'navLink' : '/rules'
       }
     ]
   };
   
   // Pass the JSON object to your nav.handlebars template
-  var navTemplate = Hbs.templates.nav(navigation);
+  var navTemplate = Handlebars.templates.nav(navigation);
   
   // Prepend the navigation markup to the body element
   $('body').prepend(navTemplate);
