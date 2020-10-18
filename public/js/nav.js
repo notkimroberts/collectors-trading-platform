@@ -9,7 +9,7 @@ var navigation = {
   };
   
   // Pass the JSON object to your nav.handlebars template
-  var navTemplate = views.nav(navigation);
+  var navTemplate = views.rules(navigation);
   
   // Prepend the navigation markup to the body element
   $('body').prepend(navTemplate);
