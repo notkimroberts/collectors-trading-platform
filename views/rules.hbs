@@ -8,15 +8,15 @@
         <title>{{title}}</title>
     </head>
 
-    <nav class="menu">
-  <ul>
-    {{#each navItems}}
-      <li><a href="{{navLink}}">{{navTitle}}</a></li>
-    {{/each}}
-  </ul>
-</nav>
+ 
     <body>
-        
+        <nav class="menu">
+            <ul>
+                {{#each navItems}}
+                 <li><a href="{{navLink}}">{{navTitle}}</a></li>
+                {{/each}}
+             </ul>
+        </nav>
         {{{body}}}
         <script src="js/jquery-3.5.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
