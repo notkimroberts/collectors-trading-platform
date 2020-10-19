@@ -14,12 +14,7 @@
 9. Start server: `npm start`
 10. Visit [localhost:3000](localhost:3000) and you should see:
 
-<-COPY AND PASTE ALL BELOW INTO TERMINAL TO GET ALL RUNNING->
-heroku git:remote -a collectors-trading-platform
-heroku login
-heroku run npm run migrate
-heroku run npm run seed
-npm start
+
 ```
 Welcome to Collector's Trading Platform
 ```
@@ -72,3 +67,11 @@ Welcome to Collector's Trading Platform
   "total": 3
 }
 ```
+
+
+<-COPY AND PASTE ALL BELOW INTO TERMINAL TO GET ALL RUNNING->
+heroku git:remote -a collectors-trading-platform
+heroku login
+heroku run npm run migrate
+heroku run npm run seed
+npm start
