@@ -15,6 +15,7 @@ const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+
 const app = express();
 
 // view engine setup
