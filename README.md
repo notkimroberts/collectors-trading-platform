@@ -19,7 +19,9 @@ Welcome to Collector's Trading Platform
 
 10. Visit [localhost:3000/collectible](localhost:3000/collectible) and you should see:
 
+<-COPY AND PASTE ALL BELOW INTO TERMINAL TO GET ALL RUNNING-> heroku git:remote -a collectors-trading-platform heroku login heroku run npm run migrate heroku run npm run seed npm start
 ```
+
 {
   "data": [
     {
