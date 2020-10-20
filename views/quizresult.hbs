@@ -1,0 +1,39 @@
+{{{title}}}
+
+
+
+<!-- https://stackoverflow.com/questions/14096292/how-to-have-two-headings-on-the-same-line-in-html -->
+<div class="container">
+        <div id="end" class="flex-center flex-column">
+            <h1 class="score-result">
+                <span class="left-text">Your Score: </span>
+                <span class="right-text" id="finalScore">0</span>
+            </h1>
+
+<!-- may use a form later
+            <form class="end-form-container">
+                <input type="text" name="name" id="username" placeholder="Enter your name">
+                <button class="btn" id="saveScoreBtn" type="submit" onclick="saveHighScore(event)" disabled>Save</button>
+            </form>
+-->
+            <h1 id="resultPassFail">
+                pass or fail message here
+            </h1>
+
+            <h1 id="takeQuizAgain">
+                <a href="/quiz" class="btn">Take quiz again</a>
+            </h1>
+
+            <h1 id="goRegister">
+                <a href="/register" class="btn">go register</a>
+            </h1>
+
+            
+        </div>
+</div>
+
+
+
+
+<script src="/js/quizresult.js"></script>
+<link rel="stylesheet" href="/css/quizresult.css"/>
