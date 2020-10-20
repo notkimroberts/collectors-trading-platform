@@ -11,6 +11,7 @@ let score = 0
 let questionCounter = 0
 let availableQuestions = []
 
+// array of questions
 let questions = [
     {
         question: 'What types of links can I send other users?',
@@ -47,7 +48,6 @@ let questions = [
     }
 ]
 
-const SCORE_POINTS = 1
 const MAX_QUESTIONS = 4
 
 // start the quiz
@@ -58,18 +58,26 @@ startQuiz = () => {
     getNewQuestion()
 }
 
+// get a new question
 getNewQuestion = () => {
-    if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
-        localStorage.setItem('mostRecentScore', score)
 
+    // if there are no more questions left or the question counter is above how many questions we have
+    if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+        localStorage.setItem('currentScore', score)
+
+        // send user to the quiz results page
         return window.location.assign('/quizresult')
     }
 
+    // if there is still available questions, increment question counter and update question progress
     questionCounter++
     progressText.innerText = `Question ${questionCounter} of ${MAX_QUESTIONS}`
     
+    // generate random question from the questions left
     const questionsIndex = Math.floor(Math.random() * availableQuestions.length)
+    // get the current question
     currentQuestion = availableQuestions[questionsIndex]
+    // display the current question and choices
     question.innerText = currentQuestion.question
 
     choices.forEach(choice => {
@@ -83,33 +91,37 @@ getNewQuestion = () => {
 }
 
 choices.forEach(choice => {
+    // obtain user's answer clicked
     choice.addEventListener('click', e => {
         if(!acceptingAnswers) return
 
         acceptingAnswers = false
+
+        // store the user's choice selection
         const selectedChoice = e.target
         const selectedAnswer = selectedChoice.dataset['number']
 
+
+        // let classToApply be correct if equal, or incorrect if not equal
         let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
 
+        // if answer is correct, increment score
         if(classToApply === 'correct') {
-            incrementScore(SCORE_POINTS)
+            score++
+            scoreText.innerText = score
         }
 
-        selectedChoice.parentElement.classList.add(classToApply)
+       // add class 
+       selectedChoice.parentElement.classList.add(classToApply)
 
+        // pause to show user's selectio nchange color before going to next question
         setTimeout(() => {
-            selectedChoice.parentElement.classList.remove(classToApply)
-            getNewQuestion()
+            selectedChoice.parentElement.classList.remove(classToApply) // remove class
+            getNewQuestion() // go to next question
 
-        }, 1000)
+        }, 500)
     })
 })
-
-incrementScore = num => {
-    score +=num
-    scoreText.innerText = score
-}
 
 // initialize quiz
 startQuiz()
