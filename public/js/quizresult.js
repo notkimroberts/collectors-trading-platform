@@ -1,3 +1,5 @@
+// https://github.com/briancodex/quiz-app-js
+
 const finalScore = document.querySelector('#finalScore')
 const currentScore = localStorage.getItem('currentScore')
 const resultPassFail = document.querySelector('#resultPassFail');
