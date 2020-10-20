@@ -65,3 +65,13 @@ Welcome to Collector's Trading Platform
   "total": 3
 }
 ```
+
+<-COPY AND PASTE ALL BELOW INTO TERMINAL TO GET ALL RUNNING-> heroku git:remote -a collectors-trading-platform 
+heroku login 
+heroku run npm run migrate 
+heroku run npm run seed 
+npm start
+
+git fetch
+
+git checkout branchxyz
