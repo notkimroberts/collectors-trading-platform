@@ -1,5 +1,4 @@
 {{{title}}}
-
 <h1> Register for an account </h1>
 <form action="" method="get" class="form-example">
     <div class="form-example">
@@ -7,8 +6,65 @@
     <input type="text" name="uname" id="uname" required>
   </div>
     <div class="form-example">
-    <label for="pw"> password: </label>
-    <input type="text" name="pw" id="pw" required>
+ <label for="psw">Password</label>
+  <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+<div id="message">
+  <h3>Password must contain the following:</h3>
+  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+  <p id="number" class="invalid">A <b>number</b></p>
+  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+</div>
+{{!-- Copied from above https://www.w3schools.com/howto/howto_js_password_validation.asp --}}
+  <script>
+    var pw = document.getElementById("pw");
+    var numbers = /[0-9]/g;
+    var upper = /[A-Z]/g;
+    var lower = /[a-z]/g;
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+    pw.onkeyup = function(){
+     // Validate lowercase letters
+  if(pw.value.match(lower)) {
+    letter.classList.remove("invalid");
+    letter.classList.add("valid");
+  } else {
+    letter.classList.remove("valid");
+    letter.classList.add("invalid");
+}
+  // Validate capital letters
+  if(myInput.value.match(upper)) {
+    capital.classList.remove("invalid");
+    capital.classList.add("valid");
+  } else {
+    capital.classList.remove("valid");
+    capital.classList.add("invalid");
+  }
+  // Validate numbers
+  if(myInput.value.match(numbers)) {
+    number.classList.remove("invalid");
+    number.classList.add("valid");
+  } else {
+    number.classList.remove("valid");
+    number.classList.add("invalid");
+  }
+  // Validate length
+  if(myInput.value.length >= 8) {
+    length.classList.remove("invalid");
+    length.classList.add("valid");
+  } else {
+    length.classList.remove("valid");
+    length.classList.add("invalid");
+  }
+  </script>
+</form>
+
   </div>
     <div class="form-example">
     <label for="fname"> Full name: </label>
@@ -66,5 +122,12 @@
 </div>
   <div class="form-example">
     <input type="checkbox" name="Are you a robot?" id="CAPTCHA?" required>>
+  </div>
+</form>
+<div>
+  <p>Remember to read terms and conditions on the <a href="/rules" value="Rules Page"></a> before proceeding :</p>
+  <input type="button" id="proceed" name="proceed">
+  <label for="proceed" href="/login">Sign up</label> 
+  {{!-- signs up and goes back to login page --}}
   </div>
 </form>
