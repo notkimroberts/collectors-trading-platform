@@ -5,5 +5,4 @@ router.get('/', (req, res, next) => {
     res.render('rules', { title: "Rules" });
 });
 
-
 module.exports = router;
