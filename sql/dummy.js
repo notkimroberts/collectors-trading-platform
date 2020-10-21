@@ -75,6 +75,8 @@ class SchemaData {
             email: faker.internet.email(),
             contact_email: faker.internet.email(),
             phone_nmber: faker.phone.phoneNumber(),
+            facebook: faker.internet.facebook(),
+            paypal_nmber: faker.internet.paypal_nmber(),
             has_public: faker.random.boolean(),
             wants_public: faker.random.boolean(),
         }

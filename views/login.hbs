@@ -6,11 +6,51 @@
     <label for="name">Enter your username: </label>
     <input type="text" name="name" id="name" required>
   </div>
+ 
+</script>
   <div class="form-example">
     <label for="password">Enter your password: </label>
-    <input type="password" name="password" id="password" required>
-  </div>
+  <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>  
+{{!-- https://www.w3schools.com/howto/howto_js_password_validation.asp for regex ideas --}}
+</div>
   <div class="form-example">
-    <input type="submit" value="Login!">
+    <input type="submit" class= "btn" onclick="ValidChecker" value="Login">
+ <script>
+    function ValidChecker() {
+      var username = document.getElementById('username');
+      var password = document.getElementById('password').value;
+      var numbers = /[0-9]/g
+     var upperCaseLetters = /[A-Z]/g;
+     var lowerCaseLetters = /[a-z]/g;
+     
+    {{!-- used following for lower/upper/number in regex checker https://www.regular-expressions.info/refshorthand.html --}}
+      if (username.value.length > 20) { //if blank values
+          alert('Username can only contain up to 20 characters. Try again');
+      }
+      if (password.value.length < 8) {
+        alert('Password is too short. Must be greater than 8 characters.')
+      }
+      else if (password.value.match(numbers)) {
+        alert('Password must contain at least one number');
+      } 
+        else if (password.value.match(lowerCaseLetters)){
+        alert('Password must contain at least one lower case letter');
+      } 
+        else if (password.value.match(upperCaseLetters)) {
+        alert('Password must contain at least one upper case letter');
+      } 
+   </script>
+    {{!-- script sql command run here -- check if username and password is in database --}}
+  </div>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+    <div class="form-example">
+    <input type="submit" value="Register">
+  </div>
+ <div class="container">
+    <span class="btn" href="/forgotpw"> Forgot password?</a></span>
   </div>
 </form>
+  {{!-- https://www.w3schools.com/howto/howto_css_login_form.asp --}}
