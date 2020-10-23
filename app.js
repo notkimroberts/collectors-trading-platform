@@ -17,6 +17,7 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
+const forgotpwRouter= require('./routes/forgotpw');
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
+app.use('/forgotpw', forgotpwRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
