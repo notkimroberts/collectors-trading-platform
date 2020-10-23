@@ -17,7 +17,7 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
-const forgotpw= require('./routes/forgotpw');
+const forgotpwRouter= require('./routes/forgotpw');
 
 const app = express();
 

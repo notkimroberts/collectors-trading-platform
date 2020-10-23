@@ -1,5 +1,15 @@
 {{{title}}}
 <h1> Register for an account </h1>
+  <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+<div>
+  <input type="checkbox" id="user" name="user"
+         checked>
+  <label for="user">user</label>
+</div>
+<div>
+  <input type="checkbox" id="admin" name="admin">
+  <label for="admin">admin</label>
+</div>
 <form action="" method="get" class="form-example">
     <div class="form-example">
     <label for="uname"> username: </label>
@@ -94,10 +104,6 @@
     <label for="country"> country: </label>
     <input type="text" name="country" id="country" required>
   </div>
-    <div class="form-example">
-    <label for="Accounttype"> Accounttype: </label>
-    <input type="checkbox" name="Accounttype" id="Accounttype" required>
-  </div>
       <div class="form-example">
     <label for="PhoneNumber"> PhoneNumber: </label>
     <input type="PhoneNumber" name="PhoneNumber" id="PhoneNumber">
@@ -106,20 +112,7 @@
     <label for="facebookurl"> facebookurl: </label>
     <input type="facebookurl" name="facebookurl" id="facebookurl">
   </div>
-        <div class="form-example">
-    <label for="paypal_link"> paypal_link: </label>
-    <input type="text" name="paypal_link" id="paypal_link">
-  </div>
-  <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-<div>
-  <input type="checkbox" id="user" name="user"
-         checked>
-  <label for="user">user</label>
-</div>
-<div>
-  <input type="checkbox" id="admin" name="admin">
-  <label for="admin">admin</label>
-</div>
+
   <div class="form-example">
     <input type="checkbox" name="Are you a robot?" id="CAPTCHA?" required>>
   </div>
