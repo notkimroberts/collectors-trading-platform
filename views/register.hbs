@@ -2,13 +2,13 @@
 <h1> Register for an account </h1>
   <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
 <div>
-  <input type="checkbox" id="is_admin" name="is_admin" checked="false">
+  <input type="checkbox" id="is_admin" name="is_admin">
   <label for="is_admin">Are you an Admin?</label>
 </div>
 <form action="/register" method="post class="form-example">
     <div class="form-example">
     <label for="username"> username: </label>
-    <input type="text" pattern= "{20,}" name="username" id="username" title="Must not be greater than 20 characters" required>
+    <input type="text" pattern= ".{20,}" name="username" id="username" title="Must not be greater than 20 characters" required>
   </div>
     <div class="form-example">
  <label for="password">Password</label>
@@ -20,15 +20,15 @@
     <input type="text" name="fullname" id="fullname" required>
   </div>
       <div class="form-example">
-    <label for="address"> address: </label>
+    <label for="address"> Address: </label>
     <input type="text" name="address" id="address" required>
   </div>
     <div class="form-example">
-    <label for="city"> city: </label>
+    <label for="city"> City: </label>
     <input type="text" name="city" id="city" required>
   </div>
     <div class="form-example">
-    <label for="state"> state: </label>
+    <label for="state"> State: </label>
     <input type="text" name="state" id="state" required>
   </div>
       <div class="form-example">
@@ -36,15 +36,15 @@
     <input type="text" name="zipcode" id="zipcode" required>
   </div>   
   <div class="form-example">
-    <label for="country"> country: </label>
+    <label for="country"> Country: </label>
     <input type="text" name="country" id="country" required>
   </div>
     <div class="form-example">
-    <label for="contact_email"> email: </label>
+    <label for="contact_email"> Email: </label>
     <input type="text" name="contact_email" id="contact_email" required>
   </div>    
       <div class="form-example">
-    <label for="phone_number"> PhoneNumber: </label>
+    <label for="phone_number"> Phone Number: </label>
     <input type="phone_number" name="phone_number" id="phone_number">
   </div>
 <div>
