@@ -5,10 +5,10 @@
   <input type="checkbox" id="is_admin" name="is_admin">
   <label for="is_admin">Are you an Admin?</label>
 </div>
-<form action="/register" method="post class="form-example">
+<form id="register_collector" action="/register" method="post>
     <div class="form-example">
     <label for="username"> username: </label>
-    <input type="text" pattern= ".{20,}" name="username" id="username" title="Must not be greater than 20 characters" required>
+    <input type="text" pattern= ".{,20}" name="username" id="username" title="Must not be greater than 20 characters" required>
   </div>
     <div class="form-example">
  <label for="password">Password</label>
@@ -51,4 +51,5 @@
   <input type="submit" value="Submit" name="submit">
   </div>
 </form>
+ <a href="/login">Already registered? Login here</a>
 
