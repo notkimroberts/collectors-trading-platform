@@ -5,9 +5,23 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const hbs = require('hbs');
-const pg = require('pg');
+const { Pool } = require('pg');
 
 dotenv.config()
+
+const pool = new Pool()
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack)
+  }
+  client.query('SELECT NOW()', (err, result) => {
+    release()
+    if (err) {
+      return console.error('Error executing query', err.stack)
+    }
+    console.log(result.rows)
+  })
+})
 
 // import views
 const indexRouter = require('./routes/index');
