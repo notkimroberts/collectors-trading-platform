@@ -13,19 +13,14 @@ exports.seed = (knex) => {
     .del()
     .then(() => {
         return knex('collector').insert([
-            { collector_id: 1, username: 'test1', password: 'Pword123', fullname: 'freddie',
-            address: ' 123 fake street', city: 'faketown', state: 'na', country: 'mars', zipcode: '11111'
-           , contact_email: 'test1@gmail.com', phone_number: '1234567' },
-            { collector_id: 2, username: 'test2', password: 'Pword125', fullname: 'chika',
-            address: ' 123 fake street', city: 'faketown', state: 'spacestation1', country: 'venus', zipcode: '15551'
-            ,contact_email: 'test1@gmail.com', phone_number: '223231' },
-            { collector_id: 3, username: 'test3', password: 'Pword12111', fullname: 'Jester von Elric II',
-            address: ' 123 fake street', city: 'Hamshire', state: 'Wales', country: 'old england', zipcode: '153411'
-            ,contact_email: 'test1@gmail.co.uk', phone_number: '1222-43334567' },
+            { collector_id: 1, username: 'user1', password: 'password1', email: 'test1@gmail.com', phone_number: '1111111' },
+            { collector_id: 2, username: 'user2', password: 'password2', email: 'test2@gmail.com', phone_number: '2222222' },
+            { collector_id: 3, username: 'user3', password: 'password3', email: 'test3@gmail.com', phone_number: '3333333' },
         ]);
     });
 
     return Promise.all([
         collectible,
+        collectector,
     ])
 }
