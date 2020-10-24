@@ -17,4 +17,6 @@ module.exports = {
     seeds: { directory: './seeds' },
 }
 
-knex('collector').insert([{username: dfakjdfkj, password=31413}])
+// knex('collector').insert([{username: dfakjdfkj, password=31413}])
+knex(collector).insert(JSON.parse(req.body.is_admin, req.body.username, req.body.password, req.body.fullname, req.body.address,
+    req.body.city, req.body.state, req.body.country, req.body.contact_email, req.body.phone_number))
