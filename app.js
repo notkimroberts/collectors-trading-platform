@@ -40,8 +40,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('process.env.COOKIE_SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-
 
 // mount routers
 app.use('/', indexRouter);
@@ -55,7 +53,6 @@ app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
 app.use('/forgotpw', forgotpwRouter);
 app.use('/auth', authRouter);
-
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
@@ -77,8 +74,6 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
-/*
-
 // error handler
 app.use(function(err, req, res, next) {
  
@@ -89,5 +84,6 @@ app.use(function(err, req, res, next) {
   
     });
   });
-*/
+
+
 module.exports = app;

@@ -23,13 +23,8 @@ exports.seed = (knex) => {
 
 
     return Promise.all([
-<<<<<<< HEAD
         collector,
         // collectible,
-=======
-        collectible,
-        collector,
->>>>>>> 26e3b29e340b345a29dedbf754ee6f200fcfcba1
     ])
 }
 

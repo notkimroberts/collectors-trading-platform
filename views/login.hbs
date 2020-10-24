@@ -1,16 +1,17 @@
 {{{title}}}
 <h1> Login to your account </h1>
 
-<form action="" method="get" class="form-example">
+<form action="/auth/login" method="POST" class="form-example">
   <div class="form-example">
-    <label for="name">Enter your username: </label>
-    <input type="text" name="name" id="name" required>
+    <label for="email">Enter your email: </label>
+    <input type="email" name="email" id="email" required>
   </div>
   <div class="form-example">
     <label for="password">Enter your password: </label>
     <input type="password" name="password" id="password" required>
   </div>
   <div class="form-example">
-    <input type="submit" value="Login!" onclick="validchecker()">
+    <input type="submit" value="Submit" name="submit">
   </div>
-{{!-- SQL query to check username/pass --}}
+</form>
+{{!-- <script src="../auth/index.js"></script> --}}

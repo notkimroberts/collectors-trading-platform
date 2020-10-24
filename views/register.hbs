@@ -1,7 +1,7 @@
 {{{title}}}
 <h1> Register for an account </h1>
 <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-<form id="register_collector" action="/register" method="POST">
+<form id="register_collector" action="/auth/signup" method="POST">
     <div class="form-example">
         <label for="username">Username: </label>
         <input type="text" name="username" id="username" required>
@@ -13,8 +13,8 @@
         <input type="password" id="password" name="password">
     </div>
     <div class="form-example">
-        <label for="contact_email"> Email: </label>
-        <input type="text" name="email" id="email">
+        <label for="email"> Email: </label>
+        <input type="email" name="email" id="email">
     </div>    
     <div class="form-example">
         <label for="phone_number"> Phone Number: </label>
