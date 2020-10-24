@@ -59,6 +59,8 @@ app.use((req, res, next) => {
     next(createError(404));
 });
 
+
+
 // error handler
 app.use((err, req, res, next) => {
     // set locals, only providing error in development
@@ -70,4 +72,17 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
+/*
+
+// error handler
+app.use(function(err, req, res, next) {
+ 
+    res.status(err.status || 500);
+    res.json ({
+      message: err.message,
+      error: req.app.get('env') === 'development' ? err : {}
+  
+    });
+  });
+*/
 module.exports = app;
