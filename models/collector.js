@@ -1,7 +1,13 @@
 const knex = require('../connection')
 
 module.exports = {
-    createUser: function(is_admin, username, password, fullname, contact_email, phone_number){
-        return knex('collector').insert({is_admin, username, password, fullname, contact_email, phone_number})
+    createUser: (username, password, email, phone_number) => {
+        const collector = knex('collector')
+        .then(() => {
+            return knex('collector').insert([
+                { username: username, password: password, email: email, phone_number: phone_number },
+            ])
+        })
+        return Promise.all([collector])
     }
 }

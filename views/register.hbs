@@ -1,34 +1,27 @@
 {{{title}}}
 <h1> Register for an account </h1>
-  <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-<div>
-  <input type="checkbox" id="is_admin" name="is_admin">
-  <label for="is_admin">Are you an Admin?</label>
-</div>
+<p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
 <form id="register_collector" action="/register" method="POST">
     <div class="form-example">
-    <label for="username"> username: </label>
-    <input type="text" name="username" id="username" required>
-  </div>
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" required>
+    </div>
     <div class="form-example">
- <label for="password">Password</label>
-  <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
-</div>
+        <label for="password">Password: </label>
+        {{!-- NOTE: Commented out for quicker debugging. --}}
+        {{!-- <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"> --}}
+        <input type="password" id="password" name="password">
+    </div>
     <div class="form-example">
-    <label for="fullname"> Full name: </label>
-    <input type="text" name="fullname" id="fullname">
-  </div>
+        <label for="contact_email"> Email: </label>
+        <input type="text" name="email" id="email">
+    </div>    
     <div class="form-example">
-    <label for="contact_email"> Email: </label>
-    <input type="text" name="contact_email" id="contact_email">
-  </div>    
-  <div class="form-example">
-    <label for="phone_number"> Phone Number: </label>
-    <input type="phone_number" name="phone_number" id="phone_number">
-  </div>
-  <div>
-  <input type="submit" value="Submit" name="submit">
-  </div>
+        <label for="phone_number"> Phone Number: </label>
+        <input type="phone_number" name="phone_number" id="phone_number">
+    </div>
+    <div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
 </form>
- <a href="/login">Already registered? Login here</a>
+<a href="/login">Already registered? Login here</a>
