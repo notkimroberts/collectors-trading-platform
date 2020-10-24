@@ -48,7 +48,14 @@ exports.up = (knex) => {
         table.bigIncrements('collector_id');
         table.text('username', 128).notNullable();
         table.text('password', 128).notNullable();
+<<<<<<< HEAD
         table.text('email', 128).notNullable();
+=======
+        table.datetime('created_at').defaultTo(knex.fn.now());
+        table.datetime('updated_at').defaultTo(knex.fn.now());
+        table.text('fullname', 128).notNullable();
+        table.text('contact_email', 128).notNullable();
+>>>>>>> 4a89928... login and register
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
         table.boolean('wants_public').defaultTo(true);
