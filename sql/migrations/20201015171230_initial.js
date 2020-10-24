@@ -44,15 +44,15 @@ exports.up = (knex) => {
 
     const collector = knex.schema.createTable('collector', (table) => {
         table.bigIncrements('collector_id');
-        table.boolean('is_admin').defaultTo(false);
         table.text('username', 128).notNullable();
         table.text('password', 128).notNullable();
-        table.datetime('created_at').defaultTo(knex.fn.now());
-        table.datetime('updated_at').defaultTo(knex.fn.now());
-        table.text('contact_email', 128).notNullable();
+        table.text('email', 128).notNullable();
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
         table.boolean('wants_public').defaultTo(true);
+        table.boolean('is_admin').defaultTo(false);
+        table.datetime('created_at').defaultTo(knex.fn.now());
+        table.datetime('updated_at').defaultTo(knex.fn.now());
     })
 
     const collector_ratings = knex.schema.createTable('collector_ratings', (table) => {
