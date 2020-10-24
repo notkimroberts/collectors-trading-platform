@@ -5,8 +5,6 @@ router.get('/', (req, res, next) => {
     res.render('register', { title: "Register" });
 });
 
-module.exports = router;
-
 router.post('/', function(req, res){
     console.log(req.body)
     var pg = req.app.get('pg');
@@ -19,8 +17,9 @@ router.post('/', function(req, res){
             res.write(JSON.stringify(error));
             res.end();
         }else{
-            res.redirect('/register');
+            res.redirect('/');
        }
     });
     });
 
+module.exports = router;
