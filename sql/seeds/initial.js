@@ -9,7 +9,7 @@ exports.seed = (knex) => {
         ]);
     });
 
-    const collectector = knex('collector')
+    const collector = knex('collector')
     .del()
     .then(() => {
         return knex('collector').insert([
@@ -27,5 +27,6 @@ exports.seed = (knex) => {
 
     return Promise.all([
         collectible,
+        collector,
     ])
 }
