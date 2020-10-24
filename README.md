@@ -8,8 +8,8 @@
 4. Install application dependencies: `npm install`
 5. Set heroku remote: `heroku git:remote -a collectors-trading-platform`
 6. Login to heroku: `heroku login` and then walk through their steps.
-7. Run database migrations: `heroku run npm run migrate`
-8. Run database seed: `heroku run npm run seed`
+7. Run database migrations: `heroku run npm run migrate` //one-time
+8. Run database seed: `heroku run npm run seed` //one-time
 9. Start server: `npm start`
 10. Visit [localhost:3000](localhost:3000) and you should see:
 

@@ -14,9 +14,9 @@ exports.seed = (knex) => {
     .then(() => {
         return knex('collector').insert([
             { collector_id: 1, username: 'test1', password: 'Pword123', fullname: 'freddie',
-            contact_email: 'test1@gmail.com', phone_number: '1234567'}
+            contact_email: 'test1@gmail.com', phone_number: '1234567'},
             { collector_id: 2, username: 'test2', password: 'Pword125', fullname: 'chika',
-            contact_email: 'test1@gmail.com', phone_number: '223231'}
+            contact_email: 'test1@gmail.com', phone_number: '223231'},
             { collector_id: 3, username: 'test3', password: 'Pword12111', fullname: 'Jester von Elric II',
         contact_email: 'test1@gmail.co.uk', phone_number: '1222-43334567'}
         ]);
