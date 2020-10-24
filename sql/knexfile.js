@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+const knex = require('knex')
 
 dotenv.config({ path: '../.env' })
 
@@ -15,3 +16,5 @@ module.exports = {
     migrations: { tableName: 'knex_migrations' },
     seeds: { directory: './seeds' },
 }
+
+knex('collector').insert([{username: dfakjdfkj, password=31413}])
