@@ -17,7 +17,7 @@ router.post('/register', function(req, res){
             res.write(JSON.stringify(error));
             res.end();
         }else{
-            res.redirect('/register');
+            res.redirect('/');
        }
     });
     });
