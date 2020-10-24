@@ -19,8 +19,39 @@ exports.seed = (knex) => {
         ]);
     });
 
+
+
+
     return Promise.all([
+<<<<<<< HEAD
         collector,
         // collectible,
+=======
+        collectible,
+        collector,
+>>>>>>> 26e3b29e340b345a29dedbf754ee6f200fcfcba1
     ])
 }
+
+/*
+exports.seed = (knex, Promise) => {
+    return knex.raw('DELETE FROM "user"; ALTER SEQUENCE user_id_seq RESTART WITH 3')
+    .then(() => {
+        return knex('user').insert([
+            {
+                id: 1,
+                email: 'berto.ort@gmail.com',
+                password: 'pineapple',
+                created_at: new Date()
+            },
+            {
+                id: 2,
+                email: 'hello@cjr.co.de',
+                password: 'keyboard_cat',
+                created_at: new Date()
+            }
+        ]);
+    });
+
+    }
+    */

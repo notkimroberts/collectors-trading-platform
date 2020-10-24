@@ -1,4 +1,6 @@
 exports.up = (knex) => {
+
+
     const collectible = knex.schema.createTable('collectible', (table) => {
         table.bigIncrements('collectible_id');
         table.bigInteger('collectible_type_id');    // FK
@@ -112,6 +114,11 @@ exports.up = (knex) => {
             .onDelete('CASCADE')
     })
 
+
+
+  
+
+
     // Note: order matters here.
     return Promise.all([
         collector,
@@ -144,3 +151,20 @@ exports.down = (knex) => {
         collectible_type,
     ])
 }
+
+/*
+
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable('user', table => {
+    table.increments();
+    table.text('email').unique().notNullable();
+    table.text('password').notNullable();
+    table.datetime('date').notNullable();
+    table.boolean('is_active').notNullable().defaultTo(true);
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists('user');
+};
+*/

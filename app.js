@@ -18,6 +18,7 @@ dotenv.config()
 // import views
 const indexRouter = require('./routes/index');
 const collectibleRouter = require('./routes/collectible');
+const collectorRouter = require('./routes/collector');
 const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
 const loginRouter = require('./routes/login');
@@ -25,6 +26,8 @@ const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
+const authRouter = require('./auth');
+
 
 const app = express();
 
@@ -35,12 +38,15 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('process.env.COOKIE_SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
 
 // mount routers
 app.use('/', indexRouter);
 app.use('/collectible', collectibleRouter); // TODO: Sample route, to be deleted.
+app.use('/collector', collectorRouter); 
 app.use('/rules', rulesRouter);
 app.use('/profile', profileRouter);
 app.use('/login', loginRouter);
@@ -48,6 +54,8 @@ app.use('/register', registerRouter);
 app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
 app.use('/forgotpw', forgotpwRouter);
+app.use('/auth', authRouter);
+
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
@@ -55,6 +63,8 @@ hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path t
 app.use((req, res, next) => {
     next(createError(404));
 });
+
+
 
 // error handler
 app.use((err, req, res, next) => {
@@ -67,4 +77,17 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
+/*
+
+// error handler
+app.use(function(err, req, res, next) {
+ 
+    res.status(err.status || 500);
+    res.json ({
+      message: err.message,
+      error: req.app.get('env') === 'development' ? err : {}
+  
+    });
+  });
+*/
 module.exports = app;
