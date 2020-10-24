@@ -1,5 +1,5 @@
 exports.seed = (knex) => {
-  const collectible = knex('collectible')
+ /* const collectible = knex('collectible')
     .del()
     .then(() => {
         return knex('collectible').insert([
@@ -8,14 +8,12 @@ exports.seed = (knex) => {
             { collectible_id: 3, name: 'test', image_url: 'google.com', attributes: { color: 'green', style: 'cool' }, total_quantity: 445 },
         ]);
     });
-
+*/
     const collector = knex('collector')
     .del()
     .then(() => {
         return knex('collector').insert([
-            { collector_id: 1, username: 'test1', password: 'Pword123', contact_email: 'test1@gmail.com', phone_number: '1234567' },
-            { collector_id: 2, username: 'test2', password: 'Pword125', contact_email: 'test1@gmail.com', phone_number: '223231' },
-            { collector_id: 3, username: 'test3', password: 'Pword12111', contact_email: 'test1@gmail.co.uk', phone_number: '1222-43334567' },
+            { collector_id: 1, username: 'test1', password: 'Pword123', email: 'test1@gmail.com', contact_email: 'test1@gmail.com', phone_number: '1234567', is_admin: false  }
         ]);
     });
 
@@ -23,7 +21,7 @@ exports.seed = (knex) => {
 
 
     return Promise.all([
-        collectible,
+        //collectible,
         collector,
     ])
 }
