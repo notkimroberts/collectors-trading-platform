@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     res.render('register', { title: "Register" });
 });
 
@@ -17,7 +17,7 @@ router.post('/register', function(req, res){
             res.write(JSON.stringify(error));
             res.end();
         }else{
-            res.redirect('/');
+            res.render('register', { title: "Register" });
        }
     });
     });
