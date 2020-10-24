@@ -49,12 +49,6 @@ exports.up = (knex) => {
         table.text('password', 128).notNullable();
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
-        table.text('fullname', 128).notNullable();
-        table.text('address', 128).notNullable();
-        table.text('city', 128).notNullable();
-        table.text('state', 128).notNullable();
-        table.text('country', 128).notNullable();
-        table.text('zipcode', 128).notNullable();
         table.text('contact_email', 128).notNullable();
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
