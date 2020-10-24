@@ -5,7 +5,7 @@ router.get('/', (req, res, next) => {
     res.render('register', { title: "Register" });
 });
 
-router.post('/', function(req, res){
+router.post('/register', function(req, res){
     console.log(req.body)
     var pg = req.app.get('pg');
     var sql = "INSERT INTO collector(is_admin, username, password, fullname, address, city, state, country, zipcode,contact_email, phone_number) VALUES (?,?,?,?)";
@@ -17,7 +17,7 @@ router.post('/', function(req, res){
             res.write(JSON.stringify(error));
             res.end();
         }else{
-            res.redirect('/');
+            res.redirect('/register');
        }
     });
     });
