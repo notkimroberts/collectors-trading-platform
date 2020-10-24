@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     res.render('register', { title: "Register" });
 });
 
-router.post('/register', function(req, res){
+router.post('/', function(req, res){
     console.log(req.body)
     var pg = req.app.get('pg');
     var sql = "INSERT INTO collector(is_admin, username, password, fullname, address, city, state, country, zipcode,contact_email, phone_number) VALUES (?,?,?,?)";
