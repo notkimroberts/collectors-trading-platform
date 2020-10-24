@@ -1,4 +1,4 @@
-const knex = require('knex');
-const knexConfig = require('./sql/knexfile')
+// const knex = require('knex');
+// const knexConfig = require('./sql/knexfile')
 
-module.exports = knex(knexConfig)
+// module.exports = knex(knexConfig)
