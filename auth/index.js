@@ -78,7 +78,7 @@ router.post('/login', (req, res, next) => {
                 });
                 // if the email the user inputted in email field is found
                 if (collector) {
-                    // check that email's password against the hashed password stored in the database
+                    // hash the inputted password and check it against the collector's hashed password stored in the database
                     bcrypt
                         .compare(req.body.password, collector.password)
                         .then((result) => {
