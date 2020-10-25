@@ -1,4 +1,4 @@
-onst knex = require('../connection');
+const knex = require('../connection');
 
 // https://www.youtube.com/watch?v=H7qkTzxk_0I
 module.exports = {
