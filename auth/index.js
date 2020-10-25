@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const Collector = require('../sql/users');
+const Collector = require('../models/collector.js');
 
 // routes paths are prepended with /auth
 router.get('/', (req, res) => {
