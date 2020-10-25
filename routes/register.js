@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
     res.render('register', { title: "Register" });
 });
 
+//from oct 23rd call example for using knex.js per Kim R.
 router.post('/', (req, res) => {
     collector.createUser(req.body.username, req.body.password, req.body.email, req.body.phone_number)
 });
