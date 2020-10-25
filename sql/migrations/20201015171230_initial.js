@@ -10,7 +10,8 @@ exports.up = (knex) => {
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table
             .foreign('collectible_type_id')
-            .references('collectible_type.collectible_type_id')
+            .references('collectible_type_id')
+            .inTable('collectible_type')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -32,12 +33,14 @@ exports.up = (knex) => {
         table.bigInteger('wants_quantity');
         table
             .foreign('collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('collectible_id')
-            .references('collectible.collectible_id')
+            .references('collectible_id')
+            .inTable('collectible')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -63,12 +66,14 @@ exports.up = (knex) => {
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table
             .foreign('from_user_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('to_user_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -78,12 +83,14 @@ exports.up = (knex) => {
         table.bigInteger('following_collector_id'); // FK
         table
             .foreign('collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('following_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -97,17 +104,20 @@ exports.up = (knex) => {
         table.boolean('match_executed').defaultTo(false);
         table
             .foreign('from_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('to_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('collectible_id')
-            .references('collectible.collectible_id')
+            .references('collectible_id')
+            .inTable('collectible')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })

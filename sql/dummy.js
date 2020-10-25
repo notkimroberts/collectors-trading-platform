@@ -1,4 +1,3 @@
-// TODO: add a generate all table data method that accounts for foreign keys.
 const faker = require('faker');
 const lego = require('../templates/lego')
 
@@ -21,13 +20,14 @@ class SchemaData {
     }
 
     generateRandomKeysAndValues() {
-        this.collector_id = SchemaData.getRandomInt(1, 50)
-        this.follower_id = SchemaData.getRandomInt(51, 100)
-        this.collectible_id = SchemaData.getRandomInt(3, 7)
-        this.collectible_type_id = 1
+        this.collector_id = faker.unique(faker.random.number)
+        this.follower_id = faker.unique(faker.random.number)
+        this.collectible_id = faker.unique(faker.random.number)
+        this.collectible_type_id = faker.unique(faker.random.number)
         this.release_year = 2020
-        this.total_quantity = SchemaData.getRandomInt(100, 1000)
-        this.to_collector_id = SchemaData.getRandomInt(100, 200)
+        this.total_quantity = faker.unique(faker.random.number)
+        this.to_collector_id = faker.unique(faker.random.number)
+        this.match_id = faker.unique(faker.random.number)
     }
 
     getCollectible() {
@@ -45,9 +45,9 @@ class SchemaData {
 
     getCollectibleType() {
         return {
-            collectible_type_id: SchemaData.getRandomInt(1, 10),
+            collectible_type_id: this.collectible_type_id,
             name: faker.lorem.word(),
-            release_year: SchemaData.getRandomInt(1970, 2020),
+            release_year: this.release_year,
             attribute_template: 'lego',
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
@@ -58,7 +58,7 @@ class SchemaData {
         return {
             collector_id: this.collector_id,
             collection_id: this.collection_id,
-            has_quantity: SchemaData.getRandomInt(10, 20),
+            has_quantity: faker.random.number(),
             willing_to_trade_quantity: 1,
             wants_quantity: 1,
         }
@@ -67,16 +67,12 @@ class SchemaData {
     getCollector() {
         return {
             collector_id: this.collector_id,
-            is_admin: faker.random.boolean(),
             username: faker.lorem.word(),
             password: faker.internet.password(),
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
             email: faker.internet.email(),
-            contact_email: faker.internet.email(),
-            phone_nmber: faker.phone.phoneNumber(),
-            has_public: faker.random.boolean(),
-            wants_public: faker.random.boolean(),
+            phone_number: faker.phone.phoneNumber(),
         }
     }
 
@@ -84,7 +80,7 @@ class SchemaData {
         return {
             from_user_id: this.collector_id,
             to_user_id: this.follower_id,
-            rating: SchemaData.getRandomInt(5),
+            rating: SchemaData.getRandomInt(1, 5),
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
         }
@@ -99,7 +95,7 @@ class SchemaData {
 
     getMatch() {
         return {
-            match_id: SchemaData.getRandomInt(1, 1000),
+            match_id: this.match_id,
             from_collector_id: this.collector_id,
             to_collector_id: this.to_collector_id,
             collectible_id: this.collectible_id,
@@ -107,8 +103,66 @@ class SchemaData {
             match_exectuted: faker.random.boolean(),
         }
     }
+}
 
-    generateData() {
-        console.log('gen')
+
+function createDummyRows(rows) {
+    let collectibles = []
+    let collectibleTypes = []
+    let collections = []
+    let collectors = []
+    let collectorRatings = []
+    let followers = []
+    let matches = []
+
+    const dummy = new SchemaData()
+
+    for (let i = 0; i < rows; i++) {
+        dummy.generateRandomKeysAndValues()
+        const collectibleRow = dummy.getCollectible()
+        const collectibleTypeRow = dummy.getCollectibleType()
+        const collectionRow = dummy.getCollection()
+        const collectorRow = dummy.getCollector()
+        const collectorRatingRow = dummy.getCollectorRatings()
+        const followerRow = dummy.getFollower()
+        const matchRow = dummy.getMatch()
+
+        collectibles.push(collectibleRow)
+        collectibleTypes.push(collectibleTypeRow)
+        collections.push(collectionRow)
+        collectors.push(collectorRow)
+        collectorRatings.push(collectorRatingRow)
+        followers.push(followerRow)
+        matches.push(matchRow)
     }
+
+    return {
+        collectibles,
+        collectibleTypes,
+        collections,
+        collectors,
+        collectorRatings,
+        followers,
+        matches,
+    }
+}
+
+const { 
+    collectibles,
+    collectibleTypes,
+    collections,
+    collectors,
+    collectorRatings,
+    followers,
+    matches,
+} = createDummyRows(1)
+
+module.exports = {
+    collectibles,
+    collectibleTypes,
+    collections,
+    collectors,
+    collectorRatings,
+    followers,
+    matches,
 }
