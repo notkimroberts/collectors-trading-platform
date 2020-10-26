@@ -20,6 +20,8 @@
     "http-errors": "~1.6.3",
     "knex": "^0.21.6",
     "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-cookie": "^1.0.8",
     "pg": "^8.4.1",
     "sqlite3": "^5.0.0"
   }

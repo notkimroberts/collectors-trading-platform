@@ -9,7 +9,6 @@ const { Pool } = require('pg')
 //https://node-postgres.com/features/connecting
 const connectionString = 'postgres://mscrtihrgsvnnl:a1dc14cac8176940787aaf245f861d8ba3ead3626d1e11c9879934d0a8171011@ec2-54-152-40-168.compute-1.amazonaws.com:5432/dddoluj8l08v7d'
 
-
 const pool = new Pool({
   connectionString: connectionString,
 })
@@ -23,6 +22,7 @@ const collectorRouter = require('./routes/collector');
 const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
 const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
@@ -49,6 +49,7 @@ app.use('/collector', collectorRouter);
 app.use('/rules', rulesRouter);
 app.use('/profile', profileRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/register', registerRouter);
 app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
@@ -61,8 +62,6 @@ hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path t
 app.use((req, res, next) => {
     next(createError(404));
 });
-
-
 
 // error handler
 app.use((err, req, res, next) => {
@@ -86,5 +85,15 @@ app.use(function(err, req, res, next) {
     });
   });
 
+  //https://github.com/M-Yankov/passport-cookie used passport code in readme
+passport.use(new CookieStrategy(function (token, done) {
+    User.findOne({token: token})
+        .exec(function (err, user) {
+            if (err) {
+                return done(err, null);
+            }
+            done(null, user);
+        });
+      }));
 
 module.exports = app;

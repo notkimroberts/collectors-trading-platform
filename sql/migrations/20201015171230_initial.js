@@ -1,6 +1,5 @@
 exports.up = (knex) => {
 
-
     const collectible = knex.schema.createTable('collectible', (table) => {
         table.bigIncrements('collectible_id');
         table.bigInteger('collectible_type_id');    // FK
@@ -113,10 +112,6 @@ exports.up = (knex) => {
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
-
-
-
-  
 
 
     // Note: order matters here.

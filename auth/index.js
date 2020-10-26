@@ -66,6 +66,7 @@ router.post('/signup', (req, res, next) => {
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
 router.post('/login', (req, res, next) => {
     // if input is valid
+    
     if(validUser(req.body)) {
         Collector    
             .getOneByEmail(req.body.email)
@@ -86,6 +87,8 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                            //     res.cookie('user_id', user.id)
+                                res.cookie(cookieAuthKey, user.token);
+                                res.send('Welcome ' + user.username);
                                 res.json({
                                     message: 'logged in'
                                   });
@@ -107,6 +110,21 @@ router.post('/login', (req, res, next) => {
     else {
         next(new Error('Invalid login'));
     }
+});
+
+//get authenticate cookie session
+router.get('/profile',
+        passport.authenticate('cookie', { session: false }), 
+        function (req, res) {
+            res.json(req.user);
+        });
+
+// post logout
+// https://www.youtube.com/watch?v=cOCkn2R-aZc
+router.post('/logout', function (req, res) {
+    req.logout();
+    res.clearCookie(cookieAuthKey);
+    res.send('Success logout!');
 });
 
 module.exports = router;
