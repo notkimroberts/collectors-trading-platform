@@ -22,11 +22,11 @@ class SchemaData {
     generateRandomKeysAndValues() {
         this.collector_id = faker.unique(faker.random.number)
         this.follower_id = faker.unique(faker.random.number)
+        this.to_collector_id = faker.unique(faker.random.number)
         this.collectible_id = faker.unique(faker.random.number)
         this.collectible_type_id = faker.unique(faker.random.number)
         this.release_year = 2020
         this.total_quantity = faker.unique(faker.random.number)
-        this.to_collector_id = faker.unique(faker.random.number)
         this.match_id = faker.unique(faker.random.number)
     }
 
@@ -57,7 +57,7 @@ class SchemaData {
     getCollection() {
         return {
             collector_id: this.collector_id,
-            collection_id: this.collection_id,
+            collectible_id: this.collectible_id,
             has_quantity: faker.random.number(),
             willing_to_trade_quantity: 1,
             wants_quantity: 1,
@@ -155,7 +155,7 @@ const {
     collectorRatings,
     followers,
     matches,
-} = createDummyRows(1)
+} = createDummyRows(3)
 
 module.exports = {
     collectibles,

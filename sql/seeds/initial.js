@@ -8,33 +8,60 @@ const {
     matches
 } = require('../dummy')
 
-console.log(collectibleTypes)
 console.log(collectors)
-console.log(collectibles)
+console.log(collections)
 
 exports.seed = (knex) => {
-    const collectector = knex('collector')
-    .del()
-    .then(() => {
-        return knex('collector').insert(collectors);
-    });
-
-    const collectible_type = knex('collectible_type')
-    .del()
-    .then(() => {
-        return knex('collectible_type').insert(collectibleTypes);
-    });
-
-    const collectible = knex('collectible')
+    const collectectorTable = knex('collector')
         .del()
         .then(() => {
-            return knex('collectible').insert(collectibles);
+            return knex('collector').insert(collectors);
         });
+
+    const collectibleTypeTable = knex('collectible_type')
+        .del()
+        .then(() => {
+            return knex('collectible_type').insert(collectibleTypes);
+        });
+
+    // const collectibleTable = knex('collectible')
+    //     .del()
+    //     .then(() => {
+    //         return knex('collectible').insert(collectibles);
+    //     });
+
+    const collectionTable = knex('collection')
+        .del()
+        .then(() => {
+            return knex('collection').insert(collections);
+        });
+
+    // const collectorRatingsTable = knex('collector_ratings')
+    //     .del()
+    //     .then(() => {
+    //         return knex('collector_ratings').insert(collectorRatings);
+    //     });
+
+    // const followersTable = knex('followers')
+    //     .del()
+    //     .then(() => {
+    //         return knex('followers').insert(followers);
+    //     });
+
+    // const matchTable = knex('match')
+    //     .del()
+    //     .then(() => {
+    //         return knex('match').insert(matches);
+    //     });
 
     // NOTE: Order matters here.
     return Promise.all([
-        collectector,
-        collectible_type,
-        collectible,
+        collectectorTable,
+        collectibleTypeTable,
+        // collectibleTable,
+        collectionTable,
+        // collectorRatingsTable,
+        // followersTable,
+        // matchTable,
     ])
 }
