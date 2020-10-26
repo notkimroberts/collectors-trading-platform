@@ -28,7 +28,7 @@ const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
 const authRouter = require('./auth');
-
+const authMiddleware = require('./auth/middleware');
 
 const app = express();
 
