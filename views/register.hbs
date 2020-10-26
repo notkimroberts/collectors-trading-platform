@@ -4,7 +4,7 @@
 <form id="register_collector" action="/auth/signup" method="POST">
     <div class="form-example">
         <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name="username" pattern=".{,20}" id="username" required>
     </div>
     <div class="form-example">
         <label for="password">Password: </label>

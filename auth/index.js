@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     });
 });
 
-// checks to see if email field has something in it and that password is atleast 6 characters
+// checks to see if email field has something in it and that password is at least 6 characters
 function validUser(collector) {
     const validEmail = typeof collector.email == 'string' && collector.email.trim() != '';
     const validPassword = typeof collector.password == 'string' && collector.password.trim() != '' && collector.password.trim().length >=6;
