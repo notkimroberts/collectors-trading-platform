@@ -9,6 +9,7 @@ const { Pool } = require('pg')
 //https://node-postgres.com/features/connecting
 const connectionString = 'postgres://mscrtihrgsvnnl:a1dc14cac8176940787aaf245f861d8ba3ead3626d1e11c9879934d0a8171011@ec2-54-152-40-168.compute-1.amazonaws.com:5432/dddoluj8l08v7d'
 
+
 const pool = new Pool({
   connectionString: connectionString,
 })

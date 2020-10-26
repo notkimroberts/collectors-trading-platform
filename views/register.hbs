@@ -1,6 +1,7 @@
 {{{title}}}
 <h1> Register for an account </h1>
 <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+<div ng-view>
 <form id="register_collector" action="/auth/signup" method="POST">
     <div class="form-example">
         <label for="username">Username: </label>
@@ -23,3 +24,17 @@
     </div>
 </form>
 <a href="/login">Already registered? Login here</a>
+</div>
+<script>
+var app = angular.module("myApp", ["ngRoute"]);
+app.config(function($routeProvider) {
+  $routeProvider
+  .when("/auth/signup", {
+    templateUrl : "index"
+  })
+  //https://www.w3schools.com/angular/angular_routing.asp
+  .otherwise({
+    template : "<h1>None</h1><p>Nothing has been selected</p>"
+});
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
