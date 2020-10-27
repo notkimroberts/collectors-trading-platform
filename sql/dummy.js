@@ -20,9 +20,10 @@ class SchemaData {
     }
 
     generateRandomKeysAndValues() {
-        this.collector_id = faker.unique(faker.random.number)
-        this.follower_id = faker.unique(faker.random.number)
-        this.to_collector_id = faker.unique(faker.random.number)
+        const userID = faker.unique(faker.random.number)
+        this.collector_id = userID
+        this.follower_id = userID
+        this.to_collector_id = userID
         this.collectible_id = faker.unique(faker.random.number)
         this.collectible_type_id = faker.unique(faker.random.number)
         this.release_year = 2020
@@ -36,7 +37,7 @@ class SchemaData {
             collectible_type_id: this.collectible_type_id,
             name: 'lego',
             image_url: faker.image.imageUrl(),
-            attributes: lego,
+            attributes: JSON.stringify(lego),
             total_quantity: this.total_quantity,
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
@@ -69,10 +70,10 @@ class SchemaData {
             collector_id: this.collector_id,
             username: faker.lorem.word(),
             password: faker.internet.password(),
-            created_at: faker.date.soon(),
-            updated_at: faker.date.soon(),
             email: faker.internet.email(),
             phone_number: faker.phone.phoneNumber(),
+            created_at: faker.date.soon(),
+            updated_at: faker.date.soon(),
         }
     }
 
@@ -99,12 +100,11 @@ class SchemaData {
             from_collector_id: this.collector_id,
             to_collector_id: this.to_collector_id,
             collectible_id: this.collectible_id,
+            match_executed: faker.random.boolean(),
             created_at: faker.date.soon(),
-            match_exectuted: faker.random.boolean(),
         }
     }
 }
-
 
 function createDummyRows(rows) {
     let collectibles = []
@@ -137,10 +137,10 @@ function createDummyRows(rows) {
     }
 
     return {
-        collectibles,
-        collectibleTypes,
-        collections,
         collectors,
+        collectibleTypes,
+        collectibles,
+        collections,
         collectorRatings,
         followers,
         matches,
@@ -148,20 +148,20 @@ function createDummyRows(rows) {
 }
 
 const { 
-    collectibles,
-    collectibleTypes,
-    collections,
     collectors,
+    collectibleTypes,
+    collectibles,
+    collections,
     collectorRatings,
     followers,
     matches,
-} = createDummyRows(3)
+} = createDummyRows(10)
 
 module.exports = {
-    collectibles,
-    collectibleTypes,
-    collections,
     collectors,
+    collectibleTypes,
+    collectibles,
+    collections,
     collectorRatings,
     followers,
     matches,
