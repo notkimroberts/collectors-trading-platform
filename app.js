@@ -5,9 +5,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const hbs = require('hbs');
+const session = require('express-session')
 const { Pool } = require('pg')
 //https://node-postgres.com/features/connecting
 const connectionString = 'postgres://mscrtihrgsvnnl:a1dc14cac8176940787aaf245f861d8ba3ead3626d1e11c9879934d0a8171011@ec2-54-152-40-168.compute-1.amazonaws.com:5432/dddoluj8l08v7d'
+const passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 
 const pool = new Pool({
   connectionString: connectionString,
@@ -28,7 +31,7 @@ const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
 const authRouter = require('./auth');
-const authMiddleware = require('./auth/middleware');
+const { getOneByEmail } = require('./models/collector');
 
 const app = express();
 
@@ -58,6 +61,27 @@ app.use('/auth', authRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+//https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
+app.use(session(getOneByEmail));
+    app.use(function (req, res, next) {
+        res.locals.session = req.session;
+        next();
+    });
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
@@ -84,16 +108,5 @@ app.use(function(err, req, res, next) {
   
     });
   });
-
-  //https://github.com/M-Yankov/passport-cookie used passport code in readme
-passport.use(new CookieStrategy(function (token, done) {
-    User.findOne({token: token})
-        .exec(function (err, user) {
-            if (err) {
-                return done(err, null);
-            }
-            done(null, user);
-        });
-      }));
 
 module.exports = app;

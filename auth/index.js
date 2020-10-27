@@ -1,7 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const Collector = require('../models/collector.js');
+const Collector = require('../models/collector');
+const passport = require('passport');
+
 
 // routes paths are prepended with /auth
 router.get('/', (req, res) => {
@@ -62,11 +64,18 @@ router.post('/signup', (req, res, next) => {
     
 });
 
+//https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
+router.post('/profile',function(req,res){
+    var session = require('express-session');
+    req.session.email = Email;
+    res.render('Profile',
+    {Email:req.session.email, arrayofpromotions:arrayofpromotion,layout:false});
+});
+
 // post login
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
 router.post('/login', (req, res, next) => {
     // if input is valid
-    
     if(validUser(req.body)) {
         Collector    
             .getOneByEmail(req.body.email)
@@ -85,18 +94,13 @@ router.post('/login', (req, res, next) => {
                         .then((result) => {
                             // if the passwords match, log in
                             if(result) {
-                                // set set-cookie header
-                           //     res.cookie('user_id', user.id)
-                                res.cookie(cookieAuthKey, user.token);
-                                res.send('Welcome ' + user.username);
-                                res.json({
-                                    message: 'logged in'
-                                  });
-
-                            }
+                                console.log(req.body.email + ' has logged in successfully');
+                                res.redirect('/');
+                                                        }
                             // else invalid. the passwords did not match
                             else {
                                 next(Error("Invalid login"));
+                                res.redirect('/login'); //https://stackoverflow.com/questions/18739725/how-to-know-if-user-is-logged-in-with-passport-js
                             }
                     });
                 }
@@ -116,15 +120,19 @@ router.post('/login', (req, res, next) => {
 router.get('/profile',
         passport.authenticate('cookie', { session: false }), 
         function (req, res) {
-            res.json(req.user);
+            res.render('profile', { username: req.user.username }); //https://stackoverflow.com/questions/37229700/node-js-passport-display-username-after-successful-login
         });
 
 // post logout
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
 router.post('/logout', function (req, res) {
     req.logout();
-    res.clearCookie(cookieAuthKey);
     res.send('Success logout!');
 });
+
+router.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
 module.exports = router;
