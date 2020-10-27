@@ -155,7 +155,7 @@ const {
     collectorRatings,
     followers,
     matches,
-} = createDummyRows(10)
+} = createDummyRows(500)
 
 module.exports = {
     collectors,
