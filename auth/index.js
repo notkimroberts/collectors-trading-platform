@@ -2,7 +2,6 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const Collector = require('../models/collector');
-const passport = require('passport');
 
 
 // routes paths are prepended with /auth
@@ -65,11 +64,11 @@ router.post('/signup', (req, res, next) => {
 });
 
 //https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
-router.post('/profile',function(req,res){
-    var session = require('express-session');
-    req.session.email = Email;
+router.post('/profile',(req, res) => {
+    var currentcollector = Collector.getOneByEmail(req.body.email);
+    var email1 = currentcollector.email;
     res.render('Profile',
-    {Email:req.session.email, arrayofpromotions:arrayofpromotion,layout:false});
+    {title: 'Welcome', email: email1});
 });
 
 // post login
@@ -116,23 +115,19 @@ router.post('/login', (req, res, next) => {
     }
 });
 
-//get authenticate cookie session
-router.get('/profile',
-        passport.authenticate('cookie', { session: false }), 
-        function (req, res) {
-            res.render('profile', { username: req.user.username }); //https://stackoverflow.com/questions/37229700/node-js-passport-display-username-after-successful-login
-        });
+// //get authenticate cookie session
+// router.get('/profile',
+//         passport.authenticate('cookie', { session: false }), 
+//         function (req, res) {
+//             res.render('profile', { username: req.user.username }); //https://stackoverflow.com/questions/37229700/node-js-passport-display-username-after-successful-login
+//         });
 
 // post logout
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
 router.post('/logout', function (req, res) {
-    req.logout();
-    res.send('Success logout!');
+    console.log('Success logout!');
+    res.redirect('/');
 });
 
-router.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
 
 module.exports = router;
