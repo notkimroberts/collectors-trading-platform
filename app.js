@@ -4,12 +4,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
+const passport = require('passport')
 const hbs = require('hbs');
 const session = require('express-session')
 const { Pool } = require('pg')
 //https://node-postgres.com/features/connecting
 const connectionString = 'postgres://mscrtihrgsvnnl:a1dc14cac8176940787aaf245f861d8ba3ead3626d1e11c9879934d0a8171011@ec2-54-152-40-168.compute-1.amazonaws.com:5432/dddoluj8l08v7d'
-const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
 const pool = new Pool({
@@ -75,6 +75,7 @@ passport.use(new LocalStrategy(
     });
   }
 ));
+
 //https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
 app.use(session(getOneByEmail));
     app.use(function (req, res, next) {

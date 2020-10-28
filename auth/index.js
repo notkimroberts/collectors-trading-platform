@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const Collector = require('../models/collector');
-
+const passport = require('passport');
 
 // routes paths are prepended with /auth
 router.get('/', (req, res) => {
@@ -65,7 +65,7 @@ router.post('/signup', (req, res, next) => {
 
 //https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
 router.post('/profile',(req, res) => {
-    var currentcollector = Collector.getOneByEmail(req.body.email);
+    const currentcollector = Collector.getOneByEmail(req.body.email);
     var email1 = currentcollector.email;
     res.render('Profile',
     {title: 'Welcome', email: email1});
@@ -94,11 +94,14 @@ router.post('/login', (req, res, next) => {
                             // if the passwords match, log in
                             if(result) {
                                 console.log(req.body.email + ' has logged in successfully');
+                                const tokenObject = utils.issueJWT(user);//https://jwt.io/introduction/
+                                res.status(200).json({ success: true, token: tokenObject.token, expiresIn: tokenObject.expires });
                                 res.redirect('/');
                                                         }
                             // else invalid. the passwords did not match
                             else {
-                                next(Error("Invalid login"));
+                                next(Error("You entered the wrong password"));
+                                res.status(401).json({success: false, msg: "you entered the wrong password"});
                                 res.redirect('/login'); //https://stackoverflow.com/questions/18739725/how-to-know-if-user-is-logged-in-with-passport-js
                             }
                     });
@@ -115,12 +118,10 @@ router.post('/login', (req, res, next) => {
     }
 });
 
-// //get authenticate cookie session
-// router.get('/profile',
-//         passport.authenticate('cookie', { session: false }), 
-//         function (req, res) {
-//             res.render('profile', { username: req.user.username }); //https://stackoverflow.com/questions/37229700/node-js-passport-display-username-after-successful-login
-//         });
+//https://github.com/zachgoll/express-session-authentication-starter/blob/master/routes/index.js
+router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    res.status(200).json({ success: true, msg: "You are successfully authenticated to this route!"});
+});
 
 // post logout
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
