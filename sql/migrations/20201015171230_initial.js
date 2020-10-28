@@ -1,4 +1,6 @@
 exports.up = (knex) => {
+
+
     const collectible = knex.schema.createTable('collectible', (table) => {
         table.bigIncrements('collectible_id');
         table.bigInteger('collectible_type_id');    // FK
@@ -122,6 +124,11 @@ exports.up = (knex) => {
             .onDelete('CASCADE')
     })
 
+
+
+  
+
+
     // Note: order matters here.
     return Promise.all([
         collector,
@@ -154,3 +161,4 @@ exports.down = (knex) => {
         collectible_type,
     ])
 }
+
