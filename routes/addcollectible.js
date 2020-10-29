@@ -182,6 +182,7 @@ router.post('/', async (req, res, next) => {
 
 
 // display the image of a collectible_id
+// with help from https://www.youtube.com/watch?v=SAUvlkTDMM4
 router.get('/imagebytea/:id', async (req, res, next) => { 
     const id = req.params.id;
     const collectible = await knex('collectible').where({collectible_id: id}).first();
