@@ -94,10 +94,11 @@ router.post('/login', (req, res, next) => {
                             // if the passwords match, log in
                             if(result) {
                                 console.log(req.body.email + ' has logged in successfully');
-                                const tokenObject = utils.issueJWT(user);//https://jwt.io/introduction/
-                                res.status(200).json({ success: true, token: tokenObject.token, expiresIn: tokenObject.expires });
+                                if (passport.authenticate(result)){
+                                    res.status(200).json({ success: true, msg: "you are authenticated!" });
+                                }
                                 res.redirect('/');
-                                                        }
+                            }
                             // else invalid. the passwords did not match
                             else {
                                 next(Error("You entered the wrong password"));
