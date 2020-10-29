@@ -8,6 +8,10 @@ const hbs = require('hbs');
 const { Pool } = require('pg')
 //https://node-postgres.com/features/connecting
 const connectionString = 'postgres://mscrtihrgsvnnl:a1dc14cac8176940787aaf245f861d8ba3ead3626d1e11c9879934d0a8171011@ec2-54-152-40-168.compute-1.amazonaws.com:5432/dddoluj8l08v7d'
+const bodyParser = require('body-parser')
+const fileUpload = require('express-fileupload');
+const FileType = require('file-type');
+
 
 const pool = new Pool({
   connectionString: connectionString,
@@ -27,9 +31,16 @@ const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
 const authRouter = require('./auth');
-
+const addcollectibleRouter = require('./routes/addcollectible');
 
 const app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+app.use(fileUpload());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +64,7 @@ app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
 app.use('/forgotpw', forgotpwRouter);
 app.use('/auth', authRouter);
+app.use('/addcollectible', addcollectibleRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
