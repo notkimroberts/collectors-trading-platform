@@ -146,7 +146,7 @@ router.post('/', async (req, res, next) => {
                     const collectible = {
                         name: req.body.name,
                         imagebytea: data,
-                        image_url: "http://placeimg.com/640/480",
+                        image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                         total_quantity: req.body.total_quantity
                         ,
                         };
