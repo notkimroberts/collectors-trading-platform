@@ -1,0 +1,25 @@
+{{{title}}}
+<h1> Register for an account </h1>
+<p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+<form id="register_collector" action="/auth/signup" method="POST">
+    <div class="form-example">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" required>
+    </div>
+    <div class="form-example">
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+    </div>
+    <div class="form-example">
+        <label for="email"> Email: </label>
+        <input type="email" name="email" id="email">
+    </div>    
+    <div class="form-example">
+        <label for="phone_number"> Phone Number: </label>
+        <input type="phone_number" name="phone_number" id="phone_number">
+    </div>
+    <div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+<a href="/login">Already registered? Login here</a>

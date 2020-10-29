@@ -9,7 +9,7 @@
 5. Set heroku remote: `heroku git:remote -a collectors-trading-platform`
 6. Login to heroku: `heroku login` and then walk through their steps.
 7. Run database migrations: `heroku run npm run migrate`
-8. Run database seed: `heroku run npm run seed`
+8. Run database seed: `heroku run npm run seed` 
 9. Start server: `npm start`
 10. Visit [localhost:3000](localhost:3000) and you should see:
 
@@ -64,4 +64,10 @@ Welcome to Collector's Trading Platform
   ],
   "total": 3
 }
+<<<<<<< HEAD
 ```
+=======
+```
+
+
+>>>>>>> 6f5584b0e3befef11c01296ec2a8513386b71690

@@ -1,0 +1,32 @@
+{{{title}}}
+<h1> Add a collectible to the database </h1>
+<form id="add_collectible" action="/addcollectible" enctype="multipart/form-data" method="POST">
+    <div class="form-example">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" required>
+    </div>
+    {{!--
+    <div class="form-example">
+        <label for="image">Image URL: </label>
+        <input type="text" id="image_url" name="image_url" required>
+    </div>
+         --}}
+
+    
+    <input type="file" name="pic" id="pic"/>
+
+
+
+    <div class="form-example">
+        <label for="quantity">Quantity made: </label>
+        <input type="number" name="total_quantity" id="total_quantity" required>
+    </div>    
+    <div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+
+    {{!--
+ <script src="/js/addcollectible.js"></script>
+     --}}
+<link rel="stylesheet" href="/css/addcollectible.css"/>
