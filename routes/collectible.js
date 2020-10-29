@@ -7,4 +7,19 @@ router.get('/', async (req, res, next) => {
     res.json({ data: collectible, total: collectible.length });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router;
+
+

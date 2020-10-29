@@ -24,8 +24,9 @@ module.exports = {
       },
           
       create: function(collectible) {
-        return knex('collectible').insert(collectible, 'collectible_id').then(ids => {
+        return knex('collectible').insert(collectible, 'collectible_id').returning('collectible_id').then(ids => {
           return ids[0];
         });
+        
       }
 }
