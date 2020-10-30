@@ -1,9 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const Collectible = require('../models/Collectible.js');
-const CollectibleType = require('../models/CollectibleType.js');
 const FileType = require('file-type');
+const express = require('express');
 const knex = require('../connection')
+const router = express.Router();
 
 
 // check if valid collectible name
@@ -14,15 +13,16 @@ function validCollectible(collectible) {
 
 
 router.get('/', (req, res, next) => {
-    res.render('addcollectible', { title: "Add Collectible" });
+    res.render('addCollectible');
 });
+
 
 router.post('/', async (req, res, next) => {
     // if input is valid
     if(validCollectible(req.body)) {
-        Collectible    
-            .getOneByName(req.body.name)
-            .then(collectible => {
+        Collectible
+            .getByName(req.body.name)
+            .then(async (collectible) => {
                 // if the name of the collectible is not in database
                 if (!collectible) {
 
@@ -38,14 +38,8 @@ router.post('/', async (req, res, next) => {
                         };
 
                     // create the new collectible entry
-                    Collectible
-                    .create(collectible)
-                    .then(collectible_id => {
-                        res.json({
-                            collectible_id,
-                            message: 'unique collectible'
-                        });
-                    });
+                    const collectibleID = await Collectible.create(collectible);
+                    res.redirect(`/add-collectible/image/${collectibleID}`);
                 }
                 // Collectible with that name already exists
                 else {
