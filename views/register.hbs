@@ -1,4 +1,9 @@
 <h1>Register</h1>
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+            {{message}}
+    </div>
+{{/if}}
 <form id="register_collector" action="/register" method="POST">
     <div class="form-example">
         <label for="username">Username: </label>

@@ -12,6 +12,8 @@ module.exports = {
         return Promise.all([collector])
     },
     getById: (collector_id) => knex('collector').where('collector_id', collector_id).first(),
-    getByEmail: (email) => knex('collector').where('email', email).first(),
+    getByEmail: (email) => {
+        return knex('collector').where('email', email).first()
+    },
     getByUsername: (username) => knex('collector').where('username', username).first(),
 }
