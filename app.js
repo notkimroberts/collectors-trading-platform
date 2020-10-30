@@ -32,7 +32,6 @@ const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
 const authRouter = require('./auth');
 const addcollectibleRouter = require('./routes/addcollectible');
-const uploadimageRouter = require('./routes/uploadimage');
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -65,8 +64,6 @@ app.use('/quizresult', quizresultRouter);
 app.use('/forgotpw', forgotpwRouter);
 app.use('/auth', authRouter);
 app.use('/addcollectible', addcollectibleRouter);
-app.use('/uploadimage', uploadimageRouter);
-
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
