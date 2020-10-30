@@ -6,7 +6,7 @@ exports.up = (knex) => {
         table.bigInteger('collectible_type_id');    // FK
         table.text('name', 128).notNullable();
         table.text('image_url', 128).notNullable();
-        table.binary('imagebytea');
+        table.binary('image');
         table.jsonb('attributes');
         table.bigInteger('total_quantity');
         table.datetime('created_at').defaultTo(knex.fn.now());
@@ -162,4 +162,3 @@ exports.down = (knex) => {
         collectible_type,
     ])
 }
-

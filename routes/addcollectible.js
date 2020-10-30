@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Collectible = require('../models/collectible.js');
-const Collectible_type = require('../models/collectibletype.js');
+const Collectible = require('../models/Collectible.js');
+const Collectible_type = require('../models/CollectibleType.js');
 const knexfile = require('../sql/knexfile.js');
 const FileType = require('file-type');
 const fileUpload = require('express-fileupload');
@@ -145,7 +145,7 @@ router.post('/', async (req, res, next) => {
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
-                        imagebytea: data,
+                        image: data,
                         image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                         total_quantity: req.body.total_quantity,
                         };
@@ -182,15 +182,15 @@ router.post('/', async (req, res, next) => {
 
 // display the image of a collectible_id
 // with help from https://www.youtube.com/watch?v=SAUvlkTDMM4
-router.get('/imagebytea/:id', async (req, res, next) => { 
+router.get('/image/:id', async (req, res, next) => { 
     const id = req.params.id;
     const collectible = await knex('collectible').where({collectible_id: id}).first();
     if (collectible) {
         
   
-        const contentType = await FileType.fromBuffer(collectible.imagebytea); // get the mimetype of the buffer (in this case its gonna be jpg but can be png or w/e)
+        const contentType = await FileType.fromBuffer(collectible.image); // get the mimetype of the buffer (in this case its gonna be jpg but can be png or w/e)
         res.type(contentType.mime); // not always needed most modern browsers including chrome will understand it is an img without this
-        res.end(collectible.imagebytea);
+        res.end(collectible.image);
 
     } else {
         res.end('No Img with that Id!');

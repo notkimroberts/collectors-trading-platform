@@ -65,5 +65,16 @@ Welcome to Collector's Trading Platform
   "total": 3
 }
 ```
+## Quiz Questions
 
+1. What types of links can I send other users?
+2. After agreeing upon a trade, how many days do I get to send my package to the other party?
+3. Before a trade can be agreed upon, which of the below must be done?
+4. What is the first thing you should you do if you have not received your end of the trade?
 
+## Quiz Solutions
+
+1. None of the above
+2. 3 business days
+3. Have a PayPal account
+4. Check the tracking number to see where your package may be

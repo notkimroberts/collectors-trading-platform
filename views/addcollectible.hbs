@@ -1,89 +1,17 @@
-{{{title}}}
-<h1> Add a collectible to the database </h1>
+<h1>Add a new collectible</h1>
 <form id="add_collectible" action="/addcollectible" enctype="multipart/form-data" method="POST">
     <div class="form-example">
-
         <label for="name">Name: </label>
         <input type="text" name="name" id="name" required>
     </div>
-
-
-{{!--
-    <div class="form-example"></div>
-        <label for="collectible_type_id">Choose a collectible name:</label>
-        <select name="name" id="name">
-            <option value="lego">lego</option>
-            <option value="collectible type name 2">collectible type name 2</option>
-            <option value="collectible type name 3">collectible type name 3</option>
-            <option value="collectible type name 4">collectible type name 4</option>
-        </select>
-    </div>  
-
---}} 
-
-{{!--
-    <div class="form-example">
-        <label for="image">Image URL: </label>
-        <input type="text" id="image_url" name="image_url" required>
-    </div>
---}} 
-
-
-
     <div class="form-example">
         <label for="quantity">Quantity made: </label>
         <input type="number" name="total_quantity" id="total_quantity" required>
-    </div>   
-
-{{!--
-    <div class="form-example">
-        <label for="attributes">Attributes: </label>
-
-        <label for="type_name">type_name: </label>
-        <input type="jsonb" id="type_name" name="type_name">
-        <label for="name2">name: </label>
-        <input type="jsonb" id="name2" name="name2">
-        <label for="theme">theme: </label>
-        <input type="jsonb" id="theme" name="theme">
-        <label for="set_number">set number: </label>
-        <input type="jsonb" id="set_number" name="set_number">
-        <label for="designed_by">designed by: </label>
-        <input type="jsonb" id="designed_by" name="designed_by">
-        <label for="piece_count">piece count: </label>
-        <input type="jsonb" id="piece_count" name="piece_count">
     </div>
---}} 
-
-
-{{!--
-Collectible type: <select name="collectible_type"> 
-    {{#each collectible_type}}
-    <option value="{{collectible_type_id}}">{{name}}</option>
-    {{/each}}
-</select><br>     
---}} 
-
- 
-{{!--
     <div class="form-example"></div>
-        <input type="file" name="image_url" id="image_url"/>
-    </div>  
---}} 
-
-
-    <div class="form-example"></div>
-        <input type="file" name="pic" id="imagebytea"/>
-    </div>  
-
-
+        <input type="file" name="pic" id="image"/>
+    </div>
     <div>
         <input type="submit" value="Submit" name="submit">
     </div>
 </form>
-
-
-    {{!--
- <script src="/js/addcollectible.js"></script>
-
-<link rel="stylesheet" href="/css/addcollectible.css"/>
-     --}}
