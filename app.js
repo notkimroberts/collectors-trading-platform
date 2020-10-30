@@ -76,15 +76,18 @@ passport.use(new LocalStrategy(
   }
 ));
 
-//https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
-app.use(session(getOneByEmail));
-    app.use(function (req, res, next) {
-        res.locals.session = req.session;
-        next();
-    });
+
+app.use(passport.initialize());
+app.use(passport.session());
+// //https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
+// app.use(passession(getOneByEmail));
+//     app.use(function (req, res, next) {
+//         res.locals.session = req.session;
+//         next();
+//     });
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
     next(createError(404));
 });
 

@@ -1,10 +1,10 @@
 {{{title}}}
 <header>
 <form action="/profile" method="GET" class="form-example">
- {{#if email}}
-  <h1>Welcome {{email}} '</h1>
-  {{else}}
+ {{!-- {{#if email}} --}}
+  <h1>Welcome {{username}}</h1>
+  {{!-- {{else}} --}}
     <p>Please <a href='/login'>Log In</a></p>
-    {{/if}}
+    {{!-- {{/if}} --}}
 </form>
  </header>

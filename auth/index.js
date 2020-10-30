@@ -63,13 +63,6 @@ router.post('/signup', (req, res, next) => {
     
 });
 
-//https://stackoverflow.com/questions/44883228/how-to-get-the-express-session-variable-in-all-the-handlebars-pages-right-now-i
-router.post('/profile',(req, res) => {
-    const currentcollector = Collector.getOneByEmail(req.body.email);
-    var email1 = currentcollector.email;
-    res.render('Profile',
-    {title: 'Welcome', email: email1});
-});
 
 // post login
 // https://www.youtube.com/watch?v=cOCkn2R-aZc
@@ -95,9 +88,11 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 console.log(req.body.email + ' has logged in successfully');
                                 if (passport.authenticate(result)){
-                                    res.status(200).json({ success: true, msg: "you are authenticated!" });
+                                    console.log("you are authenticated!");
+                                    res.redirect('/');
+                                    // res.status(200).json({ success: true, msg: "you are authenticated!" });
                                 }
-                                res.redirect('/');
+                                // res.redirect('/');
                             }
                             // else invalid. the passwords did not match
                             else {
@@ -118,6 +113,7 @@ router.post('/login', (req, res, next) => {
         next(new Error('Invalid login'));
     }
 });
+
 
 //https://github.com/zachgoll/express-session-authentication-starter/blob/master/routes/index.js
 router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res, next) => {

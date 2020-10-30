@@ -26,6 +26,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.4.1",
+    "req-user": "^1.0.0",
     "sqlite3": "^5.0.0"
   }
 }

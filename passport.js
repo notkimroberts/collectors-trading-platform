@@ -15,28 +15,39 @@ const options = {
   secretOrKey: PUB_KEY,
   algorithms: "HS256", //https://jwt.io/introduction/
 };
+//https://stackoverflow.com/questions/36486397/passport-login-and-persisting-session
+module.exports = function (req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.user) {
+        next();
+    }
+    // if they aren't redirect them to the login page
+    else {
+        res.redirect('/login');
+    }
+};
 
-// app.js will pass the global passport object here, and this function will configure it
-module.exports = (passport) => {
-    // The JWT payload is passed into the verify callback
-    passport.use(new JwtStrategy(options, function(jwt_payload, done) {
+// // app.js will pass the global passport object here, and this function will configure it
+// module.exports = (passport) => {
+//     // The JWT payload is passed into the verify callback
+//     passport.use(new JwtStrategy(options, function(jwt_payload, done) {
 
-        console.log(jwt_payload);
+//         console.log(jwt_payload);
     
-       // http://www.passportjs.org/packages/passport-jwt/
-        User.findOne({_id: jwt_payload.sub}, function(err, user) {
+//        // http://www.passportjs.org/packages/passport-jwt/
+//         User.findOne({_id: jwt_payload.sub}, function(err, user) {
             
-            // passportlocal
-            if (err) {
-                return done(err, false);
-            }
-            if (user) {
-                return done(null, user);
-            } else {
-                return done(null, false);
-            }
+//             // passportlocal
+//             if (err) {
+//                 return done(err, false);
+//             }
+//             if (user) {
+//                 return done(null, user);
+//             } else {
+//                 return done(null, false);
+//             }
             
-        });
+//         });
         
-    }));
-}
+//     }));
+// }
