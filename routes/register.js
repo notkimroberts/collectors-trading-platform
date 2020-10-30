@@ -34,8 +34,6 @@ router.post('/', async (req, res) => {
 
     // Hash password and create the user.
     const hashedPassword = getHashedPassword(password)
-    console.log('hashedPassword: ', hashedPassword)
-
     await Collector.create(username, hashedPassword, email, phone_number)
 
     res.render('login', {

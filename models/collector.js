@@ -15,5 +15,8 @@ module.exports = {
     getByEmail: (email) => {
         return knex('collector').where('email', email).first()
     },
+    getByEmailAndPassword: (email, hashedPassword) => {
+        return knex('collector').where('email', email).andWhere('password', hashedPassword).first()
+    },
     getByUsername: (username) => knex('collector').where('username', username).first(),
 }

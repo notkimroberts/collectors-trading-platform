@@ -1,3 +1,4 @@
+const { authTokens } = require('./utils')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
@@ -24,13 +25,21 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'))
 // App extenders
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(cookieParser('process.env.COOKIE_SECRET'));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(logger('dev'));
+app.use((req, res, next) => {
+    // Get auth token from the cookies
+    const authToken = req.cookies['AuthToken'];
 
+    // Inject the user to the request
+    req.user = authTokens[authToken];
+
+    next();
+});
 
 // Mount routers
 const addCollectibleRouter = require('./routes/addCollectible');
