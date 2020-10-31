@@ -41,7 +41,7 @@ router.get('/image/:id', async (req, res, next) => {
 });
 
 
-
+// route for specific collectible_id
 router.get('/:id', async (req, res, next) => { 
   const id = req.params.id;
   const collectible = await knex('collectible').where({collectible_id: id}).first();;

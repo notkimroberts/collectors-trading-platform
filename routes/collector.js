@@ -1,7 +1,9 @@
+const Collector = require('../models/Collector.js');
 const express = require('express');
 const db = require('../connection')
 const router = express.Router();
-const Collector = require('../models/Collector.js');
+const knex = require('../connection')
+
 
 
 router.get('/', (req, res, next) => {
@@ -12,6 +14,21 @@ router.get('/', (req, res, next) => {
       res.json(collector);
     });
   });
+
+
+  // route for specific collector by username
+router.get('/:username', async (req, res, next) => { 
+  const username = req.params.username;
+  const collector = await knex('collector').where({username: username}).first();;
+  if (collector) {
+      
+    res.json({ data: collector});
+      
+
+  } else {
+      res.end('No collector with that id!');
+  }
+});
 
 
 // router.get('/', async (req, res, next) => {
