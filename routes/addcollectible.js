@@ -20,11 +20,35 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
     // if input is valid
     if(validCollectible(req.body)) {
+
+        // Check if existing collectible name
+        if (await Collectible.getByName(req.body.name)) {
+            res.render('addCollectible', { 
+                    message: 'That collectible name already exists in the database. unique names only',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        // Check if user selected picture
+        if (!req.files) {
+            res.render('addCollectible', { 
+                    message: 'Please choose a jpg to upload',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        
         Collectible
             .getByName(req.body.name)
             .then(async (collectible) => {
                 // if the name of the collectible is not in database
                 if (!collectible) {
+
+
 
                     // store the name and data from the file
                     const {name, data} = req.files.pic;

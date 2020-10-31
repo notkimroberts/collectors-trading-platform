@@ -1,3 +1,8 @@
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+    </div>
+{{/if}}
 
 <h1>edit collectible name</h1>
 <form id="editcollectiblename" action="/editcollectiblename" enctype="multipart/form-data" method="POST">

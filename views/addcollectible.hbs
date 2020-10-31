@@ -1,3 +1,9 @@
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+    </div>
+{{/if}}
+
 <h1>Add a new collectible</h1>
 <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
     <div class="form-example">
@@ -9,6 +15,7 @@
         <input type="number" name="total_quantity" id="total_quantity" required>
     </div>
     <div class="form-example"></div>
+        <p>Select a jpg of the collectible</p>
         <input type="file" name="pic" id="image"/>
     </div>
     <div>
