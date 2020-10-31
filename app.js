@@ -6,16 +6,16 @@ const dotenv = require('dotenv');
 const fileUpload = require('express-fileupload');
 const hbs = require('hbs');
 const express = require('express');
+const session = require('express-session');
 const logger = require('morgan');
 const path = require('path');
-
 
 // Express application
 const app = express();
 
+
 // Environment variables
 dotenv.config()
-
 
 // View engine (Handlebars) setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,13 +24,62 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
 // App extenders
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(logger('dev'));
+
+
+//session middleware configuration
+const{
+    NODE_ENV = 'development',
+    SESS_NAME = 'sid',
+    SESS_SECRET = 'hellosecret', //dummy string to sign cookie
+    SESS_LIFETIME = 2
+} = process.env
+
+const IN_PROD = NODE_ENV === 'production';
+
+app.use(session({
+    name: SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: SESS_SECRET,
+    cookie: {
+        maxAge: SESS_LIFETIME, //two hours
+        sameSite: true,
+        secure: IN_PROD //production env or dev 
+    }
+}));
+
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId){
+        res.redirect('/login')
+    }
+    else{
+        next()
+    }
+};
+
+const redirectProfile = (req, res, next) => {
+    if (req.session.userId){
+        res.redirect('/profile')
+    }
+    else{
+        next()
+    }
+};
+
+app.get('/', (req, res) => {
+    const {userId} = req.session;
+    console.log(userId);
+    res.render('index');
+});
+
+
 app.use((req, res, next) => {
     // Get auth token from the cookies
     const authToken = req.cookies['AuthToken'];
@@ -41,6 +90,7 @@ app.use((req, res, next) => {
     next();
 });
 
+
 // Mount routers
 const addCollectibleRouter = require('./routes/addCollectible');
 const collectibleRouter = require('./routes/collectible');
@@ -48,6 +98,7 @@ const collectorRouter = require('./routes/collector');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
 const profileRouter = require('./routes/profile');
 const quizRouter = require('./routes/quiz');
 const quizResultRouter = require('./routes/quizResult');
@@ -65,7 +116,7 @@ app.use('/quiz', quizRouter);
 app.use('/quiz-result', quizResultRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
-
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
