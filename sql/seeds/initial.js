@@ -1,15 +1,54 @@
-exports.seed = (knex) => {
-  const collectible = knex('collectible')
-    .del()
-    .then(() => {
-        return knex('collectible').insert([
-            { collectible_id: 1, name: 'test', image_url: 'google.com', attributes: { color: 'green', style: 'cool' }, total_quantity: 445 },
-            { collectible_id: 2, name: 'test', image_url: 'google.com', attributes: { color: 'green', style: 'cool' }, total_quantity: 445 },
-            { collectible_id: 3, name: 'test', image_url: 'google.com', attributes: { color: 'green', style: 'cool' }, total_quantity: 445 },
-        ]);
-    });
+const {
+    collectors,
+    collectibleTypes,
+    collectibles,
+    collections,
+    collectorRatings,
+    followers,
+    matches
+} = require('../dummy')
 
-    return Promise.all([
-        collectible,
-    ])
+
+exports.seed = async (knex) => {
+    const collectectorTable = await knex('collector')
+        .del()
+        .then(() => {
+            return knex('collector').insert(collectors);
+        });
+
+    const collectibleTypeTable = await knex('collectible_type')
+        .del()
+        .then(() => {
+            return knex('collectible_type').insert(collectibleTypes);
+        });
+
+    const collectibleTable = await knex('collectible')
+        .del()
+        .then(() => {
+            return knex('collectible').insert(collectibles);
+        });
+
+    const collectorRatingsTable = await knex('collector_ratings')
+        .del()
+        .then(() => {
+            return knex('collector_ratings').insert(collectorRatings);
+        });
+
+    const collectionTable = await knex('collection')
+        .del()
+        .then(() => {
+            return knex('collection').insert(collections);
+        });
+
+    const followersTable = await knex('followers')
+        .del()
+        .then(() => {
+            return knex('followers').insert(followers);
+        });
+
+    const matchTable = await knex('match')
+        .del()
+        .then(() => {
+            return knex('match').insert(matches);
+        });
 }

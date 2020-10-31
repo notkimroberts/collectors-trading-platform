@@ -1,16 +1,20 @@
 exports.up = (knex) => {
+
+
     const collectible = knex.schema.createTable('collectible', (table) => {
         table.bigIncrements('collectible_id');
         table.bigInteger('collectible_type_id');    // FK
         table.text('name', 128).notNullable();
         table.text('image_url', 128).notNullable();
+        table.binary('image');
         table.jsonb('attributes');
         table.bigInteger('total_quantity');
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table
             .foreign('collectible_type_id')
-            .references('collectible_type.collectible_type_id')
+            .references('collectible_type_id')
+            .inTable('collectible_type')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -32,28 +36,29 @@ exports.up = (knex) => {
         table.bigInteger('wants_quantity');
         table
             .foreign('collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('collectible_id')
-            .references('collectible.collectible_id')
+            .references('collectible_id')
+            .inTable('collectible')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
 
     const collector = knex.schema.createTable('collector', (table) => {
         table.bigIncrements('collector_id');
-        table.boolean('is_admin').defaultTo(false);
         table.text('username', 128).notNullable();
         table.text('password', 128).notNullable();
-        table.datetime('created_at').defaultTo(knex.fn.now());
-        table.datetime('updated_at').defaultTo(knex.fn.now());
         table.text('email', 128).notNullable();
-        table.text('contact_email', 128).notNullable();
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
         table.boolean('wants_public').defaultTo(true);
+        table.boolean('is_admin').defaultTo(false);
+        table.datetime('created_at').defaultTo(knex.fn.now());
+        table.datetime('updated_at').defaultTo(knex.fn.now());
     })
 
     const collector_ratings = knex.schema.createTable('collector_ratings', (table) => {
@@ -64,12 +69,14 @@ exports.up = (knex) => {
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table
             .foreign('from_user_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('to_user_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -79,12 +86,14 @@ exports.up = (knex) => {
         table.bigInteger('following_collector_id'); // FK
         table
             .foreign('collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('following_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
@@ -98,20 +107,28 @@ exports.up = (knex) => {
         table.boolean('match_executed').defaultTo(false);
         table
             .foreign('from_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('to_collector_id')
-            .references('collector.collector_id')
+            .references('collector_id')
+            .inTable('collector')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         table
             .foreign('collectible_id')
-            .references('collectible.collectible_id')
+            .references('collectible_id')
+            .inTable('collectible')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
     })
+
+
+
+  
+
 
     // Note: order matters here.
     return Promise.all([

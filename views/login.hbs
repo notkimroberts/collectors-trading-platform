@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{{title}}}
 <h1> Login to your account </h1>
 
@@ -54,3 +55,24 @@ title="Must contain at least one number and one uppercase and lowercase letter, 
   </div>
 </form>
   {{!-- https://www.w3schools.com/howto/howto_css_login_form.asp --}}
+=======
+<h1>Login</h1>
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+    </div>
+{{/if}}
+<form action="/login" method="POST" class="form-example">
+    <div class="form-example">
+        <label for="email">Enter your email: </label>
+        <input type="email" name="email" id="email" required>
+    </div>
+    <div class="form-example">
+        <label for="password">Enter your password: </label>
+        <input type="password" name="password" id="password" required>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+>>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159

@@ -1,27 +1,26 @@
-{{{title}}}
-<h1> Register for an account </h1>
-<form action="" method="get" class="form-example">
+<h1>Register</h1>
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+            {{message}}
+    </div>
+{{/if}}
+<form id="register_collector" action="/register" method="POST">
     <div class="form-example">
-    <label for="uname"> username: </label>
-    <input type="text" name="uname" id="uname" required>
-  </div>
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" required>
+    </div>
     <div class="form-example">
-    <label for="pw"> password: </label>
-    <input type="text" name="pw" id="pw" required>
-  </div>
+        <label for="password">Password: </label>
+        {{!-- <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"> --}}
+        {{!-- TODO: Removed pattern for simplicity while debugging. --}}
+        <input type="password" id="password" name="password" required>
+    </div>
     <div class="form-example">
-    <label for="fname"> Full name: </label>
-    <input type="text" name="fname" id="fname" required>
-  </div>
-  <div class="form-example">
-    <label for="email"> email: </label>
-    <input type="email" name="email" id="email" required>
-  </div>
-      <div class="form-example">
-    <label for="address"> address: </label>
-    <input type="text" name="address" id="address" required>
-  </div>
+        <label for="email">Email: </label>
+        <input type="email" name="email" id="email" required>
+    </div>    
     <div class="form-example">
+<<<<<<< HEAD
     <label for="city"> city: </label>
     <input type="text" name="city" id="city" required>
   </div>
@@ -73,3 +72,13 @@
    </div>
 {{!-- https://www.w3schools.com/howto/howto_css_signup_form.asp --}}
 </form>
+=======
+        <label for="phone_number">Phone Number: </label>
+        <input type="phone_number" name="phone_number" id="phone_number" required>
+    </div>
+    <div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+<a href="/login">Already registered? Login here</a>
+>>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159
