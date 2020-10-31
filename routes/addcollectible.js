@@ -34,7 +34,7 @@ router.post('/', async (req, res, next) => {
         // Check if user selected picture
         if (!req.files) {
             res.render('addCollectible', { 
-                    message: 'Please choose a jpg to upload',
+                    message: 'Please choose a jpeg image to upload',
                     messageClass: 'alert-danger'
                 }
             )
