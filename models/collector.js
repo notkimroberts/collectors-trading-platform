@@ -25,7 +25,7 @@ module.exports = {
         const knexQuery = knex('collector');
 
         if (query.username) {
-            knexQuery.where('username', 'like', `%${query.username}%`).first();
+            knexQuery.where('username', 'like', `%${query.username}%`);
         }
 
         return knexQuery;
