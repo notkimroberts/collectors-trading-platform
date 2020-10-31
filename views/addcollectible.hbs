@@ -8,7 +8,7 @@
 <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
     <div class="form-example">
         <label for="name">Name: </label>
-        <input type="text" name="name" id="name" required>
+        <input type="text" name="name" id="name" pattern="[^-]+" placeholder="no - character" required>
     </div>
     <div class="form-example">
         <label for="quantity">Quantity made: </label>
