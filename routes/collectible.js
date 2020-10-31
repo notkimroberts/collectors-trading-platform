@@ -18,8 +18,7 @@ router.get('/', (req, res, next) => {
 
     // get collectible by name
     Collectible.getAll({ name }).then(collectible => {
-      res.render('collectible',{ title: 'All Collectibles', name: req.collectible.name, total_quantity: req.collectible.total_quantity,
-    image: req.collectible.image});
+      res.json(collectible);
     });
   });
 
