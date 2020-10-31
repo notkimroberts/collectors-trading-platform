@@ -53,7 +53,6 @@ const quizRouter = require('./routes/quiz');
 const quizResultRouter = require('./routes/quizResult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
-const editcollectibleRouter = require('./routes/editcollectible');
 
 app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
@@ -66,7 +65,7 @@ app.use('/quiz', quizRouter);
 app.use('/quiz-result', quizResultRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
-app.use('/editcollectible', editcollectibleRouter);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
