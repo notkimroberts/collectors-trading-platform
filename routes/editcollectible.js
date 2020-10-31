@@ -1,5 +1,4 @@
 const Collectible = require('../models/Collectible.js');
-const Collector = require('../models/Collector.js');
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
