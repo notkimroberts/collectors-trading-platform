@@ -55,24 +55,6 @@ app.use(session({
     }
 }));
 
-const redirectLogin = (req, res, next) => {
-    if (!req.session.userId){
-        res.redirect('/login')
-    }
-    else{
-        next()
-    }
-};
-
-const redirectProfile = (req, res, next) => {
-    if (req.session.userId){
-        res.redirect('/profile')
-    }
-    else{
-        next()
-    }
-};
-
 app.get('/', (req, res) => {
     const {userId} = req.session;
     console.log(userId);
@@ -101,6 +83,7 @@ const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const profileRouter = require('./routes/profile');
 const quizRouter = require('./routes/quiz');
+const tradeRouter = require('./routes/trade');
 const quizResultRouter = require('./routes/quizResult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
@@ -114,6 +97,7 @@ app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
 app.use('/quiz', quizRouter);
 app.use('/quiz-result', quizResultRouter);
+app.use('/trade', tradeRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);

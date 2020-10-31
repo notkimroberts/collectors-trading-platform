@@ -1,17 +1,5 @@
 const crypto = require('crypto');
 
-app.use(session({
-    name: SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESS_SECRET,
-    cookie: {
-        maxAge: SESS_LIFETIME, //two hours
-        sameSite: true,
-        secure: IN_PROD //production env or dev 
-    }
-}));
-
 module.exports = {
     // Functions
     getHashedPassword: (password) => {

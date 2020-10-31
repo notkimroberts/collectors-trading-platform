@@ -1,0 +1,21 @@
+{{{title}}}
+<form id="collectible" action="/collectible" enctype="multipart/form-data" method="POST">
+    <div class="form-example">
+        <label for="collector_id">Check collectible of collector by id </label>
+        <input type="text" name="collector_id" id="collector_id" required>
+ <div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+<br>
+<h1>Inventory</h1>
+    
+<a>Collectible Type</a>
+<a>List of Items</a>
+<a>Name: {{{name}}}</a>
+<a>Image: {{{image}}}</a>
+<a>Total Quantity: {{{total_quantity}}}</a>
+<a href='/trade'>TRADE</a>
+
+{{!-- <!-- example of display image of collectible_id 18 -->
+<img src=/collectible/image/18 width="100px" height="100px" />    --}}
