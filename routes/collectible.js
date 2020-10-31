@@ -36,7 +36,22 @@ router.get('/image/:id', async (req, res, next) => {
       res.end(collectible.image);
 
   } else {
-      res.end('No Img with that Id!');
+      res.end('No image with that id!');
+  }
+});
+
+
+
+router.get('/:id', async (req, res, next) => { 
+  const id = req.params.id;
+  const collectible = await knex('collectible').where({collectible_id: id}).first();;
+  if (collectible) {
+      
+    res.json({ data: collectible});
+      
+
+  } else {
+      res.end('No collectible with that id!');
   }
 });
 
