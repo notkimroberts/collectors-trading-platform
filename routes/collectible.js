@@ -13,15 +13,15 @@ router.get('/', async (req, res, next) => {
 
  */
 
-// router.get('/', (req, res, next) => {
-//     const { name } = req.query;
+router.get('/', (req, res, next) => {
+    const { name } = req.query;
 
-//     // get collectible by name
-//     Collectible.getAll({ name }).then(collectible => {
-//       res.render('collectible',{ title: 'All Collectibles', name: req.collectible.name, total_quantity: req.collectible.total_quantity,
-//     image: req.collectible.image});
-//     });
-//   });
+    // get collectible by name
+    Collectible.getAll({ name }).then(collectible => {
+      res.render('collectible',{ title: 'All Collectibles', name: req.collectible.name, total_quantity: req.collectible.total_quantity,
+    image: req.collectible.image});
+    });
+  });
 
 
   // display the image of a collectible_id
