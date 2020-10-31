@@ -11,59 +11,87 @@
 7. Run database migrations: `heroku run npm run migrate`
 8. Run database seed: `heroku run npm run seed` 
 9. Start server: `npm start`
-10. Visit [localhost:3000](localhost:3000) and you should see:
-
-```
-Welcome to Collector's Trading Platform
-```
-
-10. Visit [localhost:3000/collectible](localhost:3000/collectible) and you should see:
+10. Visit [localhost:3000](localhost:3000/)
+11. Visit [localhost:3000/collectible](localhost:3000/collectible) and you should see:
 
 ```
 {
   "data": [
     {
-      "collectible_id": "1",
-      "collectible_type_id": null,
-      "name": "test",
-      "image_url": "google.com",
+      "collectible_id": "30617",
+      "collectible_type_id": "22810",
+      "name": "lego",
+      "image_url": "http://placeimg.com/640/480",
+      "imagebytea": null,
       "attributes": {
-        "color": "green",
-        "style": "cool"
+        "type_name": "lego",
+        "attributes": {
+          "name": "The Clone Wars Republic Attack Gunship",
+          "theme": "Star Wars",
+          "set_number": 7676,
+          "designed_by": "Adam Grabowski",
+          "piece_count": 1050
+        }
       },
-      "total_quantity": "445",
-      "created_at": "2020-10-17T16:39:25.718Z",
-      "updated_at": "2020-10-17T16:39:25.718Z"
+      "total_quantity": "39593",
+      "created_at": "2020-10-30T09:05:18.216Z",
+      "updated_at": "2020-10-30T09:35:29.954Z"
     },
     {
-      "collectible_id": "2",
-      "collectible_type_id": null,
-      "name": "test",
-      "image_url": "google.com",
+      "collectible_id": "61108",
+      "collectible_type_id": "8923",
+      "name": "lego",
+      "image_url": "http://placeimg.com/640/480",
+      "imagebytea": null,
       "attributes": {
-        "color": "green",
-        "style": "cool"
+        "type_name": "lego",
+        "attributes": {
+          "name": "The Clone Wars Republic Attack Gunship",
+          "theme": "Star Wars",
+          "set_number": 7676,
+          "designed_by": "Adam Grabowski",
+          "piece_count": 1050
+        }
       },
-      "total_quantity": "445",
-      "created_at": "2020-10-17T16:39:25.718Z",
-      "updated_at": "2020-10-17T16:39:25.718Z"
+      "total_quantity": "26854",
+      "created_at": "2020-10-30T08:17:33.840Z",
+      "updated_at": "2020-10-30T12:16:19.432Z"
     },
     {
-      "collectible_id": "3",
-      "collectible_type_id": null,
-      "name": "test",
-      "image_url": "google.com",
+      "collectible_id": "33687",
+      "collectible_type_id": "79122",
+      "name": "lego",
+      "image_url": "http://placeimg.com/640/480",
+      "imagebytea": null,
       "attributes": {
-        "color": "green",
-        "style": "cool"
+        "type_name": "lego",
+        "attributes": {
+          "name": "The Clone Wars Republic Attack Gunship",
+          "theme": "Star Wars",
+          "set_number": 7676,
+          "designed_by": "Adam Grabowski",
+          "piece_count": 1050
+        }
       },
-      "total_quantity": "445",
-      "created_at": "2020-10-17T16:39:25.718Z",
-      "updated_at": "2020-10-17T16:39:25.718Z"
-    }
+      "total_quantity": "13324",
+      "created_at": "2020-10-30T06:36:34.684Z",
+      "updated_at": "2020-10-31T03:16:13.256Z"
+    },
+    ...
   ],
-  "total": 3
+  "total": 500
 }
 ```
+## Quiz Questions
 
+1. What types of links can I send other users?
+2. After agreeing upon a trade, how many days do I get to send my package to the other party?
+3. Before a trade can be agreed upon, which of the below must be done?
+4. What is the first thing you should you do if you have not received your end of the trade?
 
+## Quiz Solutions
+
+1. None of the above
+2. 3 business days
+3. Have a PayPal account
+4. Check the tracking number to see where your package may be

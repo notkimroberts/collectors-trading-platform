@@ -1,14 +1,45 @@
 const express = require('express');
 const router = express.Router();
-const collector = require('../models/collector')
+const Collector = require('../models/Collector')
+const { getHashedPassword } = require('../utils')
+
 
 router.get('/', (req, res) => {
-    res.render('register', { title: "Register" });
+    res.render('register');
 });
 
-//from oct 23rd call example for using knex.js per Kim R.
-router.post('/', (req, res) => {
-    collector.createUser(req.body.username, req.body.password, req.body.email, req.body.phone_number)
+
+router.post('/', async (req, res) => {
+    const { username, password, email, phone_number } = req.body;
+
+    // Check if existing username
+    if (await Collector.getByEmail(email)) {
+        res.render('register', { 
+                message: 'That email is already in use',
+                messageClass: 'alert-danger'
+            }
+        )
+        return
+    }
+
+    // Check if existing username
+    if (await Collector.getByUsername(username)) {
+        res.render('register', { 
+                message: 'That username is already in use',
+                messageClass: 'alert-danger'
+            }
+        )
+        return
+    }
+
+    // Hash password and create the user.
+    const hashedPassword = getHashedPassword(password)
+    await Collector.create(username, hashedPassword, email, phone_number)
+
+    res.render('login', {
+        message: 'Registration complete. Please login to continue.',
+        messageClass: 'alert-success'
+    });
 });
 
 module.exports = router;

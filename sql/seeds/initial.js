@@ -8,6 +8,7 @@ const {
     matches
 } = require('../dummy')
 
+
 exports.seed = async (knex) => {
     const collectectorTable = await knex('collector')
         .del()

@@ -1,8 +1,8 @@
 const dotenv = require('dotenv')
 
+
 dotenv.config({ path: '../.env' })
 
-//connecting to backend host
 module.exports = {
     client: 'postgresql',
     connection: {
@@ -16,5 +16,3 @@ module.exports = {
     migrations: { tableName: 'knex_migrations' },
     seeds: { directory: './seeds' },
 }
-
-
