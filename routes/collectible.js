@@ -41,8 +41,8 @@ router.get('/image/:id', async (req, res, next) => {
 });
 
 
-// this will not work if we want to use /:name below
-/* // route for specific collectible_id
+
+// route for specific collectible_id
 router.get('/:id', async (req, res, next) => { 
   const id = req.params.id;
   const collectible = await knex('collectible').where({collectible_id: id}).first();;
@@ -54,15 +54,15 @@ router.get('/:id', async (req, res, next) => {
   } else {
       res.end('No collectible with that id!');
   }
-}); */
+});
 
 
  
-// route for specific collectible name. collectible name spaces are dashes for readibility
+/* // route for specific collectible name. collectible name spaces are dashes for readibility
 router.get('/:name', async (req, res, next) => { 
-  var name = req.params.name;
-  console.log(name);
-  name = name.replace(/-/g, ' '); // convert dashes to spaces
+  var string = req.params.name;
+  console.log(string);
+  name = string.replace(/-/g, ' '); // convert dashes to spaces
   console.log(name);
   const collectible = await knex('collectible').where({name: name}).first();;
   if (collectible) {
@@ -73,7 +73,7 @@ router.get('/:name', async (req, res, next) => {
   } else {
       res.end('No collectible with that name!');
   }
-});
+}); */
 
 
 
