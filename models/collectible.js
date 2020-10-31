@@ -14,6 +14,8 @@ module.exports = {
     //       })
     //     }
     //   },
+
+    // https://www.youtube.com/watch?v=nv4bEGrstPo
     getAll(query) {
         const knexQuery = knex('collectible');
 
