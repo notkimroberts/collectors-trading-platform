@@ -56,5 +56,24 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
+ 
+// route for specific collectible name. collectible name spaces are dashes for readibility
+router.get('/:name', async (req, res, next) => { 
+  var name = req.params.name;
+  console.log(name);
+  name = name.replace(/-/g, ' '); // convert dashes to spaces
+  console.log(name);
+  const collectible = await knex('collectible').where({name: name}).first();;
+  if (collectible) {
+      
+    res.json({ data: collectible});
+      
+
+  } else {
+      res.end('No collectible with that name!');
+  }
+});
+
+
 
 module.exports = router;
