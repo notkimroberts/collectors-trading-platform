@@ -8,6 +8,7 @@
 <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
     <div class="form-example">
         <label for="name">Name: </label>
+{{!--         <input type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'" required> --}}
         <input type="text" name="name" id="name" required>
     </div>
     <div class="form-example">
@@ -15,8 +16,8 @@
         <input type="number" name="total_quantity" id="total_quantity" required>
     </div>
     <div class="form-example"></div>
-        <p>Select a jpg of the collectible</p>
-        <input type="file" name="pic" id="image"/>
+        <p>Select a jpeg image of the collectible</p>
+        <input type="file" name="pic" id="image" accept="image/jpeg"/>
     </div>
     <div>
         <input type="submit" value="Submit" name="submit">
