@@ -25,7 +25,7 @@ function validCollectible(collectible) {
 
 router.post('/', async (req, res, next) => {
 
-        const { name, collectible_id } = req.body;
+        const { collectible_id, name, total_quantity } = req.body;
         
 
 
@@ -42,7 +42,7 @@ router.post('/', async (req, res, next) => {
 
 
         // Check if user updated anything, if not, show error
-        if (!req.files && !req.body.name) {
+        if (!req.files && !req.body.name && !req.body.total_quantity) {
             res.render('editcollectible', { 
                 message: 'You need to input something to update',
                 messageClass: 'alert-danger'
@@ -70,7 +70,10 @@ router.post('/', async (req, res, next) => {
             await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
         }
 
-
+        if (total_quantity) {
+            // update quantity
+            await knex('collectible').where({collectible_id: collectible_id}).update({total_quantity: total_quantity});
+        }
         
         if (req.files) {
 
@@ -81,6 +84,9 @@ router.post('/', async (req, res, next) => {
             }
         
         }
+
+        // update updated_at time
+        await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
 
 
 
