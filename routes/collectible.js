@@ -19,5 +19,13 @@ router.get('/', (req, res, next) => {
     });
   });
 
+  router.get('/searchCollector', (req, res, next) => {
+    const { collectible_id } = req.query;
+
+    // get collectible by name
+    Collectible.searchByCollectibleID({collectible_id}).then(collector => {
+      res.json(collector);
+    });
+  });
 
 module.exports = router;
