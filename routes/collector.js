@@ -6,7 +6,7 @@ const knex = require('../connection')
 
 
 
-router.get('/', (req, res, next) => {
+router.get('/search/', (req, res, next) => {
     const { username } = req.query;
 
     // get collectible by name

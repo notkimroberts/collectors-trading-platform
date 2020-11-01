@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
 
 // display seach results
-router.get('/', async (req, res, next) => {
+router.get('/search/', async (req, res, next) => {
   const { name } = req.query;
   console.log(name);
 
