@@ -10,6 +10,23 @@ const session = require('express-session');
 const logger = require('morgan');
 const path = require('path');
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+// import views
+const indexRouter = require('./routes/index');
+const collectibleRouter = require('./routes/collectible');
+const rulesRouter = require('./routes/rules');
+const profileRouter = require('./routes/profile');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+const quizRouter = require('./routes/quiz');
+const quizresultRouter = require('./routes/quizresult');
+const forgotpwRouter = require('./routes/forgotpw');
+=======
+>>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159
+
+>>>>>>> main
 // Express application
 const app = express();
 
@@ -87,6 +104,7 @@ const tradeRouter = require('./routes/trade');
 const quizResultRouter = require('./routes/quizResult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
+const editcollectibleRouter = require('./routes/editcollectible');
 
 app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
@@ -96,11 +114,24 @@ app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
 app.use('/quiz', quizRouter);
+<<<<<<< HEAD
+app.use('/quizresult', quizresultRouter);
+app.use('/forgotpw', forgotpwRouter);
+=======
 app.use('/quiz-result', quizResultRouter);
 app.use('/trade', tradeRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
+<<<<<<< HEAD
 app.use('/logout', logoutRouter);
+=======
+<<<<<<< HEAD
+>>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159
+=======
+app.use('/editcollectible', editcollectibleRouter);
+>>>>>>> 26509c096e712aa214d6dcb0b6a35a1015f9624c
+
+>>>>>>> main
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
