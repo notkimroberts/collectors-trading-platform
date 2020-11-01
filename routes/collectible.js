@@ -20,7 +20,7 @@ router.get('/search/', async (req, res, next) => {
   const { name } = req.query;
   console.log(name);
 
-    const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible').where('name', 'like', `%${name}%`);
+    const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible').where('name', 'ilike', `%${name}%`);
     res.render('collectible', {
       page_title: 'The title for collectible page',
       collectible: collectibles
