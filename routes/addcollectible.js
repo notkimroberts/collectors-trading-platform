@@ -53,7 +53,6 @@ router.post('/', async (req, res, next) => {
                    // store the data from the file
                    const {data} = req.files.pic;
 
-
                    // get the type selected
                     var typeSelected = req.body.collectible_type;
 
@@ -62,11 +61,7 @@ router.post('/', async (req, res, next) => {
                         console.log("lego");
                         var collectibleType = 1;
 
-                        
-
-
-
-                        // Check if user selected picture
+                             // Check if user selected picture
                         if (!req.body.piece_count) {
                             res.render('addCollectible', { 
                                     message: 'Please add piece count',
@@ -236,6 +231,14 @@ router.post('/', async (req, res, next) => {
                 
         });
     }
+
+                }
+                // Collectible with that name already exists
+                else {
+                    next(Error("Collectible with that name is already in database"));
+                }
+    });
+}
 
     // else fields were not valid
     else {

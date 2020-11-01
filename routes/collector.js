@@ -18,7 +18,6 @@ router.get('/search/', (req, res, next) => {
   });
 
 
-
 // route for specific collector by username
 router.get('/:username', async (req, res, next) => { 
       const username = req.params.username;
