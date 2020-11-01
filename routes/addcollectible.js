@@ -232,14 +232,6 @@ router.post('/', async (req, res, next) => {
         });
     }
 
-                }
-                // Collectible with that name already exists
-                else {
-                    next(Error("Collectible with that name is already in database"));
-                }
-    });
-}
-
     // else fields were not valid
     else {
         next(new Error('Invalid name'));
