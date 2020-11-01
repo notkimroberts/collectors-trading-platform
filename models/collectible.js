@@ -20,7 +20,7 @@ module.exports = {
         const knexQuery = knex('collectible');
 
         if (query.name) {
-            knexQuery.where('name', 'like', `%${query.name}%`);
+            knexQuery.where('name', 'ilike', `%${query.name}%`);
         }
         return knexQuery;
     }
