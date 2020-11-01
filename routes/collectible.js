@@ -1,17 +1,12 @@
-const Collectible = require('../models/Collectible.js');
-const FileType = require('file-type');
 const express = require('express');
+const FileType = require('file-type');
 const knex = require('../connection')
 const router = express.Router();
-const knex = require('../connection')
-const Collector = require('../models/Collector')
-const { getById } = require('../models/Collector');
+
 
 router.get('/', async (req, res, next) => {
     res.render('collectible');
 });
-
- */
 
 
 
@@ -64,8 +59,6 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-
-
 // display all collectibles
 // https://stackoverflow.com/questions/36111414/how-to-access-knex-query-results
 router.get('/', async (req, res, next) => { 
@@ -79,28 +72,5 @@ router.get('/', async (req, res, next) => {
 });
 
 });
-
-
- 
-/* // route for specific collectible name. collectible name spaces are dashes for readibility
-router.get('/:name', async (req, res, next) => { 
-  var string = req.params.name;
-  console.log(string);
-  name = string.replace(/-/g, ' '); // convert dashes to spaces
-  console.log(name);
-
-  const collectible = await knex('collectible').where({name: name}).first();
-
-  if (collectible) {
-      
-    res.json({ data: collectible});
-      
-
-  } else {
-      res.end('No collectible with that name!');
-  }
-}); */
-
-
 
 module.exports = router;
