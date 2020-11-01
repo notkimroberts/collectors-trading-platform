@@ -51,7 +51,7 @@ function myFunction() {
 
       else if ( this.value == '2')
       {
-        $("#hot-wheel").show();
+        $("#hot_wheel").show();
       }
      
       else
