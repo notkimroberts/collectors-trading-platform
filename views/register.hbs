@@ -5,6 +5,11 @@
     </div>
 {{/if}}
 <form id="register_collector" action="/register" method="POST">
+<p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+<div class="form-example">
+  <input type="checkbox" id="is_admin" name="is_admin">
+  <label for="is_admin">Are you an Admin?</label>
+</div>
     <div class="form-example">
         <label for="username">Username: </label>
         <input type="text" name="username" id="username" required>
@@ -20,59 +25,6 @@
         <input type="email" name="email" id="email" required>
     </div>    
     <div class="form-example">
-<<<<<<< HEAD
-    <label for="city"> city: </label>
-    <input type="text" name="city" id="city" required>
-  </div>
-    <div class="form-example">
-    <label for="state"> state: </label>
-    <input type="text" name="state" id="state" required>
-  </div>
-      <div class="form-example">
-    <label for="Zipcode"> Zipcode: </label>
-    <input type="text" name="Zipcode" id="Zipcode" required>
-  </div>   
-  <div class="form-example">
-    <label for="country"> country: </label>
-    <input type="text" name="country" id="country" required>
-  </div>
-    <div class="form-example">
-    <label for="Accounttype"> Accounttype: </label>
-    <input type="checkbox" name="Accounttype" id="Accounttype" required>
-  </div>
-      <div class="form-example">
-    <label for="PhoneNumber"> PhoneNumber: </label>
-    <input type="PhoneNumber" name="PhoneNumber" id="PhoneNumber">
-  </div>
-        <div class="form-example">
-    <label for="facebookurl"> facebookurl: </label>
-    <input type="facebookurl" name="facebookurl" id="facebookurl">
-  </div>
-        <div class="form-example">
-    <label for="paypal_link"> paypal_link: </label>
-    <input type="text" name="paypal_link" id="paypal_link">
-  </div>
-  <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-<div>
-  <input type="checkbox" id="user" name="user"
-         checked>
-  <label for="user">user</label>
-</div>
-<div>
-  <input type="checkbox" id="admin" name="admin">
-  <label for="admin">admin</label>
-</div>
-  <div class="form-example">
-    <input type="checkbox" name="Are you a robot?" id="CAPTCHA?" required>>
-  </div>
-     <p>By creating an account you agree to our <a href="#" style="color:blue">Terms and Conditions found on Rules page</a>.</p>
-  <div class="clearfix">
-      <button type="button" class="cancelbtn">Go Back</button>
-      <button type="submit" class="signupbtn">Sign Up</button>
-   </div>
-{{!-- https://www.w3schools.com/howto/howto_css_signup_form.asp --}}
-</form>
-=======
         <label for="phone_number">Phone Number: </label>
         <input type="phone_number" name="phone_number" id="phone_number" required>
     </div>
@@ -81,4 +33,3 @@
     </div>
 </form>
 <a href="/login">Already registered? Login here</a>
->>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159

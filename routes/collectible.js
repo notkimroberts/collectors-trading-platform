@@ -3,12 +3,13 @@ const FileType = require('file-type');
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
-
+const knex = require('../connection')
+const Collector = require('../models/Collector')
+const { getById } = require('../models/Collector');
 
 /* 
 router.get('/', async (req, res, next) => {
-    const collectible = await db('collectible');
-    res.json({ data: collectible, total: collectible.length });
+    res.render('collectible');
 });
 
  */

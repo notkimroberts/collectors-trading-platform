@@ -5,9 +5,6 @@ form {
 span.forgot {
     float: right;
     padding-top: 12px;
-<<<<<<< HEAD
-  }  
-=======
   }  
 
   /* Add a red text color and an "x" icon when the requirements are wrong */
@@ -30,4 +27,3 @@ span.forgot {
   }  
 
   /* https://www.w3schools.com/howto/howto_js_password_validation.asp */
->>>>>>> 501c7f59138884cd197aa97b1857b1e0e813f159
