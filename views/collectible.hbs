@@ -1,5 +1,27 @@
 {{{title}}}
 
-<a>{{{name}}}</a>
-<a>{{{total_quantity}}}</a>
-<a>{{{image}}}</a>
+
+
+ <table>
+    <thead>
+      <th style ="padding:0 15px 0 15px;">collectible_id</th>
+      <th style ="padding:0 15px 0 15px;">Name</th>
+      <th style ="padding:0 15px 0 15px;">Total Quantity</th>
+      <th style ="padding:0 15px 0 15px;">Attributes</th>
+      <th style ="padding:0 15px 0 15px;">Image</th>
+    </thead>
+    <tbody>
+      {{#each collectible}}
+      <tr>
+          <td style ="padding:0 15px 0 15px;">{{collectible_id}}</td>
+          <td style ="padding:0 15px 0 15px;">{{name}}</td>
+          <td style ="padding:0 15px 0 15px;">{{total_quantity}}</td>
+          <td style ="padding:0 15px 0 15px;">{{attributes}}</td>
+          <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+
+	
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
