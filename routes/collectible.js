@@ -53,13 +53,13 @@ router.get('/:id', async (req, res, next) => {
   const id = req.params.id;
   console.log(id);
   const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible').where({collectible_id: id});
-      
+
+
   console.log(collectibles);
 
     res.render('collectible', {
-      page_title: 'The title for collectible page',
-      collectible: collectibles
-
+      title: 'The title for collectible page',
+      collectible: collectibles,
 });
 });
 
