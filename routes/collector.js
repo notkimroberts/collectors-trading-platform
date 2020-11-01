@@ -16,6 +16,7 @@ router.get('/', (req, res, next) => {
   });
 
 
+
     // route for specific collector by username
     router.get('/:username', async (req, res, next) => { 
       const username = req.params.username;
@@ -29,6 +30,7 @@ router.get('/', (req, res, next) => {
           res.end('No collector with that id!');
       }
     });
+
 
 // router.get('/', async (req, res, next) => {
 //     const collector = await db('collector');
