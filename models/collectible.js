@@ -14,7 +14,13 @@ module.exports = {
     //       })
     //     }
     //   },
-
+    show(query) {
+        const knexQuery = knex('collectible');
+        if (query.name){
+            knexQuery.select('name', 'image');
+        }
+        return knexQuery;
+    },
     // https://www.youtube.com/watch?v=nv4bEGrstPo
     getAll(query) {
         const knexQuery = knex('collectible');

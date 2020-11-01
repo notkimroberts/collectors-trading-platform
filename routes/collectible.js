@@ -4,7 +4,6 @@ const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
 
-
 /* 
 router.get('/', async (req, res, next) => {
     const collectible = await db('collectible');
@@ -13,15 +12,17 @@ router.get('/', async (req, res, next) => {
 
  */
 
-router.get('/', (req, res, next) => {
-    const { name } = req.query;
-
+router.get('/', async (req, res, next) => {
     // get collectible by name
-    Collectible.getAll({ name }).then(collectible => {
-      res.json(collectible);
+    knex('collectible').select('name').then(function(projectNames){
+      //do something here
+      collectible.list(function(data){ 
+        console.log(data);
+        res.setHeader('content-type', 'application/json');
+        res.end(data); 
+      });
     });
-  });
-
+});
 
   // display the image of a collectible_id
 // with help from https://www.youtube.com/watch?v=SAUvlkTDMM4

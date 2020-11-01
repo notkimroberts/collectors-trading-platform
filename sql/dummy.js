@@ -37,7 +37,6 @@ class SchemaData {
             collectible_type_id: this.collectible_type_id,
             name: 'lego',
             image_url: faker.image.imageUrl(),
-            attributes: JSON.stringify(lego),
             total_quantity: this.total_quantity,
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
@@ -48,8 +47,6 @@ class SchemaData {
         return {
             collectible_type_id: this.collectible_type_id,
             name: faker.lorem.word(),
-            release_year: this.release_year,
-            attribute_template: 'lego',
             created_at: faker.date.soon(),
             updated_at: faker.date.soon(),
         }

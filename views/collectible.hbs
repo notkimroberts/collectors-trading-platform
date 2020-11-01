@@ -1,5 +1,33 @@
-{{{title}}}
+{{#if message}}
+    <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+    </div>
+{{/if}}
 
-<a>{{{name}}}</a>
-<a>{{{total_quantity}}}</a>
-<a>{{{image}}}</a>
+<h1>Show collectible</h1>
+
+<h2>Search/Filter Dropdown</h2>
+<p>Click on the button to open the dropdown menu use input to show collectible by type or name</p>
+
+<form id="show_collectible" action="/collectible" enctype="multipart/form-data" method="POST">
+
+        <select id='option_type' name="collectible_type" required>
+ {{!--    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> --}}
+    <option value="lego">lego</option>
+    <option value="funko">funko</option>
+    <option value="hot_wheel">hot wheel</option>
+    </select>
+
+
+    <div class="form-example">
+        <label for="name">name </label>
+        <input type="text" name="id" id="name" required>
+    </div>
+        <input type="submit" value="Submit" name="submit">
+    </div>
+</form>
+
+<h1>{{{results}}}</h1>
+<script src="/js/jquery-3.5.1.min.js"></script>
+<script src="/js/addcollectible.js"></script>
+<link rel="stylesheet" href="/css/addcollectible.css"/>
