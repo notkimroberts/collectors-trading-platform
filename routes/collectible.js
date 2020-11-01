@@ -4,6 +4,7 @@ const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
 
+
 /* 
 router.get('/', async (req, res, next) => {
     const collectible = await db('collectible');
@@ -11,6 +12,7 @@ router.get('/', async (req, res, next) => {
 });
 
  */
+
 
 
 // display seach results
@@ -25,6 +27,7 @@ router.get('/search/', async (req, res, next) => {
   });
 
 });
+
 
   // display the image of a collectible_id
 // with help from https://www.youtube.com/watch?v=SAUvlkTDMM4
@@ -42,6 +45,7 @@ router.get('/image/:id', async (req, res, next) => {
       res.end('No image with that id!');
   }
 });
+
 
 
 // // display specific collectible_id
@@ -73,6 +77,7 @@ router.get('/', async (req, res, next) => {
       collectible: collectibles
 
 });
+
 });
 
 
@@ -83,7 +88,9 @@ router.get('/:name', async (req, res, next) => {
   console.log(string);
   name = string.replace(/-/g, ' '); // convert dashes to spaces
   console.log(name);
+
   const collectible = await knex('collectible').where({name: name}).first();
+
   if (collectible) {
       
     res.json({ data: collectible});

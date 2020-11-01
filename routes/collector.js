@@ -6,7 +6,9 @@ const knex = require('../connection')
 
 
 
+
 router.get('/search/', (req, res, next) => {
+
     const { username } = req.query;
 
     // get collectible by name
@@ -16,10 +18,11 @@ router.get('/search/', (req, res, next) => {
   });
 
 
-    // route for specific collector by username
-    router.get('/:username', async (req, res, next) => { 
+
+// route for specific collector by username
+router.get('/:username', async (req, res, next) => { 
       const username = req.params.username;
-      const collector = await knex('collector').where({username: username}).first();;
+      const collector = await knex('collector').where({username: username}).first();
       if (collector) {
     
         res.json({ data: collector});
@@ -29,6 +32,13 @@ router.get('/search/', (req, res, next) => {
           res.end('No collector with that id!');
       }
     });
+
+// router.get('/', async (req, res, next) => {
+//     const collector = await db('collector');
+//     res.json({ data: collector, total: collector.length });
+// });
+
+
 
 // router.get('/', async (req, res, next) => {
 //     const collector = await db('collector');
