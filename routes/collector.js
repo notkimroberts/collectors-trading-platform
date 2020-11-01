@@ -15,19 +15,21 @@ router.get('/', (req, res, next) => {
     });
   });
 
+
+
     // route for specific collector by username
-router.get('/:username', async (req, res, next) => { 
-  const username = req.params.username;
-  const collector = await knex('collector').where({username: username}).first();;
-  if (collector) {
-
-    res.json({ data: collector});
-
-
-  } else {
-      res.end('No collector with that id!');
-  }
-});
+    router.get('/:username', async (req, res, next) => { 
+      const username = req.params.username;
+      const collector = await knex('collector').where({username: username}).first();;
+      if (collector) {
+    
+        res.json({ data: collector});
+    
+    
+      } else {
+          res.end('No collector with that id!');
+      }
+    });
 
 
 // router.get('/', async (req, res, next) => {
