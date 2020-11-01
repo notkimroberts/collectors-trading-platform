@@ -3,7 +3,9 @@ const router = express.Router();
 
 
 router.get('/', (req, res, next) => {
-    res.render('index');
+    // TODO: How does this work? 
+    // const { userId } = req.session;
+    res.render('index', { title: 'Collector\'s Trading Platform | Home' });
 });
 
 module.exports = router;

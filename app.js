@@ -3,12 +3,13 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const dotenv = require('dotenv');
+const express = require('express');
 const fileUpload = require('express-fileupload');
 const hbs = require('hbs');
-const express = require('express');
-const session = require('express-session');
 const logger = require('morgan');
 const path = require('path');
+const session = require('express-session');
+
 
 // Express application
 const app = express();
@@ -16,11 +17,14 @@ const app = express();
 
 // Environment variables
 dotenv.config()
+const { NODE_ENV, SESSION_NAME, SESSION_SECRET, SESSION_LIFETIME } = process.env
+
 
 // View engine (Handlebars) setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
+
 
 // App extenders
 app.use(bodyParser.json())
@@ -33,33 +37,19 @@ app.use(fileUpload());
 app.use(logger('dev'));
 
 
-//session middleware configuration
-const{
-    NODE_ENV = 'development',
-    SESS_NAME = 'sid',
-    SESS_SECRET = 'hellosecret', //dummy string to sign cookie
-    SESS_LIFETIME = 2
-} = process.env
-
-const IN_PROD = NODE_ENV === 'production';
-
-app.use(session({
-    name: SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESS_SECRET,
-    cookie: {
-        maxAge: SESS_LIFETIME, //two hours
-        sameSite: true,
-        secure: IN_PROD //production env or dev 
-    }
-}));
-
-app.get('/', (req, res) => {
-    const {userId} = req.session;
-    console.log(userId);
-    res.render('index');
-});
+// TODO: How does this work?
+// Session middleware configuration
+// app.use(session({
+//     name: SESSION_NAME,
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: SESSION_SECRET,
+//     cookie: {
+//         maxAge: SESSION_LIFETIME,
+//         sameSite: true,
+//         secure: NODE_ENV
+//     }
+// }));
 
 
 app.use((req, res, next) => {
@@ -105,7 +95,8 @@ app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);
 
-// catch 404 and forward to error handler
+
+// Catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
 });
