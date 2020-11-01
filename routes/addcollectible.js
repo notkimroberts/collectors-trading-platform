@@ -18,6 +18,11 @@ router.get('/', (req, res, next) => {
 
 
 router.post('/', async (req, res, next) => {
+
+
+
+
+    
     // if input is valid
     if(validCollectible(req.body)) {
 
@@ -48,22 +53,181 @@ router.post('/', async (req, res, next) => {
                 // if the name of the collectible is not in database
                 if (!collectible) {
 
+                    var typeSelected = req.body.collectible_type;
+
+                    if (typeSelected == "lego") {
+                        console.log("lego");
+                        var collectibleType = 1;
+
+                        
+                    // store the data from the file
+                    const {data} = req.files.pic;
 
 
-                    // store the name and data from the file
-                    const {name, data} = req.files.pic;
+                            // Check if user selected picture
+        if (!req.body.piece_count) {
+            res.render('addCollectible', { 
+                    message: 'Please add piece count',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
 
+        if (!req.body.set_number) {
+            res.render('addCollectible', { 
+                    message: 'Please add set_number',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        if (!req.body.theme) {
+            res.render('addCollectible', { 
+                    message: 'Please add theme',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        if (!req.body.designed_by) {
+            res.render('addCollectible', { 
+                    message: 'Please add designed by',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
+                        collectible_type_id: collectibleType,
                         image: data,
                         image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                         total_quantity: req.body.total_quantity,
+                        attributes: 
+                                    {
+                                    piece_count: req.body.piece_count, 
+                                    set_number: req.body.set_number, 
+                                    theme:  req.body.theme, 
+                                    designed_by: req.body.designed_by
+                                    }
                         };
 
                     // create the new collectible entry
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/image/${collectibleID}`);
+
+
+                    }
+
+
+
+                    else if (typeSelected == "funko") {
+                        console.log("funko");
+                        var collectibleType = 2;
+
+                    // store the data from the file
+                    const {data} = req.files.pic;
+
+            
+                    if (!req.body.number) {
+                        res.render('addCollectible', { 
+                                message: 'Please add number',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+            
+                    if (!req.body.line) {
+                        res.render('addCollectible', { 
+                                message: 'Please add line',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+
+                    // obtain fields from form and store
+                    const collectible = {
+                        name: req.body.name,
+                        collectible_type_id: collectibleType,
+                        image: data,
+                        image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
+                        total_quantity: req.body.total_quantity,
+                        attributes: 
+                                    {
+                                    number: req.body.number, 
+                                    line: req.body.line
+                                    }
+                        };
+
+                    // create the new collectible entry
+                    const collectibleID = await Collectible.create(collectible);
+                    res.redirect(`/collectible/image/${collectibleID}`);
+
+
+                    }
+
+                    else { 
+                        
+                        console.log("hot wheel");
+                        var collectibleType = 5;
+                
+                                            // store the data from the file
+                    const {data} = req.files.pic;
+
+
+                    if (!req.body.number1) {
+                        res.render('addCollectible', { 
+                                message: 'Please add number1',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+            
+                    if (!req.body.series) {
+                        res.render('addCollectible', { 
+                                message: 'Please add series',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+            
+                    if (!req.body.year_released1) {
+                        res.render('addCollectible', { 
+                                message: 'Please add year released',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+                    // obtain fields from form and store
+                    const collectible = {
+                        name: req.body.name,
+                        collectible_type_id: collectibleType,
+                        image: data,
+                        image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
+                        total_quantity: req.body.total_quantity,
+                        attributes: 
+                        {
+                        number: req.body.number1, 
+                        series: req.body.series,
+                        year_released: req.body.year_released1
+                        }
+                        };
+
+                    // create the new collectible entry
+                    const collectibleID = await Collectible.create(collectible);
+                    res.redirect(`/collectible/image/${collectibleID}`);
+                
+                } 
+
                 }
                 // Collectible with that name already exists
                 else {
