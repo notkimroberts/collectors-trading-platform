@@ -17,9 +17,9 @@ function validCollectible(collectible) {
 
 
 router.post('/', async (req, res, next) => {
-    const { collectible_id, name, total_quantity } = req.body;
+    const { collectible_id, name } = req.body;
 
-    // Check if existing collector_id
+    // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
         res.render('editCollectible', { 
                 message: 'That collectible_id does not exist',
@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
     }
 
     // Check if user updated anything, if not, show error
-    if (!req.files && !req.body.name && !req.body.total_quantity) {
+    if (!req.files && !req.body.name) {
         res.render('editCollectible', { 
             message: 'You need to input something to update',
             messageClass: 'alert-danger'
@@ -55,11 +55,6 @@ router.post('/', async (req, res, next) => {
         await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
     }
 
-    if (total_quantity) {
-        // update quantity
-        await knex('collectible').where({collectible_id: collectible_id}).update({total_quantity: total_quantity});
-    }
-
     if (req.files) {
         const {data} = req.files.pic;
         if (data) {
@@ -72,7 +67,7 @@ router.post('/', async (req, res, next) => {
     // update updated_at time
     await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
 
-    res.redirect('/');
+    res.redirect(`/collectible/${collectible_id}`);
 });
 
 
