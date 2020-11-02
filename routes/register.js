@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
     await Collector.create(username, hashedPassword, email, phone_number)
 
     res.render('login', {
-        message: 'Registration complete. Please <a href="/login">login</a> to continue.',
+        message: 'Registration complete. Please login to continue.',
         messageClass: 'alert-success'
     });
 });
