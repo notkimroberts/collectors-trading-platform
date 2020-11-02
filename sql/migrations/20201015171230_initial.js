@@ -5,10 +5,8 @@ exports.up = (knex) => {
         table.bigIncrements('collectible_id');
         table.bigInteger('collectible_type_id');    // FK
         table.text('name', 128).notNullable();
-        table.text('image_url', 128).notNullable();
         table.binary('image');
         table.jsonb('attributes');
-        table.bigInteger('total_quantity');
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table
@@ -22,8 +20,6 @@ exports.up = (knex) => {
     const collectible_type = knex.schema.createTable('collectible_type', (table) => {
         table.bigIncrements('collectible_type_id');
         table.text('name', 128).notNullable();
-        table.bigInteger('release_year');
-        table.text('attribute_template', 128).notNullable();
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
     })

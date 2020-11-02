@@ -5,21 +5,80 @@
 {{/if}}
 
 <h1>Add a new collectible</h1>
+
+<h2>Search/Filter Dropdown</h2>
+<p>Click on the button to open the dropdown menu, and use the input field to search for a specific dropdown link.</p>
+
+{{!-- <div class="dropdown"> --}}
+{{!--   <button onclick="myFunction()" id="type" class="dropbtn">Dropdown</button> --}}
+{{!--   <div id="myDropdown" class="dropdown-content"> --}}
+
+{{!--   </div>
+
+</div>
+</div> --}}
+
+
+
+
 <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
+
+        <select id='option_type' name="collectible_type" required>
+ {{!--    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> --}}
+    <option value="lego">lego</option>
+    <option value="funko">funko</option>
+    <option value="hot_wheel">hot wheel</option>
+    </select>
+
+
     <div class="form-example">
         <label for="name">Name: </label>
 {{!--         <input type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'" required> --}}
         <input type="text" name="name" id="name" required>
     </div>
+
     <div class="form-example">
         <label for="quantity">Quantity made: </label>
         <input type="number" name="total_quantity" id="total_quantity" required>
     </div>
+
+    <div class="form-example lego box" style='display:none;' id='lego'>
+        <label for="piece_count">Piece count: </label>
+        <input type="jsonb" name="piece_count" id="piece_count" >
+        <label for="set_number">Set number: </label>
+        <input type="jsonb" name="set_number" id="set_number" >
+        <label for="theme">Theme: </label>
+        <input type="jsonb" name="theme" id="theme" >
+        <label for="designed_by">Designed by: </label>
+        <input type="jsonb" name="designed_by" id="designed_by" >
+    </div>
+
+    <div class="form-example funko box" style='display:none;' id='funko'>
+        <label for="number">Number: </label>
+        <input type="jsonb" name="number" id="number" >
+        <label for="Line">Line: </label>
+        <input type="jsonb" name="line" id="line" >
+    </div>
+
+    <div class="form-example hot_wheel box" style='display:none;' id='hot_wheel'>
+        <label for="number">Number: </label>
+        <input type="jsonb" name="number1" id="number1" >
+        <label for="series">Series: </label>
+        <input type="jsonb" name="series" id="series" >
+        <label for="year_released">Year released: </label>
+        <input type="jsonb" name="year_released1" id="year_released1" >
+    </div>
+
+
     <div class="form-example"></div>
         <p>Select a jpeg image of the collectible</p>
-        <input type="file" name="pic" id="image" accept="image/jpeg"/>
+        <input type="file" name="pic" id="image" accept="image/jpeg" required>
     </div>
     <div>
         <input type="submit" value="Submit" name="submit">
     </div>
 </form>
+
+<script src="/js/jquery-3.5.1.min.js"></script>
+<script src="/js/addcollectible.js"></script>
+<link rel="stylesheet" href="/css/addcollectible.css"/>

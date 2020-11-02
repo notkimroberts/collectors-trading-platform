@@ -7,21 +7,26 @@ const knex = require('../connection')
 const Collector = require('../models/Collector')
 const { getById } = require('../models/Collector');
 
-/* 
 router.get('/', async (req, res, next) => {
     res.render('collectible');
 });
 
  */
 
-router.get('/', (req, res, next) => {
-    const { name } = req.query;
 
-    // get collectible by name
-    Collectible.getAll({ name }).then(collectible => {
-      res.json(collectible);
-    });
+
+// display seach results
+router.get('/search/', async (req, res, next) => {
+  const { name } = req.query;
+  console.log(name);
+
+    const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible').where('name', 'ilike', `%${name}%`);
+    res.render('collectible', {
+      page_title: 'The title for collectible page',
+      collectible: collectibles
   });
+
+});
 
 
   // display the image of a collectible_id
@@ -43,18 +48,36 @@ router.get('/image/:id', async (req, res, next) => {
 
 
 
-// route for specific collectible_id
+// // display specific collectible_id
 router.get('/:id', async (req, res, next) => { 
   const id = req.params.id;
-  const collectible = await knex('collectible').where({collectible_id: id}).first();;
-  if (collectible) {
-      
-    res.json({ data: collectible});
-      
+  console.log(id);
+  const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible').where({collectible_id: id});
 
-  } else {
-      res.end('No collectible with that id!');
-  }
+
+  console.log(collectibles);
+
+    res.render('collectible', {
+      title: 'The title for collectible page',
+      collectible: collectibles,
+});
+});
+
+
+
+
+// display all collectibles
+// https://stackoverflow.com/questions/36111414/how-to-access-knex-query-results
+router.get('/', async (req, res, next) => { 
+  
+  const collectibles = await knex.select('collectible_id', 'name', 'total_quantity', 'attributes', 'image').from('collectible');
+
+    res.render('collectible', {
+      page_title: 'The title for collectible page',
+      collectible: collectibles
+
+});
+
 });
 
 
@@ -65,7 +88,9 @@ router.get('/:name', async (req, res, next) => {
   console.log(string);
   name = string.replace(/-/g, ' '); // convert dashes to spaces
   console.log(name);
-  const collectible = await knex('collectible').where({name: name}).first();;
+
+  const collectible = await knex('collectible').where({name: name}).first();
+
   if (collectible) {
       
     res.json({ data: collectible});
