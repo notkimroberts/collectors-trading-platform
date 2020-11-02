@@ -5,6 +5,7 @@ const createError = require('http-errors');
 const dotenv = require('dotenv');
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const exphbs = require('express-handlebars');
 const hbs = require('hbs');
 const logger = require('morgan');
 const path = require('path');
@@ -23,6 +24,7 @@ const { NODE_ENV, SESSION_NAME, SESSION_SECRET, SESSION_LIFETIME } = process.env
 // View engine (Handlebars) setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.engine('hbs', exphbs({ extname: '.hbs' }))
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
 
@@ -119,7 +121,6 @@ app.use(function(err, req, res, next) {
         {
             message: err.message,
             error: req.app.get('env') === 'development' ? err : {}
-  
         }
     );
     }

@@ -1,41 +1,35 @@
-{{{title}}}
- <table>
-    <thead>
-      <th style ="padding:0 15px 0 15px;">collectible_id</th>
-      <th style ="padding:0 15px 0 15px;">name</th>
-      <th style ="padding:0 15px 0 15px;">total quantity</th>
-      <th style ="padding:0 15px 0 15px;">piece count</th>
-      <th style ="padding:0 15px 0 15px;">set number</th>
-      <th style ="padding:0 15px 0 15px;">theme</th>
-      <th style ="padding:0 15px 0 15px;">designed by</th>
-      <th style ="padding:0 15px 0 15px;">number</th>
-      <th style ="padding:0 15px 0 15px;">line</th>
-      <th style ="padding:0 15px 0 15px;">series</th>
-      <th style ="padding:0 15px 0 15px;">year released</th>
-      
-      <th style ="padding:0 15px 0 15px;">Image</th>
-    </thead>
-    <tbody>
-      {{#each collectible}}
-
-    
-      <tr>
-          <td style ="padding:0 15px 0 15px;">{{collectible_id}}</td>
-          <td style ="padding:0 15px 0 15px;">{{name}}</td>
-          <td style ="padding:0 15px 0 15px;">{{total_quantity}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.piece_count}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.set_number}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.theme}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.designed_by}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.number}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.line}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.series}}</td>
-          <td style ="padding:0 15px 0 15px;">{{attributes.year_released}}</td>
-          <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-
-<script src="/js/jquery-3.5.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-8">
+        <h2>Collectible</h2>
+        <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Piece Count</th>
+                <th>Set Number</th>
+                <th>Theme</th>
+                <th>Designer</th>
+                <th>Number</th>
+                <th>Line</th>
+                <th>Series</th>
+                <th>Release Year</th>
+                <th>Image</th>
+            </thead>
+            <tbody>
+                {{#each collectible}}
+                    <tr>
+                        <td>{{{name}}}</td>
+                        <td>{{{attributes.piece_count}}}</td>
+                        <td>{{{attributes.set_number}}}</td>
+                        <td>{{{attributes.theme}}}</td>
+                        <td>{{{attributes.designed_by}}}</td>
+                        <td>{{{attributes.number}}}</td>
+                        <td>{{{attributes.line}}}</td>
+                        <td>{{{attributes.series}}}</td>
+                        <td>{{{attributes.year_released}}}</td>
+                        <td><a href="/collectible/image/{{{collectible_id}}}" target="_blank"><i class="fa fa-external-link-alt"></i> View</a></td>	
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
