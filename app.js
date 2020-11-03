@@ -66,17 +66,17 @@ app.use((req, res, next) => {
 
 
 // Mount routers
-const addCollectibleRouter = require('./routes/addCollectible');
+const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
-const editCollectibleRouter = require('./routes/editCollectible');
+const editCollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const profileRouter = require('./routes/profile');
 const quizRouter = require('./routes/quiz');
-const quizResultRouter = require('./routes/quizResult');
+const quizResultRouter = require('./routes/quizresult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
 const tradeRouter = require('./routes/trade');

@@ -1,6 +1,6 @@
-const Collectible = require('../models/Collectible.js');
 const express = require('express');
 const router = express.Router();
+const Collectible = require('../models/collectible');
 
 
 function validCollectible(collectible) {
@@ -10,14 +10,14 @@ function validCollectible(collectible) {
 
 
 router.get('/', (req, res, next) => {
-    res.render('addCollectible');
+    res.render('addcollectible');
 });
 
 
 router.post('/', async (req, res, next) => {
     if(validCollectible(req.body)) {
         if (await Collectible.getByName(req.body.name)) {
-            res.render('addCollectible', { 
+            res.render('addcollectible', { 
                     message: 'That collectible name already exists in the database. unique names only',
                     messageClass: 'alert-danger'
                 }
@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
         }
 
         if (!req.files) {
-            res.render('addCollectible', { 
+            res.render('addcollectible', { 
                     message: 'Please choose a jpeg image to upload',
                     messageClass: 'alert-danger'
                 }
@@ -44,7 +44,7 @@ router.post('/', async (req, res, next) => {
                     if (typeSelected == "lego") {
                         const collectibleType = 1;
                         if (!req.body.piece_count) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add piece count',
                                     messageClass: 'alert-danger'
                                 }
@@ -53,7 +53,7 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.set_number) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add set_number',
                                     messageClass: 'alert-danger'
                                 }
@@ -62,7 +62,7 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.theme) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add theme',
                                     messageClass: 'alert-danger'
                                 }
@@ -71,7 +71,7 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.designed_by) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add designed by',
                                     messageClass: 'alert-danger'
                                 }
@@ -100,7 +100,7 @@ router.post('/', async (req, res, next) => {
                     else if (typeSelected == "funko") {
                         const collectibleType = 2;
                         if (!req.body.number) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add number',
                                     messageClass: 'alert-danger'
                                 }
@@ -109,7 +109,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.line) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add line',
                                     messageClass: 'alert-danger'
                                 }
@@ -138,7 +138,7 @@ router.post('/', async (req, res, next) => {
                         const collectibleType = 5;
 
                         if (!req.body.number1) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add number1',
                                     messageClass: 'alert-danger'
                                 }
@@ -147,7 +147,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.series) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add series',
                                     messageClass: 'alert-danger'
                                 }
@@ -156,7 +156,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.year_released1) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add year released',
                                     messageClass: 'alert-danger'
                                 }
@@ -186,7 +186,7 @@ router.post('/', async (req, res, next) => {
                     
                     else {
 
-                        res.render('addCollectible', { 
+                        res.render('addcollectible', { 
                             message: 'no collectible with that type',
                             messageClass: 'alert-danger'
                             }   

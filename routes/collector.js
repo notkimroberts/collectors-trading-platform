@@ -1,8 +1,8 @@
-const Collector = require('../models/Collector.js');
 const express = require('express');
 const db = require('../connection')
 const router = express.Router();
 const knex = require('../connection')
+const Collector = require('../models/collector');
 
 
 router.get('/search/', async (req, res, next) => {
