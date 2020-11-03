@@ -7,10 +7,19 @@
         <h3>Inventory</h3>
 
         {{#each collection}}
-        <p>{{{has_quantity}}}</p>
-        <p>{{{wants_quantity}}}</p>
-        <p>{{{willing_to_trade_quantity}}}</p>
+        <div class="parent">
+            <div class='child float-left-child'>
+                <p>{{{name}}}</p>
+                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" />
+                <p>has: {{{has_quantity}}}</p>   
+                <p>wants: {{{wants_quantity}}}</p>
+                <p>for trade: {{{willing_to_trade_quantity}}}</p> 
+                </td>  
+                </div> 
+                </div>
          {{/each}}
         <div class="row justify-content-md-center mt-2">
     </div>
 </div>
+
+<link rel="stylesheet" href="/css/profile.css"/>
