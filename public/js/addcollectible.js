@@ -1,14 +1,18 @@
-/* https://www.tutorialrepublic.com/faq/show-hide-divs-based-on-dropdown-selection-in-jquery.php */
-console.log('hi')
-$(document).ready(() => {
-    $("select").change(() => {
-        $(this).find("option:selected").each(() => {
-            const optionValue = $(this).attr("value");
-            if (optionValue) {
-                $(".box").not("." + optionValue).hide();
-                $("." + optionValue).show();
-            } else {
+// https://stackoverflow.com/questions/18353574/how-to-show-hide-div-on-selection-of-any-drop-down-value
+$(document).ready(function(){
+    $("select").change(function(){
+        $( "select option:selected").each(function(){
+            if($(this).attr("value")=="lego"){
                 $(".box").hide();
+                $(".lego").show();
+            }
+            if($(this).attr("value")=="funko"){
+                $(".box").hide();
+                $(".funko").show();
+            }
+            if($(this).attr("value")=="hot_wheel"){
+                $(".box").hide();
+                $(".hot_wheel").show();
             }
         });
     }).change();
