@@ -13,14 +13,16 @@
 
     <div class="col col-md-4">
         {{#each collectionHas}}
-        <div class="parent">
+        <div class="parent">             
             <div class='child float-left-child'>
-                <p><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></p>
-                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" />
-                    <p>has: {{{has_quantity}}}</p>   
-                    <p>wants: {{{wants_quantity}}}</p>
-                    <p>for trade: {{{willing_to_trade_quantity}}}</p> 
-                </td>  
+                <td>
+                    <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                    <br>
+                    <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
+                    <br>has: {{{has_quantity}}}  
+                    <br>wants: {{{wants_quantity}}}
+                    <br>for trade: {{{willing_to_trade_quantity}}}
+                </td>
             </div> 
         </div>
         {{/each}}
@@ -32,12 +34,14 @@
         {{#each collectionWants}}
         <div class="parent">             
             <div class='child float-left-child'>
-                <p><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></p>
-                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" />
-                    <p>has: {{{has_quantity}}}</p>   
-                    <p>wants: {{{wants_quantity}}}</p>
-                    <p>for trade: {{{willing_to_trade_quantity}}}</p> 
-                </td>  
+                <td>
+                    <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                    <br>
+                    <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
+                    <br>has: {{{has_quantity}}}  
+                    <br>wants: {{{wants_quantity}}}
+                    <br>for trade: {{{willing_to_trade_quantity}}}
+                </td>
             </div> 
         </div>
         {{/each}}
@@ -50,12 +54,14 @@
         {{#each collectionWillingToTrade}}
         <div class="parent">             
             <div class='child float-left-child'>
-                <p><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></p>
-                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" />
-                    <p>has: {{{has_quantity}}}</p>   
-                    <p>wants: {{{wants_quantity}}}</p>
-                    <p>for trade: {{{willing_to_trade_quantity}}}</p> 
-                </td>  
+                <td>
+                    <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                    <br>
+                    <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
+                    <br>has: {{{has_quantity}}}  
+                    <br>wants: {{{wants_quantity}}}
+                    <br>for trade: {{{willing_to_trade_quantity}}}
+                </td>
             </div> 
         </div>
         {{/each}}
