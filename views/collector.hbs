@@ -1,0 +1,23 @@
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-8">
+        <h2>Collectors</h2>
+        <table class="table table-striped">
+            <thead>
+                <th>Is Admin?</th>
+                <th>Username</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </thead>
+            <tbody>
+                {{#each collector}}
+                    <tr>
+                        <td>{{{is_admin}}}</td>
+                        <td>{{{username}}}</td>
+                        <td>{{{phone_number}}}</td>
+                        <td>{{{email}}}</td>
+                  </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -69,6 +69,7 @@ app.use((req, res, next) => {
 const addCollectibleRouter = require('./routes/addCollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
+const collectionRouter = require('./routes/collection');
 const editCollectibleRouter = require('./routes/editCollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
@@ -86,6 +87,7 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
+app.use('/collection', collectionRouter); 
 app.use('/edit-collectible', editCollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
