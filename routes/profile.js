@@ -16,17 +16,34 @@ const { requireAuth } = require('../utils')
 }); */
 
 
-// render user's collectibles if has_quantity is greater than 0
+
     router.get('/', requireAuth, async (req, res, next) => {
         // const { id } = req.params;
         const { email, phone_number, username, collector_id} = req.user;
-        const collections = await knex('collection')
+        // user's has collectibles if has_quantity is greater than 0
+        const collectionsHas = await knex('collection')
         .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .where('collector_id', collector_id )
         .andWhere('collection.has_quantity', '>', 0);
+
+        // user's wants collectibles if has_quantity is greater than 0
+        const collectionsWants = await knex('collection')
+        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+        .where('collector_id', collector_id )
+        .andWhere('collection.wants_quantity', '>', 0);
     
-        console.log(collections);
+
+        // user's wants collectibles if has_quantity is greater than 0
+        const collectionsWillingToTrade = await knex('collection')
+        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+        .where('collector_id', collector_id )
+        .andWhere('collection.willing_to_trade_quantity', '>', 0);
+
+
+        console.log(collectionsWants);
     
         res.render('profile', { 
             email: email,
@@ -34,7 +51,9 @@ const { requireAuth } = require('../utils')
             title: `Collector's Trading Platform | ${username}`,
             username: username,
             collector_id: collector_id,
-            collection: collections,
+            collectionHas: collectionsHas,
+            collectionWants: collectionsWants,
+            collectionWillingToTrade: collectionsWillingToTrade
         });
     });
 
