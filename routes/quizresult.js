@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res, next) => {
-    res.render('quizResult');
+    res.render('quizResult', { title: "Collector's Trading Platform | Quiz Results" });
 });
 
 
