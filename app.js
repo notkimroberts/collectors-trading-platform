@@ -66,7 +66,7 @@ app.use((req, res, next) => {
 
 
 // Mount routers
-// const addCollectibleRouter = require('./routes/addcollectible');
+const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
 const editCollectibleRouter = require('./routes/editCollectible');

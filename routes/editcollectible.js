@@ -1,7 +1,7 @@
-const Collectible = require('../models/Collectible');
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
+const Collectible = require('../models/Collectible');
 
 
 router.get('/', (req, res, next) => {
