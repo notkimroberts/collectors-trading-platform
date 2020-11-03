@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Collectible = require('../models/Collectible');
+const Collectible = require('../models/collectible');
 
 
 function validCollectible(collectible) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Collector = require('../models/Collector')
+const Collector = require('../models/collector')
 const { getHashedPassword } = require('../utils')
 
 
