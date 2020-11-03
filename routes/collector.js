@@ -1,4 +1,4 @@
-const Collector = require('../models/Collector.js');
+const Collector = require('../models/Collector');
 const express = require('express');
 const db = require('../connection')
 const router = express.Router();
