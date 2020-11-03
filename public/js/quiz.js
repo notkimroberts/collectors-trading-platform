@@ -66,7 +66,7 @@ getNewQuestion = () => {
         localStorage.setItem('currentScore', score)
 
         // send user to the quiz results page
-        return window.location.assign('/quizresult')
+        return window.location.assign('/quiz-result')
     }
 
     // if there is still available questions, increment question counter and update question progress

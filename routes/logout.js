@@ -8,13 +8,15 @@ router.get('/', requireAuth, (req, res, next) => {
 });
 
 router.post('/', requireAuth, function (req, res) {
-    req.session.destroy(err => {
-        if (err) {
-            return res.redirect('/');
-        }
     res.clearCookie(authTokens);
     res.redirect('/login');
-})
+    // req.session.destroy(err => {
+    //     if (err) {
+    //         return res.redirect('/');
+    //     }
+    //     res.clearCookie(authTokens);
+    //     res.redirect('/login');
+    // })
 });
 
 module.exports = router;
