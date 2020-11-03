@@ -6,11 +6,11 @@
                 {{message}}
             </div>
         {{/if}}
-        
+
         <h5>Type</h5>
         <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
             <div class="form-group">
-                <select id='option_type' name="collectible_type" required>
+                <select id='option_type' class="form-control" name="collectible_type" required>
                     <option value="lego">lego</option>
                     <option value="funko">funko</option>
                     <option value="hot_wheel">hot wheel</option>
@@ -18,47 +18,46 @@
             </div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" required>
+                <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'"  required>
             </div>
-            <div class="form-group lego box" style='display:none;' id='lego'>
-                <label for="piece_count">Piece count: </label>
-                <input type="jsonb" name="piece_count" id="piece_count">
-                
-                <label for="set_number">Set number: </label>
-                <input type="jsonb" name="set_number" id="set_number">
-                
+
+            {{!-- Lego --}}
+            <div class="form-group lego box" id='lego'>
+                <label for="piece_count">Piece count</label>
+                <input class="form-control" type="text" name="piece_count" id="piece_count">
+                <label for="set_number">Set number</label>
+                <input class="form-control" type="number" name="set_number" id="set_number">
                 <label for="theme">Theme</label>
-                <input type="jsonb" name="theme" id="theme"/>
-                
+                <input class="form-control" type="text" name="theme" id="theme"/>
                 <label for="designed_by">Designed By</label>
-                <input type="jsonb" name="designed_by" id="designed_by"/>
+                <input class="form-control" type="text" name="designed_by" id="designed_by"/>
             </div>
-            <div class="form-group funko box" style='display:none;' id='funko'>
-                <label for="number">Number</label>
-                <input type="jsonb" name="number" id="number"/>
-                
-                <label for="Line">Line: </label>
-                <input type="jsonb" name="line" id="line"/>
+
+            {{!-- Funko --}}
+            <div class="form-group funko box" id='funko'>
+                <label for="Number">Number</label>
+                <input class="form-control" type="number" name="line" id="number"/>
+                <label for="Line">Line</label>
+                <input class="form-control" type="text" name="number" id="line"/>
             </div>
-            <div class="form-group hot_wheel box" style='display:none;' id='hot_wheel'>
+
+            {{!-- Hot Wheels --}}
+            <div class="form-group hot_wheel box" id="hot_wheel">
                 <label for="number">Number</label>
-                <input type="jsonb" name="number1" id="number1"/>
-                
+                <input class="form-control" type="jsonb" name="number1" id="number1"/>
                 <label for="series">Series</label>
-                <input type="jsonb" name="series" id="series"/>
-                
+                <input class="form-control" type="jsonb" name="series" id="series"/>
                 <label for="year_released">Year released</label>
-                <input type="jsonb" name="year_released1" id="year_released1"/>
+                <input class="form-control" type="jsonb" name="year_released1" id="year_released1"/>
             </div>
             <div class="form-group">
-                <p>Select a jpeg image of the collectible</p>
-                <input type="file" name="pic" id="image" accept="image/jpeg" required/>
+                <p class="text-muted">Select a jpeg image of the collectible</p>
+                <input class="form-control-file" type="file" name="pic" id="image" accept="image/jpeg" required/>
             </div>
-            <div>
-                <input type="submit" value="Add" name="add">
-            </div>
+            <button type="submit" class="btn btn-success">Add</button>
         </form>
-        <script src="/js/addcollectible.js"></script>
-        <link rel="stylesheet" href="/css/addcollectible.css"/>
     </div>
 </div>
+<script src="/js/jquery-3.5.1.js"></script>
+<script src="/js/addcollectible.js"></script>
+<link rel="stylesheet" href="/css/addcollectible.css"/>
