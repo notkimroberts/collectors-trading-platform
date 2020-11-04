@@ -1,5 +1,3 @@
-/* https://github.com/briancodex/quiz-app-js */
-
 .choice-container {
     display: flex;
     margin-bottom: 0.8rem;
@@ -16,15 +14,9 @@
     transform: transform 100ms;
 }
 
-
-
 .choice-text {
     padding: 2rem;
     width: 100%;
-}
-
-.question-text {
-    font-size: 2rem;
 }
 
 .correct {
@@ -35,27 +27,6 @@
     background: darkslateblue;
 }
 
-
-
-/* Heads up Display */
-#hud {
-    display: flex;
-    justify-content: space-between;
-}
-
-.hud-prefix {
-    text-align: center;
+.question-text {
     font-size: 2rem;
-}
-
-.hud-main-text {
-    text-align: center;
-}
-
-
-
-@media screen and (max-width: 768px) {
-    .choice-container {
-        min-width: 40rem;
-    }
 }

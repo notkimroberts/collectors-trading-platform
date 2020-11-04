@@ -1,18 +1,16 @@
-form {
+/* form {
     border: 2px solid;
-  }
-/* The "Forgot password" text */
+}
+
 span.forgot {
     float: right;
     padding-top: 12px;
-  }  
+} 
 
-  /* Add a red text color and an "x" icon when the requirements are wrong */
 .invalid {
     color: red;
-  }
+}
 
-  /* The message box is shown when the user clicks on the password field */
 #message {
     display:none;
     background: #f1f1f1;
@@ -20,10 +18,9 @@ span.forgot {
     position: relative;
     padding: 20px;
     margin-top: 10px;
-  }
-  #message p {
+}
+
+#message p {
     padding: 10px 35px;
     font-size: 18px;
-  }  
-
-  /* https://www.w3schools.com/howto/howto_js_password_validation.asp */
+} */

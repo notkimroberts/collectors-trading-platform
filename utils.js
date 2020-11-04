@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
+
 module.exports = {
-    // Functions
     getHashedPassword: (password) => {
         const sha256 = crypto.createHash('sha256');
         const hash = sha256.update(password).digest('base64');
@@ -18,10 +18,5 @@ module.exports = {
             });
         }
     },
-
-    //session middleware configuration
-    // Constants
     authTokens: {}
-
 };
-

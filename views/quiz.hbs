@@ -1,40 +1,31 @@
 <!-- Source: https://github.com/briancodex/quiz-app-js -->
-<div class="container">
-    <div id="game" class="justify-center flex-column">
-        <div id="hud">
-            <div class="hud-item">
-                <p id="progressText" class="hud-prefix">
-                    Question
-                </p>
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-6">
+        <div id="game">
+            <div class="d-flex justify-content-between mb-3">
+                <h2 id="progressText">Question</h2>
+                <h3>Score</h3>
+                <h3 id="score">0</h3>
             </div>
-            <div class="hud-item">
-                <p class="hud-prefix">
-                    Score
-                </p>
-                <h1 class="hud-main-text" id="score">
-                    0
-                </h1>
+
+            <!-- show question text -->
+            <h3 id="question" class="question-text" >this is the question</h3>
+
+            <!-- show answer text -->
+            <div class="choice-container">
+                <p class="choice-text" data-number="1">Choice 1</p>
             </div>
-        </div>
-
-        <!-- show question text -->
-        <h1 id="question" class="question-text" >this is the question</h1>
-
-        <!-- show answer text -->
-        <div class="choice-container">
-            <p class="choice-text" data-number="1">Choice 1</p>
-        </div>
-        <div class="choice-container">
-            <p class="choice-text" data-number="2">Choice 2</p>
-        </div>
-        <div class="choice-container">
-            <p class="choice-text" data-number="3">Choice 3</p>
-        </div>
-        <div class="choice-container">
-            <p class="choice-text" data-number="4">Choice 4</p>
+            <div class="choice-container">
+                <p class="choice-text" data-number="2">Choice 2</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-text" data-number="3">Choice 3</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-text" data-number="4">Choice 4</p>
+            </div>
         </div>
     </div>
 </div>
-
 <script src="/js/quiz.js"></script>
 <link rel="stylesheet" href="/css/quiz.css"/>

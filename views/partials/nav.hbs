@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Collector's Trading Platform</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/collectible">Collectible</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
+            </li>
+            <li class="nav-item">
+                <span style="color: rgba(0,0,0,.5); display: block; padding: .5rem .5rem;">|</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/rules">Rules</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/quiz">Quiz</a>
+            </li>
+        </ul>
+        <ul class="nav justify-content-end">
+            {{#if username}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+            {{/if}}
+            <form action="/register" method="GET" class="form-inline my-2 my-lg-0 mr-3">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</button>
+            </form>
+        </ul>
+        <form action="/collectible/search" method="GET" class="form-inline my-2 my-lg-0 mr-3">
+            <input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Collectible" aria-label="Search Collectibles">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="search">Search Collectible</button>
+        </form>
+        <form action="/collector/search" method="GET" class="form-inline my-2 my-lg-0 mr-3">
+            <input class="form-control mr-sm-2" name="username" type="text" placeholder="Search Collector" aria-label="Search Collectors">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="search">Search Collector</button>
+        </form>
+    </div>
+</nav>

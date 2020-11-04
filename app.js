@@ -3,12 +3,14 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const dotenv = require('dotenv');
-const fileUpload = require('express-fileupload');
-const hbs = require('hbs');
 const express = require('express');
-const session = require('express-session');
+const fileUpload = require('express-fileupload');
+const exphbs = require('express-handlebars');
+const hbs = require('hbs');
 const logger = require('morgan');
 const path = require('path');
+const session = require('express-session');
+
 
 // import views
 const indexRouter = require('./routes/index');
@@ -26,11 +28,15 @@ const app = express();
 
 // Environment variables
 dotenv.config()
+const { NODE_ENV, SESSION_NAME, SESSION_SECRET, SESSION_LIFETIME } = process.env
+
 
 // View engine (Handlebars) setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+app.engine('hbs', exphbs({ extname: '.hbs' }))
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
+
 
 // App extenders
 app.use(bodyParser.json())
@@ -43,33 +49,19 @@ app.use(fileUpload());
 app.use(logger('dev'));
 
 
-//session middleware configuration
-const{
-    NODE_ENV = 'development',
-    SESS_NAME = 'sid',
-    SESS_SECRET = 'hellosecret', //dummy string to sign cookie
-    SESS_LIFETIME = 2
-} = process.env
-
-const IN_PROD = NODE_ENV === 'production';
-
-app.use(session({
-    name: SESS_NAME,
-    resave: false,
-    saveUninitialized: false,
-    secret: SESS_SECRET,
-    cookie: {
-        maxAge: SESS_LIFETIME, //two hours
-        sameSite: true,
-        secure: IN_PROD //production env or dev 
-    }
-}));
-
-app.get('/', (req, res) => {
-    const {userId} = req.session;
-    console.log(userId);
-    res.render('index');
-});
+// TODO: How does this work?
+// Session middleware configuration
+// app.use(session({
+//     name: SESSION_NAME,
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: SESSION_SECRET,
+//     cookie: {
+//         maxAge: SESSION_LIFETIME,
+//         sameSite: true,
+//         secure: NODE_ENV
+//     }
+// }));
 
 
 app.use((req, res, next) => {
@@ -84,25 +76,27 @@ app.use((req, res, next) => {
 
 
 // Mount routers
-const addCollectibleRouter = require('./routes/addCollectible');
+const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
+const editCollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const profileRouter = require('./routes/profile');
 const quizRouter = require('./routes/quiz');
-const tradeRouter = require('./routes/trade');
-const quizResultRouter = require('./routes/quizResult');
+const quizResultRouter = require('./routes/quizresult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
-const editcollectibleRouter = require('./routes/editcollectible');
+const tradeRouter = require('./routes/trade');
+
 
 app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
+app.use('/edit-collectible', editCollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
@@ -115,8 +109,13 @@ app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);
 
+<<<<<<< HEAD
 app.use('/editcollectible', editcollectibleRouter);
 // catch 404 and forward to error handler
+=======
+
+// Catch 404 and forward to error handler
+>>>>>>> 6217e6f2eb353db1a9b6b3c1e4637fa094bd95da
 app.use((req, res, next) => {
     next(createError(404));
 });
@@ -139,7 +138,6 @@ app.use(function(err, req, res, next) {
         {
             message: err.message,
             error: req.app.get('env') === 'development' ? err : {}
-  
         }
     );
     }

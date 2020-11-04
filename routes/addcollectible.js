@@ -1,11 +1,8 @@
-const Collectible = require('../models/Collectible.js');
-const FileType = require('file-type');
 const express = require('express');
-const knex = require('../connection')
 const router = express.Router();
+const Collectible = require('../models/collectible');
 
 
-// check if valid collectible name
 function validCollectible(collectible) {
     const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
     return validName;
@@ -13,18 +10,14 @@ function validCollectible(collectible) {
 
 
 router.get('/', (req, res, next) => {
-    res.render('addCollectible');
+    res.render('addcollectible');
 });
 
 
 router.post('/', async (req, res, next) => {
-    
-    // if input is valid
     if(validCollectible(req.body)) {
-
-        // Check if existing collectible name
         if (await Collectible.getByName(req.body.name)) {
-            res.render('addCollectible', { 
+            res.render('addcollectible', { 
                     message: 'That collectible name already exists in the database. unique names only',
                     messageClass: 'alert-danger'
                 }
@@ -32,9 +25,8 @@ router.post('/', async (req, res, next) => {
             return
         }
 
-        // Check if user selected picture
         if (!req.files) {
-            res.render('addCollectible', { 
+            res.render('addcollectible', { 
                     message: 'Please choose a jpeg image to upload',
                     messageClass: 'alert-danger'
                 }
@@ -42,28 +34,17 @@ router.post('/', async (req, res, next) => {
             return
         }
 
-        
         Collectible
             .getByName(req.body.name)
             .then(async (collectible) => {
-                // if the name of the collectible is not in database
                 if (!collectible) {
-
-
-                   // store the data from the file
-                   const {data} = req.files.pic;
-
-                   // get the type selected
-                    var typeSelected = req.body.collectible_type;
-
+                    const { data } = req.files.pic;
+                    const typeSelected = req.body.collectible_type;
 
                     if (typeSelected == "lego") {
-                        console.log("lego");
-                        var collectibleType = 1;
-
-                             // Check if user selected picture
+                        const collectibleType = 1;
                         if (!req.body.piece_count) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add piece count',
                                     messageClass: 'alert-danger'
                                 }
@@ -72,7 +53,7 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.set_number) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add set_number',
                                     messageClass: 'alert-danger'
                                 }
@@ -81,7 +62,7 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.theme) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add theme',
                                     messageClass: 'alert-danger'
                                 }
@@ -90,40 +71,36 @@ router.post('/', async (req, res, next) => {
                         }
 
                         if (!req.body.designed_by) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add designed by',
                                     messageClass: 'alert-danger'
                                 }
                             )
                             return
                         }
-                        // obtain fields from form and store
+
                         const collectible = {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
                             image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
-                            total_quantity: req.body.total_quantity,
                             attributes: 
-                                        {
+                                    {
                                         piece_count: req.body.piece_count, 
                                         set_number: req.body.set_number, 
                                         theme:  req.body.theme, 
                                         designed_by: req.body.designed_by
-                                        }
+                                    }
                             };
-                        // create the new collectible entry
+
                         const collectibleID = await Collectible.create(collectible);
                         res.redirect(`/collectible/image/${collectibleID}`);
                     }
 
                     else if (typeSelected == "funko") {
-                        console.log("funko");
-                        var collectibleType = 2;
-
-            
+                        const collectibleType = 2;
                         if (!req.body.number) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add number',
                                     messageClass: 'alert-danger'
                                 }
@@ -132,7 +109,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.line) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add line',
                                     messageClass: 'alert-danger'
                                 }
@@ -146,7 +123,6 @@ router.post('/', async (req, res, next) => {
                             collectible_type_id: collectibleType,
                             image: data,
                             image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
-                            total_quantity: req.body.total_quantity,
                             attributes: 
                                         {
                                             number: req.body.number, 
@@ -159,12 +135,10 @@ router.post('/', async (req, res, next) => {
                     }
 
                     else if (typeSelected == "hot_wheel") { 
-                        
-                        console.log("hot wheel");
-                        var collectibleType = 5;
+                        const collectibleType = 5;
 
                         if (!req.body.number1) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add number1',
                                     messageClass: 'alert-danger'
                                 }
@@ -173,7 +147,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.series) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add series',
                                     messageClass: 'alert-danger'
                                 }
@@ -182,7 +156,7 @@ router.post('/', async (req, res, next) => {
                         }
                 
                         if (!req.body.year_released1) {
-                            res.render('addCollectible', { 
+                            res.render('addcollectible', { 
                                     message: 'Please add year released',
                                     messageClass: 'alert-danger'
                                 }
@@ -195,7 +169,6 @@ router.post('/', async (req, res, next) => {
                             collectible_type_id: collectibleType,
                             image: data,
                             image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
-                            total_quantity: req.body.total_quantity,
                             attributes: 
                                         {
                                         number: req.body.number1, 
@@ -213,7 +186,7 @@ router.post('/', async (req, res, next) => {
                     
                     else {
 
-                        res.render('addCollectible', { 
+                        res.render('addcollectible', { 
                             message: 'no collectible with that type',
                             messageClass: 'alert-danger'
                             }   
