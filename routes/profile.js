@@ -16,7 +16,6 @@ const { requireAuth } = require('../utils')
 }); */
 
 
-
     router.get('/', requireAuth, async (req, res, next) => {
         // const { id } = req.params;
         const { email, phone_number, username, collector_id} = req.user;

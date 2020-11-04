@@ -10,6 +10,15 @@
 
   }
 
+.input-text{
+    width: 35px;
+} 
+
+#wrapper {
+  min-width: 550px; 
+  position: relative;
+  overflow:scroll;
+}
 
  /*  overwrite bootstrap so can see many collectibles per row */
   .col-md-4 {
