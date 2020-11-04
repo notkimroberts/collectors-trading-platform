@@ -15,6 +15,10 @@
     </form>
     {{/if}}
 
+    {{#if clearfilter}}
+    <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
+    {{/if}}
+
         <table class="table table-striped">
             <thead>
                 <th>Name</th>
@@ -49,7 +53,6 @@
         </table>
     </div>
 </div>
-
 
 
 <script src="/js/filterCollectibles.js"></script>

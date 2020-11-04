@@ -24,6 +24,7 @@ router.get('/', async (req, res, next) => {
  // Display all collectibles from a given a type
  router.get('/filter/:type_id', async (req, res, next) => {
     const { type_id } = req.params;
+    const clearfilter = 1;
   
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
@@ -38,6 +39,7 @@ router.get('/', async (req, res, next) => {
         title: "Collector\'s Trading Platform | Collectibles",
         collectible: collectibles,
         collectibleByType: collectiblesByType,
+        clearfilter: clearfilter
     });
 });
 
