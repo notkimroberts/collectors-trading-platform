@@ -2,6 +2,8 @@
     <div class="col col-md-8">
         <h2>Collectible</h2>
 
+    {{#if nofilter}}
+    {{else}}
     <form id='filter_type' action='/filter/:type_name' method='get'>
         <label> Filter by type: </label>
         <select id='type_filter' name="type_name"> 
@@ -11,7 +13,7 @@
         </select><br>
          <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
     </form>
-        
+    {{/if}}
 
         <table class="table table-striped">
             <thead>

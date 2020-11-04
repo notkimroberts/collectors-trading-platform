@@ -21,7 +21,6 @@ router.get('/', async (req, res, next) => {
 });
 
 
-
  // Display all collectibles from a given a type
  router.get('/filter/:type_id', async (req, res, next) => {
     const { type_id } = req.params;
@@ -31,7 +30,7 @@ router.get('/', async (req, res, next) => {
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where('collectible.collectible_type_id', type_id);
  
-        // filter by type
+    // filter by type
     const collectiblesByType = await knex('collectible_type')
         .select('name as type_name', 'collectible_type_id as type_id');
  
@@ -42,37 +41,46 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-
-
 router.get('/search', async (req, res, next) => {
     const { name } = req.query;
-  
+    const nofilter = 1; // to not display dropdown
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where('collectible.name', 'ilike', `%${name}%`);
+
+    // filter by type
+    const collectiblesByType = await knex('collectible_type')
+        .select('name as type_name', 'collectible_type_id as type_id');
     
         res.render('collectible', {
         title: "Collector\'s Trading Platform | Search Results",
         collectible: collectibles,
+        collectibleByType: collectiblesByType,
+        nofilter: nofilter,
   });
 });
 
-
 router.get('/:id', async (req, res, next) => { 
     const { id } = req.params;
+    const nofilter = 1; // to not display dropdown
    
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
-   
+
+    // filter by type
+    const collectiblesByType = await knex('collectible_type')
+        .select('name as type_name', 'collectible_type_id as type_id');
+
         res.render('collectible', {
         title: `Collector\'s Trading Platform | ${id}`,
         collectible: collectibles,
+        collectibleByType: collectiblesByType,
+        nofilter: nofilter, // to not display filter
     });
 });
-
 
 router.get('/image/:id', async (req, res, next) => { 
     const id = req.params.id;
@@ -87,6 +95,5 @@ router.get('/image/:id', async (req, res, next) => {
         res.end('No image with that id!');
     }
 });
-
 
 module.exports = router;
