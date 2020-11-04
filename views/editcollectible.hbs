@@ -1,34 +1,83 @@
-{{#if message}}
-    <div class="alert {{messageClass}}" role="alert">
-        {{message}}
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        <h2>Edit an existing collectible</h2>
+        <p>Collectible id and at least one other field are required</p>
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+
+        <form id="edit_collectible" action="/edit-collectible" enctype="multipart/form-data" method="POST">
+
+
+            <div class="form-group">
+                <label for="collectible_id">Collectible id (required): </label>
+                <input class="form-control" type="text" name="collectible_id" id="collectible_id" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'" >
+            </div>
+
+            <div class="form-group">
+                <label for="collectible_id">Type: </label>
+                <select id='option_type' class="form-control" name="collectible_type">
+                    <option value="none">select type to update type and attributes</option>
+                    <option value="lego">lego</option>
+                    <option value="funko">funko</option>
+                    <option value="hot_wheel">hot wheel</option>
+                </select>
+            </div>
+            {{!--None --}}
+            <div class="form-group none box" id='none'>
+            </div>
+
+
+            {{!-- Lego --}}
+            <div class="form-group lego box" id='lego'>
+                <p>All attribute fields must be filled out if you selected a type</p>
+                <label for="piece_count">Piece count</label>
+                <input class="form-control" type="text" name="piece_count" id="piece_count">
+                <label for="set_number">Set number</label>
+                <input class="form-control" type="number" name="set_number" id="set_number">
+                <label for="theme">Theme</label>
+                <input class="form-control" type="text" name="theme" id="theme"/>
+                <label for="designed_by">Designed By</label>
+                <input class="form-control" type="text" name="designed_by" id="designed_by"/>
+            </div>
+
+            {{!-- Funko --}}
+            <div class="form-group funko box" id='funko'>
+                <p>All attribute fields must be filled out if you selected a type</p>
+                <label for="Number">Number</label>
+                <input class="form-control" type="number" name="number" id="number"/>
+                <label for="Line">Line</label>
+                <input class="form-control" type="text" name="line" id="line"/>
+            </div>
+
+            {{!-- Hot Wheels --}}
+            <div class="form-group hot_wheel box" id="hot_wheel">
+                <p>All attribute fields must be filled out if you selected a type</p>
+                <label for="number">Number</label>
+                <input class="form-control" type="jsonb" name="number1" id="number1"/>
+                <label for="series">Series</label>
+                <input class="form-control" type="jsonb" name="series" id="series"/>
+                <label for="year_released">Year released</label>
+                <input class="form-control" type="jsonb" name="year_released1" id="year_released1"/>
+            </div>
+            <div class="form-group">
+                <p class="text-muted">Select a jpeg image of the collectible</p>
+                <input class="form-control-file" type="file" name="pic" id="image" accept="image/jpeg"/>
+            </div>
+            <button type="submit" class="btn btn-success">Edit</button>
+            </div>
+        </form>
     </div>
-{{/if}}
-
-
-<h1>edit collectible</h1>
-
-
-
-
-<form id="editcollectible" action="/edit-collectible" enctype="multipart/form-data" method="POST">
-
-    <div class="form-example">
-        <label for="collectible_id">collectible id: </label>
-        <input type="text" name="collectible_id" id="collectible_id" required>
-    </div>
-
-    <div class="form-example">
-        <label for="name">Name: </label>
-        <input type="text" name="name" id="name">
-    </div>
-
-     <div class="form-example"></div>
-        <p>Select a jpeg image of the collectible</p>
-        <input type="file" name="pic" id="image" accept="image/jpeg"/>
-    
-    </div>
-
-    <div>
-        <input type="submit" value="Submit" name="submit">
-    </div>
-</form>
+</div>
+<script src="/js/jquery-3.5.1.js"></script>
+<script src="/js/formtypecollectible.js"></script>
+<link rel="stylesheet" href="/css/editcollectible.css"/>

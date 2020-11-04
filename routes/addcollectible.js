@@ -83,7 +83,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                     {
                                         piece_count: req.body.piece_count, 
@@ -122,7 +121,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                         {
                                             number: req.body.number, 
@@ -139,7 +137,7 @@ router.post('/', async (req, res, next) => {
 
                         if (!req.body.number1) {
                             res.render('addcollectible', { 
-                                    message: 'Please add number1',
+                                    message: 'Please add number',
                                     messageClass: 'alert-danger'
                                 }
                             )
@@ -168,7 +166,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                         {
                                         number: req.body.number1, 

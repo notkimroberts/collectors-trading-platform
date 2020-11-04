@@ -1,24 +1,26 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-4">
         <h2>Add a new collectible</h2>
+        <p>All fields are required</p>
         {{#if message}}
             <div class="alert {{messageClass}}" role="alert">
                 {{message}}
             </div>
         {{/if}}
 
-        <h5>Type</h5>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'"  required>
+        </div>
+
         <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
             <div class="form-group">
+                <label for="collectible_id">Type: </label>
                 <select id='option_type' class="form-control" name="collectible_type" required>
                     <option value="lego">lego</option>
                     <option value="funko">funko</option>
                     <option value="hot_wheel">hot wheel</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'"  required>
             </div>
 
             {{!-- Lego --}}
@@ -36,9 +38,9 @@
             {{!-- Funko --}}
             <div class="form-group funko box" id='funko'>
                 <label for="Number">Number</label>
-                <input class="form-control" type="number" name="line" id="number"/>
+                <input class="form-control" type="number" name="number" id="number"/>
                 <label for="Line">Line</label>
-                <input class="form-control" type="text" name="number" id="line"/>
+                <input class="form-control" type="text" name="line" id="line"/>
             </div>
 
             {{!-- Hot Wheels --}}
@@ -59,5 +61,4 @@
     </div>
 </div>
 <script src="/js/jquery-3.5.1.js"></script>
-<script src="/js/addcollectible.js"></script>
-<link rel="stylesheet" href="/css/addcollectible.css"/>
+<script src="/js/formtypecollectible.js"></script>

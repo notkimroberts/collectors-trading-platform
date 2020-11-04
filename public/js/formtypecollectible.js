@@ -2,6 +2,10 @@
 $(document).ready(function(){
     $("select").change(function(){
         $( "select option:selected").each(function(){
+            if($(this).attr("value")=="none"){
+                $(".box").hide();
+                $(".none").show();
+            }
             if($(this).attr("value")=="lego"){
                 $(".box").hide();
                 $(".lego").show();
