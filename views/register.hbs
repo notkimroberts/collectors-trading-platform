@@ -1,68 +1,43 @@
-
-    <header class="page-header">
-     
-      <h1>Sticker Mania Signup</h1>
-      <a class="btn btn-primary" href="/">Home</a>
-    </header>
-    <main>
-      <section>
-        <div class="alert alert-danger" role="alert" id="errorMessage" style="display:none">
-          This is a danger alert—check it out!
-        </div>
-        <form class="form">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="hello@world.com" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="keyboard cat" required>
-          </div>
-          <button type="submit" class="btn btn-default btn-success">
-            Signup
-          </button>
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-4">
+        <h2>Register</h2>
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                    {{message}}
+            </div>
+        {{/if}}
+        <form id="register_collector" action="/auth/register" method="POST">
+        <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+            <div class="form-example">
+                <input type="checkbox" id="is_admin" name="is_admin">
+                <label for="is_admin">Are you an Admin?</label>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control"  name="username" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control"  name="email" id="email" required>
+            </div>    
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <small id="passwordHelp" class="form-text text-muted mb-1">Must contain at least: one uppercase letter, one lowercase letter, one numbe. Must be 8 or more characters in length.</small>
+                <input type="password" id="password" class="form-control"  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" value="Register" name="register">
+            </div>
         </form>
-      </section>
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="scripts/shared.js" charset="utf-8"></script>
-    <script src="scripts/signup.js" charset="utf-8"></script>
-  </body>
-</html>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Stickers</title>
-    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
-  </head>
-  <body class="container">
-    <header class="page-header">
-     
-      <h1>Sticker Mania Signup</h1>
-      <a class="btn btn-primary" href="/">Home</a>
-    </header>
-    <main>
-      <section>
-        <div class="alert alert-danger" role="alert" id="errorMessage" style="display:none">
-          This is a danger alert—check it out!
-        </div>
-        <form class="form">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="hello@world.com" required>
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="keyboard cat" required>
-          </div>
-          <button type="submit" class="btn btn-default btn-success">
-            Signup
-          </button>
-        </form>
-      </section>
+        <hr/>
+        <p class="text-muted">Already registered? Login <a href="/login">here</a>.</p>
+    </div>
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="scripts/shared.js" charset="utf-8"></script>
-    <script src="scripts/signup.js" charset="utf-8"></script>
 

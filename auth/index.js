@@ -18,7 +18,7 @@ function validUser(collector) {
     return validEmail && validPassword;
 }
 
-router.post('/signup', (req, res, next) => {
+router.post('/register', (req, res, next) => {
     if(validUser(req.body)) {
         Collector
             .getByEmail(req.body.email)
