@@ -1,4 +1,3 @@
-const { authTokens } = require('./utils')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
@@ -10,6 +9,9 @@ const hbs = require('hbs');
 const logger = require('morgan');
 const path = require('path');
 const session = require('express-session');
+
+const cors = require('cors');
+
 
 
 // Express application
@@ -31,13 +33,17 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'))
 // App extenders
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser());
+app.use(cookieParser('process.env.COOKIE_SECRET'));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(fileUpload());
 app.use(logger('dev'));
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  
+  }));
 
 // TODO: How does this work?
 // Session middleware configuration
@@ -54,7 +60,7 @@ app.use(logger('dev'));
 // }));
 
 
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
     // Get auth token from the cookies
     const authToken = req.cookies['AuthToken'];
 
@@ -62,7 +68,7 @@ app.use((req, res, next) => {
     req.user = authTokens[authToken];
 
     next();
-});
+}); */
 
 
 // Mount routers
@@ -116,7 +122,7 @@ app.use((err, req, res, next) => {
 
 // Error handler
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    res.status(err.status || res.statusCode || 500);
     res.json (
         {
             message: err.message,

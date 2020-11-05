@@ -1,7 +1,7 @@
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
-const { requireAuth } = require('../utils')
+const { ensureLoggedIn } = require('../auth/middleware')
 
 
 /* router.get('/', requireAuth, async (req, res, next) => {
@@ -17,7 +17,7 @@ const { requireAuth } = require('../utils')
 
 
 
-    router.get('/', requireAuth, async (req, res, next) => {
+    router.get('/', ensureLoggedIn, async (req, res, next) => {
         // const { id } = req.params;
         const { email, phone_number, username, collector_id} = req.user;
         // user's has collectibles if has_quantity is greater than 0

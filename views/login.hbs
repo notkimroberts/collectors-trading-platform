@@ -1,23 +1,27 @@
-<div class="row justify-content-md-center mt-2">
-    <div class="col col-md-4">
-        <h2>Login</h2>
-        {{#if message}}
-            <div class="alert {{messageClass}}" role="alert">
-                {{message}}
-            </div>
-        {{/if}}
-        <form method="POST" action="/login">
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="email">Password</label>
-                <input name="password" type="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+    <header class="page-header">
+      <h1>Sticker Mania Login</h1>
+      <a class="btn btn-primary" href="/">Home</a>
+    </header>
+    <main>
+      <section>
+        <div class="alert alert-danger" role="alert" id="errorMessage" style="display:none">
+          This is a danger alert—check it out!
+        </div>
+        <form class="form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="hello@world.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="keyboard cat" required>
+          </div>
+          <button type="submit" class="btn btn-default btn-success">
+            Login
+          </button>
         </form>
-        <hr/>
-        <p class="text-muted">Not registered? Register <a href="/register">here</a>.</p>
-    </div>
-</div>
+      </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/shared.js"></script>
+    <script src="/js/login.js"></script>
