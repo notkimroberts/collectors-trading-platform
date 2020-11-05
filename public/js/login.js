@@ -4,10 +4,10 @@ $(() => {
 
     $('form').submit((event) => {
         event.preventDefault();
-        const user = getUserFromForm();
+        const collector = getUserFromForm();
 
 
-        login(user)
+        login(collector)
             .then(result => {
                 setIdRedirect(result);
             }).catch(error => {
@@ -21,7 +21,7 @@ $(() => {
 });
 
 
-function login(user) {
+function login(collector) {
 
-    return $.post(`${AUTH_URL}/login`, user);
+    return $.post(`${AUTH_URL}/login`, collector);
 }

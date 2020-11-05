@@ -23,12 +23,12 @@ function getHostURL() {
     const email = $('#email').val();
     const password = $('#password').val();
 
-    const user = {
+    const collector = {
         email,
         password
     };
 
-    return user;
+    return collector;
   }
 
   function showErrorMessage(message) {
@@ -41,21 +41,22 @@ function getHostURL() {
   function redirectIfLoggedIn() {
 
     if (localStorage.user_id) {
-    window.location=`/quiz`;
+    window.location=`/`;
     }
   }
 
 
   function setIdRedirect(result) {
-    localStorage.user_id = result.id;
-    window.location=`/quiz`;
+    localStorage.user_id = result.collector_id;
+    window.location=`/`;
   }
 
 
   function logout() {
+      console.log("hi from logout");
       localStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
-            window.location = '/login.html';
+            window.location = '/login';
         })
   }

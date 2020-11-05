@@ -79,16 +79,83 @@ router.post('/login', (req, res, next) => {
             .getOneByEmail(req.body.email)
             .then(collector => {
 
+
+               
                 if (collector) {
                     // check password against hashed password
                     bcrypt
                         .compare(req.body.password, collector.password)
                         .then((result) => {
-
+                            // if the passwords matched
                             if(result) {
                                 // set set-cookie header
-                           //     res.cookie('user_id', user.id)
-                           setUserIdCookie(req, res, collector.id);
+                                setUserIdCookie(req, res, collector.collector_id);
+ 
+                                res.json({
+                                    collector_id: collector.collector_id,
+                                    message: 'logged in'
+                                  });
+
+                            }
+                            else {
+                                next(Error("Invalid login1"));
+                            }
+                           
+                        
+                    });
+                    
+
+                }
+
+                else {
+                    next(Error("Invalid login2"));
+                }
+              
+
+    });
+}
+    else {
+        next(new Error('Invalid login3'));
+    }
+});
+
+
+router.get('/logout', (req, res) => {
+
+    res.clearCookie('user_id');
+    res.json({
+        message: 'you are logged out'
+    });
+});
+
+
+
+/* 
+router.post('/login', (req, res, next) => {
+    // check to see if user is in database
+    if(validUser(req.body)) {
+        Collector    
+            .getOneByEmail(req.body.email)
+            .then(collector => {
+
+                if (collector) {
+                    // check password against hashed password
+                    console.log("hi from above cookie2");
+                    bcrypt
+                        .compare(req.body.password, collector.password)
+                        .then((result) => {
+                            console.log("hi from above cookie1");
+                            if(result) {
+                                // set set-cookie header
+                                console.log("hi from above cookie");
+                                const isSecure = req.app.get('env') != 'development';
+                                res.cookie('user_id', collector.collector_id, {
+                                    httpOnly: true,
+                                    secure: isSecure,
+                                    signed: true
+
+                                });
+                           //setUserIdCookie(req, res, collector.collector_id);
 
                                 res.json({
                                     collector_id: collector.id,
@@ -126,5 +193,5 @@ router.get('/logout', (req, res) => {
     });
 });
 
-
+ */
 module.exports = router;

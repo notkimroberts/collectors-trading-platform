@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv')
 const hbs = require('hbs')
@@ -17,7 +18,7 @@ const collectorRouter = require('./routes/collector');
 const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
 const loginRouter = require('./routes/login');
-//const logoutRouter = require('./routes/logout');
+const logoutRouter = require('./routes/logout');
 const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
@@ -50,7 +51,7 @@ app.use('/collector', collectorRouter);
 app.use('/rules', rulesRouter);
 app.use('/profile', profileRouter);
 app.use('/login', loginRouter);
-// app.use('/logout', logoutRouter);
+app.use('/logout', logoutRouter);
 app.use('/register', registerRouter);
 app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
