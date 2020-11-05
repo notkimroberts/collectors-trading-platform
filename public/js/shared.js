@@ -40,21 +40,21 @@ function getHostURL() {
 
   function redirectIfLoggedIn() {
 
-    if (localStorage.user_id) {
+    if (sessionStorage.user_id) {
     window.location=`/`;
     }
   }
 
 
   function setIdRedirect(result) {
-    localStorage.user_id = result.collector_id;
+    sessionStorage.user_id = result.collector_id;
     window.location=`/`;
   }
 
 
   function logout() {
       console.log("hi from logout");
-      localStorage.removeItem('user_id');
+      sessionStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
             window.location = '/login';
