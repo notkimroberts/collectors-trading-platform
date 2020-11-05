@@ -39,14 +39,18 @@ router.post('/register', (req, res, next) => {
                     Collector
                         .create(collector)
                         .then(collector_id => {
-                            setUserIdCookie(req, res, collector_id);
-                            res.json({
+                           // setUserIdCookie(req, res, collector_id);
+
+/*                             res.json({
                                 collector_id,
                                 message: 'unique user'
-                            });
+                            }); */
                         });
                
-               
+                        res.render('login', {
+                            message: 'Successfully created user. Please login to continue',
+                            messageClass: 'alert-danger'
+                        });
             });
             }
             else { // email in use

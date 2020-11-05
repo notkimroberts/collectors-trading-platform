@@ -53,7 +53,6 @@ function getHostURL() {
 
 
   function logout() {
-      console.log("hi from logout");
       sessionStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
