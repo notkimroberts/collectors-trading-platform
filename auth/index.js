@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const Collector = require('../sql/users');
+const Collector = require('../models/collector');
 
 
 // routes paths are prepended with /auth
@@ -21,7 +21,7 @@ function validUser(collector) {
 router.post('/signup', (req, res, next) => {
     if(validUser(req.body)) {
         Collector
-            .getOneByEmail(req.body.email)
+            .getByEmail(req.body.email)
             .then(collector => {
                 console.log('collector', collector);
                 // if user not found
@@ -76,7 +76,7 @@ router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
         Collector    
-            .getOneByEmail(req.body.email)
+            .getByEmail(req.body.email)
             .then(collector => {
 
 
@@ -90,7 +90,6 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
- 
                                 res.json({
                                     collector_id: collector.collector_id,
                                     message: 'logged in'

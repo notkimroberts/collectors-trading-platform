@@ -23,5 +23,6 @@ $(() => {
 
 function login(collector) {
 
-    return $.post(`${AUTH_URL}/login`, collector);
+  
+  return $.post(`${AUTH_URL}/login`, collector); 
 }
