@@ -17,12 +17,14 @@ const collectorRouter = require('./routes/collector');
 const rulesRouter = require('./routes/rules');
 const profileRouter = require('./routes/profile');
 const loginRouter = require('./routes/login');
+//const logoutRouter = require('./routes/logout');
 const registerRouter = require('./routes/register');
 const quizRouter = require('./routes/quiz');
 const quizresultRouter = require('./routes/quizresult');
 const forgotpwRouter= require('./routes/forgotpw');
 const authRouter = require('./auth');
 
+var authMiddleware = require('./auth/middleware')
 
 const app = express();
 
@@ -35,8 +37,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('process.env.COOKIE_SECRET'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  
+  }));
 
 // mount routers
 app.use('/', indexRouter);
@@ -45,6 +50,7 @@ app.use('/collector', collectorRouter);
 app.use('/rules', rulesRouter);
 app.use('/profile', profileRouter);
 app.use('/login', loginRouter);
+// app.use('/logout', logoutRouter);
 app.use('/register', registerRouter);
 app.use('/quiz', quizRouter);
 app.use('/quizresult', quizresultRouter);
@@ -68,7 +74,7 @@ app.use((err, req, res, next) => {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(err.status || 500);
+    res.status(err.status || res.statusCode || 500);
     res.render('error');
 });
 

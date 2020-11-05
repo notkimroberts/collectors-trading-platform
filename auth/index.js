@@ -30,15 +30,16 @@ router.post('/signup', (req, res, next) => {
                 // hash password
                 bcrypt.hash(req.body.password, 10)
                     .then((hash) => {
-                    const collector = {
-                    username: req.body.username,
-                    email: req.body.email,
-                    password: hash,
-                    phone_number: req.body.phone_number
-                    };
+                        const collector = {
+                            username: req.body.username,
+                            email: req.body.email,
+                            password: hash,
+                            phone_number: req.body.phone_number
+                        };
                     Collector
                         .create(collector)
                         .then(collector_id => {
+                            setUserIdCookie(req, res, collector_id);
                             res.json({
                                 collector_id,
                                 message: 'unique user'
@@ -61,6 +62,15 @@ router.post('/signup', (req, res, next) => {
     
 });
 
+function setUserIdCookie(req, res, id) {
+    const isSecure = req.app.get('env') != 'development';
+    res.cookie('user_id', id, {
+        httpOnly: true,
+        secure: isSecure,
+        signed: true
+
+    });
+}
 
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
@@ -68,14 +78,7 @@ router.post('/login', (req, res, next) => {
         Collector    
             .getOneByEmail(req.body.email)
             .then(collector => {
-                const isSecure = req.app.get('env') != 'development';
-                console.log('collector', collector, {
-                    httpOnly: true,
-                    secure: isSecure,
-                    signed: true
-    
 
-                });
                 if (collector) {
                     // check password against hashed password
                     bcrypt
@@ -85,7 +88,10 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                            //     res.cookie('user_id', user.id)
+                           setUserIdCookie(req, res, collector.id);
+
                                 res.json({
+                                    collector_id: collector.id,
                                     message: 'logged in'
                                   });
 
@@ -110,6 +116,14 @@ router.post('/login', (req, res, next) => {
     else {
         next(new Error('Invalid login'));
     }
+});
+
+router.get('/logout', (req, res) => {
+
+    res.clearCookie('user_id');
+    res.json({
+        message: 'you are logged out'
+    });
 });
 
 
