@@ -16,13 +16,22 @@ function allowAccess(req, res, next) {
     }
     else {
         console.log(res.status(401));
-        res.redirect('/login');
+        res.redirect('/');
     }
+}
 
-
+function restrictIfLoggedIn(req, res, next) {
+    if (req.signedCookies.user_id) {
+        console.log(res.status(401));
+        res.redirect('/');
+    }
+    else {
+        next();
+    }
 }
 
 module.exports = {
     ensureLoggedIn,
-    allowAccess
+    allowAccess,
+    restrictIfLoggedIn
 };

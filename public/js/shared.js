@@ -38,12 +38,12 @@ function getHostURL() {
     $errorMessage.show();
   }
 
-  function redirectIfLoggedIn() {
+/*   function redirectIfLoggedIn() {
 
     if (sessionStorage.user_id) {
     window.location=`/`;
     }
-  }
+  } */
 
 
   function setIdRedirect(result) {
