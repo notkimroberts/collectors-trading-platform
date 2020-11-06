@@ -4,8 +4,8 @@ function ensureLoggedIn(req, res, next) {
         next();
     }
     else {
-        res.status(401);
-        next(new Error('Un-Authorized'));
+        console.log(res.status(401));
+        res.redirect('/login');
     }
 }
 
@@ -15,8 +15,8 @@ function allowAccess(req, res, next) {
         next();
     }
     else {
-        res.status(401);
-        next(new Error('Un-Authorized'));
+        console.log(res.status(401));
+        res.redirect('/login');
     }
 
 
