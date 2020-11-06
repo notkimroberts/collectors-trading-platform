@@ -14,6 +14,14 @@ $(document).ready(function(){
                 $(".box").hide();
                 $(".funko").show();
             }
+            if($(this).attr("value")=="pusheen"){
+                $(".box").hide();
+                $(".pusheen").show();
+            }
+            if($(this).attr("value")=="pokemon"){
+                $(".box").hide();
+                $(".pokemon").show();
+            }
             if($(this).attr("value")=="hot_wheel"){
                 $(".box").hide();
                 $(".hot_wheel").show();

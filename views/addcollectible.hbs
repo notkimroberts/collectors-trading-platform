@@ -19,6 +19,8 @@
                 <select id='option_type' class="form-control" name="collectible_type" required>
                     <option value="lego">Lego</option>
                     <option value="funko">Funko</option>
+                    <option value="pusheen">Pusheen</option>
+                    <option value="pokemon">Pokemon</option>
                     <option value="hot_wheel">Hot Wheel</option>
                 </select>
             </div>
@@ -41,6 +43,24 @@
                 <input class="form-control" type="number" name="number" id="number"/>
                 <label for="Line">Line</label>
                 <input class="form-control" type="text" name="line" id="line"/>
+            </div>
+
+
+            {{!-- Pusheen --}}
+            <div class="form-group pusheen box" id='pusheen'>
+                <label for="product_type">Product type</label>
+                <input class="form-control" type="text" name="product_type" id="product_type"/>
+                <label for="season">Season/holiday</label>
+                <input class="form-control" type="text" name="season" id="season"/>
+            </div>
+
+            {{!-- Pokemon --}}
+            <div class="form-group pokemon box" id='pokemon'>
+                <p>All attribute fields must be filled out if you selected a type</p>
+                <label for="product_type">Product type</label>
+                <input class="form-control" type="text" name="product_type" id="product_type"/>
+                <label for="generation">Generation</label>
+                <input class="form-control" type="text" name="generation" id="generation"/>
             </div>
 
             {{!-- Hot Wheels --}}

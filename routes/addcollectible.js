@@ -134,6 +134,81 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectibleID}`);
                     }
 
+                    else if (typeSelected == "pusheen") {
+                        const collectibleType = 3;
+
+                        if (!req.body.product_type) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add product type',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+
+                        if (!req.body.season) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add season/holiday',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+                
+                        // obtain fields from form and store
+                        const collectible = {
+                            name: req.body.name,
+                            collectible_type_id: collectibleType,
+                            image: data,
+                            attributes: 
+                                        {
+                                            product_type: req.body.product_type,
+                                            season: req.body.season 
+                                        }
+                            };
+                        // create the new collectible entry
+                        const collectibleID = await Collectible.create(collectible);
+                        res.redirect(`/collectible/${collectibleID}`);
+                    }
+
+                    else if (typeSelected == "pokemon") {
+                        const collectibleType = 4;
+
+                        if (!req.body.product_type) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add product type',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+
+                        if (!req.body.generation) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add generation',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+                
+                        // obtain fields from form and store
+                        const collectible = {
+                            name: req.body.name,
+                            collectible_type_id: collectibleType,
+                            image: data,
+                            attributes: 
+                                        {
+                                            product_type: req.body.product_type,
+                                            generation: req.body.generation 
+                                        }
+                            };
+                        // create the new collectible entry
+                        const collectibleID = await Collectible.create(collectible);
+                        res.redirect(`/collectible/${collectibleID}`);
+                    }
+
+
                     else if (typeSelected == "hot_wheel") { 
                         const collectibleType = 5;
 

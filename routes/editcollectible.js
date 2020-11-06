@@ -188,6 +188,107 @@ router.post('/', async (req, res, next) => {
 
     }
 
+    else if (typeSelected == "pusheen") {
+        const collectibleType = 3;
+
+
+
+        if (!req.body.product_type) {
+            res.render('editcollectible', { 
+                    message: 'Please add product type',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+
+        if (!req.body.season) {
+            res.render('addcollectible', { 
+                    message: 'Please add season/holiday',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        
+        }
+
+        await knex('collectible')
+            .where({collectible_id: collectible_id})
+            .update({collectible_type_id: collectibleType})
+            .update({attributes: {  product_type: req.body.product_type,
+                                    season: req.body.season}})
+            .update({updated_at: knex.fn.now()});
+
+        
+        res.redirect(`/collectible/${collectible_id}`);
+
+    }
+
+
+    else if (typeSelected == "pokemon") {
+        const collectibleType = 4;
+
+
+
+        if (!req.body.product_type) {
+            res.render('editcollectible', { 
+                    message: 'Please add product type',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+
+        if (!req.body.generation) {
+            res.render('addcollectible', { 
+                    message: 'Please add generation',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
+
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        
+        }
+
+        await knex('collectible')
+            .where({collectible_id: collectible_id})
+            .update({collectible_type_id: collectibleType})
+            .update({attributes: {  product_type: req.body.product_type,
+                                    generation: req.body.generation}})
+            .update({updated_at: knex.fn.now()});
+
+        
+        res.redirect(`/collectible/${collectible_id}`);
+
+    }
+
 
     else if (typeSelected == "hot_wheel") { 
         const collectibleType = 5;

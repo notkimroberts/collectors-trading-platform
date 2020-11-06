@@ -13,6 +13,9 @@
                 <th>Line</th>
                 <th>Series</th>
                 <th>Release Year</th>
+                <th>Product Type</th>
+                <th>Season/Holiday</th>
+                <th>Generation</th>
                 <th>Image</th>
             </thead>
             <tbody>
@@ -28,6 +31,9 @@
                         <td>{{{attributes.line}}}</td>
                         <td>{{{attributes.series}}}</td>
                         <td>{{{attributes.year_released}}}</td>
+                        <td>{{{attributes.product_type}}}</td>
+                        <td>{{{attributes.season}}}</td>
+                        <td>{{{attributes.generation}}}</td>
                         <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
                     </tr>
                 {{/each}}
