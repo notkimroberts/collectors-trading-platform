@@ -3,18 +3,15 @@ const knex = require('../connection')
 const router = express.Router();
 const Collectible = require('../models/collectible');
 
-
 router.get('/', (req, res, next) => {
-    res.render('editcollectible', { title: "edit collectible" });
+    res.render('editCollectible', { title: "edit collectible" });
 });
-
 
 // check if valid collectible name
 function validCollectible(collectible) {
     const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
     return validName;
 }
-
 
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;
@@ -36,7 +33,6 @@ router.post('/', async (req, res, next) => {
             messageClass: 'alert-danger'
         }
     )
-
         return
     }
 
@@ -61,7 +57,6 @@ router.post('/', async (req, res, next) => {
         // update image
         await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
         }
-    
     }
 
     // update updated_at time
