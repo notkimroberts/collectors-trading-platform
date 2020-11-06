@@ -1,6 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const Collectible = require('../models/collectible');
+const FileType = require('file-type');
+const express = require('express');
+const knex = require('../connection')
+const router = express.Router();
 
 
 function validCollectible(collectible) {
@@ -93,7 +95,7 @@ router.post('/', async (req, res, next) => {
                             };
 
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
                     }
 
                     else if (typeSelected == "funko") {
@@ -129,7 +131,7 @@ router.post('/', async (req, res, next) => {
                             };
                         // create the new collectible entry
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
                     }
 
                     else if (typeSelected == "hot_wheel") { 
@@ -176,7 +178,7 @@ router.post('/', async (req, res, next) => {
 
                         // create the new collectible entry
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
 
                     
                     }
@@ -184,7 +186,7 @@ router.post('/', async (req, res, next) => {
                     else {
 
                         res.render('addcollectible', { 
-                            message: 'no collectible with that type',
+                            message: 'No collectible with that type',
                             messageClass: 'alert-danger'
                             }   
                         )
@@ -202,9 +204,14 @@ router.post('/', async (req, res, next) => {
         });
     }
 
-    // else fields were not valid
+    // else name is not valid
     else {
-        next(new Error('Invalid name'));
+        res.render('addcollectible', { 
+            message: 'Invalid name',
+            messageClass: 'alert-danger'
+            }   
+        )
+            return
     }
 });
 
