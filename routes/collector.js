@@ -5,7 +5,8 @@ const knex = require('../connection')
 const Collector = require('../models/collector');
 
 
-router.get('/search/', async (req, res, next) => {
+router.get('/search', async (req, res, next) => {
+
     const { username } = req.query;
     const collector = await Collector.getAll({ username })
     res.json(collector);

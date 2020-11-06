@@ -1,6 +1,25 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-8">
         <h2>Collectible</h2>
+
+
+    {{#if nofilter}}
+    {{else}}
+    <form id='filter_type' action='/filter/:type_name' method='get'>
+        <label> Filter by type: </label>
+        <select id='type_filter' name="type_name"> 
+            {{#each collectibleByType}}
+            <option value="{{type_id}}">{{type_name}}</option>
+            {{/each}}
+        </select><br>
+         <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
+    </form>
+    {{/if}}
+
+    {{#if clearfilter}}
+    <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
+    {{/if}}
+    
         <table class="table table-striped">
             <thead>
                 <th>Name</th>
@@ -35,3 +54,6 @@
         </table>
     </div>
 </div>
+
+<script src="/js/filterCollectibles.js"></script>
+
