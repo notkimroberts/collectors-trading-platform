@@ -137,7 +137,7 @@ router.post('/', async (req, res, next) => {
                     else if (typeSelected == "pusheen") {
                         const collectibleType = 3;
 
-                        if (!req.body.product_type) {
+                        if (!req.body.product_type1) {
                             res.render('addcollectible', { 
                                     message: 'Please add product type',
                                     messageClass: 'alert-danger'
@@ -154,6 +154,9 @@ router.post('/', async (req, res, next) => {
                             )
                             return
                         }
+                        
+
+                        console.log(req.body.product_type);
                 
                         // obtain fields from form and store
                         const collectible = {
@@ -162,7 +165,7 @@ router.post('/', async (req, res, next) => {
                             image: data,
                             attributes: 
                                         {
-                                            product_type: req.body.product_type,
+                                            product_type: req.body.product_type1,
                                             season: req.body.season 
                                         }
                             };
@@ -191,6 +194,8 @@ router.post('/', async (req, res, next) => {
                             )
                             return
                         }
+
+                        console.log(req.body.product_type);
                 
                         // obtain fields from form and store
                         const collectible = {

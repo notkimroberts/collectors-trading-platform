@@ -193,7 +193,7 @@ router.post('/', async (req, res, next) => {
 
 
 
-        if (!req.body.product_type) {
+        if (!req.body.product_type1) {
             res.render('editcollectible', { 
                     message: 'Please add product type',
                     messageClass: 'alert-danger'
@@ -229,7 +229,7 @@ router.post('/', async (req, res, next) => {
         await knex('collectible')
             .where({collectible_id: collectible_id})
             .update({collectible_type_id: collectibleType})
-            .update({attributes: {  product_type: req.body.product_type,
+            .update({attributes: {  product_type: req.body.product_type1,
                                     season: req.body.season}})
             .update({updated_at: knex.fn.now()});
 
