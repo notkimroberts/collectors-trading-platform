@@ -4,9 +4,8 @@ const router = express.Router();
 const Collectible = require('../models/collectible');
 const FileType = require('file-type');
 
-
 router.get('/', (req, res, next) => {
-    res.render('editcollectible', { title: "edit collectible" });
+    res.render('editCollectible', { title: "edit collectible" });
 });
 
 router.post('/', async (req, res, next) => {
@@ -23,7 +22,6 @@ router.post('/', async (req, res, next) => {
         return
     }
 
-
     // Check if existing collectible name
     if (await Collectible.getByName(name)) {
         res.render('editcollectible', { 
@@ -35,7 +33,6 @@ router.post('/', async (req, res, next) => {
     }
 
     if (typeSelected == "none") {
-
 
         if (!name && !req.files) {
             res.render('editcollectible', { 
@@ -66,10 +63,8 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
     }
 
-
     if (typeSelected == "lego") {
         const collectibleType = 1;
-
 
         if (!req.body.piece_count) {
             res.render('editcollectible', { 
@@ -107,7 +102,6 @@ router.post('/', async (req, res, next) => {
             return
         }
 
-
         if (name) {
             // update name
             await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
@@ -135,11 +129,8 @@ router.post('/', async (req, res, next) => {
 
     }
 
-
     else if (typeSelected == "funko") {
         const collectibleType = 2;
-
-
 
         if (!req.body.number) {
             res.render('editcollectible', { 
@@ -346,13 +337,8 @@ router.post('/', async (req, res, next) => {
                                 year_released: req.body.year_released1}})
         .update({updated_at: knex.fn.now()});
 
-
-
         res.redirect(`/collectible/${collectible_id}`);
-
     }
-
-
 });
 
 
