@@ -2,19 +2,12 @@ const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
 const Collectible = require('../models/collectible');
+const FileType = require('file-type');
 
 
 router.get('/', (req, res, next) => {
     res.render('editcollectible', { title: "edit collectible" });
 });
-
-
-// check if valid collectible name
-function validCollectible(collectible) {
-    const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
-    return validName;
-}
-
 
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;

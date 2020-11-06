@@ -1,6 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const Collectible = require('../models/collectible');
+const FileType = require('file-type');
+const express = require('express');
+const knex = require('../connection')
+const router = express.Router();
 
 
 function validCollectible(collectible) {
@@ -204,7 +206,12 @@ router.post('/', async (req, res, next) => {
 
     // else fields were not valid
     else {
-        next(new Error('Invalid name'));
+        res.render('addcollectible', { 
+            message: 'Invalid name',
+            messageClass: 'alert-danger'
+            }   
+        )
+            return
     }
 });
 

@@ -8,12 +8,12 @@
             </div>
         {{/if}}
 
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'"  required>
-        </div>
-
         <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" name="name" id="name" pattern="[^\?\-()/><\][\\\x22,;|]+" placeholder="no special chars, '?', or '-'"  required>
+            </div>
+
             <div class="form-group">
                 <label for="collectible_id">Type: </label>
                 <select id='option_type' class="form-control" name="collectible_type" required>
