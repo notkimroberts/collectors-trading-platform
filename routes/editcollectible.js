@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
     // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
         res.render('editcollectible', { 
-                message: 'That collectible_id does not exist',
+                message: 'That collectible id does not exist',
                 messageClass: 'alert-danger'
             }
         )
@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
     // Check if existing collectible name
     if (await Collectible.getByName(name)) {
         res.render('editcollectible', { 
-                message: 'That collectible name already exists in the database. unique names only',
+                message: 'That collectible name already exists in the database. Unique names only.',
                 messageClass: 'alert-danger'
             }
         )
@@ -100,7 +100,7 @@ router.post('/', async (req, res, next) => {
 
         if (!req.body.designed_by) {
             res.render('editcollectible', { 
-                    message: 'Please add designed by',
+                    message: 'Please add designer',
                     messageClass: 'alert-danger'
                 }
             )

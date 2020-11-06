@@ -20,7 +20,7 @@ router.post('/', async (req, res, next) => {
     if(validCollectible(req.body)) {
         if (await Collectible.getByName(req.body.name)) {
             res.render('addcollectible', { 
-                    message: 'That collectible name already exists in the database. unique names only',
+                    message: 'That collectible name already exists in the database. Unique names only.',
                     messageClass: 'alert-danger'
                 }
             )
@@ -74,7 +74,7 @@ router.post('/', async (req, res, next) => {
 
                         if (!req.body.designed_by) {
                             res.render('addcollectible', { 
-                                    message: 'Please add designed by',
+                                    message: 'Please add designer',
                                     messageClass: 'alert-danger'
                                 }
                             )
@@ -198,7 +198,7 @@ router.post('/', async (req, res, next) => {
             }
             // Collectible with that name already exists
             else {
-                next(Error("Collectible with that name is already in database"));
+                next(Error("Collectible with that name is already in the database"));
             }
                 
         });
