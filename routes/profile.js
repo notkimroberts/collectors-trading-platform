@@ -3,9 +3,9 @@ const knex = require('../connection')
 const router = express.Router();
 const { requireAuth } = require('../utils')
 
-
 /* router.get('/', requireAuth, async (req, res, next) => {
     const { email, phone_number, username, collector_id} = req.user;
+
     res.render('profile', { 
         email: email,
         phone_number: phone_number,
@@ -14,8 +14,6 @@ const { requireAuth } = require('../utils')
         collector_id: collector_id
     }); 
 }); */
-
-
 
     router.get('/', requireAuth, async (req, res, next) => {
         // const { id } = req.params;
@@ -42,7 +40,6 @@ const { requireAuth } = require('../utils')
         .where('collector_id', collector_id )
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
-
         console.log(collectionsWants);
     
         res.render('profile', { 
@@ -57,6 +54,5 @@ const { requireAuth } = require('../utils')
         });
     });
 
-    
 
 module.exports = router;

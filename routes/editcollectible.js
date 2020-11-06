@@ -1,13 +1,11 @@
-const Collectible = require('../models/Collectible.js');
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
-
+const Collectible = require('../models/collectible');
 
 router.get('/', (req, res, next) => {
     res.render('editCollectible', { title: "edit collectible" });
 });
-
 
 // check if valid collectible name
 function validCollectible(collectible) {
@@ -15,13 +13,12 @@ function validCollectible(collectible) {
     return validName;
 }
 
-
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;
 
     // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
-        res.render('editCollectible', { 
+        res.render('editcollectible', { 
                 message: 'That collectible_id does not exist',
                 messageClass: 'alert-danger'
             }
@@ -31,18 +28,17 @@ router.post('/', async (req, res, next) => {
 
     // Check if user updated anything, if not, show error
     if (!req.files && !req.body.name) {
-        res.render('editCollectible', { 
+        res.render('editcollectible', { 
             message: 'You need to input something to update',
             messageClass: 'alert-danger'
         }
     )
-
         return
     }
 
     // Check if existing collectible name
     if (await Collectible.getByName(name)) {
-        res.render('editCollectible', { 
+        res.render('editcollectible', { 
                 message: 'That collectible name already exists in the database. unique names only',
                 messageClass: 'alert-danger'
             }
@@ -61,7 +57,6 @@ router.post('/', async (req, res, next) => {
         // update image
         await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
         }
-    
     }
 
     // update updated_at time

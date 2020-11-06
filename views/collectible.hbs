@@ -2,6 +2,7 @@
     <div class="col col-md-8">
         <h2>Collectible</h2>
 
+
     {{#if nofilter}}
     {{else}}
     <form id='filter_type' action='/filter/:type_name' method='get'>
@@ -18,7 +19,7 @@
     {{#if clearfilter}}
     <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
     {{/if}}
-
+    
         <table class="table table-striped">
             <thead>
                 <th>Name</th>
@@ -54,5 +55,5 @@
     </div>
 </div>
 
-
 <script src="/js/filterCollectibles.js"></script>
+

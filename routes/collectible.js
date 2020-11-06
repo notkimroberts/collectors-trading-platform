@@ -20,7 +20,6 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-
  // Display all collectibles from a given a type
  router.get('/filter/:type_id', async (req, res, next) => {
     const { type_id } = req.params;
@@ -86,7 +85,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/image/:id', async (req, res, next) => { 
     const id = req.params.id;
-  
+ 
     const collectible = await knex('collectible').where({ collectible_id: id }).first();
     
     if (collectible) {
@@ -97,5 +96,6 @@ router.get('/image/:id', async (req, res, next) => {
         res.end('No image with that id!');
     }
 });
+
 
 module.exports = router;
