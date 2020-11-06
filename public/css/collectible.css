@@ -1,0 +1,6 @@
+/*  overwrite bootstrap so table is left aligned */
+ .justify-content-md-center {
+
+    justify-content: left !important;
+
+  }

@@ -1,6 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const Collectible = require('../models/collectible');
+const FileType = require('file-type');
+const express = require('express');
+const knex = require('../connection')
+const router = express.Router();
 
 
 function validCollectible(collectible) {
@@ -18,7 +20,7 @@ router.post('/', async (req, res, next) => {
     if(validCollectible(req.body)) {
         if (await Collectible.getByName(req.body.name)) {
             res.render('addcollectible', { 
-                    message: 'That collectible name already exists in the database. unique names only',
+                    message: 'That collectible name already exists in the database. Unique names only.',
                     messageClass: 'alert-danger'
                 }
             )
@@ -72,7 +74,7 @@ router.post('/', async (req, res, next) => {
 
                         if (!req.body.designed_by) {
                             res.render('addcollectible', { 
-                                    message: 'Please add designed by',
+                                    message: 'Please add designer',
                                     messageClass: 'alert-danger'
                                 }
                             )
@@ -83,7 +85,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                     {
                                         piece_count: req.body.piece_count, 
@@ -94,7 +95,7 @@ router.post('/', async (req, res, next) => {
                             };
 
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
                     }
 
                     else if (typeSelected == "funko") {
@@ -122,7 +123,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                         {
                                             number: req.body.number, 
@@ -131,15 +131,95 @@ router.post('/', async (req, res, next) => {
                             };
                         // create the new collectible entry
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
                     }
+
+                    else if (typeSelected == "pusheen") {
+                        const collectibleType = 3;
+
+                        if (!req.body.product_type1) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add product type',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+
+                        if (!req.body.season) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add season/holiday',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+                        
+
+                        console.log(req.body.product_type);
+                
+                        // obtain fields from form and store
+                        const collectible = {
+                            name: req.body.name,
+                            collectible_type_id: collectibleType,
+                            image: data,
+                            attributes: 
+                                        {
+                                            product_type: req.body.product_type1,
+                                            season: req.body.season 
+                                        }
+                            };
+                        // create the new collectible entry
+                        const collectibleID = await Collectible.create(collectible);
+                        res.redirect(`/collectible/${collectibleID}`);
+                    }
+
+                    else if (typeSelected == "pokemon") {
+                        const collectibleType = 4;
+
+                        if (!req.body.product_type) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add product type',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+
+                        if (!req.body.generation) {
+                            res.render('addcollectible', { 
+                                    message: 'Please add generation',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+
+                        console.log(req.body.product_type);
+                
+                        // obtain fields from form and store
+                        const collectible = {
+                            name: req.body.name,
+                            collectible_type_id: collectibleType,
+                            image: data,
+                            attributes: 
+                                        {
+                                            product_type: req.body.product_type,
+                                            generation: req.body.generation 
+                                        }
+                            };
+                        // create the new collectible entry
+                        const collectibleID = await Collectible.create(collectible);
+                        res.redirect(`/collectible/${collectibleID}`);
+                    }
+
 
                     else if (typeSelected == "hot_wheel") { 
                         const collectibleType = 5;
 
                         if (!req.body.number1) {
                             res.render('addcollectible', { 
-                                    message: 'Please add number1',
+                                    message: 'Please add number',
                                     messageClass: 'alert-danger'
                                 }
                             )
@@ -168,7 +248,6 @@ router.post('/', async (req, res, next) => {
                             name: req.body.name,
                             collectible_type_id: collectibleType,
                             image: data,
-                            image_url: "http://placeimg.com/640/480", // hard coded as it can't be null
                             attributes: 
                                         {
                                         number: req.body.number1, 
@@ -179,7 +258,7 @@ router.post('/', async (req, res, next) => {
 
                         // create the new collectible entry
                         const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/image/${collectibleID}`);
+                        res.redirect(`/collectible/${collectibleID}`);
 
                     
                     }
@@ -187,7 +266,7 @@ router.post('/', async (req, res, next) => {
                     else {
 
                         res.render('addcollectible', { 
-                            message: 'no collectible with that type',
+                            message: 'No collectible with that type',
                             messageClass: 'alert-danger'
                             }   
                         )
@@ -199,15 +278,20 @@ router.post('/', async (req, res, next) => {
             }
             // Collectible with that name already exists
             else {
-                next(Error("Collectible with that name is already in database"));
+                next(Error("Collectible with that name is already in the database"));
             }
                 
         });
     }
 
-    // else fields were not valid
+    // else name is not valid
     else {
-        next(new Error('Invalid name'));
+        res.render('addcollectible', { 
+            message: 'Invalid name',
+            messageClass: 'alert-danger'
+            }   
+        )
+            return
     }
 });
 
