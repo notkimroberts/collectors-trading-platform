@@ -49,7 +49,7 @@ function getHostURL() {
   function setIdRedirect(result) {
     console.log('in set id redirect');
     sessionStorage.user_id = result.collector_id;
-    window.location=`/`;
+    window.location=`/profile`;
   }
 
 
@@ -57,6 +57,6 @@ function getHostURL() {
       sessionStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
-            window.location = '/login';
+            window.location = `/login`;
         })
   }
