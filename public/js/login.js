@@ -8,7 +8,9 @@ $(() => {
 
         login(collector)
             .then(result => {
-                setIdRedirect(result);
+                console.log("hi");
+                console.log(result); 
+               //setIdRedirect(result);
             }).catch(error => {
                 console.log("in catch error");
                 console.error(error);
