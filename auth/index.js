@@ -101,21 +101,21 @@ function setUserIdCookie(req, res, id) {
 
     });
 }
-
+/*
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
         Collector    
             .getByEmail(req.body.email)
             .then(collector => {
-/*                 const isSecure = req.app.get('env') != 'development';
+              const isSecure = req.app.get('env') != 'development';
                 console.log('collector', collector, {
                     httpOnly: true,
                     secure: isSecure,
                     signed: true
     
 
-                }); */
+                }); 
                 if (collector) {
                     // check password against hashed password
                     bcrypt
@@ -159,8 +159,9 @@ router.post('/login', (req, res, next) => {
     }
 });
 
+*/
 
-/* router.post('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
         console.log('valid content in field');
@@ -183,9 +184,9 @@ router.post('/login', (req, res, next) => {
 
                             }
                             else {
-                                // console.log('password doesnt match');
-                                next(Error('Password does not match'));
-                               // console.log('password doesnt match');
+                                var err = new Error('Invalid login');
+                                err.status = 404;
+                                next(err);
                             }
                         
                         });
@@ -195,24 +196,19 @@ router.post('/login', (req, res, next) => {
 
                 else {
 
-                    //console.log('no matching email in the database');
-                    next(Error('no matching email in the database'));
-                   // console.log('no matching email in the database');
+                    var err = new Error('Invalid login');
+                    err.status = 404;
+                    next(err);
 
                 }       
-
-
-      
-
             });
     }
     else {
-        console.log('Invalid fields');
-        next(Error('Invalid fields'));
-        console.log('Invalid fields');
+        var err = new Error('Invalid login');
+        err.status = 404;
+        next(err);
     }
-
-}); */
+});
 
 
 router.get('/logout', (req, res) => {

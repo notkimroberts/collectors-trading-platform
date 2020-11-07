@@ -1,3 +1,5 @@
+/* const { error } = require("jquery"); */
+
 $(() => {
 
     $('form').submit((event) => {
@@ -10,11 +12,11 @@ $(() => {
             .then(result => {
                 console.log("hi");
                 console.log(result); 
-               //setIdRedirect(result);
-            }).catch(error => {
+               setIdRedirect(result);
+            }).catch(err => {
                 console.log("in catch error");
-                console.error(error);
-                showErrorMessage(error.responseJSON.message);                
+                console.error(err);
+                showErrorMessage(err.responseJSON.message);                
             });
     });
 });
