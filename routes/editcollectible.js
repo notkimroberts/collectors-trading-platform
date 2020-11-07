@@ -6,7 +6,7 @@ const FileType = require('file-type');
 
 
 router.get('/', (req, res, next) => {
-    res.render('editCollectible', { title: "edit collectible" });
+    res.render('editcollectible', { title: "edit collectible" });
 });
 
 router.post('/', async (req, res, next) => {
