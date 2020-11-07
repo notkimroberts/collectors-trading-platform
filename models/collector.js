@@ -2,7 +2,7 @@ const knex = require('../connection')
 
 
 module.exports = {
-    create: (username, password, email, phone_number) => {
+/*     create: (username, password, email, phone_number) => {
         const collector = knex('collector')
         .then(() => {
             return knex('collector').insert([
@@ -10,6 +10,11 @@ module.exports = {
             ])
         })
         return Promise.all([collector])
+    }, */
+    create: function(collector) {
+        return knex('collector').insert(collector, 'collector_id').then(ids => {
+          return ids[0];
+        });
     },
     getById: (collector_id) => knex('collector').where('collector_id', collector_id).first(),
     getByEmail: (email) => {

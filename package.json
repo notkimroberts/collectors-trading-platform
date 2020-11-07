@@ -20,11 +20,13 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "faker": "^5.1.0",
-    "file-type": "^16.0.0",
+    "file-type": "^16.0.1",
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
+    "jquery": "^3.5.1",
     "knex": "^0.21.6",
     "morgan": "^1.10.0",
-    "pg": "^8.4.1"
+    "pg": "^8.4.1",
+    "serve-favicon": "^2.5.0"
   }
 }
