@@ -10,8 +10,6 @@ $(() => {
 
         login(collector)
             .then(result => {
-                console.log("hi");
-                console.log(result); 
                setIdRedirect(result);
             }).catch(err => {
                 console.log("in catch error");
