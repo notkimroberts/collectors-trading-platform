@@ -60,7 +60,7 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
-app.use('/editcollectible', editcollectibleRouter); 
+app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
@@ -76,7 +76,7 @@ app.use('/auth', authRouter);
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
 
-app.use('/editcollectible', editcollectibleRouter);
+app.use('/edit-collectible', editcollectibleRouter);
 app.use((req, res, next) => {
     next(createError(404));
 });
