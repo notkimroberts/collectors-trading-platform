@@ -1,12 +1,11 @@
+<div class ="alert alert-danger" role="alert" id="errorMessage" style="display:none">
+some text
+</div>
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-4">
         <h2>Login</h2>
-        {{#if message}}
-            <div class="alert {{messageClass}}" role="alert">
-                {{message}}
-            </div>
-        {{/if}}
-        <form method="POST" action="/login">
+
+        <form class = "form">
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input name="email" type="email" class="form-control" id="email" placeholder="Enter email">
@@ -21,3 +20,7 @@
         <p class="text-muted">Not registered? Register <a href="/register">here</a>.</p>
     </div>
 </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/js/shared.js"></script>
+    <script src="/js/login.js"></script>
