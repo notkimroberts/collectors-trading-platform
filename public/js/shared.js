@@ -38,15 +38,16 @@ function getHostURL() {
     $errorMessage.show();
   }
 
-/*   function redirectIfLoggedIn() {
+  function redirectIfLoggedIn() {
 
     if (sessionStorage.user_id) {
     window.location=`/`;
     }
-  } */
+  }
 
 
   function setIdRedirect(result) {
+    console.log('in set id redirect');
     sessionStorage.user_id = result.collector_id;
     window.location=`/`;
   }

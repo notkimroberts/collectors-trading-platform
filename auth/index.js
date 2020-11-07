@@ -126,13 +126,9 @@ router.post('/login', (req, res, next) => {
 
                             }
                             else {
+                                
+                                next(new Error('Password does not match'));
                                 console.log('password doesnt match');
-                                res.render('login', { 
-                                    message: 'Invalid email or password',
-                                    messageClass: 'alert-danger'
-                                    }   
-                                )
-                                    return
                             }
                         
                     });
@@ -141,26 +137,22 @@ router.post('/login', (req, res, next) => {
                 }
 
                 else {
+
+                    
+                    next(new Error('no matching email in the database'));
                     console.log('no matching email in the database');
 
-                    res.render('login', { 
-                        message: 'Invalid email or password',
-                        messageClass: 'alert-danger'
-                        }   
-                    )
-                        return
-                }             
+                }       
+
+
+      
 
         });
     }
     else {
+        
+        next(new Error('Invalid fields'));
         console.log('Invalid fields');
-        res.render('login', { 
-            message: 'Invalid email or password',
-            messageClass: 'alert-danger'
-            }   
-        )
-            return
     }
 
 });
