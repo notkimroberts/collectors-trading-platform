@@ -1,11 +1,17 @@
 <div class="row justify-content-md-center mt-2">
+
     <div class="col col-md-4">
+        {{#each collector}}
         <h2>{{{username}}}</h2>
         <h2>collector id: {{{collector_id}}}</h2>
         <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
         <hr/>
     </div>
+    {{/each}}
+
+
     <div class="col col-md-4 heading"><h3 >Inventory</h3></div>
+
     <div class="col col-md-4">
         {{#each collectionHas}}
         <div class="parent">             
@@ -21,8 +27,10 @@
             </div> 
         </div>
         {{/each}}
-    </div>  
+    </div>
+        
     <div class="col col-md-4 heading"><h3 >Wants</h3></div>
+    
     <div class="col col-md-4">
         {{#each collectionWants}}
         <div class="parent">             
@@ -39,7 +47,10 @@
         </div>
         {{/each}}
     </div>
+
     <div class="col col-md-4 heading"><h3 >For Trade</h3></div>
+    
+
         <div class="col col-md-4">
         {{#each collectionWillingToTrade}}
         <div class="parent">             
@@ -56,5 +67,7 @@
         </div>
         {{/each}}
     </div>
+
 </div>
+
 <link rel="stylesheet" href="/css/profile.css"/>

@@ -1,7 +1,6 @@
 const Collectible = require('../models/collectible');
 const FileType = require('file-type');
 const express = require('express');
-const knex = require('../connection')
 const router = express.Router();
 
 

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { requireAuth, authTokens } = require('../utils')
 
 
 router.get('/', requireAuth, (req, res, next) => {

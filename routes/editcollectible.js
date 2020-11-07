@@ -4,6 +4,7 @@ const router = express.Router();
 const Collectible = require('../models/collectible');
 const FileType = require('file-type');
 
+
 router.get('/', (req, res, next) => {
     res.render('editCollectible', { title: "edit collectible" });
 });
@@ -140,6 +141,7 @@ router.post('/', async (req, res, next) => {
             )
             return
         }
+    
 
         if (!req.body.line) {
             res.render('editcollectible', { 
@@ -265,8 +267,22 @@ router.post('/', async (req, res, next) => {
             // update image
             await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
             }
-        
+        return
+    }
+
+    if (name) {
+        // update name
+        await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+    }
+
+    if (req.files) {
+        const {data} = req.files.pic;
+        if (data) {
+        // update image
+        await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
         }
+    
+    }
 
         await knex('collectible')
             .where({collectible_id: collectible_id})
