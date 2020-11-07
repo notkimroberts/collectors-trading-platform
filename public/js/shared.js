@@ -33,7 +33,7 @@ function getHostURL() {
 
   function showErrorMessage(message) {
 
-    const $errorMessage =$(`#errorMessage`);
+    const $errorMessage =$('#errorMessage');
     $errorMessage.text(message);
     $errorMessage.show();
   }
