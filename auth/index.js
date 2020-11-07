@@ -185,19 +185,15 @@ router.post('/login', (req, res, next) => {
                             }
                             else {
                                 var err = new Error('Invalid login');
-                                err.status = 404;
+                                err.status = 401;
                                 next(err);
                             }
                         
                         });
-                    
-
                 }
-
                 else {
-
                     var err = new Error('Invalid login');
-                    err.status = 404;
+                    err.status = 401;
                     next(err);
 
                 }       
@@ -205,7 +201,7 @@ router.post('/login', (req, res, next) => {
     }
     else {
         var err = new Error('Invalid login');
-        err.status = 404;
+        err.status = 401;
         next(err);
     }
 });
