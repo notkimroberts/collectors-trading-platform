@@ -28,8 +28,19 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <small id="passwordHelp" class="form-text text-muted mb-1">Must contain at least: one uppercase letter, one lowercase letter, one numbe. Must be 8 or more characters in length.</small>
-                <input type="password" id="password" class="form-control"  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                <input type="password" id="password" class="form-control"  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onchange="form.password2.pattern = RegExp.escape(this.value);" required>
+                <input type="password"  id="password2" class="form-control" placeholder="Re-enter Password" name="password2" required />
             </div>
+            <script type="text/javascript">
+//https://www.the-art-of-web.com/javascript/validate-password/
+        // polyfill for RegExp.escape
+        if(!RegExp.escape) {
+            RegExp.escape = function(s) {
+            return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+            };
+        }
+
+        </script>
             <div>
                 <input type="submit" class="btn btn-primary" value="Register" name="register">
             </div>
