@@ -17,7 +17,7 @@ dotenv.config()
 const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
-const editCollectibleRouter = require('./routes/editcollectible');
+const editcollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -40,7 +40,7 @@ app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({ extname: '.hbs' }))
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
-// // App extenders
+// App extenders
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(logger('dev'));
@@ -52,7 +52,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
-  
   }));
 
 // mount routers
@@ -60,7 +59,7 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
-app.use('/edit-collectible', editCollectibleRouter); 
+app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
@@ -71,7 +70,6 @@ app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);
 app.use('/auth', authRouter);
-
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
@@ -84,12 +82,10 @@ app.use(function(req, res, next) {
   
   // error handler
   app.use(function(err, req, res, next) {
-   
     res.status(err.status || res.statusCode || 500);
     res.json ({
       message: err.message,
       error: req.app.get('env') === 'development' ? err : {}
-  
     });
   });
 
