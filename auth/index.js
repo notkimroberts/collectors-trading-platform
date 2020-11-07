@@ -18,6 +18,7 @@ function validUser(collector) {
     return validEmail && validPassword;
 }
 
+// https://www.youtube.com/watch?v=H7qkTzxk_0I
 router.post('/register', (req, res, next) => {
     if(validUser(req.body)) {
         Collector

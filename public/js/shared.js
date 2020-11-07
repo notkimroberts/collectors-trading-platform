@@ -6,6 +6,7 @@ $.ajaxSetup({
 
 });
 
+// https://www.youtube.com/watch?v=2ZcP3kO5kkE
 const API_URL = getHostURL();
 const AUTH_URL = `${API_URL}/auth`
 
@@ -49,7 +50,7 @@ function getHostURL() {
   function setIdRedirect(result) {
     console.log('in set id redirect');
     sessionStorage.user_id = result.collector_id;
-    window.location=`/profile`;
+    window.location='/profile';
   }
 
 
@@ -57,6 +58,6 @@ function getHostURL() {
       sessionStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
-            window.location = `/login`;
+            window.location = '/login';
         })
   }
