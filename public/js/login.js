@@ -1,3 +1,5 @@
+/* const { error } = require("jquery"); */
+// https://www.youtube.com/watch?v=YFxsqHD6JUc&
 $(() => {
 
     $('form').submit((event) => {
@@ -8,11 +10,11 @@ $(() => {
 
         login(collector)
             .then(result => {
-                setIdRedirect(result);
-            }).catch(error => {
+               setIdRedirect(result);
+            }).catch(err => {
                 console.log("in catch error");
-                console.error(error);
-                showErrorMessage(error.responseJSON.message);                
+                console.error(err);
+                showErrorMessage(err.responseJSON.message);                
             });
     });
 });

@@ -40,7 +40,7 @@ app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({ extname: '.hbs' }))
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
-// // App extenders
+// App extenders
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(logger('dev'));
@@ -52,7 +52,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
-  
   }));
 
 // mount routers
@@ -72,24 +71,22 @@ app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);
 app.use('/auth', authRouter);
 
-
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
-
-app.use('/edit-collectible', editcollectibleRouter);
-app.use((req, res, next) => {
-    next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
     res.status(err.status || res.statusCode || 500);
-    res.render('error');
-});
+    res.json ({
+      message: err.message,
+      error: req.app.get('env') === 'development' ? err : {}
+    });
+  });
 
 module.exports = app;
