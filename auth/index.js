@@ -41,7 +41,8 @@ router.post('/register', (req, res, next) => {
                                             username: req.body.username,
                                             email: req.body.email,
                                             password: hash,
-                                            phone_number: req.body.phone_number
+                                            phone_number: req.body.phone_number,
+                                            is_admin: req.body.is_admin
                                         };
                                         Collector
                                             .create(collector)

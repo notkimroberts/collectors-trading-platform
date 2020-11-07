@@ -17,7 +17,7 @@ dotenv.config()
 const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
-const editCollectibleRouter = require('./routes/editcollectible');
+const editcollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -60,14 +60,12 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
-app.use('/edit-collectible', editCollectibleRouter); 
+app.use('/editcollectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
 app.use('/quiz', quizRouter);
-app.use('/quizresult', quizresultRouter);
-app.use('/forgotpw', forgotpwRouter);
-app.use('/quiz-result', quizResultRouter);
+app.use('/quizresult', quizResultRouter);
 app.use('/trade', tradeRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
@@ -77,16 +75,8 @@ app.use('/auth', authRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-app.use('/editcollectible', editcollectibleRouter);
-// catch 404 and forward to error handler
-=======
 
-=======
->>>>>>> 5b21b55e16892f57639d4afbe5d3e7e9e875e1a8
-// Catch 404 and forward to error handler
->>>>>>> 6217e6f2eb353db1a9b6b3c1e4637fa094bd95da
+app.use('/editcollectible', editcollectibleRouter);
 app.use((req, res, next) => {
     next(createError(404));
 });
@@ -102,16 +92,4 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
-/*
-// error handler
-app.use(function(err, req, res, next) {
- 
-    res.status(err.status || 500);
-    res.json ({
-      message: err.message,
-      error: req.app.get('env') === 'development' ? err : {}
-  
-    });
-  });
-*/
 module.exports = app;
