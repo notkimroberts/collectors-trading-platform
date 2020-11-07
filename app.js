@@ -17,7 +17,7 @@ dotenv.config()
 const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
-const editCollectibleRouter = require('./routes/editcollectible');
+const editcollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -60,7 +60,7 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
-app.use('/edit-collectible', editCollectibleRouter); 
+app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
@@ -75,7 +75,8 @@ app.use('/auth', authRouter);
 
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
-// Catch 404 and forward to error handler
+
+app.use('/edit-collectible', editcollectibleRouter);
 app.use((req, res, next) => {
     next(createError(404));
 });
@@ -91,16 +92,4 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
-/*
-// error handler
-app.use(function(err, req, res, next) {
- 
-    res.status(err.status || 500);
-    res.json ({
-      message: err.message,
-      error: req.app.get('env') === 'development' ? err : {}
-  
-    });
-  });
-*/
 module.exports = app;
