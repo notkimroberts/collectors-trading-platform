@@ -65,7 +65,7 @@ app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
 app.use('/quiz', quizRouter);
-app.use('/quizresult', quizResultRouter);
+app.use('/quiz-result', quizResultRouter);
 app.use('/trade', tradeRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
