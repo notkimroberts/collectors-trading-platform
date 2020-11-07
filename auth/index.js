@@ -23,46 +23,72 @@ router.post('/register', (req, res, next) => {
         Collector
             .getByEmail(req.body.email)
             .then(collector => {
-                console.log('collector', collector);
-                // if user not found
-                if(!collector) {
-                // then it is a unique email
-                // hash password
-                bcrypt.hash(req.body.password, 10)
-                    .then((hash) => {
-                        const collector = {
-                            username: req.body.username,
-                            email: req.body.email,
-                            password: hash,
-                            phone_number: req.body.phone_number
-                        };
-                    Collector
-                        .create(collector)
-                        .then(collector_id => {
-                           // setUserIdCookie(req, res, collector_id);
-
-/*                             res.json({
-                                collector_id,
-                                message: 'unique user'
-                            }); */
-                        });
-               
-                        res.render('login', {
-                            message: 'Successfully created user. Please login to continue',
-                            messageClass: 'alert-danger'
-                        });
-            });
-            }
-            else { // email in use
-                next(new Error('Email in use'));
-            }
                 
-            });
+                console.log('collector', collector);
+
+                // if user not found, then it is a unique email
+                if(!collector) {
+                    Collector
+                        .getByUsername(req.body.username)
+                        .then(collector => {
+                            console.log('collector', collector);
+                                // if user not found, then it is a username
+                                if(!collector) {
+                                    // hash password
+                                    bcrypt.hash(req.body.password, 10)
+                                    .then((hash) => {
+                                        const collector = {
+                                            username: req.body.username,
+                                            email: req.body.email,
+                                            password: hash,
+                                            phone_number: req.body.phone_number
+                                        };
+                                        Collector
+                                            .create(collector)
+                                            .then(collector_id => {
+                                                console.log("successfully created new collector");
+                                                
+                                            });
+                                
+                                            res.render('login', {
+                                                message: 'Successfully created user. Please login to continue',
+                                                messageClass: 'alert-danger'
+                                            });
+                                    });
+
+                                }
+
+                                // username in use
+                                else { 
+                                    res.render('register', {
+                                        message: 'Username in use. Please input a different username.',
+                                        messageClass: 'alert-danger'
+                                    });
+                                }
+
+                    });
+
+
+                }
+                // email in use
+               else { 
+                    res.render('register', {
+                        message: 'Email in use. Please input a different email.',
+                        messageClass: 'alert-danger'
+                    });
+                }
+                
+        });
       
-    } else 
-    {// send an error
-        next(new Error('Invalid user'));
-    }
+    } 
+
+    else  {
+                // send an error
+                res.render('register', {
+                    message: 'Invalid fields',
+                    messageClass: 'alert-danger'
+                });
+            }
     
 });
 
@@ -79,12 +105,11 @@ function setUserIdCookie(req, res, id) {
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
+        console.log('valid content in field');
         Collector    
             .getByEmail(req.body.email)
             .then(collector => {
 
-
-               
                 if (collector) {
                     // check password against hashed password
                     bcrypt
@@ -101,9 +126,10 @@ router.post('/login', (req, res, next) => {
 
                             }
                             else {
-                                next(Error("Invalid login1"));
+                                
+                                next(new Error('Password does not match'));
+                                console.log('password doesnt match');
                             }
-                           
                         
                     });
                     
@@ -111,15 +137,24 @@ router.post('/login', (req, res, next) => {
                 }
 
                 else {
-                    next(Error("Invalid login2"));
-                }
-              
 
-    });
-}
-    else {
-        next(new Error('Invalid login3'));
+                    
+                    next(new Error('no matching email in the database'));
+                    console.log('no matching email in the database');
+
+                }       
+
+
+      
+
+        });
     }
+    else {
+        
+        next(new Error('Invalid fields'));
+        console.log('Invalid fields');
+    }
+
 });
 
 
