@@ -20,53 +20,29 @@
                     <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                     <br>
                     <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
-                    <script>
-                        var i = {{{has_quantity}}};
-                        function increment1() {
-                            i++;
-                            document.getElementById("q1").value = i;
-                        }
-                        function decrement1() {
-                            i--;
-                            document.getElementById("q1").value = i;
-                        }
-                        var j = {{{wants_quantity}}};
-                        function increment2() {
-                            j++;
-                            document.getElementById("q2").value = j;
-                        }
-                        function decrement2() {
-                            j--;
-                            document.getElementById("q2").value = j;
-                        }
-                         var k = {{{willing_to_trade_quantity}}};
-                        function increment3() {
-                            k++;
-                            document.getElementById("q3").value = k;
-                        }
-                        function decrement3() {
-                            k--;
-                            document.getElementById("q3").value = k;
-                        }
-                    </script>
-                    <br>has: <input type="button" onClick="decrement1()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                     <label>Enter Quantity</label>
+                    <br>has: <input type="number" step="1" min="0" max="500"
                          name="quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
                           inputmode="">
-                    <input type="button" onClick="increment1()" value="+" class="fa fa-plus-square">
-                     wants: <input type="button" onClick="decrement2()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                      wants: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment2()" value="+" class="plus">
-                     for trade <input type="button" onClick="decrement3()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                    inputmode="">
+                      for trade: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment3()" value="+" class="plus">
-                    
+                    inputmode="">
+                    <br>
+                    <br>
                 </td>
+            <br>
+            <br>
             </div> 
         </div>
         {{/each}}
+      <input type="submit" value="Submit">
+      <br>
+      <br>
     </div>
 
-        
     <div class="col col-md-4 heading"><h3 >Wants</h3></div>
     
     <div class="col col-md-4">
@@ -77,52 +53,27 @@
                     <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                     <br>
                     <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
-                    <script>
-                        var i = {{{has_quantity}}};
-                        function increment1() {
-                            i++;
-                            document.getElementById("q1").value = i;
-                        }
-                        function decrement1() {
-                            i--;
-                            document.getElementById("q1").value = i;
-                        }
-                        var j = {{{wants_quantity}}};
-                        function increment2() {
-                            j++;
-                            document.getElementById("q2").value = j;
-                        }
-                        function decrement2() {
-                            j--;
-                            document.getElementById("q2").value = j;
-                        }
-                         var k = {{{willing_to_trade_quantity}}};
-                        function increment3() {
-                            k++;
-                            document.getElementById("q3").value = k;
-                        }
-                        function decrement3() {
-                            k--;
-                            document.getElementById("q3").value = k;
-                        }
-                    </script>
-                    <br>has: <input type="button" onClick="decrement1()" value="-" class="fa fa-minus-square"><input type="number" step="1" min="1" max="500"
+                      <label>Enter Quantity</label>
+                    <br>has: <input type="number" step="1" min="0" max="500"
                          name="quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
                           inputmode="">
-                    <input type="button" onClick="increment1()" value="+" class="plus">
-                     wants: <input type="button" onClick="decrement2()" value="-" class="fa fa-minus-square"><input type="number" step="1" min="1" max="500"
+                      wants: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment2()" value="+" class="plus">
-                     for trade <input type="button" onClick="decrement3()" value="-" class="fa fa-minus-square"><input type="number" step="1" min="1" max="500"
+                    inputmode="">
+                      for trade: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment3()" value="+" class="plus">
-                    
+                    inputmode="">
                 </td>
+                <br>
+                <br>
             </div> 
         </div>
         {{/each}}
+     <input type="submit" value="Submit">
+     <br>
+    <br>
     </div>
-
+   
     <div class="col col-md-4 heading"><h3 >For Trade</h3></div>
     
 
@@ -134,50 +85,25 @@
                    <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                     <br>
                     <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
-                    <script>
-                        var i = {{{has_quantity}}};
-                        function increment1() {
-                            i++;
-                            document.getElementById("q1").value = i;
-                        }
-                        function decrement1() {
-                            i--;
-                            document.getElementById("q1").value = i;
-                        }
-                        var j = {{{wants_quantity}}};
-                        function increment2() {
-                            j++;
-                            document.getElementById("q2").value = j;
-                        }
-                        function decrement2() {
-                            j--;
-                            document.getElementById("q2").value = j;
-                        }
-                         var k = {{{willing_to_trade_quantity}}};
-                        function increment3() {
-                            k++;
-                            document.getElementById("q3").value = k;
-                        }
-                        function decrement3() {
-                            k--;
-                            document.getElementById("q3").value = k;
-                        }
-                    </script>
-                    <br>has: <input type="button" onClick="decrement1()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                    <label>Enter Quantity</label>
+                    <br>has: <input type="number" step="1" min="0" max="500"
                          name="quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
                           inputmode="">
-                    <input type="button" onClick="increment1()" value="+" class="plus">
-                      wants: <input type="button" onClick="decrement2()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                      wants: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment2()" value="+" class="plus">
-                      for trade <input type="button" onClick="decrement3()" value="-" class="minus"><input type="number" step="1" min="1" max="500"
+                    inputmode="">
+                      for trade: <input type="number" step="1" min="0" max="500"
                     name="quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="1" pattern=""
-                    inputmode=""><input type="button" onClick="increment3()" value="+" class="plus">
-                    
+                    inputmode="">
                 </td>
+                <br>
+                <br>
             </div> 
         </div>
         {{/each}}
+     <input type="submit" value="Submit">
+    <br>
+    <br>
     </div>
 
 </div>
