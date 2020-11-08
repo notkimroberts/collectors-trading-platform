@@ -25,14 +25,12 @@ router.post('/register', (req, res, next) => {
             .getByEmail(req.body.email)
             .then(collector => {
                 
-                console.log('collector', collector);
 
                 // if user not found, then it is a unique email
                 if(!collector) {
                     Collector
                         .getByUsername(req.body.username)
                         .then(collector => {
-                            console.log('collector', collector);
                                 // if user not found, then it is a username
                                 if(!collector) {
                                     // hash password
@@ -48,7 +46,7 @@ router.post('/register', (req, res, next) => {
                                         Collector
                                             .create(collector)
                                             .then(collector_id => {
-                                                console.log("successfully created new collector");
+                                                // console.log("successfully created new collector");
                                                 
                                             });
                                 
@@ -99,7 +97,6 @@ function setUserIdCookie(req, res, id) {
         httpOnly: true,
         secure: isSecure,
         signed: true
-
     });
 }
 
@@ -119,6 +116,8 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
+                                console.log('req.signedCookies: ', req.signedCookies)
+                                console.log('res.signedCookies: ', res.signedCookies)
                                 res.json({
                                     collector_id: collector.collector_id,
                                     message: 'logged in'
