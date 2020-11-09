@@ -41,9 +41,10 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
 
     const matches = await knex('collection')
-        .select('*')
+        .select(['collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
         .where('collector_id', '!=', userId)
-        .whereIn('collectible_id', userWantsCollectibleIds)
+        .whereIn('collection.collectible_id', userWantsCollectibleIds)
         .andWhere('willing_to_trade_quantity', '>', 0)
 
     res.render('profile', { 
