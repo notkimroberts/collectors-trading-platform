@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -6,7 +5,6 @@ var bodyParser = require('body-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv')
 const hbs = require('hbs')
-const favicon = require('serve-favicon');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const exphbs = require('express-handlebars');
@@ -17,7 +15,7 @@ dotenv.config()
 const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
-const editCollectibleRouter = require('./routes/editcollectible');
+const editcollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
@@ -30,7 +28,6 @@ const rulesRouter = require('./routes/rules');
 const tradeRouter = require('./routes/trade');
 const authRouter = require('./auth');
 
-var authMiddleware = require('./auth/middleware')
 
 const app = express();
 
@@ -40,7 +37,7 @@ app.set('view engine', 'hbs');
 app.engine('hbs', exphbs({ extname: '.hbs' }))
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 
-// // App extenders
+// App extenders
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(logger('dev'));
@@ -52,15 +49,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
-  
-  }));
+}));
+
+app.use((req, res, next)=>{
+    if (req.signedCookies.user_id) {
+        res.locals.isAuthenticated = true;
+    }
+    next();
+});
 
 // mount routers
 app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
-app.use('/edit-collectible', editCollectibleRouter); 
+app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
@@ -72,35 +75,22 @@ app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);
 app.use('/auth', authRouter);
 
-
 hbs.registerPartials(path.join(__dirname, '/views/partials')) // register path to partial
 
-// Catch 404 and forward to error handler
-app.use((req, res, next) => {
-    next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-    // render the error page
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
     res.status(err.status || res.statusCode || 500);
-    res.render('error');
-});
-
-/*
-// error handler
-app.use(function(err, req, res, next) {
- 
-    res.status(err.status || 500);
     res.json ({
       message: err.message,
       error: req.app.get('env') === 'development' ? err : {}
-  
     });
   });
-*/
+
 module.exports = app;

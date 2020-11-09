@@ -5,11 +5,10 @@ const { ensureLoggedIn } = require('../auth/middleware');
 const collectible = require('../models/collectible');
 
 
-/* router.get('/', async (req, res, next) => {
-    //const { email, phone_number, username, collector_id} = req.user;
-    localStorage.getItem('collector');
-    console.log(collector);
+router.get('/', ensureLoggedIn, async (req, res, next) => {
+    const userId = req.signedCookies.user_id
 
+<<<<<<< HEAD
     res.render('profile', { 
         //email: email,
         //phone_number: phone_number,
@@ -24,49 +23,59 @@ const collectible = require('../models/collectible');
         //console.log(user_id);
         //const { email, phone_number, username, collector_id} = res.collector_id;
         console.log(req.signedCookies.user_id); // gets collector_id
+=======
+    const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id')
+        .where('collector_id', userId );
+>>>>>>> 2e7bfef01b74666f5e1c226d7559a5d9dd81acac
 
-        const collectorData = await knex('collector')
-            .select('username', 'email', 'phone_number', 'collector_id')
-            .where('collector_id', req.signedCookies.user_id );
-
-        // user's has collectibles if has_quantity is greater than 0
-        const collectionsHas = await knex('collection')
+    // user's has collectibles if has_quantity is greater than 0
+    const collectionsHas = await knex('collection')
         .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', req.signedCookies.user_id )
+        .where('collector_id', userId )
         .andWhere('collection.has_quantity', '>', 0);
 
-        // user's wants collectibles if has_quantity is greater than 0
-        const collectionsWants = await knex('collection')
+    // user's wants collectibles if has_quantity is greater than 0
+    const collectionsWants = await knex('collection')
         .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', req.signedCookies.user_id )
+        .where('collector_id', userId )
         .andWhere('collection.wants_quantity', '>', 0);
-    
 
-        // user's wants collectibles if has_quantity is greater than 0
-        const collectionsWillingToTrade = await knex('collection')
+    // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
+    const collectionsWillingToTrade = await knex('collection')
         .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', req.signedCookies.user_id )
+        .where('collector_id', userId )
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
+    const userWants = await knex('collection')
+        .select(['collectible_id'])
+        .where('collector_id', '=', userId)
+        .andWhere('wants_quantity', '>', 0)
 
-        // console.log(collectorData);
-    
-        res.render('profile', { 
-            collector: collectorData,
-            //email: email,
-            //phone_number: phone_number,
-            //title: `Collector's Trading Platform | ${username}`,
-            //username: username,
-            collector_id: req.signedCookies.user_id,
-            collectionHas: collectionsHas,
-            collectionWants: collectionsWants,
-            collectionWillingToTrade: collectionsWillingToTrade
-        });
+    const userWantsCollectibleIds = []
+    userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
+
+    const matches = await knex('collection')
+        .select(['collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
+        .where('collector_id', '!=', userId)
+        .whereIn('collection.collectible_id', userWantsCollectibleIds)
+        .andWhere('willing_to_trade_quantity', '>', 0)
+
+    res.render('profile', { 
+        collector: collectorData,
+        collector_id: req.signedCookies.user_id,
+        collectionHas: collectionsHas,
+        collectionWants: collectionsWants,
+        collectionWillingToTrade: collectionsWillingToTrade,
+        matches
     });
+});
 
+<<<<<<< HEAD
     router.post('/', async (req, res, next) => 
     {       
         const q1 = req.body.has_quantity;
@@ -126,5 +135,7 @@ const collectible = require('../models/collectible');
     //          res.redirect('profile');
     //         });
     
+=======
+>>>>>>> 2e7bfef01b74666f5e1c226d7559a5d9dd81acac
 
 module.exports = router;

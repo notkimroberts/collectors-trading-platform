@@ -18,20 +18,19 @@ function validUser(collector) {
     return validEmail && validPassword;
 }
 
+// https://www.youtube.com/watch?v=H7qkTzxk_0I
 router.post('/register', (req, res, next) => {
     if(validUser(req.body)) {
         Collector
             .getByEmail(req.body.email)
             .then(collector => {
                 
-                console.log('collector', collector);
 
                 // if user not found, then it is a unique email
                 if(!collector) {
                     Collector
                         .getByUsername(req.body.username)
                         .then(collector => {
-                            console.log('collector', collector);
                                 // if user not found, then it is a username
                                 if(!collector) {
                                     // hash password
@@ -41,12 +40,13 @@ router.post('/register', (req, res, next) => {
                                             username: req.body.username,
                                             email: req.body.email,
                                             password: hash,
-                                            phone_number: req.body.phone_number
+                                            phone_number: req.body.phone_number,
+                                            is_admin: req.body.is_admin
                                         };
                                         Collector
                                             .create(collector)
                                             .then(collector_id => {
-                                                console.log("successfully created new collector");
+                                                // console.log("successfully created new collector");
                                                 
                                             });
                                 
@@ -67,7 +67,6 @@ router.post('/register', (req, res, next) => {
                                 }
 
                     });
-
 
                 }
                 // email in use
@@ -98,18 +97,16 @@ function setUserIdCookie(req, res, id) {
         httpOnly: true,
         secure: isSecure,
         signed: true
-
     });
 }
+
 
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
-        console.log('valid content in field');
         Collector    
             .getByEmail(req.body.email)
             .then(collector => {
-
                 if (collector) {
                     // check password against hashed password
                     bcrypt
@@ -126,35 +123,26 @@ router.post('/login', (req, res, next) => {
 
                             }
                             else {
-                                
-                                next(new Error('Password does not match'));
-                                console.log('password doesnt match');
+                                var err = new Error('Invalid login');
+                                err.status = 401;
+                                next(err);
                             }
                         
-                    });
-                    
-
+                        });
                 }
-
                 else {
-
-                    
-                    next(new Error('no matching email in the database'));
-                    console.log('no matching email in the database');
+                    var err = new Error('Invalid login');
+                    err.status = 401;
+                    next(err);
 
                 }       
-
-
-      
-
-        });
+            });
     }
     else {
-        
-        next(new Error('Invalid fields'));
-        console.log('Invalid fields');
+        var err = new Error('Invalid login');
+        err.status = 401;
+        next(err);
     }
-
 });
 
 
@@ -167,59 +155,4 @@ router.get('/logout', (req, res) => {
 });
 
 
-
-/* 
-router.post('/login', (req, res, next) => {
-    // check to see if user is in database
-    if(validUser(req.body)) {
-        Collector    
-            .getOneByEmail(req.body.email)
-            .then(collector => {
-                if (collector) {
-                    // check password against hashed password
-                    console.log("hi from above cookie2");
-                    bcrypt
-                        .compare(req.body.password, collector.password)
-                        .then((result) => {
-                            console.log("hi from above cookie1");
-                            if(result) {
-                                // set set-cookie header
-                                console.log("hi from above cookie");
-                                const isSecure = req.app.get('env') != 'development';
-                                res.cookie('user_id', collector.collector_id, {
-                                    httpOnly: true,
-                                    secure: isSecure,
-                                    signed: true
-                                });
-                           //setUserIdCookie(req, res, collector.collector_id);
-                                res.json({
-                                    collector_id: collector.id,
-                                    message: 'logged in'
-                                  });
-                            }
-                            else {
-                                next(Error("Invalid login"));
-                            }
-                           
-                        
-                    });
-                    
-                }
-                else {
-                    next(Error("Invalid login"));
-                }
-              
-    });
-}
-    else {
-        next(new Error('Invalid login'));
-    }
-});
-router.get('/logout', (req, res) => {
-    res.clearCookie('user_id');
-    res.json({
-        message: 'you are logged out'
-    });
-});
- */
 module.exports = router;
