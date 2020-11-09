@@ -1,0 +1,16 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        {{#each collector}}
+            <h2>{{{username}}}</h2>
+            <h2>collector id: {{{collector_id}}}</h2>
+            <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
+            <hr/>
+            <div class="col col-md-4">
+                <td><a href="/collector/trade/{{{collector_id}}}">Trade matches</a></td>
+            </div>
+        {{/each}}       
+    </div>
+</div>
+
+

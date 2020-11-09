@@ -3,6 +3,7 @@
         <h2>Collectors</h2>
         <table class="table table-striped">
             <thead>
+                <th>Collector id</th>
                 <th>Is Admin?</th>
                 <th>Username</th>
                 <th>Phone Number</th>
@@ -11,8 +12,9 @@
             <tbody>
                 {{#each collector}}
                     <tr>
+                        <td>{{{collector_id}}}</td>
                         <td>{{{is_admin}}}</td>
-                        <td>{{{username}}}</td>
+                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
                         <td>{{{phone_number}}}</td>
                         <td>{{{email}}}</td>
                   </tr>

@@ -1,0 +1,78 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        
+        {{#each collectible}}
+            <div class="collectible-heading">
+                <h4>{{{name}}}</h4>
+                <p>Collectible id: {{{collectible_id}}}</p>
+            </div>
+
+            <br/>
+        
+            <div class="collectible-image">
+                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}}/></td>	
+
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="collectible-attributes">
+                <td>Type: {{{type_name}}}</td>
+                <br/>
+                {{#if attributes.piece_count}}      
+                    <td>Piece Count: {{{attributes.piece_count}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.set_number}}      
+                    <td>Set Number: {{{attributes.set_number}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.theme}}      
+                    <td>Theme: {{{attributes.theme}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.designed_by}}      
+                    <td>Designer: {{{attributes.designed_by}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.number}}       
+                    <td>Number: {{{attributes.number}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.line}}       
+                    <td>Line: {{{attributes.line}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.series}}       
+                    <td>Series: {{{attributes.series}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.year_released}}       
+                    <td>Release Year: {{{attributes.year_released}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.product_type}}      
+                    <td>Product Type: {{{attributes.product_type}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.season}}  
+                    <td>Season/Holiday: {{{attributes.season}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.generation}}         
+                    <td>Generation: {{{attributes.generation}}}</td>
+                    <br/>
+                {{/if}} 
+            </div>    
+        {{/each}}
+        <br/>
+
+        <div class="for-trade">
+            <h5>Collectors who have this item for trade:</h5>
+        </div>
+    </div>
+</div>
+    
+<link rel="stylesheet" href="/css/collectiblepage.css"/>

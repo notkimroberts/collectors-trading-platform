@@ -71,11 +71,13 @@ router.get('/:id', async (req, res, next) => {
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
 
+
     // filter by type
     const collectiblesByType = await knex('collectible_type')
         .select('name as type_name', 'collectible_type_id as type_id');
 
-        res.render('collectible', {
+
+        res.render('collectiblepage', {
         title: `Collector\'s Trading Platform | ${id}`,
         collectible: collectibles,
         collectibleByType: collectiblesByType,
