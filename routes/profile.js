@@ -74,7 +74,7 @@ const collectible = require('../models/collectible');
         const q3 = req.body.willing_to_trade_quantity;
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
-        await knex('collector').where({collector_id: collectorSelected})
+        await knex('collection').where({collectible_id: collectible_id})
             .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
              wants_quantity: q2,willing_to_trade_quantity: q3 })
@@ -88,7 +88,7 @@ const collectible = require('../models/collectible');
         const q3 = req.body.willing_to_trade_quantity;
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
-        await knex('collector').where({collector_id: collectorSelected})
+        await knex('collection').where({collector_id: collectorSelected})
             .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
              wants_quantity: q2,willing_to_trade_quantity: q3 })
@@ -102,7 +102,7 @@ const collectible = require('../models/collectible');
         const q3 = req.body.willing_to_trade_quantity;
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
-        await knex('collector').where({collector_id: collectorSelected})
+        await knex('collection').where({collector_id: collectorSelected})
             .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
              wants_quantity: q2,willing_to_trade_quantity: q3 })
