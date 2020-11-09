@@ -75,11 +75,26 @@ const collectible = require('../models/collectible');
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
         await knex('collection').where({collectible_id: collectible_id})
-            .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
-             wants_quantity: q2,willing_to_trade_quantity: q3 })
-             res.redirect('profile');
-            });
+             wants_quantity: q2,willing_to_trade_quantity: q3});
+             res.redirect(req.get('profile'));
+    });
+
+
+    $('#formID').submit(function(e){
+        e.preventDefault(); // <----stops the form to get submitted
+        $.ajax({
+           url:'/testRoute',
+           data:{
+                  button:$('button[name="button"]').attr('name'), // <---send button name
+                  p     :$('p[name="p"]').text() // send the p's text.
+           },
+           success:function(data){
+             console.log(data); // logs the response from the server.
+           },
+           error:function(){}
+       });
+     });
 
     router.post('/submit2', async (req, res, next) => 
     {       
@@ -89,11 +104,10 @@ const collectible = require('../models/collectible');
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
         await knex('collection').where({collector_id: collectorSelected})
-            .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
-             wants_quantity: q2,willing_to_trade_quantity: q3 })
+             wants_quantity: q2,willing_to_trade_quantity: q3 });
              res.redirect('profile');
-            });
+    });
     
     router.post('/submit3', async (req, res, next) => 
     {       
@@ -105,7 +119,7 @@ const collectible = require('../models/collectible');
         await knex('collection').where({collector_id: collectorSelected})
             .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
-             wants_quantity: q2,willing_to_trade_quantity: q3 })
+             wants_quantity: q2, willing_to_trade_quantity: q3 });
              res.redirect('profile');
             });
     
