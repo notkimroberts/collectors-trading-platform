@@ -25,20 +25,21 @@
             </li>
         </ul>
         <ul class="nav justify-content-end">
-{{!--             {{#if username}} --}}
+            {{#if isAuthenticated}}
                 <li class="nav-item">
                     <a class="nav-link" href="/profile">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
-{{!--             {{else}} --}}
+            {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
-            <form action="/register" method="GET" class="form-inline my-2 my-lg-0 mr-3">
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</button>
-            </form>
+                <form action="/register" method="GET" class="form-inline my-2 my-lg-0 mr-3">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</button>
+                </form>
+            {{/if}}
         </ul>
         <form action="/collectible/search" method="GET" class="form-inline my-2 my-lg-0 mr-3">
             <input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Collectible" aria-label="Search Collectibles">
