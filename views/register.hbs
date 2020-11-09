@@ -27,9 +27,21 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <small id="passwordHelp" class="form-text text-muted mb-1">Must contain at least: one uppercase letter, one lowercase letter, one numbe. Must be 8 or more characters in length.</small>
-                <input type="password" id="password" class="form-control"  name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                <small id="passwordHelp" class="form-text text-muted mb-1">Must contain at least: one uppercase letter, one lowercase letter, one number. Must be 8 or more characters in length.</small>
+                <input type="password" id="password" class="form-control"  name="password" title="Passwords do not match" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onchange="form.password2.pattern = RegExp.escape(this.value);" required>
+                <label for="password">Confirm Password</label>
+                <input type="password"  id="password2" class="form-control" placeholder="Confirm Password" name="password2" title="Passwords do not match" required />
             </div>
+            <script type="text/javascript">
+//https://www.the-art-of-web.com/javascript/validate-password/
+        // polyfill for RegExp.escape
+        if(!RegExp.escape) {
+            RegExp.escape = function(s) {
+            return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+            };
+        }
+
+        </script>
             <div>
                 <input type="submit" class="btn btn-primary" value="Register" name="register">
             </div>
@@ -37,44 +49,7 @@
         <hr/>
         <p class="text-muted">Already registered? Login <a href="/login">here</a>.</p>
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-{{/if}}
-<form id="register_collector" action="/register" method="POST">
-<p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-<div class="form-example">
-  <input type="checkbox" id="is_admin" name="is_admin">
-  <label for="is_admin">Are you an Admin?</label>
-</div>
-    <div class="form-example">
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" required>
     </div>
-    <div class="form-example">
-        <label for="password">Password: </label>
-        {{!-- <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"> --}}
-        {{!-- TODO: Removed pattern for simplicity while debugging. --}}
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div class="form-example">
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email" required>
-    </div>    
-    <div class="form-example">
-        <label for="phone_number">Phone Number: </label>
-        <input type="phone_number" name="phone_number" id="phone_number" required>
-    </div>
-    <div>
-        <input type="submit" value="Submit" name="submit">
-    </div>
-</form>
-<a href="/login">Already registered? Login here</a>
-=======
-</div>
->>>>>>> 6217e6f2eb353db1a9b6b3c1e4637fa094bd95da
-=======
-</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-{{!-- <script src="scripts/shared.js" charset="utf-8"></script> --}}
+    <script src="/js/shared.js"></script>
 
->>>>>>> c4c986b807d629b0316b055eaf6673db29fa9e13
