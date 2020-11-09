@@ -6,9 +6,7 @@ const Collector = require('../models/collector');
 
 
 router.get('/search/', async (req, res, next) => {
-  console.log('hi')
   const { username } = req.query;
-  console.log(username)
   const collectors = await knex('collector')
   .select('collector.collector_id', 'collector.username', 'collector.email', 'collector.phone_number', 'collector.is_admin')
   .where('collector.username', 'ilike', `%${username}%`);
