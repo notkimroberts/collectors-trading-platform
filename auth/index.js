@@ -116,8 +116,6 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
-                                console.log('req.signedCookies: ', req.signedCookies)
-                                console.log('res.signedCookies: ', res.signedCookies)
                                 res.json({
                                     collector_id: collector.collector_id,
                                     message: 'logged in'
