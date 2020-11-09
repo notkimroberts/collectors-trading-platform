@@ -51,7 +51,7 @@ router.get('/search', async (req, res, next) => {
         .where('collectible.name', 'ilike', `%${name}%`);
         
             // if results, render collectibles
-            if (collectibles.length > 0) {
+            if (collectibles.length > 0) { //if something in the query
                 res.render('collectible', {
                 title: "Collector\'s Trading Platform | Search Results",
                 collectible: collectibles,
@@ -61,7 +61,7 @@ router.get('/search', async (req, res, next) => {
             }
             
             // if no results, inform user
-            else {
+            else { //the query returned nothing
                 res.render('collectible', { 
                         title: "Collector\'s Trading Platform | Search Results",
                         message: `No results matching your search term "${name}"`,
