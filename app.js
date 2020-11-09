@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -6,7 +5,6 @@ var bodyParser = require('body-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv')
 const hbs = require('hbs')
-const favicon = require('serve-favicon');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const exphbs = require('express-handlebars');
@@ -30,7 +28,6 @@ const rulesRouter = require('./routes/rules');
 const tradeRouter = require('./routes/trade');
 const authRouter = require('./auth');
 
-var authMiddleware = require('./auth/middleware')
 
 const app = express();
 
@@ -52,7 +49,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
-  }));
+}));
+
+app.use((req, res, next)=>{
+    if (req.signedCookies.user_id) {
+        res.locals.isAuthenticated = true;
+    }
+    next();
+});
 
 // mount routers
 app.use('/', indexRouter);

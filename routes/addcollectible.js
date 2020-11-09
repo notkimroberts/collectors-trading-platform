@@ -155,7 +155,6 @@ router.post('/', async (req, res, next) => {
                         }
                         
 
-                        console.log(req.body.product_type);
                 
                         // obtain fields from form and store
                         const collectible = {
@@ -194,7 +193,6 @@ router.post('/', async (req, res, next) => {
                             return
                         }
 
-                        console.log(req.body.product_type);
                 
                         // obtain fields from form and store
                         const collectible = {
