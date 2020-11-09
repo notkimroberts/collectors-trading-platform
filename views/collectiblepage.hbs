@@ -1,0 +1,79 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        
+        {{#each collectible}}
+            <div class="collectible-heading">
+                <h4>{{{name}}}</h4>
+                <p>Collectible id: {{{collectible_id}}}</p>
+                <hr/>
+            </div>
+
+            <br/>
+        
+            <div class="collectible-image">
+                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}}/></td>	
+
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="collectible-attributes">
+                <td><b>Type:</b> {{{type_name}}}</td>
+                <br/>
+                {{#if attributes.piece_count}}      
+                    <td><b>Piece Count:</b> {{{attributes.piece_count}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.set_number}}      
+                    <td><b>Set Number:</b> {{{attributes.set_number}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.theme}}      
+                    <td><b>Theme:</b> {{{attributes.theme}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.designed_by}}      
+                    <td><b>Designer:</b> {{{attributes.designed_by}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.number}}       
+                    <td><b>Number:</b> {{{attributes.number}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.line}}       
+                    <td><b>Line:</b> {{{attributes.line}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.series}}       
+                    <td><b>Series:</b> {{{attributes.series}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.year_released}}       
+                    <td><b>Release Year:</b> {{{attributes.year_released}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.product_type}}      
+                    <td><b>Product Type:</b> {{{attributes.product_type}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.season}}  
+                    <td><b>Season/Holiday:</b> {{{attributes.season}}}</td>
+                    <br/>
+                {{/if}} 
+                {{#if attributes.generation}}         
+                    <td><b>Generation:</b> {{{attributes.generation}}}</td>
+                    <br/>
+                {{/if}} 
+            </div>    
+        {{/each}}
+        <br/>
+
+        <div class="for-trade">
+            <h5>Collectors who have this item for trade:</h5>
+        </div>
+    </div>
+</div>
+    
+<link rel="stylesheet" href="/css/collectiblepage.css"/>

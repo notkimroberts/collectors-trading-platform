@@ -1,6 +1,5 @@
 
 function filterCollectiblesByType() {
-    console.log("in filtercollectiblesbytype")
     // get the id of the selected location from the filter dropdown
         var type_id = document.getElementById('type_filter').value
    

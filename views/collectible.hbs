@@ -1,7 +1,11 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-8">
         <h2>Collectible</h2>
-
+    {{#if message}}
+        <div class="alert {{messageClass}}" role="alert">
+            {{message}}
+        </div>
+    {{/if}}
     {{#if nofilter}}
     {{else}}
     <form id='filter_type' action='/filter/:type_name' method='get'>
@@ -21,7 +25,7 @@
     
         <table class="table table-striped">
             <thead>
-                <th>Collectible ID</th>
+                <th>Collectible id</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Piece Count</th>
@@ -41,7 +45,7 @@
                 {{#each collectible}}
                     <tr>
                         <td>{{{collectible_id}}}</td>
-                        <td>{{{name}}}</td>
+                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td>{{{type_name}}}</td>
                         <td>{{{attributes.piece_count}}}</td>
                         <td>{{{attributes.set_number}}}</td>
