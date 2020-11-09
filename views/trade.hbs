@@ -1,12 +1,12 @@
-<h2>Your trade match page with {{#each collector2}} <a href="/collector/{{{collector_id}}}">{{{username}}}</a>{{/each}}</h2>
+<h3>Your trade matches with {{#each collector2}} <a href="/collector/{{{collector_id}}}">{{{username}}}</a>{{/each}}</h3>
     <div class="row">
         <div class="column" style="background-color:#aaa;">
-            <h2>{{#each collector1}} {{{loggedInUsername}}}'s {{/each}} trades to {{#each collector2}} {{{username}}}'s {{/each}} wants</h2>
+            <h4>{{#each collector1}} {{{loggedInUsername}}}'s {{/each}} trades to {{#each collector2}} {{{username}}}'s {{/each}} wants:</h4>
             <p>Some text..</p>
         </div>
 
         <div class="column" style="background-color:#bbb;">
-            <h2>{{#each collector2}} {{{username}}}'s {{/each}} trades to {{#each collector1}} {{{loggedInUsername}}}'s {{/each}} wants</h2>
+            <h4>{{#each collector2}} {{{username}}}'s {{/each}} trades to {{#each collector1}} {{{loggedInUsername}}}'s {{/each}} wants:</h4>
             <p>Some text..</p>
         </div>
     </div>
