@@ -94,6 +94,36 @@ router.get('/:id', async (req, res, next) => {
         collectibleByType: collectiblesByType,
         nofilter: nofilter, // to not display filter
     });
+    
+});
+
+
+router.post('/:id', async (req, res, next) => 
+{       
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectorSelected = req.body.collector_id;
+    const collectible_id1 = req.body.collectible_id; // this value is currently null
+    console.log(q1);
+    console.log(q2);
+    console.log(q3);
+    console.log(req.signedCookies.user_id);
+    console.log(collectible_id1);
+    await knex('collection')
+        .where({collector_id: req.signedCookies.user_id})
+        .andWhere({collectible_id: 5})
+        .update({has_quantity: q1})
+        .update({wants_quantity: q2})
+        .update({willing_to_trade_quantity: q3 });
+
+    res.render('profile', { 
+        collector: collectorData,
+        collector_id: req.signedCookies.user_id,
+        collectionHas: collectionsHas,
+        collectionWants: collectionsWants,
+        collectionWillingToTrade: collectionsWillingToTrade
+    });
 });
 
 router.get('/image/:id', async (req, res, next) => { 
