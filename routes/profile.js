@@ -77,7 +77,7 @@ const collectible = require('../models/collectible');
         await knex('collection').where({collectible_id: 5}).where({collector_id: 42})
             .update({has_quantity: 3,
              wants_quantity: 5,willing_to_trade_quantity:23});
-             res.redirect(req.get('profile'));
+            //  res.redirect(req.get('profile'));
     });
 
     router.post('/submit2', async (req, res, next) => 
