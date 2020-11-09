@@ -21,6 +21,7 @@
     
         <table class="table table-striped">
             <thead>
+                <th>Collectible ID</th>
                 <th>Name</th>
                 <th>Type</th>
                 <th>Piece Count</th>
@@ -39,6 +40,7 @@
             <tbody>
                 {{#each collectible}}
                     <tr>
+                        <td>{{{collectible_id}}}</td>
                         <td>{{{name}}}</td>
                         <td>{{{type_name}}}</td>
                         <td>{{{attributes.piece_count}}}</td>

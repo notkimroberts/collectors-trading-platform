@@ -74,27 +74,11 @@ const collectible = require('../models/collectible');
         const q3 = req.body.willing_to_trade_quantity;
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
-        await knex('collection').where({collectible_id: collectible_id})
-            .update({has_quantity: q1,
-             wants_quantity: q2,willing_to_trade_quantity: q3});
+        await knex('collection').where({collectible_id: 5}).where({collector_id: 42})
+            .update({has_quantity: 3,
+             wants_quantity: 5,willing_to_trade_quantity:23});
              res.redirect(req.get('profile'));
     });
-
-
-    $('#formID').submit(function(e){
-        e.preventDefault(); // <----stops the form to get submitted
-        $.ajax({
-           url:'/testRoute',
-           data:{
-                  button:$('button[name="button"]').attr('name'), // <---send button name
-                  p     :$('p[name="p"]').text() // send the p's text.
-           },
-           success:function(data){
-             console.log(data); // logs the response from the server.
-           },
-           error:function(){}
-       });
-     });
 
     router.post('/submit2', async (req, res, next) => 
     {       
@@ -120,6 +104,9 @@ const collectible = require('../models/collectible');
             .join({collectible_id: collectible_id})
             .update({has_quantity: q1,
              wants_quantity: q2, willing_to_trade_quantity: q3 });
+        return knex.raw(
+            "UPDATE COLLECTION SET has_quantity = q1, wants_quantity = q2, willing_to_trade_quantity = q3,"
+        )
              res.redirect('profile');
             });
     
