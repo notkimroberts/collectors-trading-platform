@@ -1,7 +1,8 @@
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
-const { ensureLoggedIn } = require('../auth/middleware')
+const { ensureLoggedIn } = require('../auth/middleware');
+const collectible = require('../models/collectible');
 
 
 /* router.get('/', async (req, res, next) => {
@@ -66,8 +67,47 @@ const { ensureLoggedIn } = require('../auth/middleware')
         });
     });
 
+    router.post('/submit', async (req, res, next) => 
+    {       
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        await knex('collector').where({collector_id: collectorSelected})
+            .join({collectible_id: collectible_id})
+            .update({has_quantity: q1,
+             wants_quantity: q2,willing_to_trade_quantity: q3 })
+             res.redirect('profile');
+            });
 
-    router.post('/submit')
+    router.post('/submit2', async (req, res, next) => 
+    {       
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        await knex('collector').where({collector_id: collectorSelected})
+            .join({collectible_id: collectible_id})
+            .update({has_quantity: q1,
+             wants_quantity: q2,willing_to_trade_quantity: q3 })
+             res.redirect('profile');
+            });
+    
+    router.post('/submit3', async (req, res, next) => 
+    {       
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        await knex('collector').where({collector_id: collectorSelected})
+            .join({collectible_id: collectible_id})
+            .update({has_quantity: q1,
+             wants_quantity: q2,willing_to_trade_quantity: q3 })
+             res.redirect('profile');
+            });
     
 
 module.exports = router;
