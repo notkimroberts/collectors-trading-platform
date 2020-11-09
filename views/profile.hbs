@@ -4,12 +4,13 @@
         {{#each collector}}
         <h2>{{{username}}}</h2>
         <h2>collector id: {{{collector_id}}}</h2>
+         <h2>collectible id: {{{collectible_id}}}</h2>
         <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
         <hr/>
     </div>
     {{/each}}
 
-<form action="/submit" method="put" class="form-example">
+<form action="/profile" method="post" class="form-example">
     <div class="col col-md-4 heading"><h3 >Inventory</h3></div>
     <div class="col col-md-4">
         {{#each collectionHas}}
@@ -20,14 +21,15 @@
                     <br>
                     <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
                      <label>Enter Quantity</label>
+                      <input hidden="number" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
                     <br>has: <input type="number" step="1" min="0" max="500"
-                         name="quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
+                         name="has_quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
                           inputmode="">
                       wants: <input type="number" step="1" min="0" max="500"
-                    name="quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
+                    name="wants_quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
                     inputmode="">
                       for trade: <input type="number" step="1" min="0" max="500"
-                    name="quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
+                    name="willing_to_trade_quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""
                     inputmode="">
                     <br>
                     <br>
@@ -44,7 +46,7 @@
 </div>
 </form>
 
-<form action="/submit2" method="put" class="form-example">
+{{!-- <form action="/submit2" method="put" class="form-example">
     <div class="col col-md-4 heading"><h3 >Wants</h3></div>
 
     <div class="col col-md-4">
@@ -116,7 +118,7 @@
     </div>
 </div>
 </form>
-
+ --}}
 
 
 <script src="jquery-3.5.1.min.js"></script>
