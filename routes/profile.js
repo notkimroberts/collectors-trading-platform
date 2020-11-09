@@ -52,7 +52,7 @@ const collectible = require('../models/collectible');
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
 
-        console.log(collectorData);
+/*         console.log(collectorData); */
     
         res.render('profile', { 
             collector: collectorData,
@@ -67,16 +67,55 @@ const collectible = require('../models/collectible');
         });
     });
 
-    router.put('/submit', async (req, res, next) => 
-    {       
+    router.post('/', async (req, res, next) => 
+    {  
         const q1 = req.body.has_quantity;
         const q2 = req.body.wants_quantity;
         const q3 = req.body.willing_to_trade_quantity;
-        const collectorSelected = req.body.collector_id;
-        const collectible_id = req.body.collectible_id;
-        // await knex('collection').where({collector_id: collectorSelected}).andWhere({collectible_id: collectible_id})
-        // .update({'collection.has_quantity': q1,
-        // 'collection.wants_quantity': q2,'collection.willing_to_trade_quantity': q3 });
+        const collectible_id1 = req.body.collectible_id;
+
+        const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id')
+        .where('collector_id', req.signedCookies.user_id );
+
+          // user's has collectibles if has_quantity is greater than 0
+          const collectionsHas = await knex('collection')
+          .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+          .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+          .where('collector_id', req.signedCookies.user_id )
+          .andWhere('collection.has_quantity', '>', 0);
+  
+          // user's wants collectibles if has_quantity is greater than 0
+          const collectionsWants = await knex('collection')
+          .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+          .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+          .where('collector_id', req.signedCookies.user_id )
+          .andWhere('collection.wants_quantity', '>', 0);
+      
+  
+          // user's wants collectibles if has_quantity is greater than 0
+          const collectionsWillingToTrade = await knex('collection')
+          .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+          .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+          .where('collector_id', req.signedCookies.user_id )
+          .andWhere('collection.willing_to_trade_quantity', '>', 0);
+
+          
+
+
+        console.log(q1);
+        console.log(q2);
+        console.log(q3);
+        console.log(collectible_id1);
+        await knex('collection')
+            .where({collector_id: req.signedCookies.user_id})
+            .andWhere({collectible_id: collectible_id1})
+            .update({has_quantity: q1})
+            .update({wants_quantity: q2})
+            .update({willing_to_trade_quantity: q3 });
+
+
+
         res.render('profile', { 
             collector: collectorData,
             collector_id: req.signedCookies.user_id,
@@ -84,9 +123,9 @@ const collectible = require('../models/collectible');
             collectionWants: collectionsWants,
             collectionWillingToTrade: collectionsWillingToTrade
         });
-        //   res.redirect(`/profile/submit?quantity=${has_quantity}&quantity=${wants_quantity}&quantity=${willing_to_trade_quantity}&button=Submit`);
+     
     });
-
+/* 
     router.put('/submit2', async (req, res, next) => 
     {       
         const q1 = req.body.has_quantity;
@@ -116,6 +155,6 @@ const collectible = require('../models/collectible');
         )
              res.redirect('profile');
             });
-    
+     */
 
 module.exports = router;
