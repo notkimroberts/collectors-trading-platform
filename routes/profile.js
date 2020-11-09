@@ -8,26 +8,9 @@ const collectible = require('../models/collectible');
 router.get('/', ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
 
-<<<<<<< HEAD
-    res.render('profile', { 
-        //email: email,
-        //phone_number: phone_number,
-        //title: `Collector's Trading Platform | ${username}`,
-        //username: username,
-        //collector_id: collector_id
-    }); 
-}); */
-
-    router.get('/', ensureLoggedIn, async (req, res, next) => {
-        // const { id } = req.params;
-        //console.log(user_id);
-        //const { email, phone_number, username, collector_id} = res.collector_id;
-        console.log(req.signedCookies.user_id); // gets collector_id
-=======
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id')
         .where('collector_id', userId );
->>>>>>> 2e7bfef01b74666f5e1c226d7559a5d9dd81acac
 
     // user's has collectibles if has_quantity is greater than 0
     const collectionsHas = await knex('collection')
@@ -75,7 +58,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     });
 });
 
-<<<<<<< HEAD
     router.post('/', async (req, res, next) => 
     {       
         const q1 = req.body.has_quantity;
@@ -135,7 +117,5 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     //          res.redirect('profile');
     //         });
     
-=======
->>>>>>> 2e7bfef01b74666f5e1c226d7559a5d9dd81acac
 
 module.exports = router;
