@@ -9,9 +9,29 @@ router.get('/search', async (req, res, next) => {
   const collectors = await knex('collector')
     .select('collector.collector_id', 'collector.username', 'collector.email', 'collector.phone_number', 'collector.is_admin')
     .where('collector.username', 'ilike', `%${username}%`);
-  res.render('collector', {
-      title: `Collector\'s Trading Platform | Search Results`,
-      collector: collectors,  });
+
+
+                // if results, render collectibles
+                if (collectors.length > 0) {
+                  res.render('collector', {
+                    title: `Collector\'s Trading Platform | Search Results`,
+                    collector: collectors});
+                  return;
+              }
+              
+              // if no results, inform user
+              else {
+                  res.render('collector', { 
+                          title: `Collector\'s Trading Platform | Search Results`,
+                          message: `No results matching your search term "${username}"`,
+                          messageClass: 'alert-info'
+                      }
+                  )
+                  return;
+              }
+
+
+
   });
 
 router.get('/:id', async (req, res, next) => { 

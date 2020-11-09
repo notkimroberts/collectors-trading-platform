@@ -49,17 +49,28 @@ router.get('/search', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where('collectible.name', 'ilike', `%${name}%`);
-
-    // filter by type
-    const collectiblesByType = await knex('collectible_type')
-        .select('name as type_name', 'collectible_type_id as type_id');
-    
-        res.render('collectible', {
-        title: "Collector\'s Trading Platform | Search Results",
-        collectible: collectibles,
-        collectibleByType: collectiblesByType,
-        nofilter: nofilter,
-  });
+        
+            // if results, render collectibles
+            if (collectibles.length > 0) {
+                res.render('collectible', {
+                title: "Collector\'s Trading Platform | Search Results",
+                collectible: collectibles,
+                nofilter: nofilter,
+                });
+                return;
+            }
+            
+            // if no results, inform user
+            else {
+                res.render('collectible', { 
+                        title: "Collector\'s Trading Platform | Search Results",
+                        message: `No results matching your search term "${name}"`,
+                        messageClass: 'alert-info',
+                        nofilter: nofilter,
+                    }
+                )
+                return;
+            }   
 });
 
 router.get('/:id', async (req, res, next) => { 
