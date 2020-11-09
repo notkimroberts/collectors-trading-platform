@@ -69,9 +69,14 @@ const collectible = require('../models/collectible');
 
     router.post('/submit', async (req, res, next) => 
     {       
-        await knex('collection').where({collector_id: 42}).andWhere({collectible_id: 5})
-            .update({has_quantity: `5`,
-             wants_quantity: `7`,willing_to_trade_quantity: `23`});
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        await knex('collection').where({collector_id: collectorSelected}).andWhere({collectible_id: collectible_id})
+        .update({'collection.has_quantity': q1,
+        'collection.wants_quantity': q2,'collection.willing_to_trade_quantity': q3 });
           res.redirect('../profile');
     });
 
@@ -83,8 +88,8 @@ const collectible = require('../models/collectible');
         const collectorSelected = req.body.collector_id;
         const collectible_id = req.body.collectible_id;
         await knex('collection').where({collector_id: collectorSelected})
-            .update({has_quantity: q1,
-             wants_quantity: q2,willing_to_trade_quantity: q3 });
+            .update({'collection.has_quantity': q1,
+             'collection.wants_quantity': q2,'collection.willing_to_trade_quantity': q3 });
              res.redirect('profile');
     });
     
