@@ -68,6 +68,22 @@
         {{/each}}
     </div>
 
+    <div class="col col-md-4 heading"><h3 >Matches</h3></div>
+        <div class="col col-md-4">
+        {{#each matches}}
+            <div class="parent">             
+                <div class='child float-left-child'>
+                    <td>
+                        <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <br>
+                        <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
+                        <br>Collector: {{{collector_id}}}
+                        <br>for trade: {{{willing_to_trade_quantity}}}
+                    </td>
+                </div> 
+            </div>
+        {{/each}}
+    </div>
 </div>
 
 <link rel="stylesheet" href="/css/profile.css"/>
