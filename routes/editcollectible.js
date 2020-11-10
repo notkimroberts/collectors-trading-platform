@@ -65,72 +65,92 @@ router.post('/', async (req, res, next) => {
     }
 
     if (typeSelected == "lego") {
-        const collectibleType = 1;
+        const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id')
+        .where('collector_id', userId );
+        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+            console.log(ids);     
+            const collectibleType = 5;    
+            var n = ids.includes(collectibleType);
+            console.log(n);
+            if (n == true)
+            {
+            if (!req.body.piece_count) {
+                res.render('editcollectible', { 
+                        message: 'Please add piece count',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.piece_count) {
-            res.render('editcollectible', { 
-                    message: 'Please add piece count',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.set_number) {
+                res.render('editcollectible', { 
+                        message: 'Please add set_number',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.set_number) {
-            res.render('editcollectible', { 
-                    message: 'Please add set_number',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.theme) {
+                res.render('editcollectible', { 
+                        message: 'Please add theme',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.theme) {
-            res.render('editcollectible', { 
-                    message: 'Please add theme',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.designed_by) {
+                res.render('editcollectible', { 
+                        message: 'Please add designer',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.designed_by) {
-            res.render('editcollectible', { 
-                    message: 'Please add designer',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
-
-        if (name) {
-            // update name
-            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
-        }
-    
-        if (req.files) {
-            const {data} = req.files.pic;
-            if (data) {
-            // update image
-            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            if (name) {
+                // update name
+                await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
             }
         
-        }
+            if (req.files) {
+                const {data} = req.files.pic;
+                if (data) {
+                // update image
+                await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+                }
+            
+            }
 
-        await knex('collectible')
-            .where({collectible_id: collectible_id})
-            .update({collectible_type_id: collectibleType})
-            .update({attributes: {  piece_count: req.body.piece_count, 
-                                    set_number: req.body.set_number, 
-                                    theme:  req.body.theme, 
-                                    designed_by: req.body.designed_by}})
-            .update({updated_at: knex.fn.now()});
-      
+            await knex('collectible')
+                .where({collectible_id: collectible_id})
+                .update({collectible_type_id: collectibleType})
+                .update({attributes: {  piece_count: req.body.piece_count, 
+                                        set_number: req.body.set_number, 
+                                        theme:  req.body.theme, 
+                                        designed_by: req.body.designed_by}})
+                .update({updated_at: knex.fn.now()});
+        
         res.redirect(`/collectible/${collectible_id}`);
-
+            }
+        });
     }
 
     else if (typeSelected == "funko") {
+        const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id')
+        .where('collector_id', userId );
+        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+            console.log(ids);     
+            const collectibleType = 5;    
+            var n = ids.includes(collectibleType);
+            console.log(n);
+            if (n == true)
+            {
+
         const collectibleType = 2;
 
         if (!req.body.number) {
@@ -178,12 +198,22 @@ router.post('/', async (req, res, next) => {
 
         
         res.redirect(`/collectible/${collectible_id}`);
-
     }
+});
+}
 
     else if (typeSelected == "pusheen") {
-        const collectibleType = 3;
-
+        const collectorData = await knex('collector')
+            .select('username', 'email', 'phone_number', 'collector_id')
+            .where('collector_id', userId );
+            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                console.log(ids);     
+                const collectibleType = 3;    
+                var n = ids.includes(collectibleType);
+                console.log(n);
+                if (n == true)
+                {
+    
 
 
         if (!req.body.product_type1) {
@@ -228,13 +258,23 @@ router.post('/', async (req, res, next) => {
 
         
         res.redirect(`/collectible/${collectible_id}`);
-
     }
+});
+}
 
 
     else if (typeSelected == "pokemon") {
-        const collectibleType = 4;
-
+        const collectorData = await knex('collector')
+            .select('username', 'email', 'phone_number', 'collector_id')
+            .where('collector_id', userId );
+            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                console.log(ids);     
+                const collectibleType = 4;    
+                var n = ids.includes(collectibleType);
+                console.log(n);
+                if (n == true)
+                {
+    
 
 
         if (!req.body.product_type) {
@@ -295,11 +335,20 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
 
     }
-
+});
+}
 
     else if (typeSelected == "hot_wheel") { 
-        const collectibleType = 5;
-
+        const collectorData = await knex('collector')
+            .select('username', 'email', 'phone_number', 'collector_id')
+            .where('collector_id', userId );
+            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                console.log(ids);     
+                const collectibleType = 5;    
+                var n = ids.includes(collectibleType);
+                console.log(n);
+                if (n == true)
+                {
     
 
         if (!req.body.number1) {
@@ -355,6 +404,8 @@ router.post('/', async (req, res, next) => {
 
         res.redirect(`/collectible/${collectible_id}`);
     }
+});
+}
 });
 
 

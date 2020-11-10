@@ -46,11 +46,11 @@ router.post('/', async (req, res, next) => {
                         .where('collector_id', userId );
                         knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
                             console.log(ids);         
-                            var n = ids.includes(true);
+                            const collectibleType = 1;
+                            var n = ids.includes(collectibleType);
                             console.log(n);
                             if (n == true)
                             {
-                                const collectibleType = 1;
                                 if (!req.body.piece_count) {
                                     res.render('addcollectible', { 
                                             message: 'Please add piece count',
@@ -107,12 +107,12 @@ router.post('/', async (req, res, next) => {
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
                             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                                console.log(ids);         
-                                var n = ids.includes(true);
+                                console.log(ids);     
+                                const collectibleType = 2;    
+                                var n = ids.includes(collectibleType);
                                 console.log(n);
                                 if (n == true)
                                 {
-                                    const collectibleType = 2;
                                     if (!req.body.number) {
                                         res.render('addcollectible', { 
                                                 message: 'Please add number',
@@ -152,12 +152,12 @@ router.post('/', async (req, res, next) => {
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
                             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                                console.log(ids);         
-                                var n = ids.includes(true);
+                                console.log(ids);       
+                                const collectibleType = 3;  
+                                var n = ids.includes(collectibleType);
                                 console.log(n);
                                 if (n == true)
                                 {
-                        const collectibleType = 3;
 
                         if (!req.body.product_type1) {
                             res.render('addcollectible', { 
@@ -202,12 +202,12 @@ router.post('/', async (req, res, next) => {
                         .select('username', 'email', 'phone_number', 'collector_id')
                         .where('collector_id', userId );
                         knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                            console.log(ids);         
-                            var n = ids.includes(true);
+                            console.log(ids);   
+                            const collectibleType = 4;      
+                            var n = ids.includes(collectibleType);
                             console.log(n);
                             if (n == true)
                             {
-                        const collectibleType = 4;
 
                         if (!req.body.product_type) {
                             res.render('addcollectible', { 
@@ -253,12 +253,12 @@ router.post('/', async (req, res, next) => {
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
                             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                                console.log(ids);         
-                                var n = ids.includes(true);
+                                console.log(ids);     
+                                const collectibleType = 5;    
+                                var n = ids.includes(collectibleType);
                                 console.log(n);
                                 if (n == true)
                                 {
-                        const collectibleType = 5;
 
                         if (!req.body.number1) {
                             res.render('addcollectible', { 
