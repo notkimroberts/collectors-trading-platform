@@ -10,8 +10,39 @@
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
             <div class="form-example">
-                <input type="checkbox" id="is_admin" name="is_admin">
+                <input type="number" min="0" max ="5" id="is_admin" name="is_admin" required>
                 <label for="is_admin">Are you an Admin?</label>
+                <table style="width:100%">
+                <tr>
+                    <th>Value</th>
+                    <th>Admin Status</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>Not admin</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Lego</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Funko</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Pusheen</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Pokemon</td>
+                </tr>    
+                <tr>
+                    <td>5</td>
+                    <td>Hot Wheel</td>
+                </tr>
+            
+                </table>
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
