@@ -75,7 +75,7 @@ router.get('/search', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => { 
     const { id } = req.params;
-    const userId = req.signedCookies.user_id  
+    const userId = req.signedCookies.user_id; 
 
     console.log(id);
 
