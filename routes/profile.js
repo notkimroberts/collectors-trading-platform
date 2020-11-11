@@ -85,34 +85,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
             .update({wants_quantity: q2})
             .update({willing_to_trade_quantity: q3 });
 
-        // user's has collectibles if has_quantity is greater than 0
-        const collectionsHas = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .andWhere('collection.has_quantity', '>', 0);
-
-        // user's wants collectibles if has_quantity is greater than 0
-        const collectionsWants = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .andWhere('collection.wants_quantity', '>', 0);
-
-        // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
-        const collectionsWillingToTrade = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .andWhere('collection.willing_to_trade_quantity', '>', 0);
-
-        res.render('profile', { 
-            collector: collectorData,
-            collector_id: userId,
-            collectionHas: collectionsHas,
-            collectionWants: collectionsWants,
-            collectionWillingToTrade: collectionsWillingToTrade
-        });
+        res.redirect(`profile`);
     });
 
 module.exports = router;
