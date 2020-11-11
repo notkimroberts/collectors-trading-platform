@@ -79,70 +79,82 @@ router.get('/search', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => { 
     const { id } = req.params;
     const userId = req.signedCookies.user_id; 
-  
+    
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
 
-    // user's has collectibles for any value zero or greater
-    const collectionsHas = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', id )
-        .andWhere('collection.has_quantity', '>=', 0);
+    // if user is signed in 
+    if (userId) {
+        // user's has collectibles for any value zero or greater
+        const collectionsHas = await knex('collection')
+            .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+            .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+            .where('collector_id', userId )
+            .where('collection.collectible_id', id )
+            .andWhere('collection.has_quantity', '>=', 0);
 
-    // user's wants collectibles if has_quantity for any value zero or greater
-    const collectionsWants = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', id )
-        .andWhere('collection.wants_quantity', '>=', 0);
+        // user's wants collectibles if has_quantity for any value zero or greater
+        const collectionsWants = await knex('collection')
+            .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+            .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+            .where('collector_id', userId )
+            .where('collection.collectible_id', id )
+            .andWhere('collection.wants_quantity', '>=', 0);
 
-    // user's willing to trade collectibles if willing_to_trade_quantity for any value zero or greater
-    const collectionsWillingToTrade = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', id )
-        .andWhere('collection.willing_to_trade_quantity', '>=', 0);
+        // user's willing to trade collectibles if willing_to_trade_quantity for any value zero or greater
+        const collectionsWillingToTrade = await knex('collection')
+            .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+            .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+            .where('collector_id', userId )
+            .where('collection.collectible_id', id )
+            .andWhere('collection.willing_to_trade_quantity', '>=', 0);
 
-    // see if there's already a collector_id and collectible_id pair in the table
-    const collectionExists = await knex('collection')
-    .select(['collectible_id'])
-    .where('collector_id', userId)
-    .where('collectible_id', id);
+        // see if there's already a collector_id and collectible_id pair in the table
+        const collectionExists = await knex('collection')
+        .select(['collectible_id'])
+        .where('collector_id', userId)
+        .where('collectible_id', id);
 
-    // if results, render users collectibles to the form
-    if (collectionExists.length > 0) {
-        const somethingInCollection = 1;
+        // if results, render users collectibles to the form
+        if (collectionExists.length > 0) {
+            const somethingInCollection = 1;
 
-        res.render('collectiblepage', {
-            title: `Collector\'s Trading Platform | ${id}`,
-            collector_id: userId,
-            collectible: collectibles,
-            collectionHas: collectionsHas,
-            collectionWants: collectionsWants,
-            collectionWillingToTrade: collectionsWillingToTrade,
-            somethingInCollection
-        });
-        return;
+            res.render('collectiblepage', {
+                title: `Collector\'s Trading Platform | ${id}`,
+                collector_id: userId,
+                collectible: collectibles,
+                collectionHas: collectionsHas,
+                collectionWants: collectionsWants,
+                collectionWillingToTrade: collectionsWillingToTrade,
+                somethingInCollection
+            });
+            return;
+        }
+        
+        // if no results, render form with 0 in each quantity
+        else {
+            const nothingInCollection = 1;
+            res.render('collectiblepage', {
+                title: `Collector\'s Trading Platform | ${id}`,
+                collector_id: userId,
+                collectible: collectibles,
+                nothingInCollection,
+                id
+            });
+            return;
+        }    
     }
-    
-    // if no results, render form with 0 in each quantity
-    else { 
-        const nothingInCollection = 1;
+
+    // else user isn't signed in so don't show collection update form
+    else {
         res.render('collectiblepage', {
             title: `Collector\'s Trading Platform | ${id}`,
             collector_id: userId,
-            collectible: collectibles,
-            nothingInCollection,
-            id
-        });
-        return;
-    }    
+            collectible: collectibles
+        })
+    }
 });
 
 // post request to change user's collection quantities

@@ -92,7 +92,8 @@
                 {{/each}}
             </form>
         </div>
-    {{else}}
+        <br/>   
+    {{else if nothingInCollection}}
             <div class="collection">
             <h5>Your collection:</h5>
             <form action="/collectible/`{{{collectible_id}}}`" method="post" class="form-example">
@@ -110,9 +111,10 @@
                     <input type="submit" name="button" value="Update Collection">
             </form>
         </div>
+        <br/>   
     {{/if}}
 
-        <br/>   
+        
 
         <div class="for-trade">
             <h5>Collectors who have this item for trade:</h5>
