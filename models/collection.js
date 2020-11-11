@@ -1,0 +1,13 @@
+const knex = require('../connection')
+
+module.exports = {
+    create: (collector_id, collectible_id, has_quantity, wants_quantity, willing_to_trade_quantity) => {
+        const collection = knex('collection')
+        .then(() => {
+            return knex('collection').insert([
+                { collector_id: collector_id, collectible_id: collectible_id, has_quantity: has_quantity, wants_quantity: wants_quantity, willing_to_trade_quantity: willing_to_trade_quantity },
+            ])
+        })
+        return Promise.all([collection])
+    }
+}
