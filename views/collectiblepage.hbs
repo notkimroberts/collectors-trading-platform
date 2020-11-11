@@ -76,8 +76,8 @@
         <div>
     <div class="col col-md-4">
         <form action="/collectible/`{{{collectible_id}}}`" method="post" class="form-example">
-        
-            <input type="hidden" name="collectible_id" id="collectible_id" value="{{#each collectible}}{{{collectible_id}}}{{/each}}" readonly>
+        {{#each collectionHas}}
+            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
             <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
             <input type="number" step="1" min="0" max="500"
             name="has_quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern=""inputmode="">
@@ -89,6 +89,7 @@
             name="willing_to_trade_quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="" inputmode="">
             <br>
             <input type="submit" name="button" value="Submit">
+        {{/each}}
         </form>
     </div>
     </div>
