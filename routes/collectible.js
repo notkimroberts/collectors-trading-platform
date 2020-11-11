@@ -112,7 +112,7 @@ router.post('/:id', async (req, res, next) =>
     console.log(collectible_id1);
     await knex('collection')
         .where({collector_id: req.signedCookies.user_id})
-        .andWhere({collectible_id: 5})
+        .andWhere({collectible_id: collectible_id1})
         .update({has_quantity: q1})
         .update({wants_quantity: q2})
         .update({willing_to_trade_quantity: q3 });
