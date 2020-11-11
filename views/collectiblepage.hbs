@@ -75,7 +75,7 @@
     {{#if somethingInCollection}}
         <div class="collection">
             <h5>Your collection:</h5>
-            <form action="/collectible/`{{{collectible_id}}}`" method="post" class="form-example">
+            <form action="/collectible/{{id}}" method="post" class="form-example">
                 {{#each collectionHas}}
                     <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
                     <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
@@ -96,7 +96,7 @@
     {{else if nothingInCollection}}
             <div class="collection">
             <h5>Your collection:</h5>
-            <form action="/collectible/`{{{collectible_id}}}`" method="post" class="form-example">
+            <form action="/collectible/{{id}}" method="post" class="form-example">
                     <input type="hidden" name="collectible_id" id="collectible_id" value="{{{id}}}" readonly>
                     <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
                     <input type="number" step="1" min="0" max="500"

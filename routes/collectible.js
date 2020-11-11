@@ -128,7 +128,8 @@ router.get('/:id', async (req, res, next) => {
                 collectionHas: collectionsHas,
                 collectionWants: collectionsWants,
                 collectionWillingToTrade: collectionsWillingToTrade,
-                somethingInCollection
+                somethingInCollection,
+                id
             });
             return;
         }
