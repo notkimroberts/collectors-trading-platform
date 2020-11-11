@@ -52,7 +52,7 @@ exports.up = (knex) => {
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
         table.boolean('wants_public').defaultTo(true);
-        table.boolean('is_admin').defaultTo(false);
+        table.bigInteger('is_admin');
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
     })
