@@ -117,8 +117,6 @@ router.get('/:id', async (req, res, next) => {
 
     // if results, render users collectibles to the form
     if (collectionExists.length > 0) {
-        console.log("in has collection");
-
         const somethingInCollection = 1;
 
         res.render('collectiblepage', {
@@ -135,7 +133,6 @@ router.get('/:id', async (req, res, next) => {
     
     // if no results, render form with 0 in each quantity
     else { 
-        console.log("in nothing in collection");
         const nothingInCollection = 1;
         res.render('collectiblepage', {
             title: `Collector\'s Trading Platform | ${id}`,
