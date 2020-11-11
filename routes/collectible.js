@@ -104,7 +104,7 @@ router.post('/:id', async (req, res, next) =>
     const q2 = req.body.wants_quantity;
     const q3 = req.body.willing_to_trade_quantity;
     const collectorSelected = req.body.collector_id;
-    const collectible_id1 = req.body.collectible_id; // this value is currently null
+    const collectible_id1 = req.body.collectible_id;
     console.log(q1);
     console.log(q2);
     console.log(q3);
