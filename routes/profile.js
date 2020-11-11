@@ -36,7 +36,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     const userWants = await knex('collection')
         .select(['collectible_id'])
         .where('collector_id', '=', userId)
-        .andWhere('wants_quantity', '>', 0)
+        .andWhere('wants_quantity', '>', 0);
 
     const userWantsCollectibleIds = []
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
@@ -77,6 +77,8 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
             .update({wants_quantity: q2})
             .update({willing_to_trade_quantity: q3 });
 
+
+
         res.render('profile', { 
             collector: collectorData,
             collector_id: req.signedCookies.user_id,
@@ -86,36 +88,36 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         });
         //   res.redirect(`/profile/submit?quantity=${has_quantity}&quantity=${wants_quantity}&quantity=${willing_to_trade_quantity}&button=Submit`);
     });
-
-    // router.put('/submit2', async (req, res, next) => 
-    // {       
-    //     const q1 = req.body.has_quantity;
-    //     const q2 = req.body.wants_quantity;
-    //     const q3 = req.body.willing_to_trade_quantity;
-    //     const collectorSelected = req.body.collector_id;
-    //     const collectible_id = req.body.collectible_id;
-    //     // await knex('collection').where({collector_id: 42}).andWhere({collectible_id: 5})
-    //     //     .update({has_quantity: `5`,
-    //     //      wants_quantity: `7`,willing_to_trade_quantity: `23`});
-    //       res.redirect('profile');
-    // });
+/* 
+    router.put('/submit2', async (req, res, next) => 
+    {       
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        // await knex('collection').where({collector_id: 42}).andWhere({collectible_id: 5})
+        //     .update({has_quantity: `5`,
+        //      wants_quantity: `7`,willing_to_trade_quantity: `23`});
+          res.redirect('profile');
+    });
     
-    // router.put('/submit3', async (req, res, next) => 
-    // {       
-    //     const q1 = req.body.has_quantity;
-    //     const q2 = req.body.wants_quantity;
-    //     const q3 = req.body.willing_to_trade_quantity;
-    //     const collectorSelected = req.body.collector_id;
-    //     const collectible_id = req.body.collectible_id;
-    //     await knex('collection').where({collector_id: collectorSelected})
-    //         .join({collectible_id: collectible_id})
-    //         .update({has_quantity: q1,
-    //          wants_quantity: q2, willing_to_trade_quantity: q3 });
-    //     return knex.raw(
-    //         "UPDATE COLLECTION SET has_quantity = q1, wants_quantity = q2, willing_to_trade_quantity = q3,"
-    //     )
-    //          res.redirect('profile');
-    //         });
-    
+    router.put('/submit3', async (req, res, next) => 
+    {       
+        const q1 = req.body.has_quantity;
+        const q2 = req.body.wants_quantity;
+        const q3 = req.body.willing_to_trade_quantity;
+        const collectorSelected = req.body.collector_id;
+        const collectible_id = req.body.collectible_id;
+        await knex('collection').where({collector_id: collectorSelected})
+            .join({collectible_id: collectible_id})
+            .update({has_quantity: q1,
+             wants_quantity: q2, willing_to_trade_quantity: q3 });
+        return knex.raw(
+            "UPDATE COLLECTION SET has_quantity = q1, wants_quantity = q2, willing_to_trade_quantity = q3,"
+        )
+             res.redirect('profile');
+            });
+     */
 
 module.exports = router;
