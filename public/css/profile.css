@@ -4,18 +4,13 @@
     word-wrap: break-word;
     width: 300px;
     height: 200px;
- 
+    text-align: center;
   }
 
 .input-text{
-    width: 50px;
+    width: 40px;
 } 
 
-#wrapper {
-  min-width: 550px; 
-  position: relative;
-  overflow:scroll;
-}
 
  /*  overwrite bootstrap so can see many collectibles per row */
   .col-md-4 {
