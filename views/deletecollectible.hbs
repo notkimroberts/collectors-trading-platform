@@ -1,0 +1,26 @@
+<div class="row justify-content-md-center mt-2">
+
+    <div class="col col-md-4">
+        <h2>Delete an existing collectible</h2>
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+
+        <form id="delete_collectible" action="/delete-collectible" enctype="multipart/form-data" method="POST">
+
+
+            <div class="form-group">
+                <label for="collectible_id">Collectible id (required): </label>
+                <input class="form-control" type="number" name="collectible_id" id="collectible_id" required>
+            </div>
+
+
+            <button type="submit" class="btn btn-success">Delete</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/jquery-3.5.1.js"></script>

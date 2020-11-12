@@ -227,7 +227,7 @@ router.post('/', async (req, res, next) => {
 
 
         if (!req.body.season) {
-            res.render('addcollectible', { 
+            res.render('editcollectible', { 
                     message: 'Please add season/holiday',
                     messageClass: 'alert-danger'
                 }
@@ -288,7 +288,7 @@ router.post('/', async (req, res, next) => {
 
 
         if (!req.body.generation) {
-            res.render('addcollectible', { 
+            res.render('editcollectible', { 
                     message: 'Please add generation',
                     messageClass: 'alert-danger'
                 }
