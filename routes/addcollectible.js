@@ -2,18 +2,16 @@ const Collectible = require('../models/collectible');
 const FileType = require('file-type');
 const express = require('express');
 const router = express.Router();
-
+const knex = require('../connection')
 
 function validCollectible(collectible) {
     const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
     return validName;
 }
 
-
 router.get('/', (req, res, next) => {
     res.render('addcollectible');
 });
-
 
 router.post('/', async (req, res, next) => {
     if(validCollectible(req.body)) {
@@ -41,100 +39,125 @@ router.post('/', async (req, res, next) => {
                 if (!collectible) {
                     const { data } = req.files.pic;
                     const typeSelected = req.body.collectible_type;
-
+                    const userId = req.signedCookies.user_id;
                     if (typeSelected == "lego") {
-                        const collectibleType = 1;
-                        if (!req.body.piece_count) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add piece count',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        if (!req.body.set_number) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add set_number',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        if (!req.body.theme) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add theme',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        if (!req.body.designed_by) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add designer',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        const collectible = {
-                            name: req.body.name,
-                            collectible_type_id: collectibleType,
-                            image: data,
-                            attributes: 
-                                    {
-                                        piece_count: req.body.piece_count, 
-                                        set_number: req.body.set_number, 
-                                        theme:  req.body.theme, 
-                                        designed_by: req.body.designed_by
-                                    }
-                            };
-
-                        const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/${collectibleID}`);
-                    }
-
-                    else if (typeSelected == "funko") {
-                        const collectibleType = 2;
-                        if (!req.body.number) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add number',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-                
-                        if (!req.body.line) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add line',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        // obtain fields from form and store
-                        const collectible = {
-                            name: req.body.name,
-                            collectible_type_id: collectibleType,
-                            image: data,
-                            attributes: 
-                                        {
-                                            number: req.body.number, 
-                                            line: req.body.line
+                        const collectorData = await knex('collector')
+                        .select('username', 'email', 'phone_number', 'collector_id')
+                        .where('collector_id', userId );
+                        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                            console.log(ids);         
+                            const collectibleType = 1;
+                            var n = ids.includes(collectibleType);
+                            console.log(n);
+                            if (n == true)
+                            {
+                                if (!req.body.piece_count) {
+                                    res.render('addcollectible', { 
+                                            message: 'Please add piece count',
+                                            messageClass: 'alert-danger'
                                         }
-                            };
-                        // create the new collectible entry
-                        const collectibleID = await Collectible.create(collectible);
-                        res.redirect(`/collectible/${collectibleID}`);
-                    }
+                                    )
+                                    return
+                                }
+                                if (!req.body.set_number) {
+                                    res.render('addcollectible', { 
+                                            message: 'Please add set_number',
+                                            messageClass: 'alert-danger'
+                                        }
+                                    )
+                                    return
+                                }
+                                if (!req.body.theme) {
+                                    res.render('addcollectible', { 
+                                            message: 'Please add theme',
+                                            messageClass: 'alert-danger'
+                                        }
+                                    )
+                                    return
+                                }
+                                if (!req.body.designed_by) {
+                                    res.render('addcollectible', { 
+                                            message: 'Please add designer',
+                                            messageClass: 'alert-danger'
+                                        }
+                                    )
+                                    return
+                                }
+                                const collectible = {
+                                    name: req.body.name,
+                                    collectible_type_id: collectibleType,
+                                    image: data,
+                                    attributes: 
+                                            {
+                                                piece_count: req.body.piece_count, 
+                                                set_number: req.body.set_number, 
+                                                theme:  req.body.theme, 
+                                                designed_by: req.body.designed_by
+                                            }
+                                    };
+                            const collectibleID = await Collectible.create(collectible);
+                            res.redirect(`/collectible/${collectibleID}`);
+                            }
+                        });
+                        
+                        }
 
+                        else if (typeSelected == "funko") {
+                            const collectorData = await knex('collector')
+                            .select('username', 'email', 'phone_number', 'collector_id')
+                            .where('collector_id', userId );
+                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                                console.log(ids);     
+                                const collectibleType = 2;    
+                                var n = ids.includes(collectibleType);
+                                console.log(n);
+                                if (n == true)
+                                {
+                                    if (!req.body.number) {
+                                        res.render('addcollectible', { 
+                                                message: 'Please add number',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                        return
+                                    }
+                                    if (!req.body.line) {
+                                        res.render('addcollectible', { 
+                                                message: 'Please add line',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                        return
+                                    }
+                                    // obtain fields from form and store
+                                    const collectible = {
+                                        name: req.body.name,
+                                        collectible_type_id: collectibleType,
+                                        image: data,
+                                        attributes: 
+                                                    {
+                                                        number: req.body.number, 
+                                                        line: req.body.line
+                                                    }
+                                        };
+                                // create the new collectible entry
+                                const collectibleID = await Collectible.create(collectible);
+                                res.redirect(`/collectible/${collectibleID}`);
+                                    }
+                            });
+                            }
+                                    
                     else if (typeSelected == "pusheen") {
-                        const collectibleType = 3;
+                        const collectorData = await knex('collector')
+                            .select('username', 'email', 'phone_number', 'collector_id')
+                            .where('collector_id', userId );
+                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                                console.log(ids);       
+                                const collectibleType = 3;  
+                                var n = ids.includes(collectibleType);
+                                console.log(n);
+                                if (n == true)
+                                {
 
                         if (!req.body.product_type1) {
                             res.render('addcollectible', { 
@@ -171,9 +194,20 @@ router.post('/', async (req, res, next) => {
                         const collectibleID = await Collectible.create(collectible);
                         res.redirect(`/collectible/${collectibleID}`);
                     }
-
+                });
+                }
+                        
                     else if (typeSelected == "pokemon") {
-                        const collectibleType = 4;
+                        const collectorData = await knex('collector')
+                        .select('username', 'email', 'phone_number', 'collector_id')
+                        .where('collector_id', userId );
+                        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                            console.log(ids);   
+                            const collectibleType = 4;      
+                            var n = ids.includes(collectibleType);
+                            console.log(n);
+                            if (n == true)
+                            {
 
                         if (!req.body.product_type) {
                             res.render('addcollectible', { 
@@ -209,10 +243,22 @@ router.post('/', async (req, res, next) => {
                         const collectibleID = await Collectible.create(collectible);
                         res.redirect(`/collectible/${collectibleID}`);
                     }
+                });
+                }
+                        
 
 
                     else if (typeSelected == "hot_wheel") { 
-                        const collectibleType = 5;
+                        const collectorData = await knex('collector')
+                            .select('username', 'email', 'phone_number', 'collector_id')
+                            .where('collector_id', userId );
+                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                                console.log(ids);     
+                                const collectibleType = 5;    
+                                var n = ids.includes(collectibleType);
+                                console.log(n);
+                                if (n == true)
+                                {
 
                         if (!req.body.number1) {
                             res.render('addcollectible', { 
@@ -258,8 +304,10 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectibleID}`);
 
                     
-                    }
-                    
+                    }         
+                });
+                }
+                        
                     else {
 
                         res.render('addcollectible', { 
