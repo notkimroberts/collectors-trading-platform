@@ -15,6 +15,7 @@ dotenv.config()
 const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
+const deleteCollectibleRouter = require('./routes/deletecollectible');
 const editcollectibleRouter = require('./routes/editcollectible');
 const forgotPasswordRouter= require('./routes/forgotPassword');
 const indexRouter = require('./routes/index');
@@ -63,6 +64,7 @@ app.use('/', indexRouter);
 app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
+app.use('/delete-collectible', deleteCollectibleRouter);
 app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
