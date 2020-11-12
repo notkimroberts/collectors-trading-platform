@@ -9,8 +9,8 @@
 
     <p><i class="fas fa-check"></i> : have &nbsp;&nbsp; <i class="fas fa-heart"></i> : want &nbsp;&nbsp; <i class='fas fa-people-arrows'></i> : for trade
 
-    <div class="col col-md-4 heading"><h3 >Inventory</h3></div>
-        <form action="/profile" method="post" class="form-example">          
+    <div class="col col-md-4 heading"><h3 >Have</h3></div>
+        <form action="/profile/has" method="post" class="form-example">          
             <td>
                 {{#each collectionHas}}
                 <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
@@ -28,15 +28,17 @@
                 <input type="number" step="1" min="0" max="500"
                 name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="" inputmode="">
                 <br>
-                <input type="submit" name="button" value="Submit">
                 <br>
                 {{/each}}
             </td>
+            {{#if showHasButton}}
+            <input type="submit" name="button" value="Edit collection in has list">
+            {{/if}}
         </form>
     </div>
         
-    <div class="col col-md-4 heading"><h3 >Wants</h3></div>
-        <form action="/profile" method="post" class="form-example">
+    <div class="col col-md-4 heading"><h3 >Want</h3></div>
+        <form action="/profile/wants" method="post" class="form-example">
             <td>
                 {{#each collectionWants}}
                 <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
@@ -54,15 +56,17 @@
                 <input type="number" step="1" min="0" max="500"
                 name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="" inputmode="">
                 <br>
-                <input type="submit" name="button" value="Submit">
                 <br>
                 {{/each}}
             </td>
+            {{#if showWantsButton}}
+            <input type="submit" name="button" value="Edit collection in want list">
+            {{/if}}
         </form>
     </div>
 
     <div class="col col-md-4 heading"><h3 >For Trade</h3></div>
-        <form action="/profile" method="post" class="form-example">
+        <form action="/profile/trades" method="post" class="form-example">
             <td>
                 {{#each collectionWillingToTrade}}
                 <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
@@ -80,10 +84,12 @@
                 <input type="number" step="1" min="0" max="500"
                 name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="" inputmode="">
                 <br>
-                <input type="submit" name="button" value="Submit">
                 <br>
                 {{/each}}
             </td>
+            {{#if showTradeButton}}
+            <input type="submit" name="button" value="Edit collection in trade list">
+            {{/if}}
         </form>
     </div>
 
