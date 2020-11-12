@@ -1,11 +1,18 @@
 .float-left-child {
     float: left;
-    margin: 10px;
+    margin: 20px;
     word-wrap: break-word;
     width: 250px;
     height: 220px;
     text-align: center;
   }
+  
+  img{
+    max-height:120px;
+    max-width:120px;
+    height:auto;
+    width:auto;
+}
 
 .input-text{
     width: 50px;
