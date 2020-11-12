@@ -70,14 +70,25 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         console.log(q3);
         console.log(userId);
         console.log(collectible_id1);
-        
-        await knex('collection')
+        // I wrap knex as 'connection'
+return knex.transaction(trx => {
+    const queries = knex.map(tuple =>{
+       knex('collection') 
             .where({collector_id: userId})
             .andWhere({collectible_id: collectible_id1})
             .update({has_quantity: q1})
             .update({wants_quantity: q2})
-            .update({willing_to_trade_quantity: q3 });
-        res.redirect(`/profile`);
+            .update({willing_to_trade_quantity: q3 })
+            .transacting(trx); // This makes every update be in the same transaction
+            queries.push(query);
+            res.redirect(`/profile`);
+
     });
 
+    Promise.all(queries) // Once every query is written
+        .then(trx.commit) // We try to execute all of them
+        .catch(trx.rollback); // And rollback in case any of them goes wrong
+});
+    });
+    
 module.exports = router;
