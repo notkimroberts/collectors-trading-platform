@@ -50,6 +50,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     var showHasButton = null;
     var showWantsButton = null;
     var showTradeButton = null;
+    var noMatches = null;
 
     // if results, render collectibles
     if (collectionsHas.length > 0) {
@@ -66,6 +67,10 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         showTradeButton = 1;
     }
 
+    if (matches.length < 1) {
+        noMatches = 1;
+    }
+
     res.render('profile', { 
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
@@ -75,7 +80,8 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         showHasButton,
         showWantsButton,
         showTradeButton,
-        matches
+        matches,
+        noMatches
     });
 });
 
@@ -85,15 +91,6 @@ router.post('/has', async (req, res, next) => {
     const q2 = req.body.wants_quantity;
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
-
-    console.log("q1");
-    console.log(q1);
-    console.log("q2");
-    console.log(q2);
-    console.log("q3");
-    console.log(q3);
-    console.log("collectible_id");
-    console.log(collectible_id1);
 
     var i;
     // for each collectible on the page
@@ -112,8 +109,8 @@ router.post('/has', async (req, res, next) => {
         .where({ collector_id: userId })
         .andWhere( {collectible_id: collectible_id1[i] })
         .del();
+        }
     }
-}
 
 res.redirect(`/profile`);;
 });
@@ -125,15 +122,6 @@ router.post('/wants', async (req, res, next) => {
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
 
-    console.log("q1");
-    console.log(q1);
-    console.log("q2");
-    console.log(q2);
-    console.log("q3");
-    console.log(q3);
-    console.log("collectible_id");
-    console.log(collectible_id1);
-
     var i;
     // for each collectible on the page
     for (i = 0; i < q1.length; i++) {
@@ -151,8 +139,8 @@ router.post('/wants', async (req, res, next) => {
         .where({ collector_id: userId })
         .andWhere( {collectible_id: collectible_id1[i] })
         .del();
+        }
     }
-}
 
 res.redirect(`/profile`);;
 });
@@ -164,15 +152,6 @@ router.post('/trades', async (req, res, next) => {
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
 
-    console.log("q1");
-    console.log(q1);
-    console.log("q2");
-    console.log(q2);
-    console.log("q3");
-    console.log(q3);
-    console.log("collectible_id");
-    console.log(collectible_id1);
-
     var i;
     // for each collectible on the page
     for (i = 0; i < q1.length; i++) {
@@ -190,9 +169,11 @@ router.post('/trades', async (req, res, next) => {
         .where({ collector_id: userId })
         .andWhere( {collectible_id: collectible_id1[i] })
         .del();
+        }
     }
-}
 
 res.redirect(`/profile`);;
 });
+
+
 module.exports = router;

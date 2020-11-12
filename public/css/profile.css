@@ -1,8 +1,8 @@
 .float-left-child {
     float: left;
-    margin: 30px;
+    margin: 20px;
     word-wrap: break-word;
-    width: 300px;
+    width: 250px;
     height: 200px;
     text-align: center;
   }
@@ -14,15 +14,18 @@
 
  /*  overwrite bootstrap so can see many collectibles per row */
   .col-md-4 {
-
     flex: 100% !important;
     max-width: 100% !important;
-    
   }
 
 .heading {
-
-  background-color: #dfe3ec;
+  background-color: #5e9dad;
   text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
+
+.btn-secondary {
+margin-top:20px
 }

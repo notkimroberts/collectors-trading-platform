@@ -9,14 +9,9 @@
         {{/each}}
     </div>
 
+<p><i class="fas fa-check"></i> : have &nbsp;&nbsp; <i class="fas fa-heart"></i> : want &nbsp;&nbsp; <i class='fas fa-people-arrows'></i> : for trade</p>
 
-
-    <div class="col col-md-4 heading"><h3 >Inventory</h3></div>
-
-
-
-
-                    
+    <div class="col col-md-4 heading"><h3 >Have</h3></div>
         <div class="col col-md-4">
             {{#each collectionHas}}
             <div class="parent">             
@@ -46,11 +41,13 @@
             {{/each}}
         </div>
             {{#if showHasButton}}
-                <input type="submit" name="button" value="Edit collection in has list">
+                <button type="submit" class="btn btn-secondary">Edit collection in have list</button>
+            {{else}}
+                <p>You have nothing in your have list</p>
             {{/if}}
     </form>   
 
-        <div class="col col-md-4 heading"><h3 >Wants</h3></div>
+    <div class="col col-md-4 heading"><h3 >Want</h3></div>
         <div class="col col-md-4">
             {{#each collectionWants}}
             <div class="parent">             
@@ -80,11 +77,13 @@
             {{/each}}
         </div>
             {{#if showWantsButton}}
-                <input type="submit" name="button" value="Edit collection in want list">
+                <button type="submit" class="btn btn-secondary">Edit collection in want list</button>
+            {{else}}
+                <p>You have nothing in your want list</p>
             {{/if}}
     </form>   
 
-        <div class="col col-md-4 heading"><h3 >For Trade</h3></div>
+    <div class="col col-md-4 heading"><h3 >For Trade</h3></div>
         <div class="col col-md-4">
             {{#each collectionWillingToTrade}}
             <div class="parent">             
@@ -114,13 +113,15 @@
             {{/each}}
         </div>
             {{#if showTradeButton}}
-                <input type="submit" name="button" value="Edit collection in trade list">
+                <button type="submit" class="btn btn-secondary">Edit collection in trade list</button>            
+            {{else}}
+                <p>You have nothing in your trade list</p>            
             {{/if}}
     </form>   
       
-
-<div class="col col-md-4 heading"><h3 >Matches</h3></div>
+    <div class="col col-md-4 heading"><h3 >Matches</h3></div>
         <div class="col col-md-4">
+
         {{#each matches}}
             <div class="parent">             
                 <div class='child float-left-child'>
@@ -132,9 +133,13 @@
                         <br>for trade: {{{willing_to_trade_quantity}}}
                     </td>
                 </div> 
+                {{/each}}
             </div>
-        {{/each}}
+            {{#if noMatches}}
+                <p>You have no trade matches</p>            
+            {{/if}}
     </div>
+
 </div>
 
 
