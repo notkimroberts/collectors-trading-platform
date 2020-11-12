@@ -1,9 +1,9 @@
 .float-left-child {
     float: left;
-    margin: 20px;
+    margin: 10px;
     word-wrap: break-word;
     width: 250px;
-    height: 200px;
+    height: 220px;
     text-align: center;
   }
 

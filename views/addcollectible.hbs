@@ -11,7 +11,7 @@
         <form id="add_collectible" action="/add-collectible" enctype="multipart/form-data" method="POST">
            <div class="form-group">
             <label for="name">Name</label>
-            <input class="form-control" type="text" name="name" id="name" pattern="([a-zA-Z0-9]+[a-zA-Z0-9 ]+)" placeholder="alphanumeric characters only and must be 2+ characters long"  required>
+            <input class="form-control" type="text" name="name" id="name" pattern="([a-zA-Z0-9]+[a-zA-Z0-9 ]+)" placeholder="alphanumeric characters only and 2-40 characters long"  maxlength="40" required>
         </div>
 
             <div class="form-group">
