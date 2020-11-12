@@ -65,47 +65,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         const q3 = req.body.willing_to_trade_quantity;
         const collectible_id1 = req.body.collectible_id;
 
-        const collectorData = await knex('collector')
-        .select('username', 'email', 'phone_number', 'collector_id')
-        .where('collector_id', userId );
-
-    const collectibles = await knex('collectible')
-    .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-    .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-    .where({ collectible_id: collectible_id1 });
-
-        // user's has collectibles for any value zero or greater
-        const collectionsHas = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', collectible_id1  )
-        .andWhere('collection.has_quantity', '>=', 0);
-
-        // user's wants collectibles if has_quantity for any value zero or greater
-        const collectionsWants = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', collectible_id1 )
-        .andWhere('collection.wants_quantity', '>=', 0);
-
-        // user's willing to trade collectibles if willing_to_trade_quantity for any value zero or greater
-        const collectionsWillingToTrade = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId )
-        .where('collection.collectible_id', collectible_id1 )
-        .andWhere('collection.willing_to_trade_quantity', '>=', 0);
-
-        // see if there's already a collector_id and collectible_id pair in the table
-        const collectionExists = await knex('collection')
-        .select(['collectible_id'])
-        .where('collector_id', userId)
-        .where('collectible_id', collectible_id1);
-
-    
-
         const collection = await knex('collection')
         .select(['collectible_id'])
         .where('collector_id', '=', userId);
@@ -127,22 +86,23 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
                     .update({has_quantity: q1})
                     .update({wants_quantity: q2})
                     .update({willing_to_trade_quantity: q3 })
-                    // .transacting(trx); // This makes every update be in the same transaction
-                    // queries.push();
+                    .transacting(trx); // This makes every update be in the same transaction
+                    queries.push();
 
             });
 
             Promise.all(queries) // Once every query is written
-                // .then(() => trx.commit) // We try to execute all of them
-                // .catch(() => trx.rollback); // And rollback in case any of them goes wrong
+                .then(() => trx.commit) // We try to execute all of them
+                .catch(() => trx.rollback); // And rollback in case any of them goes wrong
           
-            res.render('profile', { 
-                collector: collectorData,
-                collector_id: req.signedCookies.user_id,
-                collectionHas: collectionsHas,
-                collectionWants: collectionsWants,
-                collectionWillingToTrade: collectionsWillingToTrade,
+                res.redirect(`/profile`);
+
+            // res.render('profile', { 
+            //     collector: collectorData,
+            //     collector_id: req.signedCookies.user_id,
+            //     collectionHas: collectionsHas,
+            //     collectionWants: collectionsWants,
+            //     collectionWillingToTrade: collectionsWillingToTrade,
         });
         });
-    });
 module.exports = router;
