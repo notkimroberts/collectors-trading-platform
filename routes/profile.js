@@ -14,7 +14,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     // user's has collectibles if has_quantity is greater than 0
     const collectionsHas = await knex('collection')
         .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+        .join('collectible', 'colleyctible.collectible_id', 'collection.collectible_id')
         .where('collector_id', userId )
         .andWhere('collection.has_quantity', '>', 0);
 
@@ -85,7 +85,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     });
 });
 
-<<<<<<< HEAD
 router.post('/has', async (req, res, next) => { 
     const userId = req.signedCookies.user_id;   
     const q1 = req.body.has_quantity;
@@ -176,29 +175,5 @@ router.post('/trades', async (req, res, next) => {
 res.redirect(`/profile`);;
 });
 
-=======
-    router.post('/', async (req, res, next) => { 
-        const userId = req.signedCookies.user_id;   
-        const q1 = req.body.has_quantity;
-        const q2 = req.body.wants_quantity;
-        const q3 = req.body.willing_to_trade_quantity;
-        const collectible_id1 = req.body.collectible_id;
-        
-        console.log(q1);
-        console.log(q2);
-        console.log(q3);
-        console.log(userId);
-        console.log(collectible_id1);
-        
-        await knex('collection')
-            .where({collector_id: userId})
-            .andWhere({collectible_id: collectible_id1})
-            .update({has_quantity: q1})
-            .update({wants_quantity: q2})
-            .update({willing_to_trade_quantity: q3 });
-
-        res.redirect(`profile`);
-    });
->>>>>>> 1fbc47dc696e98f55b63e26dc48fdb6afb3ad9c7
 
 module.exports = router;

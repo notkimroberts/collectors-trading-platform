@@ -41,13 +41,14 @@
                 <th>Season/Holiday</th>
                 <th>Generation</th>
                 <th>Image</th>
+                </div>
             </thead>
             <tbody>
                 {{#each collectible}}
                     <tr>
                         <td>{{{collectible_id}}}</td>
-                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
+                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td >{{{type_name}}}</td>
                         <td>{{{attributes.piece_count}}}</td>
                         <td>{{{attributes.set_number}}}</td>
                         <td>{{{attributes.theme}}}</td>
