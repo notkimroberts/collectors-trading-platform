@@ -58,14 +58,8 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     });
 });
 
-    router.post('/', async (req, res, next) => 
-    { 
-        const userId = req.signedCookies.user_id      
-        const collectorData = await knex('collector')
-        .select('username', 'email', 'phone_number', 'collector_id')
-        .where('collector_id', userId );
-
-
+    router.post('/', async (req, res, next) => { 
+        const userId = req.signedCookies.user_id;   
         const q1 = req.body.has_quantity;
         const q2 = req.body.wants_quantity;
         const q3 = req.body.willing_to_trade_quantity;
@@ -76,7 +70,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         console.log(q3);
         console.log(userId);
         console.log(collectible_id1);
-
         
         await knex('collection')
             .where({collector_id: userId})
