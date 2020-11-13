@@ -175,39 +175,7 @@ router.post('/:id', async (req, res, next) => {
         const q2 = req.body.wants_quantity;
         const q3 = req.body.willing_to_trade_quantity;
 
-<<<<<<< HEAD
-
-    console.log(q1);
-    console.log(q2);
-    console.log(q3);
-    console.log(userId);
-    console.log(collectible_id1);
-<<<<<<< HEAD
-    await knex('collection')
-        .where({collector_id: req.signedCookies.user_id})
-        .andWhere({collectible_id: collectible_id1})
-        .update({has_quantity: q1})
-        .update({wants_quantity: q2})
-        .update({willing_to_trade_quantity: q3 });
-
-    res.render('profile', { 
-        collector: collectorData,
-        collector_id: userId,
-        collectionHas: collectionsHas,
-        collectionWants: collectionsWants,
-        collectionWillingToTrade: collectionsWillingToTrade
-    }); 
-=======
-
-    const collectibles = await knex('collectible')
-        .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-        .where({ collectible_id: collectible_id1 });
-
-       await knex('collection')
-=======
         await knex('collection')
->>>>>>> 1fbc47dc696e98f55b63e26dc48fdb6afb3ad9c7
             .where({collector_id: userId})
             .andWhere({collectible_id: collectible_id})
             .update({has_quantity: q1})
@@ -215,9 +183,6 @@ router.post('/:id', async (req, res, next) => {
             .update({willing_to_trade_quantity: q3 });
 
 
-<<<<<<< HEAD
->>>>>>> 3b9d6a0b9ca2a5aa62283f54150b2bec62731229
-=======
 
 
         // if has/wants/for trade quantity has been updated to zero, delete entry
@@ -242,7 +207,6 @@ router.post('/:id', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
         return;
     }
->>>>>>> 1fbc47dc696e98f55b63e26dc48fdb6afb3ad9c7
 });
 
 // url a collectible's image
