@@ -97,18 +97,18 @@ router.post('/has', async (req, res, next) => {
     for (i = 0; i < q1.length; i++) {
     // update row
     await knex('collection')
-    .where({ collector_id: userId })
-    .andWhere({ collectible_id: collectible_id1[i] })
-    .update({ has_quantity: q1[i] })
-    .update({ wants_quantity: q2[i] })
-    .update({ willing_to_trade_quantity: q3[i] });
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
 
     // if has/wants/for trade quantity has been updated to zero, delete entry
     if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
         await knex('collection')
-        .where({ collector_id: userId })
-        .andWhere( {collectible_id: collectible_id1[i] })
-        .del();
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
         }
     }
 
@@ -127,18 +127,18 @@ router.post('/wants', async (req, res, next) => {
     for (i = 0; i < q1.length; i++) {
     // update row
     await knex('collection')
-    .where({ collector_id: userId })
-    .andWhere({ collectible_id: collectible_id1[i] })
-    .update({ has_quantity: q1[i] })
-    .update({ wants_quantity: q2[i] })
-    .update({ willing_to_trade_quantity: q3[i] });
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
 
     // if has/wants/for trade quantity has been updated to zero, delete entry
     if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
         await knex('collection')
-        .where({ collector_id: userId })
-        .andWhere( {collectible_id: collectible_id1[i] })
-        .del();
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
         }
     }
 
@@ -157,23 +157,22 @@ router.post('/trades', async (req, res, next) => {
     for (i = 0; i < q1.length; i++) {
     // update row
     await knex('collection')
-    .where({ collector_id: userId })
-    .andWhere({ collectible_id: collectible_id1[i] })
-    .update({ has_quantity: q1[i] })
-    .update({ wants_quantity: q2[i] })
-    .update({ willing_to_trade_quantity: q3[i] });
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
 
     // if has/wants/for trade quantity has been updated to zero, delete entry
     if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
         await knex('collection')
-        .where({ collector_id: userId })
-        .andWhere( {collectible_id: collectible_id1[i] })
-        .del();
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
         }
     }
 
 res.redirect(`/profile`);;
 });
-
 
 module.exports = router;

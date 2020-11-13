@@ -18,6 +18,7 @@
          <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
     </form>
     {{/if}}
+            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
 
     {{#if clearfilter}}
     <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
@@ -45,7 +46,7 @@
                 {{#each collectible}}
                     <tr>
                         <td>{{{collectible_id}}}</td>
-                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td>{{{type_name}}}</td>
                         <td>{{{attributes.piece_count}}}</td>
                         <td>{{{attributes.set_number}}}</td>
