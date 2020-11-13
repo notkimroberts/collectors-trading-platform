@@ -1,8 +1,7 @@
 const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
-const { ensureLoggedIn } = require('../auth/middleware');
-const collectible = require('../models/collectible');
+const { ensureLoggedIn } = require('../auth/middleware')
 
 
 router.get('/', ensureLoggedIn, async (req, res, next) => {
@@ -36,7 +35,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     const userWants = await knex('collection')
         .select(['collectible_id'])
         .where('collector_id', '=', userId)
-        .andWhere('wants_quantity', '>', 0);
+        .andWhere('wants_quantity', '>', 0)
 
     const userWantsCollectibleIds = []
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
@@ -48,37 +47,132 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
         .andWhere('willing_to_trade_quantity', '>', 0)
 
+    var showHasButton = null;
+    var showWantsButton = null;
+    var showTradeButton = null;
+    var noMatches = null;
+
+    // if results, render collectibles
+    if (collectionsHas.length > 0) {
+        showHasButton = 1;
+    }
+    
+    // if results, render collectibles
+    if (collectionsWants.length > 0) {
+        showWantsButton = 1;
+    }
+
+    // if results, render collectibles
+    if (collectionsWillingToTrade.length > 0) {
+        showTradeButton = 1;
+    }
+
+    if (matches.length < 1) {
+        noMatches = 1;
+    }
+
     res.render('profile', { 
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,
         collectionWants: collectionsWants,
         collectionWillingToTrade: collectionsWillingToTrade,
-        matches
+        showHasButton,
+        showWantsButton,
+        showTradeButton,
+        matches,
+        noMatches
     });
 });
 
-    router.post('/', async (req, res, next) => { 
-        const userId = req.signedCookies.user_id;   
-        const q1 = req.body.has_quantity;
-        const q2 = req.body.wants_quantity;
-        const q3 = req.body.willing_to_trade_quantity;
-        const collectible_id1 = req.body.collectible_id;
-        
-        console.log(q1);
-        console.log(q2);
-        console.log(q3);
-        console.log(userId);
-        console.log(collectible_id1);
-        
-        await knex('collection')
-            .where({collector_id: userId})
-            .andWhere({collectible_id: collectible_id1})
-            .update({has_quantity: q1})
-            .update({wants_quantity: q2})
-            .update({willing_to_trade_quantity: q3 });
+router.post('/has', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectible_id1 = req.body.collectible_id;
 
-        res.redirect(`profile`);
-    });
+    var i;
+    // for each collectible on the page
+    for (i = 0; i < q1.length; i++) {
+    // update row
+    await knex('collection')
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
+
+    // if has/wants/for trade quantity has been updated to zero, delete entry
+    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+        await knex('collection')
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
+        }
+    }
+
+res.redirect(`/profile`);;
+});
+
+router.post('/wants', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectible_id1 = req.body.collectible_id;
+
+    var i;
+    // for each collectible on the page
+    for (i = 0; i < q1.length; i++) {
+    // update row
+    await knex('collection')
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
+
+    // if has/wants/for trade quantity has been updated to zero, delete entry
+    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+        await knex('collection')
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
+        }
+    }
+
+res.redirect(`/profile`);;
+});
+
+router.post('/trades', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectible_id1 = req.body.collectible_id;
+
+    var i;
+    // for each collectible on the page
+    for (i = 0; i < q1.length; i++) {
+    // update row
+    await knex('collection')
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
+
+    // if has/wants/for trade quantity has been updated to zero, delete entry
+    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+        await knex('collection')
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
+        }
+    }
+
+res.redirect(`/profile`);;
+});
 
 module.exports = router;
