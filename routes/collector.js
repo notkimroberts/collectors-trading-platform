@@ -48,24 +48,56 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.get('/trade/:id', async (req, res, next) => { 
-  const { id } = req.params; // other collector's id
-  const userId = req.signedCookies.user_id; // logged in collector's id
+    const { id } = req.params; // other collector's id
+    const userId = req.signedCookies.user_id; // logged in collector's id
 
-  // logged in user data
-  const collectorData1 = await knex('collector')
-    .select('username as loggedInUsername', 'collector_id as loggedInId')
-    .where('collector_id', userId);
+    // logged in user data
+    const currentUser = await knex('collector')
+        .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
+        .where('collector_id', userId).first()
 
-  // the other collector's user data
-  const collectorData2 = await knex('collector')
-      .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
-      .where({ collector_id: id });
+    // the other collector's user data
+    const otherUser = await knex('collector')
+        .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
+        .where({ collector_id: id }).first()
 
-  res.render('trade', {
-      title: `Collector\'s Trading Platform | Trade Match`,
-      collector1: collectorData1,
-      collector2: collectorData2 });
-  
+    const currentUserWants = await knex('collection')
+        .select(['collectible_id'])
+        .where('collector_id', '=', userId)
+        .andWhere('wants_quantity', '>', 0)
+
+    const otherUserWants = await knex('collection')
+        .select(['collectible_id'])
+        .where('collector_id', '=', otherUser.collector_id)
+        .andWhere('wants_quantity', '>', 0)
+
+    const currentUserWantsCollectibleIds = []
+    const otherUserWantsCollectibleIds = []
+    currentUserWants.forEach((row) => currentUserWantsCollectibleIds.push(row.collectible_id))
+    otherUserWants.forEach((row) => otherUserWantsCollectibleIds.push(row.collectible_id))
+
+    const currentUserToOtherUser = await knex('collection')
+        .select(['collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
+        .where('collector_id','!=', currentUser.collector_id)
+        .whereIn('collection.collectible_id', otherUserWantsCollectibleIds)
+        .andWhere('willing_to_trade_quantity', '>', 0)
+    
+    const otherUserToCurrentUser = await knex('collection')
+        .select(['collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
+        .where('collector_id','=', otherUser.collector_id)
+        .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
+        .andWhere('willing_to_trade_quantity', '>', 0)
+
+    res.render('trade', {
+        title: `Collector\'s Trading Platform | Trade Matches with ${otherUser.username}`,
+        currentUser,
+        otherUser,
+        currentUserCollectibles: currentUserToOtherUser,
+        otherUserCollectibles: otherUserToCurrentUser,
+    });
+
 });
 
 module.exports = router;
