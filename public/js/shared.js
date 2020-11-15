@@ -17,8 +17,13 @@ function getHostURL() {
       return 'https://collectors-trading-platform.herokuapp.com';
     }
   }
-  
 
+  function showAdminSelect(){
+   if(document.getElementById("no").checked = true)
+   {
+      $(".show").show()
+   }
+}
   function getUserFromForm() {
 
     const email = $('#email').val();

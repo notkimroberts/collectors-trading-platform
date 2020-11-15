@@ -175,4 +175,34 @@ router.post('/trades', async (req, res, next) => {
 res.redirect(`/profile`);;
 });
 
+        // I wrap knex as 'connection'
+        const queries = [];
+     knex.transaction( trx => {
+         const queries = [];
+         const updateAll = collection.forEach(async (req, res, next)=> {
+                await knex('collection') 
+                    .where({collector_id: userId})
+                    .andWhere({collectible_id: collectible_id1})
+                    .update({has_quantity: q1})
+                    .update({wants_quantity: q2})
+                    .update({willing_to_trade_quantity: q3 })
+                    .transacting(trx); // This makes every update be in the same transaction
+                    queries.push();
+
+            });
+
+            Promise.all(queries) // Once every query is written
+                .then(() => trx.commit) // We try to execute all of them
+                .catch(() => trx.rollback); // And rollback in case any of them goes wrong
+          
+                res.redirect(`/profile`);
+
+            // res.render('profile', { 
+            //     collector: collectorData,
+            //     collector_id: req.signedCookies.user_id,
+            //     collectionHas: collectionsHas,
+            //     collectionWants: collectionsWants,
+            //     collectionWillingToTrade: collectionsWillingToTrade,
+        });
+        });
 module.exports = router;
