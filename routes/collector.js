@@ -47,9 +47,13 @@ router.get('/:id', async (req, res, next) => {
     
 });
 
-router.get('/trade/:id', async (req, res, next) => { 
+router.get('/trade/:id', async (req, res, next) => {
     const currentUserId = req.signedCookies.user_id
     const otherUserId = req.params.id
+
+    if (otherUserId === currentUserId) {
+        res.redirect('/profile')
+    }
 
     // logged in user data
     const currentUser = await knex('collector')
