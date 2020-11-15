@@ -22,6 +22,7 @@
          <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
     </form>
     {{/if}}
+            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
 
     {{#if clearfilter}}
     <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>

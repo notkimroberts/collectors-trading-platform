@@ -1,7 +1,11 @@
 const express = require('express');
 const FileType = require('file-type');
 const knex = require('../connection');
+<<<<<<< HEAD
 const Collection = require('../models/collection')
+=======
+const Collection = require('../models/Collection')
+>>>>>>> 34309842aa588c39c2914b6539ca4e57a0479848
 const router = express.Router();
 const { ensureLoggedIn } = require('../auth/middleware')
 
