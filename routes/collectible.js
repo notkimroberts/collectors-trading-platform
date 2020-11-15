@@ -3,23 +3,79 @@ const FileType = require('file-type');
 const knex = require('../connection');
 const Collection = require('../models/collection')
 const router = express.Router();
+const { ensureLoggedIn } = require('../auth/middleware')
 
-
-router.get('/', async (req, res, next) => { 
+router.get('/',ensureLoggedIn, async (req, res, next) => { 
+    const { id } = req.params;
+    const userId = req.signedCookies.user_id; 
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-  
+        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id');
+
+    // if user is signed in 
+    if (userId) {
+        const collectionsHas = await knex('collection')
+        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id');
+
+    // user's wants collectibles if has_quantity for any value zero or greater
+    const collectionsWants = await knex('collection')
+        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id');
+
+    // user's willing to trade collectibles if willing_to_trade_quantity for any value zero or greater
+    const collectionsWillingToTrade = await knex('collection')
+        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id');
+
     // filter by type
     const collectiblesByType = await knex('collectible_type')
         .select('name as type_name', 'collectible_type_id as type_id');
    
+
         res.render('collectible', {
-        title: "Collector\'s Trading Platform | Collectibles",
-        collectible: collectibles,
-        collectibleByType: collectiblesByType,
-    });
+            title: `Collector\'s Trading Platform | Collectibles`,
+            collector_id: userId,
+            collectible: collectibles,
+            collectibleByType: collectiblesByType,
+            collectionHas: collectionsHas,
+            collectionWants: collectionsWants,
+            collectionWillingToTrade: collectionsWillingToTrade,
+            id
+        });
+    };
 });
+
+
+router.post('/update', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectible_id1 = req.body.collectible_id;
+
+    // var i;
+    // for each collectible on the page
+    // for (i = 0; i < q1.length; i++) {
+    // update row
+    await knex('collection')
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1 })
+      .update({ has_quantity: q1 })
+      .update({ wants_quantity: q2 })
+      .update({ willing_to_trade_quantity: q3 });
+
+    // if has/wants/for trade quantity has been updated to zero, delete entry
+    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+        await knex('collection')
+          .where({ collector_id: userId })
+          .andWhere( {collectible_id: collectible_id1[i] })
+          .del();
+        }
+
+res.redirect(`/collectible`);
+});
+
 
  // Display all collectibles from a given a type
  router.get('/filter/:type_id', async (req, res, next) => {

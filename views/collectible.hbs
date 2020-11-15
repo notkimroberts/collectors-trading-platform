@@ -1,6 +1,10 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-8">
         <h2>Collectible</h2>
+    {{#each collector}}
+    <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+    <input type="hidden" name="collector_id" id="collector_id" value="{{{collector_id}}}" readonly>
+    {{/each}}
     {{#if message}}
         <div class="alert {{messageClass}}" role="alert">
             {{message}}
@@ -18,12 +22,11 @@
          <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
     </form>
     {{/if}}
-            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
 
     {{#if clearfilter}}
     <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
     {{/if}}
-    
+
         <table class="table table-striped">
             <thead>
                 <th>Collectible id</th>
@@ -41,12 +44,17 @@
                 <th>Season/Holiday</th>
                 <th>Generation</th>
                 <th>Image</th>
+                <th>Have</th>
+                <th>Want</th>
+                <th>For Trade</th>
+                <th>Update your collection</th>
+
             </thead>
             <tbody>
                 {{#each collectible}}
                     <tr>
                         <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break:normal;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td>{{{type_name}}}</td>
                         <td>{{{attributes.piece_count}}}</td>
                         <td>{{{attributes.set_number}}}</td>
@@ -60,6 +68,24 @@
                         <td>{{{attributes.season}}}</td>
                         <td>{{{attributes.generation}}}</td>
                         <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
+                     <form action="/collectible/update" method="post" class="form-example"> 
+                        <td>
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td><label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-secondary">Update</button>
+                            </td>
+                    </form>   
                     </tr>
                 {{/each}}
             </tbody>
@@ -68,3 +94,4 @@
 </div>
 <link rel="stylesheet" href="/css/collectible.css"/>
 <script src="/js/filterCollectibles.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
