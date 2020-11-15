@@ -113,9 +113,9 @@
             {{/each}}
         </div>
             {{#if showTradeButton}}
-                <button type="submit" class="btn btn-secondary">Edit collection in trade list</button>            
+                <button type="submit" class="btn btn-secondary">Edit collection in trade list</button>
             {{else}}
-                <p>You have nothing in your trade list</p>            
+                <p>You have nothing in your trade list</p>
             {{/if}}
     </form>   
       
@@ -123,20 +123,20 @@
         <div class="col col-md-4">
 
         {{#each matches}}
-            <div class="parent">             
+            <div class="parent">
                 <div class='child float-left-child'>
                     <td>
                         <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                         <br>
                         <br><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
-                        <br>Collector: {{{collector_id}}}
-                        <br>for trade: {{{willing_to_trade_quantity}}}
+                        <br><a href="/collector/trade/{{{collector_id}}}">{{{username}}}</a> has
+                        <br>{{{willing_to_trade_quantity}}} for trade.
                     </td>
                 </div> 
                 {{/each}}
             </div>
             {{#if noMatches}}
-                <p>You have no trade matches</p>            
+                <p>You have no trade matches</p>
             {{/if}}
     </div>
 </div>
