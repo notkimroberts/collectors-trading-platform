@@ -1,33 +1,38 @@
 .float-left-child {
     float: left;
-    margin: 30px;
+    margin: 20px;
     word-wrap: break-word;
-    width: 300px;
-    height: 200px;
- 
+    width: 250px;
+    height: 220px;
+    text-align: center;
   }
+  
+  img{
+    max-height:120px;
+    max-width:120px;
+    height:auto;
+    width:auto;
+}
 
 .input-text{
     width: 50px;
 } 
 
-#wrapper {
-  min-width: 550px; 
-  position: relative;
-  overflow:scroll;
-}
 
  /*  overwrite bootstrap so can see many collectibles per row */
   .col-md-4 {
-
     flex: 100% !important;
     max-width: 100% !important;
-    
   }
 
 .heading {
-
-  background-color: #dfe3ec;
+  background-color: #5e9dad;
   text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
+
+.btn-secondary {
+margin-top:20px
 }
