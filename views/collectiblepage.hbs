@@ -118,11 +118,19 @@
 
         <div class="for-trade">
             <h5>Collectors who have this item for trade:</h5>
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectors</th>
+                </thead>
+                <tbody>
+                    {{#each usersWithCollectible}}
+                        <tr>
+                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
-
-
-                
-           
     </div>
 </div>
 

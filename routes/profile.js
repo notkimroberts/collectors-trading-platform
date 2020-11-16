@@ -41,11 +41,12 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
 
     const matches = await knex('collection')
-        .select(['collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .select(['collection.collector_id', 'collector.username','collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
         .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
-        .where('collector_id', '!=', userId)
+        .join('collector', 'collection.collector_id', 'collector.collector_id')
+        .where('collector.collector_id', '!=', userId)
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
-        .andWhere('willing_to_trade_quantity', '>', 0)
+        .andWhere('collection.willing_to_trade_quantity', '>', 0)
 
     var showHasButton = null;
     var showWantsButton = null;
@@ -56,7 +57,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     if (collectionsHas.length > 0) {
         showHasButton = 1;
     }
-    
+
     // if results, render collectibles
     if (collectionsWants.length > 0) {
         showWantsButton = 1;

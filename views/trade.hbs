@@ -1,13 +1,39 @@
-<h3>Your trade matches with {{#each collector2}} <a href="/collector/{{{collector_id}}}">{{{username}}}</a>{{/each}}</h3>
-    <div class="row">
-        <div class="column" style="background-color:#aaa;">
-            <h4>{{#each collector1}} {{{loggedInUsername}}}'s {{/each}} trades to {{#each collector2}} {{{username}}}'s {{/each}} wants:</h4>
-            <p>Some text..</p>
-        </div>
-
-        <div class="column" style="background-color:#bbb;">
-            <h4>{{#each collector2}} {{{username}}}'s {{/each}} trades to {{#each collector1}} {{{loggedInUsername}}}'s {{/each}} wants:</h4>
-            <p>Some text..</p>
-        </div>
+<h3>Trade Matches</h3>
+<div class="row">
+    <div class="column">
+        <h4>Collectibles you have that <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a>'s wants:</h4>
+        <table class="table table-striped">
+            <thead>
+                <th>Collectible</th>
+                <th>Qty To Trade</th>
+            </thead>
+            <tbody>
+                {{#each currentUserCollectibles}}
+                    <tr>
+                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td>{{{willing_to_trade_quantity}}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </div>
+
+    <div class="column">
+        <h4>Collectibles <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has that you want:</h4>
+        <table class="table table-striped">
+            <thead>
+                <th>Collectible</th>
+                <th>Qty To Trade</th>
+            </thead>
+            <tbody>
+                {{#each otherUserCollectibles}}
+                    <tr>
+                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td>{{{willing_to_trade_quantity}}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
 <link rel="stylesheet" href="/css/trade.css"/>
