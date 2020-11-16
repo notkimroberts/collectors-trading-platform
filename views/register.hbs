@@ -10,23 +10,16 @@
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
             <div class="form-example">
-                {{!-- <input type="number" min="0" max ="6" id="is_admin" name="is_admin" required> --}}
-                <label for="is_admin">Are you an Admin?</label>
-                <input type="radio" id="no" name="adminstatus" value="no" checked>
-                <label for="no">No</label>
-                <input type="radio" id="yes" name="adminstatus" value="yes">
-                <label for="yes">Yes</label><br>
-            {{!-- {{#if showAdminSelect}} --}}
                <div class="show">
                 <label class="admin123" for="is_admin">Admin Status</label>
-                <select class="admin123" name="dropdown" id="dropdown">
-                <option id="is_admin" name="is_admin" value="null">0</option>
-                <option id="is_admin" name="is_admin" value="lego">1</option>
-                <option id="is_admin" name="is_admin" value="funko">2</option>
-                <option id="is_admin" name="is_admin" value="pusheen">3</option>
-                <option id="is_admin" name="is_admin" value="pokemon">4</option>
-                <option id="is_admin" name="is_admin" value="hotwheels">5</option>
-                <option id="is_admin" name="is_admin" value="all">6</option>
+                <select class="admin123" id="is_admin" name="is_admin">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
                 </select>
                 </div>
                 <table style="width:50%">
