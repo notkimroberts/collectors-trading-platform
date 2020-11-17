@@ -313,6 +313,7 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         currentUserMatchesExist,
         otherUserMatchesExist
     });
+});
 
 
 
@@ -386,8 +387,8 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             currentUserMatchesExist,
             otherUserMatchesExist
         });
-});
+    });
 
-});
+
 
 module.exports = router;
