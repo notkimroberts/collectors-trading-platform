@@ -9,18 +9,17 @@
         {{/each}}
     </div>
 
-    {{#if isLoggedInUser}}
-    {{else}}
     <div class="col col-md-4">
-        <h4>View Trade Matches:</h4>
-        <a href="/collector/trade/{{{collector_id}}}">text list format</a>
-        <br>
-        <a href="/collector/trade/images/{{{collector_id}}}">image list format</a>
-    </div>
-    {{/if}}
-
+        {{#if isLoggedInUser}}
+        {{else}}
+            <h3><a href="/collector/trade/images/{{{collector_id}}}">View trade matches</a></h3>
+            <hr/>
+        {{/if}}
+    <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
     <p><a href="/collector/list/{{{collector_id}}}">view in text list format</a></p>
-    <div class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
+    </div>
+
+    <div id="have" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
         {{#if showHasPublic}}
         <div class="col col-md-4">
             {{#each collectionHas}}
@@ -45,7 +44,7 @@
         {{/if}}
 
 
-    <div class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Want List</h3></div>
+    <div id="want" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Want List</h3></div>
         {{#if showWantsPublic}}
         <div class="col col-md-4">
             {{#each collectionWants}}
@@ -69,7 +68,7 @@
             <p>This collector's want list is private</p>
         {{/if}}
 
-    <div class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
+    <div id="trade" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
         <div class="col col-md-4">
             {{#each collectionWillingToTrade}}
             <div class="parent">             
