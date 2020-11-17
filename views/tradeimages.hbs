@@ -1,0 +1,35 @@
+<h3>Trade Matches</h3>
+<h7><a href="/collector/trade/{{{otherUser.collector_id}}}">view in text list format</a></h7>
+<div class="row">
+    <div class="column">
+        <h4>Collectibles you have that <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
+        <hr/>
+            {{#each currentUserCollectibles}}
+            <div class="parent">             
+                    <div class='child float-left-child'>
+                        <td>
+                            <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <br>
+                            <img src=/collectible/image/{{{collectible_id}}}/>
+                        </td>
+                    </div> 
+                </div>
+            {{/each}}
+    </div>
+    <div class="column">
+        <h4>Collectibles <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has that you want:</h4>
+        <hr/>
+            {{#each otherUserCollectibles}}
+                <div class="parent">             
+                    <div class='child float-left-child'>
+                        <td>
+                            <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <br>
+                            <img src=/collectible/image/{{{collectible_id}}}/>
+                        </td>
+                    </div> 
+                </div>
+            {{/each}}
+    </div>
+</div>
+<link rel="stylesheet" href="/css/tradeimages.css"/>

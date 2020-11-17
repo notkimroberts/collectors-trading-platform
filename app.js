@@ -22,11 +22,13 @@ const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const logoutRouter = require('./routes/logout');
 const profileRouter = require('./routes/profile');
+const profileListRouter = require('./routes/profilelist');
 const quizRouter = require('./routes/quiz');
 const quizResultRouter = require('./routes/quizresult');
 const registerRouter = require('./routes/register');
 const rulesRouter = require('./routes/rules');
 const tradeRouter = require('./routes/trade');
+const tradeImagesRouter = require('./routes/tradeimages');
 const authRouter = require('./auth');
 
 
@@ -69,9 +71,11 @@ app.use('/edit-collectible', editcollectibleRouter);
 app.use('/forgot-password', forgotPasswordRouter);
 app.use('/login', loginRouter);
 app.use('/profile', profileRouter);
+app.use('/profile-list', profileListRouter);
 app.use('/quiz', quizRouter);
 app.use('/quiz-result', quizResultRouter);
 app.use('/trade', tradeRouter);
+app.use('/trade-images', tradeImagesRouter);
 app.use('/register', registerRouter);
 app.use('/rules', rulesRouter);
 app.use('/logout', logoutRouter);

@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  /* Create two equal columns that sits next to each other */
+
+.column {
+    flex: 50%;
+    padding: 10px;
+    height: 500px;
+  }
+
+
+  .float-left-child {
+    float: left;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+  }
+  
+  img{
+    max-height:120px;
+    max-width:120px;
+    margin: 10px;
+    height:auto;
+    width:auto;
+}

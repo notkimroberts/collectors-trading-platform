@@ -1,17 +1,20 @@
 <h3>Trade Matches</h3>
+<h7><a href="/collector/trade/images/{{{otherUser.collector_id}}}">view in image list format</a></h7>
 <div class="row">
     <div class="column">
-        <h4>Collectibles you have that <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a>'s wants:</h4>
+        <h4>Collectibles you have that <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
         <table class="table table-striped">
             <thead>
                 <th>Collectible</th>
+                <th>Type</th>
                 <th>Qty To Trade</th>
             </thead>
             <tbody>
                 {{#each currentUserCollectibles}}
                     <tr>
-                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{willing_to_trade_quantity}}}</td>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td width="150px">{{{typeName}}}</td>
+                        <td width="130px">{{{willing_to_trade_quantity}}}</td>
                     </tr>
                 {{/each}}
             </tbody>
@@ -23,13 +26,15 @@
         <table class="table table-striped">
             <thead>
                 <th>Collectible</th>
+                <th>Type</th>
                 <th>Qty To Trade</th>
             </thead>
             <tbody>
                 {{#each otherUserCollectibles}}
                     <tr>
-                        <td><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{willing_to_trade_quantity}}}</td>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td width="150px">{{{typeName}}}</td>                    
+                        <td width="130px">{{{willing_to_trade_quantity}}}</td>
                     </tr>
                 {{/each}}
             </tbody>

@@ -1,13 +1,4 @@
-.float-left-child {
-    float: left;
-    margin: 20px;
-    word-wrap: break-word;
-    width: 250px;
-    height: 200px;
-    text-align: center;
-  }
-
-  .float-left-child2 {
+.float-left-child2 {
     float: left;
     width: 280px;
     margin-right: 20px;
@@ -22,14 +13,7 @@
     float: left;
   }
 
-  img{
-    max-height:120px;
-    max-width:120px;
-    height:auto;
-    width:auto;
-    margin: 10px;
-}
-
+  
 .input-text{
     width: 50px;
 } 
