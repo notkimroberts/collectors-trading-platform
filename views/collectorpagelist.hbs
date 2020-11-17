@@ -12,8 +12,10 @@
     <div class="col col-md-4">
         {{#if isLoggedInUser}}
         {{else}}
-            <h3><a href="/collector/trade/{{{collector_id}}}">View trade matches</a></h3>
-            <hr/>
+            {{#if isAuthenticated}}
+                <h3><a href="/collector/trade/{{{collector_id}}}">View trade matches</a></h3>
+                <hr/>
+            {{/if}}
         {{/if}}
          <p><a href="/collector/{{{collector_id}}}">view in image list format</a></p>       
         <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
