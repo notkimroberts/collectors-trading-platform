@@ -292,12 +292,25 @@ router.get('/trade/:id', async (req, res, next) => {
         .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
         .andWhere('willing_to_trade_quantity', '>', 0)
 
+        var currentUserMatchesExist = null;
+        var otherUserMatchesExist = null;
+
+        if (currentUserToOtherUser.length > 0) {
+            currentUserMatchesExist = 1;
+        }
+        
+        if (otherUserToCurrentUser.length > 0) {
+            otherUserMatchesExist = 1;
+        }
+
     res.render('trade', {
         title: `Collector\'s Trading Platform | Trade Matches with ${otherUser.username}`,
         currentUser,
         otherUser,
         currentUserCollectibles: currentUserToOtherUser,
         otherUserCollectibles: otherUserToCurrentUser,
+        currentUserMatchesExist,
+        otherUserMatchesExist
     });
 
 
@@ -351,12 +364,26 @@ router.get('/trade/images/:id', async (req, res, next) => {
             .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
             .andWhere('willing_to_trade_quantity', '>', 0)
     
+            
+        var currentUserMatchesExist = null;
+        var otherUserMatchesExist = null;
+
+        if (currentUserToOtherUser.length > 0) {
+            currentUserMatchesExist = 1;
+        }
+        
+        if (otherUserToCurrentUser.length > 0) {
+            otherUserMatchesExist = 1;
+        }
+
         res.render('tradeimages', {
             title: `Collector\'s Trading Platform | Trade Matches with ${otherUser.username}`,
             currentUser,
             otherUser,
             currentUserCollectibles: currentUserToOtherUser,
             otherUserCollectibles: otherUserToCurrentUser,
+            currentUserMatchesExist,
+            otherUserMatchesExist
         });
 });
 
