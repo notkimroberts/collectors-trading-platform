@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../connection')
 const Collector = require('../models/collector');
+const { ensureLoggedIn } = require('../auth/middleware')
 
 
 
@@ -243,7 +244,7 @@ router.get('/list/:id', async (req, res, next) => {
 });
 
 
-router.get('/trade/:id', async (req, res, next) => {
+router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
     const currentUserId = req.signedCookies.user_id
     const otherUserId = req.params.id
 
@@ -315,7 +316,7 @@ router.get('/trade/:id', async (req, res, next) => {
 
 
 
-router.get('/trade/images/:id', async (req, res, next) => {
+router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
         const currentUserId = req.signedCookies.user_id
         const otherUserId = req.params.id
     
