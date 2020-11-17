@@ -36,34 +36,35 @@ router.post('/', async (req, res, next) => {
 
     if (typeSelected == "none") {
 
-        if (!name && !req.files) {
+        // if (!name && !req.files) {
             res.render('editcollectible', { 
-                    message: 'Please enter a name or upload an image to update the collectible',
+                    message: 'Please enter a name, select a type, and upload an image to update the collectible',
                     messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+        //         }
+        //     )
+        //     return
+        // }
 
-        if (name) {
-            // update name
-            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
-        }
+        // if (name) {
+        //     // update name
+        //     await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        // }
     
-        if (req.files) {
-            const {data} = req.files.pic;
-            if (data) {
-            // update image
-            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
-            }
-        }
+        // if (req.files) {
+        //     const {data} = req.files.pic;
+        //     if (data) {
+        //     // update image
+        //     await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+        //     }
+        // }
 
-        // update updated_at time
-         await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
+        // // update updated_at time
+        //  await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
 
 
-        res.redirect(`/collectible/${collectible_id}`);
-    }
+        // res.redirect(`/collectible/${collectible_id}`);
+    });
+};
 
     if (typeSelected == "lego") {
         const collectibleData = await knex('collectible')
