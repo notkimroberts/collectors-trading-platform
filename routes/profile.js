@@ -175,6 +175,8 @@ router.post('/trades', async (req, res, next) => {
 res.redirect(`/profile`);;
 });
 
+
+
     //     // I wrap knex as 'connection'
     //     const queries = [];
     //  knex.transaction( trx => {
