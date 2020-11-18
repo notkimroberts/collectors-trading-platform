@@ -1,0 +1,170 @@
+<div class="row justify-content-md-center mt-2">
+    
+    <div class="col col-md-4">
+        {{#each collector}}
+        <h2>{{{username}}}</h2>
+        <h2>collector id: {{{collector_id}}}</h2>
+        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
+        <hr/>
+        {{/each}}
+    </div>
+    
+    <div class="col col-md-4">
+        {{#if isLoggedInUser}}
+        {{else}}
+            {{#if isAuthenticated}}
+                <h3><a href="/collector/trade/{{{collector_id}}}">View trade matches</a></h3>
+                <hr/>
+            {{/if}}
+        {{/if}}
+         <p><a href="/collector/{{{collector_id}}}">view in image list format</a></p>       
+        <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
+    </div>
+
+    <div id="have" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
+        {{#if showHasPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectible</th>
+                    <th>Type</th>
+                    <th>Piece Count</th>
+                    <th>Set Number</th>
+                    <th>Theme</th>
+                    <th>Designer</th>
+                    <th>Number</th>
+                    <th>Line</th>
+                    <th>Series</th>
+                    <th>Release Year</th>
+                    <th>Product Type</th>
+                    <th>Season/Holiday</th>
+                    <th>Generation</th>
+                </thead>
+                <tbody>
+                    {{#each collectionHas}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{#if showHas}}
+        {{else}}
+            <p>This collector has nothing in their have list</p>
+        {{/if}}
+        {{else}}
+            <p>This collector's have list is private</p>
+        {{/if}}
+
+    <div id="want" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Want List</h3></div>
+        {{#if showWantsPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectible</th>
+                    <th>Type</th>
+                    <th>Piece Count</th>
+                    <th>Set Number</th>
+                    <th>Theme</th>
+                    <th>Designer</th>
+                    <th>Number</th>
+                    <th>Line</th>
+                    <th>Series</th>
+                    <th>Release Year</th>
+                    <th>Product Type</th>
+                    <th>Season/Holiday</th>
+                    <th>Generation</th>
+                </thead>
+                <tbody>
+                    {{#each collectionWants}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{#if showWants}}
+        {{else}}
+            <p>This collector has nothing in their want list</p>
+        {{/if}}  
+        {{else}}
+            <p>This collector's want list is private</p>
+        {{/if}}
+
+    <div id="trade" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
+        {{#if showTradesPublic}}
+        <div class="col col-md-4">
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectible</th>
+                    <th>Type</th>
+                    <th>Piece Count</th>
+                    <th>Set Number</th>
+                    <th>Theme</th>
+                    <th>Designer</th>
+                    <th>Number</th>
+                    <th>Line</th>
+                    <th>Series</th>
+                    <th>Release Year</th>
+                    <th>Product Type</th>
+                    <th>Season/Holiday</th>
+                    <th>Generation</th>
+                </thead>
+                <tbody>
+                    {{#each collectionWillingToTrade}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+            {{#if showTrade}}
+            {{else}}
+                <p>This collector has nothing in their trade list</p>
+            {{/if}}
+            {{else}}
+            <p>This collector's trade list is private</p>
+            {{/if}}
+
+</div>
+
+<link rel="stylesheet" href="/css/collectorpagelist.css"/>

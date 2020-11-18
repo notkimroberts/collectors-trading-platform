@@ -84,6 +84,8 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
+    
+    var signInToViewTrades = 1;
 
     // if user is signed in 
     if (userId) {
@@ -122,7 +124,14 @@ router.get('/:id', async (req, res, next) => {
             .select(['collector.collector_id', 'collector.username'])
             .join('collector', 'collector.collector_id', 'collection.collector_id')
             .where('collectible_id', '=', id)
+            .andWhere('trades_public', '=', 'true')
             .andWhere('willing_to_trade_quantity', '>', 0)
+
+        var  existsUserWithCollectible = null;
+
+        if (usersWithCollectible.length > 0) {
+            existsUserWithCollectible = 1;
+        }
 
         // if results, render users collectibles to the form
         if (collectionExists.length > 0) {
@@ -137,6 +146,7 @@ router.get('/:id', async (req, res, next) => {
                 collectionWillingToTrade: collectionsWillingToTrade,
                 somethingInCollection,
                 usersWithCollectible,
+                existsUserWithCollectible,
                 id
             });
             return;
@@ -151,6 +161,7 @@ router.get('/:id', async (req, res, next) => {
                 collectible: collectibles,
                 nothingInCollection,
                 usersWithCollectible,
+                existsUserWithCollectible,
                 id
             });
             return;
@@ -162,7 +173,8 @@ router.get('/:id', async (req, res, next) => {
         res.render('collectiblepage', {
             title: `Collector\'s Trading Platform | ${id}`,
             collector_id: userId,
-            collectible: collectibles
+            collectible: collectibles,
+            signInToViewTrades
         })
     }
 });
@@ -190,9 +202,6 @@ router.post('/:id', async (req, res, next) => {
             .update({has_quantity: q1})
             .update({wants_quantity: q2})
             .update({willing_to_trade_quantity: q3 });
-
-
-
 
         // if has/wants/for trade quantity has been updated to zero, delete entry
         if (q1 == 0 && q2 == 0 && q3 == 0) {

@@ -1,0 +1,327 @@
+<div class="row justify-content-md-center mt-2">
+    
+    <div class="col col-md-4">
+        {{#each collector}}
+        <h2>{{{username}}}</h2>
+        <h2>collector id: {{{collector_id}}}</h2>
+        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
+        <hr/>
+        {{/each}}
+        
+        <form action="/profile/publictogglelist" method="post" class="form-example"> 
+        <div class="parent">             
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your have list?</p>
+                    {{#if showHasPublic}}
+                    <input type="radio" id="yes" name="has_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="has_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="has_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="has_public" value="false" checked>
+                    <label for="no">No</label>
+                    {{/if}}
+                </td>
+            </div> 
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your want list?</p>
+                    {{#if showWantsPublic}}
+                    <input type="radio" id="yes" name="wants_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="wants_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="wants_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="wants_public" value="false" checked>
+                    <label for="no">No</label>           
+                    {{/if}}
+                </td>
+            </div>
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your trade list?</p>
+                    {{#if showTradesPublic}}
+                    <input type="radio" id="yes" name="trades_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="trades_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false" checked>
+                    <label for="no">No</label>
+                    {{/if}}
+                </td>
+            </div> 
+        </div>
+    </div>
+    <div class="col col-md-4">
+        <div class="parent">             
+            <div class='child float-left-child3'>
+                <input type="submit" class="btn btn-secondary" value="Update preferences">
+                </form> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="col col-md-4">
+        <hr/>
+        <p><a href="/profile">view in image list format</a></p>
+        <p><i class="fas fa-check"></i> : <a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <i class="fas fa-heart"></i> : <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <i class='fas fa-people-arrows'></i> : <a href="#trade">for trade</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#match">matches</a></p> </div>
+
+    <div id="have" class="col col-md-4 heading"><h3>Have List</h3></div>
+        <div class="col col-md-4">
+
+           <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Piece Count</th>
+                <th>Set Number</th>
+                <th>Theme</th>
+                <th>Designer</th>
+                <th>Number</th>
+                <th>Line</th>
+                <th>Series</th>
+                <th>Release Year</th>
+                <th>Product Type</th>
+                <th>Season/Holiday</th>
+                <th>Generation</th>
+                <th>Your Collection</th>
+
+            </thead>
+            <tbody>
+                <form action="/profile/has" method="post" class="form-example"> 
+                <input type="hidden" name="list" id="list" value="1" readonly>
+                {{#each collectionHas}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                    <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                        <td width="700px">
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                {{/each}}
+                       
+                    </tr>
+            </tbody>
+            </table>
+            {{#if showHasButton}}
+            <button type="submit" class="btn btn-secondary">Edit collection in have list</button>
+            {{else}}
+                <p>You have nothing in your have list</p>
+            {{/if}}
+            </form>
+        </div>
+
+    <div id="want" class="col col-md-4 heading"><h3>Want List</h3></div>
+        <div class="col col-md-4">
+
+                    <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Piece Count</th>
+                <th>Set Number</th>
+                <th>Theme</th>
+                <th>Designer</th>
+                <th>Number</th>
+                <th>Line</th>
+                <th>Series</th>
+                <th>Release Year</th>
+                <th>Product Type</th>
+                <th>Season/Holiday</th>
+                <th>Generation</th>
+                <th>Your Collection</th>
+
+            </thead>
+            <tbody>
+                <form action="/profile/wants" method="post" class="form-example"> 
+                <input type="hidden" name="list" id="list" value="1" readonly>
+                {{#each collectionWants}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                        <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                        <td width="700px">
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                {{/each}}
+                       
+                    </tr>
+            </tbody>
+            </table>
+            {{#if showWantsButton}}
+            <button type="submit" class="btn btn-secondary">Edit collection in want list</button>
+            {{else}}
+                <p>You have nothing in your have list</p>
+            {{/if}}
+            </form>
+        </div>
+
+
+     <div id="trade" class="col col-md-4 heading"><h3>Trade List</h3></div>
+        <div class="col col-md-4">
+
+                    <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Type</th>   
+                <th>Piece Count</th>
+                <th>Set Number</th>
+                <th>Theme</th>
+                <th>Designer</th>
+                <th>Number</th>
+                <th>Line</th>
+                <th>Series</th>
+                <th>Release Year</th>
+                <th>Product Type</th>
+                <th>Season/Holiday</th>
+                <th>Generation</th>             
+                <th>Your collection</th>
+
+            </thead>
+            <tbody>
+                <form action="/profile/trades" method="post" class="form-example"> 
+                <input type="hidden" name="list" id="list" value="1" readonly>
+                {{#each collectionWillingToTrade}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
+                    <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
+
+                        <td width="700px">
+                            <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+
+                            <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                {{/each}}
+                
+                    </tr>
+            </tbody>
+            </table>
+            {{#if showTradeButton}}
+            <button type="submit" class="btn btn-secondary">Edit collection in trade list</button>
+            {{else}}
+                <p>You have nothing in your trade list</p>
+            {{/if}}
+            </form>
+        </div>   
+
+
+
+<div id="match" class="col col-md-4 heading"><h3>Trade Matches</h3></div>
+        <div class="col col-md-4">
+
+                    <table class="table table-striped">
+            <thead>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Piece Count</th>
+                <th>Set Number</th>
+                <th>Theme</th>
+                <th>Designer</th>
+                <th>Number</th>
+                <th>Line</th>
+                <th>Series</th>
+                <th>Release Year</th>
+                <th>Product Type</th>
+                <th>Season/Holiday</th>
+                <th>Generation</th>
+                <th>User who has collectible for trade</th>
+            </thead>
+            <tbody>
+                {{#each matches}}
+                    <tr>
+                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                        <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
+                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>                     	
+                        <td><a href="/collector/trade/{{{collector_id}}}">{{{username}}}</a></td>
+                {{/each}}
+            </tbody>
+            </table>
+            {{#if noMatches}}
+                <p>You have no trade matches</p>
+            {{/if}}
+        </div>
+
+</div>
+
+<link rel="stylesheet" href="/css/profilelist.css"/>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}

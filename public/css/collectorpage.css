@@ -1,0 +1,29 @@
+.float-left-child {
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    word-wrap: break-word;
+    width: 250px;
+    height: 220px;
+    text-align: center;
+  }
+
+img{
+    max-height:120px;
+    max-width:120px;
+    height:auto;
+    width:auto;
+}
+
+/*  overwrite bootstrap so can see many collectibles per row */
+.col-md-4 {
+    flex: 100% !important;
+    max-width: 100% !important;
+  }
+
+.heading {
+  background-color: #5e9dad;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
