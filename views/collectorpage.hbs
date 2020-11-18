@@ -5,8 +5,95 @@
         <h2>{{{username}}}</h2>
         <h2>collector id: {{{collector_id}}}</h2>
         <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
-        <hr/>
         {{/each}}
+        <br>
+        <br>
+        {{#if isAuthenticated}}
+        <span><a href="/collector/rating/{{{collector_id}}}">Rating</a>:</span>
+        {{else}}
+        <span><a>Rating</a>:</span>
+        {{/if}} 
+        {{#if noRating}}
+        <span>no ratings received</span>
+        {{/if}} 
+        {{#if zeroStar}}
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if halfStar}}
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if oneStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        {{/if}}
+        {{#if oneHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if twoStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if twoHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if threeStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}        
+        {{#if threeHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if fourStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if fourHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        {{/if}}        
+        {{#if fiveStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>        
+        <span class="fa fa-star"></span>
+        {{/if}}
+        <hr/>
     </div>
 
     <div class="col col-md-4">
@@ -97,3 +184,4 @@
 </div>
 
 <link rel="stylesheet" href="/css/collectorpage.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{!-- this needs to be here for the half stars and empty stars --}}

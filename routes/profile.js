@@ -7,6 +7,87 @@ const { ensureLoggedIn } = require('../auth/middleware')
 router.get('/', ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
 
+    // get user's ratings by star count
+    const rating1 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '1');
+    const rating2 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '2');
+    const rating3 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '3');
+    const rating4 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '4');
+    const rating5 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '5');
+
+    var starCount = 0;
+    var totalRatings = 0;
+    var averageStars = 0;
+
+    starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
+    totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
+    averageStars = starCount/totalRatings;
+    console.log(averageStars);
+
+
+    if (averageStars >= '0' && averageStars < '0.25') {
+        var zeroStar = 1;
+        console.log("0");
+    }
+    else if (averageStars >= '0.25' && averageStars < '0.75') {
+        var halfStar = 1;
+        console.log("0.5");
+    }
+    else if (averageStars >= '0.75' && averageStars < '1.25') {
+        var oneStar = 1;
+        console.log("1");
+    }
+    else if (averageStars >= '1.25' && averageStars < '1.75') {
+        var oneHalfStar = 1;
+        console.log("1.5");
+    }
+    else if (averageStars >= '1.75' && averageStars < '2.25') {
+        var twoStar = 1;
+        console.log("2");
+    }
+    else if (averageStars >= '2.25' && averageStars < '2.75') {
+        var twoHalfStar = 1;
+        console.log("2.5");
+    }
+    else if (averageStars >= '2.75' && averageStars < '3.25') {
+        var threeStar = 1;
+        console.log("3");
+    }
+    else if (averageStars >= '3.25' && averageStars < '3.75') {
+        var threeHalfStar = 1;
+        console.log("3.5");
+    }
+    else if (averageStars >= '3.75' && averageStars < '4.25') {
+        var fourStar = 1;
+        console.log("4");
+    }
+    else if (averageStars >= '4.25' && averageStars < '4.75') {
+        var fourhalfStar = 1;
+        console.log("4.5");
+    }
+    else if (averageStars >= '4.75' && averageStars <= '5') {
+        var fiveStar = 1;
+        console.log("5");
+    }
+    else {
+        var noRating = 1;
+        console.log("norating");
+    }
+
     // see if user wants to show their has/wants/trades
     const wantsPublic = await knex('collector')
         .select('wants_public')
@@ -122,13 +203,105 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         noMatches,
         showHasPublic,
         showWantsPublic,
-        showTradesPublic
+        showTradesPublic,
+        zeroStar,
+        halfStar,
+        oneStar,
+        oneHalfStar,
+        twoStar,
+        twoHalfStar,
+        threeStar,
+        threeHalfStar,
+        fourStar,
+        fourhalfStar,
+        fiveStar,
+        noRating
     });
 });
 
 router.get('/list', ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
     
+    // get user's ratings by star count
+    const rating1 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '1');
+    const rating2 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '2');
+    const rating3 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '3');
+    const rating4 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '4');
+    const rating5 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', userId)
+        .andWhere('rating', '=', '5');
+
+    var starCount = 0;
+    var totalRatings = 0;
+    var averageStars = 0;
+
+    starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
+    totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
+    averageStars = starCount/totalRatings;
+    console.log(averageStars);
+
+    if (averageStars >= '0' && averageStars < '0.25') {
+        var zeroStar = 1;
+        console.log("0");
+    }
+    else if (averageStars >= '0.25' && averageStars < '0.75') {
+        var halfStar = 1;
+        console.log("0.5");
+    }
+    else if (averageStars >= '0.75' && averageStars < '1.25') {
+        var oneStar = 1;
+        console.log("1");
+    }
+    else if (averageStars >= '1.25' && averageStars < '1.75') {
+        var oneHalfStar = 1;
+        console.log("1.5");
+    }
+    else if (averageStars >= '1.75' && averageStars < '2.25') {
+        var twoStar = 1;
+        console.log("2");
+    }
+    else if (averageStars >= '2.25' && averageStars < '2.75') {
+        var twoHalfStar = 1;
+        console.log("2.5");
+    }
+    else if (averageStars >= '2.75' && averageStars < '3.25') {
+        var threeStar = 1;
+        console.log("3");
+    }
+    else if (averageStars >= '3.25' && averageStars < '3.75') {
+        var threeHalfStar = 1;
+        console.log("3.5");
+    }
+    else if (averageStars >= '3.75' && averageStars < '4.25') {
+        var fourStar = 1;
+        console.log("4");
+    }
+    else if (averageStars >= '4.25' && averageStars < '4.75') {
+        var fourhalfStar = 1;
+        console.log("4.5");
+    }
+    else if (averageStars >= '4.75' && averageStars <= '5') {
+        var fiveStar = 1;
+        console.log("5");
+    }
+    else {
+        var noRating = 1;
+        console.log("norating");
+    }
+
     // see if user wants to show their has/wants/trades
     const wantsPublic = await knex('collector')
         .select('wants_public')
@@ -244,7 +417,19 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         noMatches,
         showHasPublic,
         showWantsPublic,
-        showTradesPublic
+        showTradesPublic,
+        zeroStar,
+        halfStar,
+        oneStar,
+        oneHalfStar,
+        twoStar,
+        twoHalfStar,
+        threeStar,
+        threeHalfStar,
+        fourStar,
+        fourhalfStar,
+        fiveStar,
+        noRating
     });
 });
 

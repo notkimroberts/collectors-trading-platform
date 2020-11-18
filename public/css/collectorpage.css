@@ -27,3 +27,14 @@ img{
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.fa-star {
+  color: orange;
+}
+.fa-star-o {
+  color: orange;
+}
+
+.fa-star-half-o {
+  color: orange;
+}

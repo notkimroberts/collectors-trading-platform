@@ -1,0 +1,70 @@
+<div class="row justify-content-md-center mt-2">
+    <div class="col col-md-6">
+        {{#if isLoggedInUser}}
+        <h2>Your ratings</h2>
+        {{else}}
+        {{#each collector}}
+        <h2>{{username}}'s ratings</h2>
+        <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
+        <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
+        {{/each}}
+
+        {{#if message}}
+            <div class="alert {{messageClass}}" role="alert">
+                {{message}}
+            </div>
+        {{/if}}
+
+        {{#if ratingGiven}}
+        <span>Click <a href="/collector/{{{id}}}">here </a>to return to collector's profile.</span>
+        {{else}}
+        <form id="rating" action="/collector/rating/{{id}}" enctype="multipart/form-data" method="POST">
+            <div class="form-group">
+                <input type="hidden" name="toUser" id="toUser" value="{{id}}" readonly>
+                <input type="hidden" name="fromUser" id="fromUser" value="{{fromUser}}" readonly>
+                <label for="collectible_id">Rating: </label>
+                <select name='stars' style='height: 45px; font-family:Arial, FontAwesome;'>
+                    <option value='1' style='color:orange;'>&#xf005; &nbsp;</option>
+                    <option value='2' style='color:orange;'>&#xf005;&#xf005; &nbsp;</option>
+                    <option value='3' style='color:orange;'>&#xf005;&#xf005;&#xf005; &nbsp;</option>
+                    <option value='4' style='color:orange;'>&#xf005;&#xf005;&#xf005;&#xf005; &nbsp;</option>
+                    <option value='5' style='color:orange;'>&#xf005;&#xf005;&#xf005;&#xf005;&#xf005; &nbsp;</option>
+                </select> 
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <input class="form-control" type="text" name="comment" id="comment" placeholder="max 100 characters long"  maxlength="100" required>   
+            </div>
+            <button type="submit" class="btn btn-success">Give rating</button>
+            <br>
+            <br>
+            <span>Click <a href="/collector/{{{id}}}">here </a>to return to collector's profile.</span>
+
+        </form>
+        {{/if}}
+        {{/if}}
+            <table class="table table-striped">
+                <thead>
+                    <th>Collector</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                </thead>
+                <tbody>
+                        {{#each ratings}}
+                        <tr>
+                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                            <td>{{{rating}}}/5</td>
+                            <td>{{{updated_at}}}</td>
+                            <td style="word-break: break-word;">{{{comment}}}</td>
+                        </tr>
+                        {{/each}}
+                </tbody>
+            </table>
+
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
