@@ -11,7 +11,11 @@ router.get('/', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;
-    const typeSelected = req.body.collectible_type;
+    const collectibleData = await knex('collectible')    
+    .select('collectible_type_id')
+    .where({ collectible_id: collectible_id }).first();
+    const typeIs = req.body.collectible_type;
+    const typeSelected = collectibleData.collectible_type_id;
     const userId = req.signedCookies.user_id;
 
     // Check if existing collectible_id
@@ -36,38 +40,36 @@ router.post('/', async (req, res, next) => {
 
     if (typeSelected == "none") {
 
-        // if (!name && !req.files) {
+        if (!name && !req.files) {
             res.render('editcollectible', { 
-                    message: 'Please enter a name, select a type, and upload an image to update the collectible',
+                    message: 'Please enter a name or upload an image to update the collectible',
                     messageClass: 'alert-danger'
-        //         }
-        //     )
-        //     return
-        // }
+                }
+            )
+            return
+        }
 
-        // if (name) {
-        //     // update name
-        //     await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
-        // }
+         if (name) {
+             // update name
+             await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+         }
     
-        // if (req.files) {
-        //     const {data} = req.files.pic;
-        //     if (data) {
-        //     // update image
-        //     await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
-        //     }
-        // }
+         if (req.files) {
+             const {data} = req.files.pic;
+             if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+             }
+         }
+        // update updated_at time
 
-        // // update updated_at time
-        //  await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
+          await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
 
+         res.redirect(`/collectible/${collectible_id}`);
 
-        // res.redirect(`/collectible/${collectible_id}`);
-    });
-};
-
-    if (typeSelected == "lego") {
-        const collectibleData = await knex('collectible')
+        }
+        if (typeSelected == '1') {
+            const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
@@ -89,41 +91,44 @@ router.post('/', async (req, res, next) => {
             console.log(z);
             if (n == true || z == true)
             {
-            if (!req.body.piece_count) {
-                res.render('editcollectible', { 
-                        message: 'Please add piece count',
-                        messageClass: 'alert-danger'
+                if (typeIs == "lego"){
+                    if (!req.body.piece_count) {
+                        res.render('editcollectible', { 
+                                message: 'Please add piece count',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
                     }
-                )
-                return
-            }
-
-            if (!req.body.set_number) {
-                res.render('editcollectible', { 
-                        message: 'Please add set_number',
-                        messageClass: 'alert-danger'
+        
+                    if (!req.body.set_number) {
+                        res.render('editcollectible', { 
+                                message: 'Please add set_number',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
                     }
-                )
-                return
-            }
-
-            if (!req.body.theme) {
-                res.render('editcollectible', { 
-                        message: 'Please add theme',
-                        messageClass: 'alert-danger'
+        
+                    if (!req.body.theme) {
+                        res.render('editcollectible', { 
+                                message: 'Please add theme',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
                     }
-                )
-                return
-            }
-
-            if (!req.body.designed_by) {
-                res.render('editcollectible', { 
-                        message: 'Please add designer',
-                        messageClass: 'alert-danger'
+        
+                    if (!req.body.designed_by) {
+                        res.render('editcollectible', { 
+                                message: 'Please add designer',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
                     }
-                )
-                return
-            }
+                }
+          
 
             if (name) {
                 // update name
@@ -151,7 +156,7 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
             }
             else{
-                res.render('addcollectible', { 
+                res.render('editcollectible', { 
                     message: 'You do not have the admin privilege to edit this collectible',
                     messageClass: 'alert-danger'
                     }   
@@ -162,7 +167,7 @@ router.post('/', async (req, res, next) => {
     }
         });
     }
-    else if (typeSelected == "funko") {
+    else if (typeSelected == '2') {
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
@@ -184,26 +189,28 @@ router.post('/', async (req, res, next) => {
             var z = ids.includes(collectibleAll);
             console.log(z);
             if (n == true || z == true)            {
-
-
-        if (!req.body.number) {
-            res.render('editcollectible', { 
-                    message: 'Please add number',
-                    messageClass: 'alert-danger'
+                if (typeIs == "funko"){
+                    if (!req.body.number) {
+                        res.render('editcollectible', { 
+                                message: 'Please add number',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+                
+            
+                    if (!req.body.line) {
+                        res.render('editcollectible', { 
+                                message: 'Please add line',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
                 }
-            )
-            return
-        }
-    
 
-        if (!req.body.line) {
-            res.render('editcollectible', { 
-                    message: 'Please add line',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+     
 
         if (name) {
             // update name
@@ -226,14 +233,11 @@ router.post('/', async (req, res, next) => {
                                     line: req.body.line}})
             .update({updated_at: knex.fn.now()});
 
-
-
-
         
         res.redirect(`/collectible/${collectible_id}`);
     }
     else{
-        res.render('addcollectible', { 
+        res.render('editcollectible', { 
             message: 'You do not have the admin privilege to edit this collectible',
             messageClass: 'alert-danger'
             }   
@@ -244,7 +248,7 @@ router.post('/', async (req, res, next) => {
 }
         });
     }
-    else if (typeSelected == "pusheen") {
+    else if (typeSelected == '3') {
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
@@ -267,26 +271,27 @@ router.post('/', async (req, res, next) => {
                 console.log(z);
                 if (n == true || z == true)                {
     
+                    if (typeIs == "pusheen"){
+                        if (!req.body.product_type1) {
+                            res.render('editcollectible', { 
+                                    message: 'Please add product type',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+                
+                
+                        if (!req.body.season) {
+                            res.render('editcollectible', { 
+                                    message: 'Please add season/holiday',
+                                    messageClass: 'alert-danger'
+                                }
+                            )
+                            return
+                        }
+                    }
 
-
-        if (!req.body.product_type1) {
-            res.render('editcollectible', { 
-                    message: 'Please add product type',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
-
-
-        if (!req.body.season) {
-            res.render('editcollectible', { 
-                    message: 'Please add season/holiday',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
 
         if (name) {
             // update name
@@ -313,7 +318,7 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
     }
     else{
-        res.render('addcollectible', { 
+        res.render('editcollectible', { 
             message: 'You do not have the admin privilege to edit this collectible',
             messageClass: 'alert-danger'
             }   
@@ -325,7 +330,7 @@ router.post('/', async (req, res, next) => {
         });
     }
 
-    else if (typeSelected == "pokemon") {
+    else if (typeSelected == '4') {
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
@@ -350,27 +355,29 @@ router.post('/', async (req, res, next) => {
                     if (n == true || z == true)             
                     {
     
+                        if (typeIs == "pokemon"){
+                            if (!req.body.product_type) {
+                                res.render('editcollectible', { 
+                                        message: 'Please add product type',
+                                        messageClass: 'alert-danger'
+                                    }
+                                )
+                                return
+                            }
+                    
+                    
+                            if (!req.body.generation) {
+                                res.render('editcollectible', { 
+                                        message: 'Please add generation',
+                                        messageClass: 'alert-danger'
+                                    }
+                                )
+                                return
+                            }
+                    
+                        }
 
-
-        if (!req.body.product_type) {
-            res.render('editcollectible', { 
-                    message: 'Please add product type',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
-
-
-        if (!req.body.generation) {
-            res.render('editcollectible', { 
-                    message: 'Please add generation',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
-
+       
         if (name) {
             // update name
             await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
@@ -411,7 +418,7 @@ router.post('/', async (req, res, next) => {
 
     }
     else{
-        res.render('addcollectible', { 
+        res.render('editcollectible', { 
             message: 'You do not have the admin privilege to edit this collectible',
             messageClass: 'alert-danger'
             }   
@@ -423,7 +430,7 @@ router.post('/', async (req, res, next) => {
     });
 }
     
-    else if (typeSelected == "hot_wheel") { 
+    else if (typeSelected == '5') { 
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
@@ -447,35 +454,36 @@ router.post('/', async (req, res, next) => {
                 if (n == true || z == true)         
          {
     
-
-        if (!req.body.number1) {
-            res.render('editcollectible', { 
-                    message: 'Please add number',
-                    messageClass: 'alert-danger'
+            if (typeIs == "hot_wheel"){
+                if (!req.body.number1) {
+                    res.render('editcollectible', { 
+                            message: 'Please add number',
+                            messageClass: 'alert-danger'
+                        }
+                    )
+                    return
                 }
-            )
-            return
-        }
-
-        if (!req.body.series) {
-            res.render('editcollectible', { 
-                    message: 'Please add series',
-                    messageClass: 'alert-danger'
+        
+                if (!req.body.series) {
+                    res.render('editcollectible', { 
+                            message: 'Please add series',
+                            messageClass: 'alert-danger'
+                        }
+                    )
+                    return
                 }
-            )
-            return
-        }
-
-        if (!req.body.year_released1) {
-            res.render('editcollectible', { 
-                    message: 'Please add year released',
-                    messageClass: 'alert-danger'
+        
+                if (!req.body.year_released1) {
+                    res.render('editcollectible', { 
+                            message: 'Please add year released',
+                            messageClass: 'alert-danger'
+                        }
+                    )
+                    return
                 }
-            )
-            return
-        }
-
-
+        
+            }
+     
 
         if (name) {
             // update name
@@ -502,7 +510,7 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
     }
     else{
-        res.render('addcollectible', { 
+        res.render('editcollectible', { 
             message: 'You do not have the admin privilege to edit this collectible',
             messageClass: 'alert-danger'
             }   
