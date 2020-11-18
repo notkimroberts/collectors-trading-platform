@@ -8,7 +8,7 @@
         <hr/>
         {{/each}}
         
-        <form action="/profile/publictoggle" method="post" class="form-example"> 
+        <form action="/profile/publictogglelist" method="post" class="form-example"> 
         <div class="parent">             
             <div class='child float-left-child2'>
                 <td>
@@ -42,6 +42,22 @@
                     {{/if}}
                 </td>
             </div>
+            <div class='child float-left-child2'>
+                <td>
+                    <p>Allow other users to see your trade list?</p>
+                    {{#if showTradesPublic}}
+                    <input type="radio" id="yes" name="trades_public" value="true" checked>
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false">
+                    <label for="no">No</label>
+                    {{else}}
+                    <input type="radio" id="yes" name="trades_public" value="true">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="no" name="trades_public" value="false" checked>
+                    <label for="no">No</label>
+                    {{/if}}
+                </td>
+            </div> 
         </div>
     </div>
     <div class="col col-md-4">

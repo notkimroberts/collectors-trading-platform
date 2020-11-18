@@ -4,6 +4,7 @@
     <div class="column">
         <h4>Collectibles you have that <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
         <hr/>
+            {{#if wantsPublic}}
             {{#if currentUserMatchesExist}}
             {{#each currentUserCollectibles}}
             <div class="parent">             
@@ -19,10 +20,14 @@
             {{else}}
             <p>No matches</p>
             {{/if}}
+            {{else}}
+            <p>This collector's want list is private</p>
+            {{/if}}
     </div>
     <div class="column">
         <h4>Collectibles <a href="/collector/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has that you want:</h4>
         <hr/>
+            {{#if tradesPublic}}
             {{#if otherUserMatchesExist}}
             {{#each otherUserCollectibles}}
                 <div class="parent">             
@@ -37,6 +42,9 @@
             {{/each}}
             {{else}}
             <p>No matches</p>
+            {{/if}}
+            {{else}}
+            <p>This collector's trade list is private</p>
             {{/if}}
     </div>
 </div>

@@ -71,6 +71,7 @@
         {{/if}}
 
     <div id="trade" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
+        {{#if showTradesPublic}}        
         <div class="col col-md-4">
             {{#each collectionWillingToTrade}}
             <div class="parent">             
@@ -89,7 +90,9 @@
             {{else}}
                 <p>This collector has nothing in their trade list</p>
             {{/if}}
-    </form>   
+            {{else}}
+            <p>This collector's trade list is private</p>
+            {{/if}}
 
 </div>
 

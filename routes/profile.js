@@ -7,6 +7,7 @@ const { ensureLoggedIn } = require('../auth/middleware')
 router.get('/', ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
 
+    // see if user wants to show their has/wants/trades
     const wantsPublic = await knex('collector')
         .select('wants_public')
         .where('wants_public', 'true')
@@ -17,19 +18,26 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .where('has_public', 'true')
         .where('collector_id', userId );
 
-        var showWantsPublic = null;
-        var showHasPublic = null;
-    
-        // if results, render collectibles
-        if (wantsPublic.length > 0) {
-            showWantsPublic = 1;
-        }
-    
-        // if results, render collectibles
-        if (hasPublic.length > 0) {
-            showHasPublic = 1;
-        }
+    const tradesPublic = await knex('collector')
+        .select('trades_public')
+        .where('trades_public', 'true')
+        .where('collector_id', userId );
 
+    var showWantsPublic = null;
+    var showHasPublic = null;
+    var showTradesPublic = null;
+
+    if (wantsPublic.length > 0) {
+        showWantsPublic = 1;
+    }
+
+    if (hasPublic.length > 0) {
+        showHasPublic = 1;
+    }
+
+    if (tradesPublic.length > 0) {
+        showTradesPublic = 1;
+    }
 
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id')
@@ -73,6 +81,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .join('collector', 'collection.collector_id', 'collector.collector_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector.collector_id', '!=', userId)
+        .andWhere('collector.trades_public', '=', 'true')
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
         .andWhere('collection.willing_to_trade_quantity', '>', 0)
 
@@ -112,13 +121,15 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         matches,
         noMatches,
         showHasPublic,
-        showWantsPublic
+        showWantsPublic,
+        showTradesPublic
     });
 });
 
 router.get('/list', ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
-
+    
+    // see if user wants to show their has/wants/trades
     const wantsPublic = await knex('collector')
         .select('wants_public')
         .where('wants_public', 'true')
@@ -129,19 +140,26 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         .where('has_public', 'true')
         .where('collector_id', userId );
 
-        var showWantsPublic = null;
-        var showHasPublic = null;
-    
-        // if results, render collectibles
-        if (wantsPublic.length > 0) {
-            showWantsPublic = 1;
-        }
-    
-        // if results, render collectibles
-        if (hasPublic.length > 0) {
-            showHasPublic = 1;
-        }
+    const tradesPublic = await knex('collector')
+        .select('trades_public')
+        .where('trades_public', 'true')
+        .where('collector_id', userId );
 
+    var showWantsPublic = null;
+    var showHasPublic = null;
+    var showTradesPublic = null;
+
+    if (wantsPublic.length > 0) {
+        showWantsPublic = 1;
+    }
+
+    if (hasPublic.length > 0) {
+        showHasPublic = 1;
+    }
+
+    if (tradesPublic.length > 0) {
+        showTradesPublic = 1;
+    }
 
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id')
@@ -185,6 +203,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         .join('collector', 'collection.collector_id', 'collector.collector_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector.collector_id', '!=', userId)
+        .andWhere('collector.trades_public', '=', 'true')
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
         .andWhere('collection.willing_to_trade_quantity', '>', 0)
 
@@ -224,25 +243,40 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         matches,
         noMatches,
         showHasPublic,
-        showWantsPublic
+        showWantsPublic,
+        showTradesPublic
     });
 });
-
 
 router.post('/publictoggle', async (req, res, next) => { 
     const userId = req.signedCookies.user_id;   
     const selectedHas = req.body.has_public;
     const selectedWants = req.body.wants_public;
+    const selectedTrades = req.body.trades_public;
 ''
     await knex('collector')
         .where({ collector_id: userId })
         .update({ has_public: selectedHas })
-        .update({ wants_public: selectedWants });
-
+        .update({ wants_public: selectedWants })
+        .update({ trades_public: selectedTrades });
 
     res.redirect(`/profile`);
 });
 
+router.post('/publictogglelist', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const selectedHas = req.body.has_public;
+    const selectedWants = req.body.wants_public;
+    const selectedTrades = req.body.trades_public;
+''
+    await knex('collector')
+        .where({ collector_id: userId })
+        .update({ has_public: selectedHas })
+        .update({ wants_public: selectedWants })
+        .update({ trades_public: selectedTrades });
+
+    res.redirect(`/profile/list`);
+});
 
 router.post('/has', async (req, res, next) => { 
     const userId = req.signedCookies.user_id;   

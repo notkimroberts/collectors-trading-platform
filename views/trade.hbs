@@ -3,6 +3,7 @@
 <div class="row">
     <div class="column">
         <h4>Collectibles you have that <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
+        {{#if wantsPublic}}
         {{#if currentUserMatchesExist}}
         <table class="table table-striped">
             <thead>
@@ -23,10 +24,14 @@
         {{else}}
         <p>No matches</p>
         {{/if}}
+        {{else}}
+        <p>This collector's want list is private</p>
+        {{/if}}
     </div>
 
     <div class="column">
         <h4>Collectibles <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has that you want:</h4>
+        {{#if tradesPublic}}
         {{#if otherUserMatchesExist}}
         <table class="table table-striped">
             <thead>
@@ -46,6 +51,9 @@
         </table>
         {{else}}
         <p>No matches</p>
+        {{/if}}
+        {{else}}
+        <p>This collector's trade list is private</p>
         {{/if}}
     </div>
 </div>

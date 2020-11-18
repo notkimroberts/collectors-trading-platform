@@ -12,28 +12,24 @@ router.get('/search', async (req, res, next) => {
     .select('collector.collector_id', 'collector.username', 'collector.email', 'collector.phone_number', 'collector.is_admin')
     .where('collector.username', 'ilike', `%${username}%`);
 
+    // if results, render collectibles
+    if (collectors.length > 0) {
+        res.render('collector', {
+        title: `Collector\'s Trading Platform | Search Results`,
+        collector: collectors});
+        return;
+    }
 
-                // if results, render collectibles
-                if (collectors.length > 0) {
-                  res.render('collector', {
-                    title: `Collector\'s Trading Platform | Search Results`,
-                    collector: collectors});
-                  return;
-              }
-              
-              // if no results, inform user
-              else {
-                  res.render('collector', { 
-                          title: `Collector\'s Trading Platform | Search Results`,
-                          message: `No results matching your search term "${username}"`,
-                          messageClass: 'alert-info'
-                      }
-                  )
-                  return;
-              }
-
-
-
+    // if no results, inform user
+    else {
+        res.render('collector', { 
+                title: `Collector\'s Trading Platform | Search Results`,
+                message: `No results matching your search term "${username}"`,
+                messageClass: 'alert-info'
+            }
+        )
+        return;
+    }
   });
 
   router.get('/:id', async (req, res, next) => {
@@ -51,6 +47,11 @@ router.get('/search', async (req, res, next) => {
     const hasPublic = await knex('collector')
         .select('has_public')
         .where('has_public', 'true')
+        .where('collector_id', id );
+
+    const tradesPublic = await knex('collector')
+        .select('trades_public')
+        .where('trades_public', 'true')
         .where('collector_id', id );
 
     // user's has collectibles if has_quantity is greater than 0
@@ -89,32 +90,33 @@ router.get('/search', async (req, res, next) => {
     var showWants = null;
     var showTrade = null;
 
-    var showWantsPublic = null;
     var showHasPublic = null;
+    var showWantsPublic = null;
+    var showTradesPublic = null;
 
     var isLoggedInUser = null;
 
     // if results, render collectibles
+    if (hasPublic.length > 0) {
+            showHasPublic = 1;
+        }
+
     if (wantsPublic.length > 0) {
         showWantsPublic = 1;
     }
 
-    // if results, render collectibles
-    if (hasPublic.length > 0) {
-        showHasPublic = 1;
+    if (tradesPublic.length > 0) {
+        showTradesPublic = 1;
     }
     
-    // if results, render collectibles
     if (collectionsHas.length > 0) {
         showHas = 1;
     }
 
-    // if results, render collectibles
     if (collectionsWants.length > 0) {
         showWants = 1;
     }
 
-    // if results, render collectibles
     if (collectionsWillingToTrade.length > 0) {
         showTrade = 1;
     }
@@ -135,6 +137,7 @@ router.get('/search', async (req, res, next) => {
         showTrade,
         showHasPublic,
         showWantsPublic,
+        showTradesPublic,
         isLoggedInUser
     });
 });
@@ -157,6 +160,11 @@ router.get('/list/:id', async (req, res, next) => {
         .where('has_public', 'true')
         .where('collector_id', id );
 
+    const tradesPublic = await knex('collector')
+        .select('trades_public')
+        .where('trades_public', 'true')
+        .where('collector_id', id );
+
     // user's has collectibles if has_quantity is greater than 0
     const collectionsHas = await knex('collection')
         .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
@@ -193,32 +201,36 @@ router.get('/list/:id', async (req, res, next) => {
     var showWants = null;
     var showTrade = null;
 
-    var showWantsPublic = null;
     var showHasPublic = null;
+    var showWantsPublic = null;
+    var showTradesPublic = null;
 
     var isLoggedInUser = null;
 
-    // if results, render collectibles
+
+    if (hasPublic.length > 0) {
+        showHasPublic = 1;
+    }
+
+
     if (wantsPublic.length > 0) {
         showWantsPublic = 1;
     }
 
-    // if results, render collectibles
-    if (hasPublic.length > 0) {
-        showHasPublic = 1;
-    }
-    
-    // if results, render collectibles
+
+    if (tradesPublic.length > 0) {
+        showTradesPublic = 1;
+    }   
+
     if (collectionsHas.length > 0) {
         showHas = 1;
     }
 
-    // if results, render collectibles
+
     if (collectionsWants.length > 0) {
         showWants = 1;
     }
 
-    // if results, render collectibles
     if (collectionsWillingToTrade.length > 0) {
         showTrade = 1;
     }
@@ -239,6 +251,7 @@ router.get('/list/:id', async (req, res, next) => {
         showTrade,
         showHasPublic,
         showWantsPublic,
+        showTradesPublic,
         isLoggedInUser
     });
 });
@@ -276,7 +289,8 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
     const otherUserWantsCollectibleIds = []
     currentUserWants.forEach((row) => currentUserWantsCollectibleIds.push(row.collectible_id))
     otherUserWants.forEach((row) => otherUserWantsCollectibleIds.push(row.collectible_id))
-
+    
+    // get wants of other user that matches current user trades
     const currentUserToOtherUser = await knex('collection')
         .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
         .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
@@ -284,7 +298,8 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         .where('collector_id','=', currentUserId)
         .whereIn('collection.collectible_id', otherUserWantsCollectibleIds)
         .andWhere('willing_to_trade_quantity', '>', 0)
-    
+ 
+    // get trades of other user that matches current user wants            
     const otherUserToCurrentUser = await knex('collection')
         .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
         .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
@@ -293,16 +308,40 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
         .andWhere('willing_to_trade_quantity', '>', 0)
 
-        var currentUserMatchesExist = null;
-        var otherUserMatchesExist = null;
+    var currentUserMatchesExist = null;
+    var otherUserMatchesExist = null;
 
-        if (currentUserToOtherUser.length > 0) {
-            currentUserMatchesExist = 1;
-        }
-        
-        if (otherUserToCurrentUser.length > 0) {
-            otherUserMatchesExist = 1;
-        }
+    if (currentUserToOtherUser.length > 0) {
+        currentUserMatchesExist = 1;
+    }
+    
+    if (otherUserToCurrentUser.length > 0) {
+        otherUserMatchesExist = 1;
+    }
+
+    // only show other user's wants if other user set their wants to public
+    const otherUserWantPreference = await knex('collector')
+        .select('wants_public')
+        .where('collector_id', '=', otherUserId)
+        .andWhere('wants_public', '=', 'true')
+
+    var wantsPublic = null;
+
+    if (otherUserWantPreference.length > 0) {
+        wantsPublic = 1;
+    }
+
+    // only show other user's trades if other user set their trades to public
+    const otherUserTradePreference = await knex('collector')
+        .select('trades_public')
+        .where('collector_id', '=', otherUserId)
+        .andWhere('trades_public', '=', 'true')
+
+    var tradesPublic = null;
+
+    if (otherUserTradePreference.length > 0) {
+        tradesPublic = 1;
+    }
 
     res.render('trade', {
         title: `Collector\'s Trading Platform | Trade Matches with ${otherUser.username}`,
@@ -311,11 +350,11 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         currentUserCollectibles: currentUserToOtherUser,
         otherUserCollectibles: otherUserToCurrentUser,
         currentUserMatchesExist,
-        otherUserMatchesExist
+        otherUserMatchesExist,
+        wantsPublic,
+        tradesPublic
     });
 });
-
-
 
 router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
         const currentUserId = req.signedCookies.user_id
@@ -349,7 +388,8 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
         const otherUserWantsCollectibleIds = []
         currentUserWants.forEach((row) => currentUserWantsCollectibleIds.push(row.collectible_id))
         otherUserWants.forEach((row) => otherUserWantsCollectibleIds.push(row.collectible_id))
-    
+
+        // get wants of other user that matches current user trades
         const currentUserToOtherUser = await knex('collection')
             .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
@@ -357,7 +397,8 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             .where('collector_id','=', currentUserId)
             .whereIn('collection.collectible_id', otherUserWantsCollectibleIds)
             .andWhere('willing_to_trade_quantity', '>', 0)
-        
+ 
+        // get trades of other user that matches current user wants    
         const otherUserToCurrentUser = await knex('collection')
             .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
@@ -378,6 +419,30 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             otherUserMatchesExist = 1;
         }
 
+        // only show other user's wants if other user set their wants to public
+        const otherUserWantPreference = await knex('collector')
+            .select('wants_public')
+            .where('collector_id', '=', otherUserId)
+            .andWhere('wants_public', '=', 'true')
+
+        var wantsPublic = null;
+
+        if (otherUserWantPreference.length > 0) {
+            wantsPublic = 1;
+        }
+
+        // only show other user's trades if other user set their trades to public
+        const otherUserTradePreference = await knex('collector')
+            .select('trades_public')
+            .where('collector_id', '=', otherUserId)
+            .andWhere('trades_public', '=', 'true')
+
+        var tradesPublic = null;
+
+        if (otherUserTradePreference.length > 0) {
+            tradesPublic = 1;
+        }
+
         res.render('tradeimages', {
             title: `Collector\'s Trading Platform | Trade Matches with ${otherUser.username}`,
             currentUser,
@@ -385,7 +450,9 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             currentUserCollectibles: currentUserToOtherUser,
             otherUserCollectibles: otherUserToCurrentUser,
             currentUserMatchesExist,
-            otherUserMatchesExist
+            otherUserMatchesExist,
+            wantsPublic,
+            tradesPublic
         });
     });
 
