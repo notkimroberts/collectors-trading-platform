@@ -62,6 +62,7 @@ exports.up = (knex) => {
         table.bigInteger('from_user_id');
         table.bigInteger('to_user_id');
         table.bigInteger('rating');
+        table.text('comment', 128);
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table

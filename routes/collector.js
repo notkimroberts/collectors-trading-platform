@@ -2,8 +2,93 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../connection')
 const Collector = require('../models/collector');
+const Collector_ratings = require('../models/collector_ratings')
 const { ensureLoggedIn } = require('../auth/middleware')
 
+
+// page for logged in user to select rating for another user
+router.get('/rating/:id', async (req, res, next) => {
+    const { id } = req.params;
+    const fromUser = req.signedCookies.user_id;
+
+    var isLoggedInUser = null;
+
+    if (id == req.signedCookies.user_id) {
+        isLoggedInUser = 1;
+    }
+
+    const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
+        .where('collector_id', id );
+
+    const collectorsRatings = await knex('collector_ratings')
+        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
+        .where('to_user_id', '=', id)
+
+    res.render('rating', { 
+        title: `Collector\'s Trading Platform | Rating`,
+        collector: collectorData,
+        id,
+        fromUser,
+        ratings: collectorsRatings,
+        isLoggedInUser
+    });
+});
+
+// post request to give user a rating
+router.post('/rating/:id', async (req, res, next) => { 
+    const { id } = req.params;
+    const toUser = req.body.toUser;
+    const fromUser = req.body.fromUser;
+    const stars = req.body.stars;
+    const userComment = req.body.comment;
+
+    const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
+        .where('collector_id', id );
+
+    const getRatingFromLoggedInUser = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('from_user_id', '=', fromUser);
+
+    // update rating if logged in user already gave a rating
+    if (getRatingFromLoggedInUser.length > 0) {
+        await knex('collector_ratings')
+            .update({rating: stars})
+            .update({comment: userComment})
+            .update({updated_at: knex.fn.now()})
+            .where('to_user_id', '=', id)
+            .andWhere('from_user_id', '=', fromUser);
+    }
+    // else insert rating
+    else {    
+        await Collector_ratings.create(fromUser, toUser, stars, userComment);
+    }
+
+    const collectorsRatings = await knex('collector_ratings')
+        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
+        .where('to_user_id', '=', id)
+
+    var ratingGiven = 1;
+
+    res.render('rating', { 
+        title: `Collector\'s Trading Platform | Rating`,
+        message: 'Thank you for rating this collector',
+        messageClass: 'alert-success',
+        collector: collectorData,
+        id,
+        fromUser,
+        ratingGiven,
+        ratings: collectorsRatings
+    }
+)  
+return;
+
+
+});
 
 
 router.get('/search', async (req, res, next) => {
@@ -32,12 +117,94 @@ router.get('/search', async (req, res, next) => {
     }
   });
 
-  router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
 
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', id );
+
+
+    // get user's ratings by star count
+    const rating1 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '1');
+    const rating2 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '2');
+    const rating3 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '3');
+    const rating4 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '4');
+    const rating5 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '5');
+
+    var starCount = 0;
+    var totalRatings = 0;
+    var averageStars = 0;
+
+    starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
+    totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
+    averageStars = starCount/totalRatings;
+    console.log(averageStars);
+
+
+    if (averageStars >= '0' && averageStars < '0.25') {
+        var zeroStar = 1;
+        console.log("0");
+    }
+    else if (averageStars >= '0.25' && averageStars < '0.75') {
+        var halfStar = 1;
+        console.log("0.5");
+    }
+    else if (averageStars >= '0.75' && averageStars < '1.25') {
+        var oneStar = 1;
+        console.log("1");
+    }
+    else if (averageStars >= '1.25' && averageStars < '1.75') {
+        var oneHalfStar = 1;
+        console.log("1.5");
+    }
+    else if (averageStars >= '1.75' && averageStars < '2.25') {
+        var twoStar = 1;
+        console.log("2");
+    }
+    else if (averageStars >= '2.25' && averageStars < '2.75') {
+        var twoHalfStar = 1;
+        console.log("2.5");
+    }
+    else if (averageStars >= '2.75' && averageStars < '3.25') {
+        var threeStar = 1;
+        console.log("3");
+    }
+    else if (averageStars >= '3.25' && averageStars < '3.75') {
+        var threeHalfStar = 1;
+        console.log("3.5");
+    }
+    else if (averageStars >= '3.75' && averageStars < '4.25') {
+        var fourStar = 1;
+        console.log("4");
+    }
+    else if (averageStars >= '4.25' && averageStars < '4.75') {
+        var fourhalfStar = 1;
+        console.log("4.5");
+    }
+    else if (averageStars >= '4.75' && averageStars <= '5') {
+        var fiveStar = 1;
+        console.log("5");
+    }
+    else {
+        var noRating = 1;
+        console.log("norating");
+    }
 
     const wantsPublic = await knex('collector')
         .select('wants_public')
@@ -138,13 +305,106 @@ router.get('/search', async (req, res, next) => {
         showHasPublic,
         showWantsPublic,
         showTradesPublic,
-        isLoggedInUser
+        isLoggedInUser,
+        zeroStar,
+        halfStar,
+        oneStar,
+        oneHalfStar,
+        twoStar,
+        twoHalfStar,
+        threeStar,
+        threeHalfStar,
+        fourStar,
+        fourhalfStar,
+        fiveStar,
+        noRating
     });
 });
 
 
 router.get('/list/:id', async (req, res, next) => {
     const { id } = req.params;
+
+    // get user's ratings by star count
+    const rating1 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '1');
+    const rating2 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '2');
+    const rating3 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '3');
+    const rating4 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '4');
+    const rating5 = await knex('collector_ratings')
+        .select('rating')
+        .where('to_user_id', '=', id)
+        .andWhere('rating', '=', '5');
+
+    var starCount = 0;
+    var totalRatings = 0;
+    var averageStars = 0;
+
+    starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
+    totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
+    averageStars = starCount/totalRatings;
+    console.log(averageStars);
+
+
+    if (averageStars >= '0' && averageStars < '0.25') {
+        var zeroStar = 1;
+        console.log("0");
+    }
+    else if (averageStars >= '0.25' && averageStars < '0.75') {
+        var halfStar = 1;
+        console.log("0.5");
+    }
+    else if (averageStars >= '0.75' && averageStars < '1.25') {
+        var oneStar = 1;
+        console.log("1");
+    }
+    else if (averageStars >= '1.25' && averageStars < '1.75') {
+        var oneHalfStar = 1;
+        console.log("1.5");
+    }
+    else if (averageStars >= '1.75' && averageStars < '2.25') {
+        var twoStar = 1;
+        console.log("2");
+    }
+    else if (averageStars >= '2.25' && averageStars < '2.75') {
+        var twoHalfStar = 1;
+        console.log("2.5");
+    }
+    else if (averageStars >= '2.75' && averageStars < '3.25') {
+        var threeStar = 1;
+        console.log("3");
+    }
+    else if (averageStars >= '3.25' && averageStars < '3.75') {
+        var threeHalfStar = 1;
+        console.log("3.5");
+    }
+    else if (averageStars >= '3.75' && averageStars < '4.25') {
+        var fourStar = 1;
+        console.log("4");
+    }
+    else if (averageStars >= '4.25' && averageStars < '4.75') {
+        var fourhalfStar = 1;
+        console.log("4.5");
+    }
+    else if (averageStars >= '4.75' && averageStars <= '5') {
+        var fiveStar = 1;
+        console.log("5");
+    }
+    else {
+        var noRating = 1;
+        console.log("norating");
+    }
 
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
@@ -252,7 +512,19 @@ router.get('/list/:id', async (req, res, next) => {
         showHasPublic,
         showWantsPublic,
         showTradesPublic,
-        isLoggedInUser
+        isLoggedInUser,
+        zeroStar,
+        halfStar,
+        oneStar,
+        oneHalfStar,
+        twoStar,
+        twoHalfStar,
+        threeStar,
+        threeHalfStar,
+        fourStar,
+        fourhalfStar,
+        fiveStar,
+        noRating
     });
 });
 
