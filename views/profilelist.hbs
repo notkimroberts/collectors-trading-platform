@@ -8,7 +8,7 @@
         {{/each}}
         <br>
         <br>
-        <span><a href="/collector/rating/{{{collector_id}}}">Rating</a>:</span>
+        <span style="font-size:18px">Rating:</span>
         {{#if noRating}}
         <span>no ratings received</span>
         {{/if}} 
@@ -89,6 +89,8 @@
         <span class="fa fa-star"></span>        
         <span class="fa fa-star"></span>
         {{/if}}
+        <br>
+        <span><a href="/collector/rating/{{{collector_id}}}">View your ratings</a></span>
         <hr/>
 
         <form action="/profile/publictogglelist" method="post" class="form-example"> 

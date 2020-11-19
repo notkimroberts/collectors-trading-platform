@@ -8,11 +8,7 @@
         {{/each}}
         <br>
         <br>
-        {{#if isAuthenticated}}
-        <span><a href="/collector/rating/{{{collector_id}}}">Rating</a>:</span>
-        {{else}}
-        <span><a>Rating</a>:</span>
-        {{/if}}  
+        <span style="font-size:18px">Rating:</span>
         {{#if noRating}}
         <span>no ratings received</span>
         {{/if}} 
@@ -92,6 +88,10 @@
         <span class="fa fa-star"></span>
         <span class="fa fa-star"></span>        
         <span class="fa fa-star"></span>
+        {{/if}}
+        <br>
+        {{#if isAuthenticated}}
+        <span><a href="/collector/rating/{{{collector_id}}}">Give or view ratings</a></span>
         {{/if}}
         <hr/>
     </div>
