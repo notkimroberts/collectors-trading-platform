@@ -127,6 +127,18 @@ router.post('/', async (req, res, next) => {
                         )
                         return
                     }
+                    
+                    await knex('collectible')
+                    .where({collectible_id: collectible_id})
+                    .update({collectible_type_id: collectibleType})
+                    .update({attributes: {  piece_count: req.body.piece_count, 
+                                            set_number: req.body.set_number, 
+                                            theme:  req.body.theme, 
+                                            designed_by: req.body.designed_by}})
+                    .update({updated_at: knex.fn.now()});
+
+                    res.redirect(`/collectible/${collectible_id}`);
+
                 }
           
 
@@ -144,15 +156,6 @@ router.post('/', async (req, res, next) => {
             
             }
 
-            await knex('collectible')
-                .where({collectible_id: collectible_id})
-                .update({collectible_type_id: collectibleType})
-                .update({attributes: {  piece_count: req.body.piece_count, 
-                                        set_number: req.body.set_number, 
-                                        theme:  req.body.theme, 
-                                        designed_by: req.body.designed_by}})
-                .update({updated_at: knex.fn.now()});
-        
         res.redirect(`/collectible/${collectible_id}`);
             }
             else{
@@ -208,6 +211,16 @@ router.post('/', async (req, res, next) => {
                         )
                         return
                     }
+                    await knex('collectible')
+                    .where({collectible_id: collectible_id})
+                    .update({collectible_type_id: collectibleType})
+                    .update({attributes: {  number: req.body.number, 
+                                            line: req.body.line}})
+                    .update({updated_at: knex.fn.now()});
+        
+                
+                res.redirect(`/collectible/${collectible_id}`);
+
                 }
 
      
@@ -225,14 +238,6 @@ router.post('/', async (req, res, next) => {
             }
         
         }
-
-        await knex('collectible')
-            .where({collectible_id: collectible_id})
-            .update({collectible_type_id: collectibleType})
-            .update({attributes: {  number: req.body.number, 
-                                    line: req.body.line}})
-            .update({updated_at: knex.fn.now()});
-
         
         res.redirect(`/collectible/${collectible_id}`);
     }
@@ -290,6 +295,15 @@ router.post('/', async (req, res, next) => {
                             )
                             return
                         }
+                        
+                    await knex('collectible')
+                    .where({collectible_id: collectible_id})
+                    .update({collectible_type_id: collectibleType})
+                    .update({attributes: {  product_type: req.body.product_type1,
+                                            season: req.body.season}})
+                    .update({updated_at: knex.fn.now()});
+                    res.redirect(`/collectible/${collectible_id}`);
+
                     }
 
 
@@ -306,13 +320,6 @@ router.post('/', async (req, res, next) => {
             }
         
         }
-
-        await knex('collectible')
-            .where({collectible_id: collectible_id})
-            .update({collectible_type_id: collectibleType})
-            .update({attributes: {  product_type: req.body.product_type1,
-                                    season: req.body.season}})
-            .update({updated_at: knex.fn.now()});
 
         
         res.redirect(`/collectible/${collectible_id}`);
@@ -375,6 +382,14 @@ router.post('/', async (req, res, next) => {
                                 return
                             }
                     
+                        await knex('collectible')
+                        .where({collectible_id: collectible_id})
+                        .update({collectible_type_id: collectibleType})
+                        .update({attributes: {  product_type: req.body.product_type,
+                                                generation: req.body.generation}})
+                        .update({updated_at: knex.fn.now()});
+                        res.redirect(`/collectible/${collectible_id}`);
+
                         }
 
        
@@ -406,14 +421,7 @@ router.post('/', async (req, res, next) => {
     
     }
 
-        await knex('collectible')
-            .where({collectible_id: collectible_id})
-            .update({collectible_type_id: collectibleType})
-            .update({attributes: {  product_type: req.body.product_type,
-                                    generation: req.body.generation}})
-            .update({updated_at: knex.fn.now()});
 
-        
         res.redirect(`/collectible/${collectible_id}`);
 
     }
@@ -482,6 +490,15 @@ router.post('/', async (req, res, next) => {
                     return
                 }
         
+                await knex('collectible')
+                .where({collectible_id: collectible_id})
+                .update({collectible_type_id: collectibleType})
+                .update({attributes: {  number: req.body.number1, 
+                                        series: req.body.series,
+                                        year_released: req.body.year_released1}})
+                .update({updated_at: knex.fn.now()});
+                res.redirect(`/collectible/${collectible_id}`);
+
             }
      
 
@@ -498,14 +515,6 @@ router.post('/', async (req, res, next) => {
             }
         
         }
-
-        await knex('collectible')
-        .where({collectible_id: collectible_id})
-        .update({collectible_type_id: collectibleType})
-        .update({attributes: {  number: req.body.number1, 
-                                series: req.body.series,
-                                year_released: req.body.year_released1}})
-        .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
     }
