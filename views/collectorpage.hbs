@@ -1,16 +1,187 @@
 <div class="row justify-content-md-center mt-2">
-
+    
     <div class="col col-md-4">
         {{#each collector}}
-            <h2>{{{username}}}</h2>
-            <h2>collector id: {{{collector_id}}}</h2>
-            <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
-            <hr/>
-            <div class="col col-md-4">
-                <td><a href="/collector/trade/{{{collector_id}}}">Trade matches</a></td>
-            </div>
-        {{/each}}       
+        <h2>{{{username}}}</h2>
+        <h2>collector id: {{{collector_id}}}</h2>
+        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
+        {{/each}}
+        <br>
+        <br>
+        <span style="font-size:18px">Rating:</span>
+        {{#if noRating}}
+        <span>no ratings received</span>
+        {{/if}} 
+        {{#if zeroStar}}
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if halfStar}}
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if oneStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        <span class="fa fa-star-o"></span>   
+        {{/if}}
+        {{#if oneHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>  
+        {{/if}}        
+        {{#if twoStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if twoHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if threeStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}        
+        {{#if threeHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        <span class="fa fa-star-o"></span>
+        {{/if}}
+        {{#if fourStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-o"></span>        
+        {{/if}}
+        {{#if fourHalfStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star-half-o"></span>
+        {{/if}}        
+        {{#if fiveStar}}
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>        
+        <span class="fa fa-star"></span>
+        {{/if}}
+        <br>
+        {{#if isAuthenticated}}
+        <span><a href="/collector/rating/{{{collector_id}}}">Give or view ratings</a></span>
+        {{/if}}
+        <hr/>
     </div>
+
+    <div class="col col-md-4">
+        {{#if isLoggedInUser}}
+        {{else}}
+            {{#if isAuthenticated}}
+                <h3><a href="/collector/trade/images/{{{collector_id}}}">View trade matches</a></h3>
+                <hr/>
+            {{/if}}
+        {{/if}}
+    <p><a href="/collector/list/{{{collector_id}}}">view in text list format</a></p>
+    <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
+    </div>
+
+    <div id="have" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
+        {{#if showHasPublic}}
+        <div class="col col-md-4">
+            {{#each collectionHas}}
+            <div class="parent">             
+                <div class='child float-left-child'>
+                    <td>
+                        <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <br>
+                        <br>
+                        <img src=/collectible/image/{{{collectible_id}}}/>
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+        {{#if showHas}}
+        {{else}}
+            <p>This collector has nothing in their have list</p>
+        {{/if}}
+        {{else}}
+            <p>This collector's have list is private</p>
+        {{/if}}
+
+
+    <div id="want" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Want List</h3></div>
+        {{#if showWantsPublic}}
+        <div class="col col-md-4">
+            {{#each collectionWants}}
+            <div class="parent">             
+                <div class='child float-left-child'>
+                    <td>
+                        <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <br>
+                        <br>
+                        <img src=/collectible/image/{{{collectible_id}}}/>
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+        {{#if showWants}}
+        {{else}}
+            <p>This collector has nothing in their want list</p>
+        {{/if}}  
+        {{else}}
+            <p>This collector's want list is private</p>
+        {{/if}}
+
+    <div id="trade" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s For Trade List</h3></div>
+        {{#if showTradesPublic}}        
+        <div class="col col-md-4">
+            {{#each collectionWillingToTrade}}
+            <div class="parent">             
+                <div class='child float-left-child'>
+                    <td>
+                        <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <br>
+                        <br>
+                        <img src=/collectible/image/{{{collectible_id}}}/>  
+                    </td>
+                </div> 
+            </div>
+            {{/each}}
+        </div>
+            {{#if showTrade}}
+            {{else}}
+                <p>This collector has nothing in their trade list</p>
+            {{/if}}
+            {{else}}
+            <p>This collector's trade list is private</p>
+            {{/if}}
+
 </div>
 
-
+<link rel="stylesheet" href="/css/collectorpage.css"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{!-- this needs to be here for the half stars and empty stars --}}

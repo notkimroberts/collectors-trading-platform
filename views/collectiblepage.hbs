@@ -119,11 +119,25 @@
 
         <div class="for-trade">
             <h5>Collectors who have this item for trade:</h5>
+            {{#if signInToViewTrades}}
+            <p><a href="/login">Login</a> to view collectors who have this for trade.</p>
+            {{else}}
+            <table class="table table-striped">
+                <thead>
+                    <th>Collectors</th>
+                </thead>
+                <tbody>
+                    {{#if existsUserWithCollectible}}
+                    {{#each usersWithCollectible}}
+                        <tr>
+                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                        </tr>
+                    {{/each}}
+                    {{/if}}
+                </tbody>
+            </table>
+            {{/if}}
         </div>
-
-
-                
-           
     </div>
 </div>
 

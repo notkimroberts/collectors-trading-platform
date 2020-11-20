@@ -52,6 +52,7 @@ exports.up = (knex) => {
         table.text('phone_number', 128).notNullable();
         table.boolean('has_public').defaultTo(true);
         table.boolean('wants_public').defaultTo(true);
+        table.boolean('trades_public').defaultTo(true);
         table.bigInteger('is_admin');
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
@@ -61,6 +62,7 @@ exports.up = (knex) => {
         table.bigInteger('from_user_id');
         table.bigInteger('to_user_id');
         table.bigInteger('rating');
+        table.text('comment', 128);
         table.datetime('created_at').defaultTo(knex.fn.now());
         table.datetime('updated_at').defaultTo(knex.fn.now());
         table

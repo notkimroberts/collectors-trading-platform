@@ -184,6 +184,8 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
+    
+    var signInToViewTrades = 1;
 
     // if user is signed in 
     if (userId) {
@@ -213,9 +215,23 @@ router.get('/:id', async (req, res, next) => {
 
         // see if there's already a collector_id and collectible_id pair in the table
         const collectionExists = await knex('collection')
-        .select(['collectible_id'])
-        .where('collector_id', userId)
-        .where('collectible_id', id);
+            .select(['collectible_id'])
+            .where('collector_id', userId)
+            .where('collectible_id', id);
+        
+        // users with collectible
+        const usersWithCollectible = await knex('collection')
+            .select(['collector.collector_id', 'collector.username'])
+            .join('collector', 'collector.collector_id', 'collection.collector_id')
+            .where('collectible_id', '=', id)
+            .andWhere('trades_public', '=', 'true')
+            .andWhere('willing_to_trade_quantity', '>', 0)
+
+        var  existsUserWithCollectible = null;
+
+        if (usersWithCollectible.length > 0) {
+            existsUserWithCollectible = 1;
+        }
 
         // if results, render users collectibles to the form
         if (collectionExists.length > 0) {
@@ -229,6 +245,8 @@ router.get('/:id', async (req, res, next) => {
                 collectionWants: collectionsWants,
                 collectionWillingToTrade: collectionsWillingToTrade,
                 somethingInCollection,
+                usersWithCollectible,
+                existsUserWithCollectible,
                 id
             });
             return;
@@ -242,6 +260,8 @@ router.get('/:id', async (req, res, next) => {
                 collector_id: userId,
                 collectible: collectibles,
                 nothingInCollection,
+                usersWithCollectible,
+                existsUserWithCollectible,
                 id
             });
             return;
@@ -253,7 +273,8 @@ router.get('/:id', async (req, res, next) => {
         res.render('collectiblepage', {
             title: `Collector\'s Trading Platform | ${id}`,
             collector_id: userId,
-            collectible: collectibles
+            collectible: collectibles,
+            signInToViewTrades
         })
     }
 });
