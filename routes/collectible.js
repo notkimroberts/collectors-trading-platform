@@ -1,173 +1,25 @@
 const express = require('express');
 const FileType = require('file-type');
 const knex = require('../connection');
-const Collection = require('../models/Collection')
+const Collection = require('../models/collection')
 const router = express.Router();
-const { ensureLoggedIn } = require('../auth/middleware')
 
-router.get('/',ensureLoggedIn, async (req, res, next) => { 
-    const { id } = req.params;
-    const userId = req.signedCookies.user_id;
-    const collectible_id = req.body.collectible_id;
-    console.log(userId);
-    console.log(collectible_id);
 
+router.get('/', async (req, res, next) => { 
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id');
- 
-    const collectionsHas = await knex('collection')
-    .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-    .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-    .where('collector_id', userId );
-
-    const q1 = req.body.has_quantity;
-    const q2 = req.body.wants_quantity;
-    const q3 = req.body.willing_to_trade_quantity;
-
-    // console.log(collectionsHas);
-    console.log(collectionsHas[1]);
-    // console.log(collectionsHas[2]);
-    // console.log(collectionsHas[3]);
-    // user's wants collectibles if has_quantity for any value zero or greater
-    const collectionsWants = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId );
-
-    // user's willing to trade collectibles if willing_to_trade_quantity for any value zero or greater
-    const collectionsWillingToTrade = await knex('collection')
-        .select(['collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
-        .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
-        .where('collector_id', userId );
-               // see if there's already a collector_id and collectible_id pair in the table
-    var showHasButton = null;
-
-    // if results, render collectibles
-    if (collectionsHas.length > 0) {
-        showHasButton = 1;
-    }
-    
+        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+  
     // filter by type
     const collectiblesByType = await knex('collectible_type')
         .select('name as type_name', 'collectible_type_id as type_id');
-             // for each collectible on the page
-        for (i = 0; i < collectionsHas.length; i++) {
-        // update row
-    
-        // if results, render users collectibles to the form
-        if (collectionsHas.length > 0) {
-            const collectible_id1 = req.body.collectible_id;
-            console.log(collectible_id1);
-
-            const collection = await knex('collection')
-            .where({collector_id: userId})
-            .andWhere({collectible_id: collectible_id1});
-
-            const somethingInCollection = 1;
-            const q1 = collection.has_quantity;
-            const q2 = collection.wants_quantity;
-            const q3 = collection.willing_to_trade_quantity;
-            console.log(q1);
-            console.log(q2);
-            console.log(q3);
-
-            res.render('collectible', {
-                title: `Collector\'s Trading Platform | Collectibles`,
-                collector_id: userId,
-                collectible: collectibles,
-                collectibleByType: collectiblesByType,
-                collectionHas: collectionsHas,
-                collectionWants: collectionsWants,
-                collectionWillingToTrade: collectionsWillingToTrade,
-                showHasButton,     
-                somethingInCollection,
-                id
-            });
-            return;
-        }
-        
-        // if no results, render form with 0 in each quantity
-        else {
-            const collectible_id1 = req.body.collectible_id;
-            console.log(collectible_id1);
-            const collection = await knex('collection')
-            .where({collector_id: userId})
-            .andWhere({collectible_id: collectible_id1});
-
-            const q1 = collection.has_quantity;
-            const q2 = collection.wants_quantity;
-            const q3 = collection.willing_to_trade_quantity;
-            const nothingInCollection = 1;
-            console.log(q1);
-            console.log(q2);
-            console.log(q3);
-
+   
         res.render('collectible', {
-            title: `Collector\'s Trading Platform | Collectibles`,
-            collector_id: userId,
-            collectible: collectibles,
-            collectibleByType: collectiblesByType,
-            collectionHas: collectionsHas,
-            collectionWants: collectionsWants,
-            collectionWillingToTrade: collectionsWillingToTrade,
-            showHasButton,     
-            nothingInCollection,
-            id
-            });
-            return;
-        }    
-    }
+        title: "Collector\'s Trading Platform | Collectibles",
+        collectible: collectibles,
+        collectibleByType: collectiblesByType,
+    });
 });
-
-
-router.post('/update', async (req, res, next) => { 
-    const userId = req.signedCookies.user_id;
-    const collectible_id = req.body.collectible_id;
-    console.log(userId);
-    console.log(collectible_id);
-
-    // // if there's a collector_id and collectible_id pair in the table, perform update
-        const q1 = req.body.has_quantity;
-        const q2 = req.body.wants_quantity;
-        const q3 = req.body.willing_to_trade_quantity;
-        console.log(q1);
-        console.log(q2);
-        console.log(q3);
-        var i;
-        // for each collectible on the page
-        for (i = 0; i < q1.length; i++) {
-        // update row
-    
-        // if has/wants/for trade quantity has been updated to zero, delete entry
-        if (q1 == 0 && q2 == 0 && q3 == 0) {
-            await knex('collection')
-            .where({ collector_id: userId })
-            .andWhere({collectible_id: collectible_id})
-            .del();
-            res.redirect(`/collectible/${collectible_id}`);
-            return;
-        }
-
-    // else perform insert
-    else {
-        const collectible_id1 = req.body.collectible_id;
-        const qa = req.body.has_quantity;
-        const qb = req.body.wants_quantity;
-        const qc = req.body.willing_to_trade_quantity;
-        console.log(userId);
-        console.log(collectible_id1);
-        console.log(qa[i]);
-        console.log(qb[i]);
-        console.log(qc[i]);
-        await Collection.create(userId, collectible_id, qa[i], qb[i], qc[i]);
-
-        res.redirect(`/collectible/${collectible_id}`);
-        return;
-    };
-};
-});
-
 
  // Display all collectibles from a given a type
  router.get('/filter/:type_id', async (req, res, next) => {
@@ -190,6 +42,47 @@ router.post('/update', async (req, res, next) => {
         clearfilter: clearfilter
     });
 });
+
+
+
+router.post('/has', async (req, res, next) => { 
+    const userId = req.signedCookies.user_id;   
+    const q1 = req.body.has_quantity;
+    const q2 = req.body.wants_quantity;
+    const q3 = req.body.willing_to_trade_quantity;
+    const collectible_id1 = req.body.collectible_id;
+    const list = req.body.list;
+
+    var i;
+    // for each collectible on the page
+    for (i = 0; i < q1.length; i++) {
+    // update row
+    await knex('collection')
+      .where({ collector_id: userId })
+      .andWhere({ collectible_id: collectible_id1[i] })
+      .update({ has_quantity: q1[i] })
+      .update({ wants_quantity: q2[i] })
+      .update({ willing_to_trade_quantity: q3[i] });
+    
+    // if has/wants/for trade quantity has been updated to zero, delete entry
+    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+        // await knex('collection')
+        //   .where({ collector_id: userId })
+        //   .andWhere( {collectible_id: collectible_id1[i] })
+        //   .del();
+        // }
+        await Collection.create(userId, collectible_id1[i], q1[i], q2[i], q3[i]);
+      }
+    }
+
+if (list == '1') {
+    res.redirect(`/profile/list`);   
+}
+else {
+    res.redirect(`/collectible`);
+}
+});
+
 
 // search for collectible
 router.get('/search', async (req, res, next) => {
