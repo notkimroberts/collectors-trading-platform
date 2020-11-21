@@ -43,47 +43,6 @@ router.get('/', async (req, res, next) => {
     });
 });
 
-
-
-router.post('/has', async (req, res, next) => { 
-    const userId = req.signedCookies.user_id;   
-    const q1 = req.body.has_quantity;
-    const q2 = req.body.wants_quantity;
-    const q3 = req.body.willing_to_trade_quantity;
-    const collectible_id1 = req.body.collectible_id;
-    const list = req.body.list;
-
-    var i;
-    // for each collectible on the page
-    for (i = 0; i < q1.length; i++) {
-    // update row
-    await knex('collection')
-      .where({ collector_id: userId })
-      .andWhere({ collectible_id: collectible_id1[i] })
-      .update({ has_quantity: q1[i] })
-      .update({ wants_quantity: q2[i] })
-      .update({ willing_to_trade_quantity: q3[i] });
-    
-    // if has/wants/for trade quantity has been updated to zero, delete entry
-    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
-        // await knex('collection')
-        //   .where({ collector_id: userId })
-        //   .andWhere( {collectible_id: collectible_id1[i] })
-        //   .del();
-        // }
-        await Collection.create(userId, collectible_id1[i], q1[i], q2[i], q3[i]);
-      }
-    }
-
-if (list == '1') {
-    res.redirect(`/profile/list`);   
-}
-else {
-    res.redirect(`/collectible`);
-}
-});
-
-
 // search for collectible
 router.get('/search', async (req, res, next) => {
     const { name } = req.query;
