@@ -1,0 +1,29 @@
+ /*  overwrite bootstrap so can see many collectibles per row */
+ .col-md-4 {
+    flex: 100% !important;
+    max-width: 100% !important;
+  }
+
+.heading {
+  background-color: #5e9dad;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.heading2 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.fa-star {
+  color: orange;
+}
+.fa-star-o {
+  color: orange;
+}
+
+.fa-star-half-o {
+  color: orange;
+}
