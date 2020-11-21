@@ -27,7 +27,6 @@
     {{#if clearfilter}}
     <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
     {{/if}}
-        <form action='/collectible/update' method='post' class="form-example"></form> 
         <table class="table table-striped">
             <thead>
                 <th>Collectible id</th>
@@ -51,6 +50,7 @@
      </thead>
     {{#each collectible}}
             <tbody>
+                   <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
                     <tr>
                         <td>{{{collectible_id}}}</td>
                         <td style="word-break:break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
@@ -67,27 +67,54 @@
                         <td>{{{attributes.season}}}</td>
                         <td>{{{attributes.generation}}}</td>
                         <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
-            {{#if showHasButton}}
+                      {{#if somethingInCollection}}
+                        <form action='/collectible/update' method='post' class="form-example">
+                         {{#each collectionHas}}
                             <td>
                             <label for="has_quantity"><i class="fas fa-check"></i> :</label>
                             <input type="number" step="1" min="0" max="500"
-                            name="has_quantity[]" id="q1" value="2" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                         </td>
                         <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
                             <input type="number" step="1" min="0" max="500"
-                            name="wants_quantity[]" id="q2" value="1" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                         </td>
                         <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
                             <input type="number" step="1" min="0" max="500"
-                            name="willing_to_trade_quantity[]" id="q3" value="3" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                            name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                         </td>
                         <td>
-                        <button type="submit" class="btn btn-secondary">Update</button>
+                        <input type="submit" class="btn btn-secondary" value="Update">
+                        {{/each}}
                         </td>
-                        {{/if}}
                     </form>
                     </tr>
             </tbody>
+                {{else if nothingInCollection}}
+                        <form action='/collectible/update' method='post' class="form-example">
+                         {{#each collectionHas}}
+                            <td>
+                             <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                            <label for="has_quantity"><i class="fas fa-check"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="has_quantity[]" id="q1" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="wants_quantity[]" id="q2" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
+                            <input type="number" step="1" min="0" max="500"
+                            name="willing_to_trade_quantity[]" id="q3" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
+                        </td>
+                        <td>
+                        <input type="submit" class="btn btn-secondary" value="Update">
+                        {{/each}}
+                        </td>
+                    </form>
+                    </tr>
+            </tbody>
+                {{/if}}
           {{/each}}
         </table>
     </form>   
