@@ -73,34 +73,50 @@ router.post('/has', async (req, res, next) => {
     const q2 = req.body.wants_quantity;
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
+
+    // see if there's already a collector_id and collectible_id pair in the table
+    const collectionExists = await knex('collection')
+        .select(['collectible_id'])
+        .where('collector_id', userId)
+        .where('collectible_id', collectible_id1);
+
     const list = req.body.list;
+    console.log("QTY ON SCREEN ENTERED");
     console.log(q1);
     console.log(q2);
     console.log(q3);
-    console.log(collectible_id1);
+
     var i;
     // for each collectible on the page
     for (i = 0; i < q1.length; i++) {
-    // update row
+   //right now below if needs looking into.. // if has/wants/for trade quantity has been updated to zero, delete entry
+   console.log(collectionExists);
+   
+   if (!collectionExists[i]) {
+       
+    await Collection.create(userId, collectible_id1, q1[i], q2[i], q3[i]);
+    console.log("HELLO!!!");
+    res.redirect(`/profile`);
+}
+const qa = req.body.has_quantity;
+const qb = req.body.wants_quantity;
+const qc = req.body.willing_to_trade_quantity;
     await knex('collection')
       .where({ collector_id: userId })
       .andWhere({ collectible_id: collectible_id1 })
-      .update({ has_quantity: q1[i] })
-      .update({ wants_quantity: q2[i] })
-      .update({ willing_to_trade_quantity: q3[i] });
+      .update({ has_quantity: qa[i] })
+      .update({ wants_quantity: qb[i] })
+      .update({ willing_to_trade_quantity: qc[i] });
       console.log("HII");
 
-   //right now below if needs looking into.. // if has/wants/for trade quantity has been updated to zero, delete entry
-    if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
-        const qa = req.body.has_quantity;
-        const qb = req.body.wants_quantity;
-        const qc = req.body.willing_to_trade_quantity;
-
-        await Collection.create(userId, collectible_id1, qa[i], qb[i], qc[i]);
-        console.log("HELLO!!!");
-        res.redirect(`/collectible/${collectible_id1}`);        }
+//    //right now below if needs looking into.. // if has/wants/for trade quantity has been updated to zero, delete entry
+//     if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
+       
+//         await knex('collection').create(userId, collectible_id1, q1[i], q2[i], q3[i]);
+//         console.log("HELLO!!!");
+//         res.redirect(`/profile`);
+//     }
     }
-
 if (list == '1') {
     res.redirect(`/profile/list`);   
 }
