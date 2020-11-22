@@ -1,5 +1,4 @@
-  
-<div class="row justify-content-md-center mt-2">
+  <div class="row justify-content-md-center mt-2">
     <div class="col col-md-4">
         <h2>Register</h2>
         {{#if message}}
@@ -9,9 +8,20 @@
         {{/if}}
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+            <p>Are you signing up as an Admin?</p>
+        <script type="text/javascript">
+        function yesnoCheck() {
+            if (document.getElementById('yesCheck').checked) {
+                document.getElementById('ifYes').style.display = 'block';
+            }
+            else document.getElementById('ifYes').style.display = 'none';
+        }
+        </script>
+Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+    <div id="ifYes" style="display:none">
             <div class="form-example">
                <div class="show">
-                <label class="admin123" for="is_admin">Admin Status</label>
+                <label class="admin123" for="is_admin">Admin Type</label>
                 <select class="admin123" id="is_admin" name="is_admin">
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -25,7 +35,7 @@
                 <table style="width:50%">
                 <tr>
                     <th>Value</th>
-                    <th>Admin Status</th>
+                    <th>Admin Type</th>
                 </tr>
                 <tr>
                     <td>0</td>
@@ -56,6 +66,11 @@
                     <td>All</td>
                 </tr>
                 </table>
+            </div>
+            <div class="form-group">
+            <label for="promocode">Promo Code:</label>
+            <input type="text" class="form-control"  name="promocode" id="promocode" size="4" required>
+            </div>
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
