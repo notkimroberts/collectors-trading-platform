@@ -1,0 +1,10 @@
+.show {
+      max-height: 100px;
+      overflow: visible;
+      padding: 10px 20px;
+      transform: scale(1);
+    }
+
+.admin123 {
+    float:right;
+}
