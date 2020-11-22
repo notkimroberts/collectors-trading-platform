@@ -69,10 +69,8 @@ router.post('/', async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id')
         .where('collector_id', userId );
         knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = 5;    
             var n = ids.includes(collectibleType);
-            console.log(n);
             if (n == true)
             {
             if (!req.body.piece_count) {
@@ -144,10 +142,8 @@ router.post('/', async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id')
         .where('collector_id', userId );
         knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = 5;    
             var n = ids.includes(collectibleType);
-            console.log(n);
             if (n == true)
             {
 
@@ -207,10 +203,8 @@ router.post('/', async (req, res, next) => {
             .select('username', 'email', 'phone_number', 'collector_id')
             .where('collector_id', userId );
             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                console.log(ids);     
                 const collectibleType = 3;    
                 var n = ids.includes(collectibleType);
-                console.log(n);
                 if (n == true)
                 {
     
@@ -268,10 +262,8 @@ router.post('/', async (req, res, next) => {
             .select('username', 'email', 'phone_number', 'collector_id')
             .where('collector_id', userId );
             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                console.log(ids);     
                 const collectibleType = 4;    
                 var n = ids.includes(collectibleType);
-                console.log(n);
                 if (n == true)
                 {
     
@@ -343,10 +335,8 @@ router.post('/', async (req, res, next) => {
             .select('username', 'email', 'phone_number', 'collector_id')
             .where('collector_id', userId );
             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                console.log(ids);     
                 const collectibleType = 5;    
                 var n = ids.includes(collectibleType);
-                console.log(n);
                 if (n == true)
                 {
     
