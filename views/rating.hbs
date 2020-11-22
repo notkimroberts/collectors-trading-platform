@@ -44,13 +44,12 @@
         {{/if}}
         {{/if}}
             <table class="table table-striped">
-                <thead>
+                <tr>
                     <th>Collector</th>
                     <th>Rating</th>
                     <th>Date</th>
                     <th>Comment</th>
-                </thead>
-                <tbody>
+                </tr>
                         {{#each ratings}}
                         <tr>
                             <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
@@ -59,7 +58,6 @@
                             <td style="word-break: break-word;">{{{comment}}}</td>
                         </tr>
                         {{/each}}
-                </tbody>
             </table>
 
     </div>
@@ -68,3 +66,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>  
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+<script src="/js/sortTable.js"></script>

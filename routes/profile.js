@@ -127,6 +127,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     // user's has collectibles if has_quantity is greater than 0
     const collectionsHas = await knex('collection')
         .select(['collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at")) 
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -135,6 +136,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     // user's wants collectibles if has_quantity is greater than 0
     const collectionsWants = await knex('collection')
         .select(['collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at")) 
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -143,6 +145,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
     const collectionsWillingToTrade = await knex('collection')
         .select(['collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at")) 
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -341,6 +344,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
     // user's has collectibles if has_quantity is greater than 0
     const collectionsHas = await knex('collection')
         .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at")) 
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -349,6 +353,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
     // user's wants collectibles if has_quantity is greater than 0
     const collectionsWants = await knex('collection')
         .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at"))   
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -357,6 +362,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
     const collectionsWillingToTrade = await knex('collection')
         .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+        .select(knex.raw("to_char(collection.created_at, 'YYYY-MM-DD') as created_at")) 
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
@@ -506,9 +512,6 @@ router.post('/wants', async (req, res, next) => {
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
     const list = req.body.list;
-
-    console.log("sdlfkjdslfjdslkfjdslfjldskfjdslf");
-    console.log(list);
 
     var i;
     // for each collectible on the page

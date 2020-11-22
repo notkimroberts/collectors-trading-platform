@@ -22,7 +22,8 @@ router.get('/rating/:id', async (req, res, next) => {
         .where('collector_id', id );
 
     const collectorsRatings = await knex('collector_ratings')
-        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))       
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
@@ -68,7 +69,8 @@ router.post('/rating/:id', async (req, res, next) => {
     }
 
     const collectorsRatings = await knex('collector_ratings')
-        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))         
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
