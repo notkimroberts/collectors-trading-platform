@@ -192,6 +192,7 @@ router.get('/search', async (req, res, next) => {
     const { name } = req.query;
     const nofilter = 1; // to not display dropdown
     var isLoggedIn;
+    var search = 1;
 
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
@@ -209,6 +210,8 @@ router.get('/search', async (req, res, next) => {
                 collector_id: req.signedCookies.user_id,
                 isLoggedIn,
                 nofilter: nofilter,
+                search,
+                name
             });       
         }
 
@@ -248,6 +251,8 @@ router.get('/search', async (req, res, next) => {
                 collectibleNoRow: collectiblesNoRow,
                 isLoggedIn,
                 nofilter: nofilter,
+                search,
+                name
             });
         }       
     }
@@ -258,6 +263,8 @@ router.get('/search', async (req, res, next) => {
                 message: `No results matching your search term "${name}"`,
                 messageClass: 'alert-info',
                 nofilter: nofilter,
+                search,
+                name
             }
         )
         return;

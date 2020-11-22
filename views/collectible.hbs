@@ -1,6 +1,10 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-8">
+        {{#if search}}
+        <h2>Search Results for "{{{name}}}"</h2>
+        {{else}}
         <h2>All Collectibles</h2>
+        {{/if}}
         {{#each collector}}
         <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
         <input type="hidden" name="collector_id" id="collector_id" value="{{{collector_id}}}" readonly>
