@@ -171,6 +171,7 @@
                         <th>Name</th>
                         <th>Type</th>
                         <th>Date added to your collection</th>
+                        <th>Date added to database</th>
                         <th>Your Collection</th>
                     </tr>
                     {{#each collectionHas}}
@@ -178,6 +179,7 @@
                         <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
                         <td style="word-break: break-word;" width="150px">{{{created_at}}}</td>
+                        <td style="word-break: break-word;" width="150px">{{{created_at_database}}}</td>
                         <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
                         <td width="700px">
                             <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
@@ -210,6 +212,7 @@
                             <th>Name</th>
                             <th>Type</th>
                             <th>Date added to your collection</th>
+                            <th>Date added to database</th>
                             <th>Your Collection</th>
                         </tr>
                         {{#each collectionWants}}
@@ -217,6 +220,7 @@
                             <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                             <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
                             <td style="word-break: break-word;" width="150px">{{{created_at}}}</td>
+                            <td style="word-break: break-word;" width="150px">{{{created_at_database}}}</td>
                             <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
                             <td width="700px">
                                 <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
@@ -249,7 +253,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Type</th> 
-                        <th>Date added to your collection</th>         
+                        <th>Date added to your collection</th>   
+                        <th>Date added to database</th>      
                         <th>Your collection</th>
                     </tr>
                     {{#each collectionWillingToTrade}}
@@ -257,6 +262,7 @@
                         <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td style="word-break: break-word;" width="150px">{{{typeName}}}</td>
                         <td style="word-break: break-word;" width="150px">{{{created_at}}}</td>
+                        <td style="word-break: break-word;" width="150px">{{{created_at_database}}}</td>
                         <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
 
                         <td width="700px">
