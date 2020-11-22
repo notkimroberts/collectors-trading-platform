@@ -43,23 +43,24 @@
         </form>
         {{/if}}
         {{/if}}
-            <table class="table table-striped">
-                <tr>
-                    <th>Collector</th>
-                    <th>Rating</th>
-                    <th>Date</th>
-                    <th>Comment</th>
-                </tr>
-                        {{#each ratings}}
-                        <tr>
-                            <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
-                            <td>{{{rating}}}/5</td>
-                            <td>{{{updated_at}}}</td>
-                            <td style="word-break: break-word;">{{{comment}}}</td>
-                        </tr>
-                        {{/each}}
-            </table>
-
+        <br>
+        <p>Click on the table headers to sort the ratings by the clicked column.</p>
+        <table class="table table-striped">
+            <tr>
+                <th>Collector</th>
+                <th>Rating</th>
+                <th>Date</th>
+                <th>Comment</th>
+            </tr>
+                    {{#each ratings}}
+                    <tr>
+                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                        <td>{{{rating}}}/5</td>
+                        <td>{{{updated_at}}}</td>
+                        <td style="word-break: break-word;">{{{comment}}}</td>
+                    </tr>
+                    {{/each}}
+        </table>
     </div>
 </div>
 

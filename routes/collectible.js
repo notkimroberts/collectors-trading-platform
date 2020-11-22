@@ -87,7 +87,6 @@ router.post('/update', async (req, res, next) => {
                 .update({ has_quantity: q1[i] })
                 .update({ wants_quantity: q2[i] })
                 .update({ willing_to_trade_quantity: q3[i] });
-                console.log("in collection exist");
 
                 // if has/wants/for trade quantity has been updated to zero, delete row
                 if (q1[i]  == 0 && q2[i]  == 0 && q3[i]  == 0) {
@@ -95,7 +94,6 @@ router.post('/update', async (req, res, next) => {
                     .where({ collector_id: userId })
                     .andWhere( {collectible_id: collectible_id1[i] })
                     .del();
-                    console.log("in delete");
                 }
         }
     }
@@ -115,7 +113,7 @@ router.post('/update', async (req, res, next) => {
             }
         }
     }
-    res.redirect(`/profile`);
+    res.redirect(`/collectible`);
 });
 
  // Display all collectibles from a given a type
