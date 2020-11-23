@@ -1,7 +1,7 @@
 const express = require('express');
 const FileType = require('file-type');
 const knex = require('../connection');
-// const Collection = require('../models/Collection')
+const Collection = require('../models/collection')
 const router = express.Router();
 const { ensureLoggedIn } = require('../auth/middleware')
 
