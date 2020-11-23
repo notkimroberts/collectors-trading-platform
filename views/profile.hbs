@@ -161,7 +161,7 @@
     </div>
     <div>
         <h3>Filter</h3>
-        <form method="GET" action="/profile" id="filter-form">
+        <form method="GET" action="/profile/:filter" id="filter-form">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">
                 <label class="form-check-label" for="legoFilter">Lego</label>
@@ -194,6 +194,7 @@
                     <td>
                         <form action="/profile/has" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
                             <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
@@ -227,6 +228,7 @@
                     <td>
                         <form action="/profile/wants" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
                             <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
@@ -260,6 +262,7 @@
                     <td>
                         <form action="/profile/trades" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                            <p class="small">{{{typeName}}}</p>
                             <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
@@ -292,6 +295,7 @@
                 <div class='child float-left-child'>
                     <td>
                         <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
+                        <p class="small">{{{typeName}}}</p>
                         <br>
                         <img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
                         <br><a href="/collector/trade/images/{{{collector_id}}}">{{{username}}}</a> has
