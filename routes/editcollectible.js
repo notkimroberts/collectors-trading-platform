@@ -11,11 +11,8 @@ router.get('/', (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;
-    const collectibleData = await knex('collectible')    
-    .select('collectible_type_id')
-    .where({ collectible_id: collectible_id }).first();
+   
     const typeIs = req.body.collectible_type;
-    const typeSelected = collectibleData.collectible_type_id;
     const userId = req.signedCookies.user_id;
 
     // Check if existing collectible_id
@@ -27,8 +24,12 @@ router.post('/', async (req, res, next) => {
         )
         return
     }
-
+    const collectibleData = await knex('collectible')    
+    .select('collectible_type_id')
+    .where({ collectible_id: collectible_id }).first();
     // Check if existing collectible name
+    const typeSelected = collectibleData.collectible_type_id;
+
     if (await Collectible.getByName(name)) {
         res.render('editcollectible', { 
                 message: 'That collectible name already exists in the database. Unique names only.',
@@ -140,7 +141,14 @@ router.post('/', async (req, res, next) => {
                     res.redirect(`/collectible/${collectible_id}`);
 
                 }
-          
+            if (!name && !req.files) {
+                res.render('editcollectible', { 
+                        message: 'Please enter a name or upload an image to update the collectible',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
             if (name) {
                 // update name
@@ -223,7 +231,14 @@ router.post('/', async (req, res, next) => {
 
                 }
 
-     
+        if (!name && !req.files) {
+            res.render('editcollectible', { 
+                    message: 'Please enter a name or upload an image to update the collectible',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
 
         if (name) {
             // update name
@@ -306,6 +321,14 @@ router.post('/', async (req, res, next) => {
 
                     }
 
+        if (!name && !req.files) {
+            res.render('editcollectible', { 
+                    message: 'Please enter a name or upload an image to update the collectible',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
 
         if (name) {
             // update name
@@ -391,7 +414,14 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectible_id}`);
 
                         }
-
+        if (!name && !req.files) {
+                res.render('editcollectible', { 
+                        message: 'Please enter a name or upload an image to update the collectible',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+        }
        
         if (name) {
             // update name
@@ -500,7 +530,15 @@ router.post('/', async (req, res, next) => {
                 res.redirect(`/collectible/${collectible_id}`);
 
             }
-     
+
+        if (!name && !req.files) {
+            res.render('editcollectible', { 
+                    message: 'Please enter a name or upload an image to update the collectible',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+        }
 
         if (name) {
             // update name
