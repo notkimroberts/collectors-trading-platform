@@ -24,7 +24,7 @@ router.post('/register', (req, res, next) => {
         Collector
             .getByEmail(req.body.email)
             .then(collector => {
-                
+
 
                 // if user not found, then it is a unique email
                 if(!collector) {
@@ -116,11 +116,12 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
-                                res.json({
-                                    collector_id: collector.collector_id,
-                                    message: 'logged in'
-                                  });
-
+                            console.log("logged in");
+                                // ({
+                                //     collector_id: collector.collector_id,
+                                //     message: 'logged in'
+                                //   });
+                                res.redirect('../');
                             }
                             else {
                                 var err = new Error('Invalid login');
