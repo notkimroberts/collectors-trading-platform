@@ -90,7 +90,6 @@ return;
 
 });
 
-
 router.get('/search', async (req, res, next) => {
   const { username } = req.query;
   const collectors = await knex('collector')
@@ -327,7 +326,6 @@ router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
     });
 });
 
-
 router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
     const { id } = req.params;
     let filterTypes = req.query.filter
@@ -540,13 +538,17 @@ router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
     });
 });
 
-
-router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
+router.get(['/trade/:id', '/trade/:id?:filter'], ensureLoggedIn, async (req, res, next) => {
     const currentUserId = req.signedCookies.user_id
     const otherUserId = req.params.id
 
     if (otherUserId === currentUserId) {
         res.redirect('/profile')
+    }
+
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
     }
 
     // logged in user data
@@ -581,6 +583,11 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id','=', currentUserId)
         .whereIn('collection.collectible_id', otherUserWantsCollectibleIds)
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('willing_to_trade_quantity', '>', 0)
  
     // get trades of other user that matches current user wants            
@@ -590,6 +597,11 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id','=', otherUserId)
         .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('willing_to_trade_quantity', '>', 0)
 
     var currentUserMatchesExist = null;
@@ -640,14 +652,19 @@ router.get('/trade/:id', ensureLoggedIn, async (req, res, next) => {
     });
 });
 
-router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
+router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, async (req, res, next) => {
         const currentUserId = req.signedCookies.user_id
         const otherUserId = req.params.id
     
         if (otherUserId === currentUserId) {
             res.redirect('/profile')
         }
-    
+
+        let filterTypes = req.query.filter
+        if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+            filterTypes = [filterTypes]
+        }
+
         // logged in user data
         const currentUser = await knex('collector')
             .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
@@ -679,6 +696,11 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
             .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
             .where('collector_id','=', currentUserId)
+            .modify((builder) => {
+                if (filterTypes && filterTypes.length) {
+                    builder.whereIn('collectible_type.name', filterTypes)
+                }
+            })
             .whereIn('collection.collectible_id', otherUserWantsCollectibleIds)
             .andWhere('willing_to_trade_quantity', '>', 0)
  
@@ -688,6 +710,11 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
             .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
             .where('collector_id','=', otherUserId)
+            .modify((builder) => {
+                if (filterTypes && filterTypes.length) {
+                    builder.whereIn('collectible_type.name', filterTypes)
+                }
+            })
             .whereIn('collection.collectible_id', currentUserWantsCollectibleIds)
             .andWhere('willing_to_trade_quantity', '>', 0)
     
@@ -739,7 +766,6 @@ router.get('/trade/images/:id', ensureLoggedIn, async (req, res, next) => {
             tradesPublic
         });
     });
-
 
 
 module.exports = router;
