@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
     "migrate": "knex --knexfile ./sql/knexfile.js migrate:latest",
     "unmigrate": "knex --knexfile ./sql/knexfile.js migrate:rollback",
     "seed": "knex --knexfile ./sql/knexfile.js seed:run"
@@ -28,5 +29,8 @@
     "morgan": "^1.10.0",
     "pg": "^8.4.1",
     "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
