@@ -117,8 +117,12 @@ router.get('/search', async (req, res, next) => {
     }
   });
 
-router.get('/:id', async (req, res, next) => {
+router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
     const { id } = req.params;
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
+    }
 
     const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
@@ -214,6 +218,11 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.has_quantity', '>', 0);
 
     // user's wants collectibles if has_quantity is greater than 0
@@ -222,6 +231,11 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.wants_quantity', '>', 0);
 
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
@@ -230,6 +244,11 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
     const userWants = await knex('collection')
@@ -309,8 +328,12 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-router.get('/list/:id', async (req, res, next) => {
+router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
     const { id } = req.params;
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
+    }
 
     // get user's ratings by star count
     const rating1 = await knex('collector_ratings')
@@ -405,6 +428,11 @@ router.get('/list/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.has_quantity', '>', 0);
 
     // user's wants collectibles if has_quantity is greater than 0
@@ -413,6 +441,11 @@ router.get('/list/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.wants_quantity', '>', 0);
 
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
@@ -421,6 +454,11 @@ router.get('/list/:id', async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', id )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
     const userWants = await knex('collection')
