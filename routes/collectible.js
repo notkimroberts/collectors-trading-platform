@@ -5,16 +5,27 @@ const Collection = require('../models/collection')
 const router = express.Router();
 
 
-router.get('/', async (req, res, next) => { 
+router.get(['/', '/:filter'], async (req, res, next) => { 
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
+    }
+
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+        .orderBy('collectible.collectible_id')
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
   
     // filter by type
     const collectiblesByType = await knex('collectible_type')
         .select('name as type_name', 'collectible_type_id as type_id');
    
-        res.render('collectible', {
+    res.render('collectible', {
         title: "Collector\'s Trading Platform | Collectibles",
         collectible: collectibles,
         collectibleByType: collectiblesByType,
