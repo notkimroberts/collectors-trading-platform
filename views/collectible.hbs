@@ -29,53 +29,6 @@
         {{/if}}
                 <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
 
-        {{#if clearfilter}}
-        <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
-        {{/if}}
-
-        <br>
-        <p>Click on the table headers to sort the collectibles by the clicked column. You may sort by collectible id, name, type, and date added.</p>
-        
-        {{#if isLoggedIn}}
-            <form action='/collectible/update' method='post' class="form-example">
-                <input type="submit" class="btn btn-secondary" value="Update Collection">
-                <br>
-                <br>
-                <table class="table table-striped">
-                        <tr>
-                            <th>Collectible id</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Date added to database</th>
-                            <th>Image</th>
-                            <th>Have</th>
-                            <th>Want</th>
-                            <th>For Trade</th>
-                        </tr>
-                        {{#each collectibleRow}}
-                            <tr>
-                                <td>{{{collectible_id}}}</td>
-                                <td style="word-break:break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                                <td>{{{type_name}}}</td>
-                                <td>{{{created_at}}}</td>
-                                <td style ="padding:0 15px 0 15px;"><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>	
-                                    <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
-                                <td>
-                                    <label for="has_quantity"><i class="fas fa-check"></i> :</label>
-                                    <input type="number" step="1" min="0" max="500"
-                                    name="has_quantity[]" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
-                                </td>
-                                <td><label for="wants_quantity"><i class="fas fa-heart"></i> :</label>
-                                    <input type="number" step="1" min="0" max="500"
-                                    name="wants_quantity[]" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
-                                </td>
-                                <td><label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
-                                    <input type="number" step="1" min="0" max="500"
-                                    name="willing_to_trade_quantity[]" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
-                                </td>
-                            </tr>
-                        {{/each}}
-                        {{#each collectibleNoRow}}
                             <tr>
                                 <td>{{{collectible_id}}}</td>
                                 <td style="word-break:break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>

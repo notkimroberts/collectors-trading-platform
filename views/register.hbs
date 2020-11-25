@@ -1,5 +1,4 @@
-  
-<div class="row justify-content-md-center mt-2">
+  <div class="row justify-content-md-center mt-2">
     <div class="col col-md-4">
         <h2>Register</h2>
         {{#if message}}
@@ -9,53 +8,35 @@
         {{/if}}
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
+            <p>Are you signing up as an Admin?</p>
+        <script type="text/javascript">
+        function yesnoCheck() {
+            if (document.getElementById('yesCheck').checked) {
+                document.getElementById('ifYes').style.display = 'block';
+            }
+            else document.getElementById('ifYes').style.display = 'none';
+        }
+        </script>
+        Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+            <div id="ifYes" style="display:none">
             <div class="form-example">
                <div class="show">
-                <label class="admin123" for="is_admin">Admin Status</label>
+                <label class="admin123" for="is_admin">Admin Type</label>
                 <select class="admin123" id="is_admin" name="is_admin">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
+                <option value="0">0 - Not Admin</option>
+                <option value="1">1 - Lego</option>
+                <option value="2">2 - Funko</option>
+                <option value="3">3 - Pusheen</option>
+                <option value="4">4 - Pokemon</option>
+                <option value="5">5 - Hot Wheels</option>
+                <option value="6">6 - All</option>
                 </select>
                 </div>
-                <table style="width:50%">
-                <tr>
-                    <th>Value</th>
-                    <th>Admin Status</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>Not admin</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lego</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Funko</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pusheen</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Pokemon</td>
-                </tr>    
-                <tr>
-                    <td>5</td>
-                    <td>Hot Wheels</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>All</td>
-                </tr>
-                </table>
+            </div>
+            <div class="form-group">
+            <input type="text" class="form-control"  name="promocode"  title="Invalid Promo Code"  pattern="REG20" id="promocode" size="4" required>
+            <label for="promocode" class="checkout-promo-code-input">Promo Code for Admin:</label>
+            </div>
             </div>
             <div class="form-group">
                 <label for="username">Username</label>
@@ -77,7 +58,7 @@
                 <input type="password"  id="password2" class="form-control" placeholder="Confirm Password" name="password2" title="Passwords do not match" required />
             </div>
             <script type="text/javascript">
-//https://www.the-art-of-web.com/javascript/validate-password/
+        //https://www.the-art-of-web.com/javascript/validate-password/
         // polyfill for RegExp.escape
         if(!RegExp.escape) {
             RegExp.escape = function(s) {
