@@ -104,48 +104,25 @@
                 <hr/>
             {{/if}}
         {{/if}}
-         <p><a href="/collector/{{{collector_id}}}">view in image list format</a></p>       
+        <p><a href="/collector/{{{collector_id}}}">view in image list format</a></p>       
         <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
+        <p>Click on the table headers to sort the collectibles by the clicked column. You may sort by name and type.</p>
     </div>
 
     <div id="have" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
         {{#if showHasPublic}}
         <div class="col col-md-4">
             <table class="table table-striped">
-                <thead>
+                <tr>
                     <th>Collectible</th>
                     <th>Type</th>
-                    <th>Piece Count</th>
-                    <th>Set Number</th>
-                    <th>Theme</th>
-                    <th>Designer</th>
-                    <th>Number</th>
-                    <th>Line</th>
-                    <th>Series</th>
-                    <th>Release Year</th>
-                    <th>Product Type</th>
-                    <th>Season/Holiday</th>
-                    <th>Generation</th>
-                </thead>
-                <tbody>
-                    {{#each collectionHas}}
-                    <tr>
-                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td width="150px">{{{typeName}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
+                </tr>
+                {{#each collectionHas}}
+                <tr>
+                    <td style="word-break: break-word;" width="150px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td width="150px">{{{typeName}}}</td>
+                </tr>
+                {{/each}}
             </table>
         </div>
         {{#if showHas}}
@@ -160,40 +137,16 @@
         {{#if showWantsPublic}}
         <div class="col col-md-4">
             <table class="table table-striped">
-                <thead>
+                <tr>
                     <th>Collectible</th>
                     <th>Type</th>
-                    <th>Piece Count</th>
-                    <th>Set Number</th>
-                    <th>Theme</th>
-                    <th>Designer</th>
-                    <th>Number</th>
-                    <th>Line</th>
-                    <th>Series</th>
-                    <th>Release Year</th>
-                    <th>Product Type</th>
-                    <th>Season/Holiday</th>
-                    <th>Generation</th>
-                </thead>
-                <tbody>
-                    {{#each collectionWants}}
-                    <tr>
-                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td width="150px">{{{typeName}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
+                </tr>
+                {{#each collectionWants}}
+                <tr>
+                    <td style="word-break: break-word;" width="150px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td width="150px">{{{typeName}}}</td>
+                </tr>
+                {{/each}}
             </table>
         </div>
         {{#if showWants}}
@@ -208,40 +161,16 @@
         {{#if showTradesPublic}}
         <div class="col col-md-4">
             <table class="table table-striped">
-                <thead>
+                <tr>
                     <th>Collectible</th>
                     <th>Type</th>
-                    <th>Piece Count</th>
-                    <th>Set Number</th>
-                    <th>Theme</th>
-                    <th>Designer</th>
-                    <th>Number</th>
-                    <th>Line</th>
-                    <th>Series</th>
-                    <th>Release Year</th>
-                    <th>Product Type</th>
-                    <th>Season/Holiday</th>
-                    <th>Generation</th>
-                </thead>
-                <tbody>
-                    {{#each collectionWillingToTrade}}
-                    <tr>
-                        <td style="word-break: break-word;" width="200px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td width="150px">{{{typeName}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.piece_count}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.set_number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.theme}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.designed_by}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.number}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.line}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.series}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.year_released}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.product_type}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.season}}}</td>
-                        <td style="word-break: break-word;">{{{attributes.generation}}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
+                </tr>
+                {{#each collectionWillingToTrade}}
+                <tr>
+                    <td style="word-break: break-word;" width="150px"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                    <td width="150px">{{{typeName}}}</td>
+                </tr>
+                {{/each}}
             </table>
         </div>
             {{#if showTrade}}
@@ -255,4 +184,5 @@
 </div>
 
 <link rel="stylesheet" href="/css/collectorpagelist.css"/>
+<script src="/js/sortTable.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" /> {{!-- this needs to be here for the half stars and empty stars --}}
