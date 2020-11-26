@@ -5,6 +5,38 @@ const Collection = require('../models/collection')
 const router = express.Router();
 
 
+// search for collectible
+router.get('/search', async (req, res, next) => {
+    const { name } = req.query;
+    const nofilter = 1; // to not display dropdown
+    const collectibles = await knex('collectible')
+        .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
+        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+        .where('collectible.name', 'ilike', `%${name}%`);
+        
+            // if results, render collectibles
+            if (collectibles.length > 0) { 
+                res.render('collectible', {
+                title: "Collector\'s Trading Platform | Search Results",
+                collectible: collectibles,
+                nofilter: nofilter,
+                });
+                return;
+            }
+            
+            // if no results, inform user
+            else { 
+                res.render('collectible', { 
+                        title: "Collector\'s Trading Platform | Search Results",
+                        message: `No results matching your search term "${name}"`,
+                        messageClass: 'alert-info',
+                        nofilter: nofilter,
+                    }
+                )
+                return;
+            }   
+});
+
 // individual collectible's page
 router.get('/:id', async (req, res, next) => { 
     const { id } = req.params;
@@ -156,38 +188,6 @@ router.get(['/', '/:filter'], async (req, res, next) => {
         collectibleByType: collectiblesByType,
         clearfilter: clearfilter
     });
-});
-
-// search for collectible
-router.get('/search', async (req, res, next) => {
-    const { name } = req.query;
-    const nofilter = 1; // to not display dropdown
-    const collectibles = await knex('collectible')
-        .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-        .where('collectible.name', 'ilike', `%${name}%`);
-        
-            // if results, render collectibles
-            if (collectibles.length > 0) { 
-                res.render('collectible', {
-                title: "Collector\'s Trading Platform | Search Results",
-                collectible: collectibles,
-                nofilter: nofilter,
-                });
-                return;
-            }
-            
-            // if no results, inform user
-            else { 
-                res.render('collectible', { 
-                        title: "Collector\'s Trading Platform | Search Results",
-                        message: `No results matching your search term "${name}"`,
-                        messageClass: 'alert-info',
-                        nofilter: nofilter,
-                    }
-                )
-                return;
-            }   
 });
 
 // post request to change user's collection quantities
