@@ -17,27 +17,116 @@
             else document.getElementById('ifYes').style.display = 'none';
         }
         </script>
-        Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
-            <div id="ifYes" style="display:none">
-            <div class="form-example">
-               <div class="show">
-                <label class="admin123" for="is_admin">Admin Type</label>
-                <select class="admin123" id="is_admin" name="is_admin">
-                <option value="0">0 - Not Admin</option>
-                <option value="1">1 - Lego</option>
-                <option value="2">2 - Funko</option>
-                <option value="3">3 - Pusheen</option>
-                <option value="4">4 - Pokemon</option>
-                <option value="5">5 - Hot Wheels</option>
-                <option value="6">6 - All</option>
-                </select>
-                </div>
-            </div>
-            <div class="form-group">
-            <input type="text" class="form-control"  name="promocode"  title="Invalid Promo Code"  pattern="REG20" id="promocode" size="4" required>
-            <label for="promocode" class="checkout-promo-code-input">Promo Code for Admin:</label>
-            </div>
-            </div>
+        Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+        No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck" checked><br>
+        <div id="ifYes" style="display:none">
+        <div class="form-example">
+            <label for="db">Choose type</label>
+                <select  id="dbType">
+                    <option>Choose Admin Type</option>
+                    <option value="1">Lego</option>
+                    <option value="2">Funko</option>
+                    <option value="3">Pusheen</option>
+                    <option value="4">Pokemon</option>
+                    <option value="5">Hot Wheels</option>
+                    <option value="6">All</option>
+            </select>
+        <div id="lego" name="promo1" style="display:none;">
+            <label for="promo1">Promo Code for LEGO Admin:</label>
+            <input type="text" id="p1" title="Invalid Promo Code" pattern="AAA20" size="4" required>
+        </div>
+        <div id="funko" name="promo2" style="display:none;">
+            <label for="promo2">Promo Code for FUNKO Admin:</label>
+            <input type="text" id="p2" title="Invalid Promo Code" pattern="BBB20" size="4" required>
+        </div>
+        <div id="pusheen" name="promo3" style="display:none;">
+            <label for="promo3">Promo Code for PUSHEEN Admin:</label>
+            <input type="text" id="p3" title="Invalid Promo Code" pattern="CCC20" size="4" required>
+        </div>
+        <div id="pokemon" name="promo4" style="display:none;">
+            <label for="promo4">Promo Code for POKEMON Admin:</label>
+            <input type="text" id="p4" title="Invalid Promo Code" pattern="RRR20" size="4" required>
+        </div>
+        <div id="hotwheel" name="promo5" style="display:none;">
+            <label for="promo5">Promo Code for HOT WHEEL Admin:</label>
+            <input type="text" id="p5" title="Invalid Promo Code" pattern="DDD20" size="4" required>
+        </div>
+        <div id="all" name="promo6" style="display:none;">
+            <label for="promo6">Promo Code for Super Admin:</label>
+            <input type="text" id="p6" title="Invalid Promo Code" pattern="REG20" size="4" required>
+        </div>
+        </div>  
+        </div>
+        <script>
+                $('#dbType').on('change',function(){
+                    if( $(this).val()==="1"){
+                    $("#lego").show()
+                    $("#p2").removeAttr("required");
+                    $("#p3").removeAttr("required");
+                    $("#p4").removeAttr("required");
+                    $("#p5").removeAttr("required");
+                    $("#p6").removeAttr("required");
+                    }
+                    else{
+                    $("#lego").hide()
+                    }
+                    if( $(this).val()==="2"){
+                    $("#funko").show()
+                    $("#p1").removeAttr("required");
+                    $("#p3").removeAttr("required");
+                    $("#p4").removeAttr("required");
+                    $("#p5").removeAttr("required");
+                    $("#p6").removeAttr("required");
+                    }
+                    else{
+                    $("#funko").hide()
+                    }
+                    if( $(this).val()==="3"){
+                    $("#pusheen").show()
+                    $("#p1").removeAttr("required");
+                    $("#p2").removeAttr("required");
+                    $("#p4").removeAttr("required");
+                    $("#p5").removeAttr("required");
+                    $("#p6").removeAttr("required");
+                    }
+                    else{
+                    $("#pusheen").hide()
+                    }
+                    if( $(this).val()==="4"){
+                    $("#pokemon").show()
+                    $("#p1").removeAttr("required");
+                    $("#p2").removeAttr("required");
+                    $("#p3").removeAttr("required");
+                    $("#p5").removeAttr("required");
+                    $("#p6").removeAttr("required");
+                    }
+                    else{
+                    $("#pokemon").hide()
+                    }
+                    if( $(this).val()==="5"){
+                    $("#hotwheel").show()
+                    $("#p1").removeAttr("required");
+                    $("#p2").removeAttr("required");
+                    $("#p3").removeAttr("required");
+                    $("#p4").removeAttr("required");
+                    $("#p6").removeAttr("required");
+                    }
+                    else{
+                    $("#hotwheel").hide()
+                    }
+                    if( $(this).val()==="6"){
+                    $("#all").show()
+                    $("#p1").removeAttr("required");
+                    $("#p2").removeAttr("required");
+                    $("#p3").removeAttr("required");
+                    $("#p4").removeAttr("required");
+                    $("#p5").removeAttr("required");
+                    }
+                    else{
+                    $("#all").hide()
+                    }
+                });
+        </script>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control"  name="username" id="username" required>
@@ -45,7 +134,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control"  name="email" id="email" required>
-            </div>    
+            </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
                 <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" required>
@@ -57,15 +146,14 @@
                 <label for="password">Confirm Password</label>
                 <input type="password"  id="password2" class="form-control" placeholder="Confirm Password" name="password2" title="Passwords do not match" required />
             </div>
-            <script type="text/javascript">
-        //https://www.the-art-of-web.com/javascript/validate-password/
-        // polyfill for RegExp.escape
-        if(!RegExp.escape) {
-            RegExp.escape = function(s) {
-            return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
-            };
-        }
-
+        <script type="text/javascript">
+            //https://www.the-art-of-web.com/javascript/validate-password/
+            // polyfill for RegExp.escape
+            if(!RegExp.escape) {
+                RegExp.escape = function(s) {
+                return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+                };
+            }
         </script>
             <div>
                 <input type="submit" class="btn btn-primary" value="Register" name="register">
