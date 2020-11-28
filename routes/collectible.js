@@ -3,38 +3,92 @@ const FileType = require('file-type');
 const knex = require('../connection');
 const Collection = require('../models/collection')
 const router = express.Router();
+const { ensureLoggedIn } = require('../auth/middleware')
 
 
 // search for collectible
 router.get('/search', async (req, res, next) => {
+    const userId = req.signedCookies.user_id;
     const { name } = req.query;
     const nofilter = 1; // to not display dropdown
+    var isLoggedIn;
+    var search = 1;
+
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+        .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))       
         .where('collectible.name', 'ilike', `%${name}%`);
-        
-            // if results, render collectibles
-            if (collectibles.length > 0) { 
-                res.render('collectible', {
+
+    // if results, render collectibles
+    if (collectibles.length > 0) { 
+        // if user is not logged in, render all collectibles in database
+        if (userId == null) {
+            res.render('collectible', {
                 title: "Collector\'s Trading Platform | Search Results",
                 collectible: collectibles,
+                collector_id: req.signedCookies.user_id,
+                isLoggedIn,
                 nofilter: nofilter,
-                });
-                return;
+                search,
+                name
+            });       
+        }
+
+        // else if user is logged in render collectibles with update collection functionality
+        /* collectible table is rendered in two categories, collectibles where there is a collectible_id and collector_id row,
+        and collectibles where there is no row because we need to render user's quantity counts for rows that exist, and 0's
+        where rows don't exist 
+        */    
+        else {
+            isLoggedIn = 1;
+            // rows that have collectible_id and userId as foreign keys
+            const collectiblesRow = await knex('collection')
+            .select(['collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id', 'collection.collectible_id', 'collection.has_quantity', 'collection.wants_quantity', 'collection.willing_to_trade_quantity', 'collectible.name'])
+            .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))            
+            .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
+            .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
+            .where('collector_id', userId )
+            .andWhere('collection.has_quantity', '>=', 0)
+            .andWhere('collectible.name', 'ilike', `%${name}%`);
+
+            // push collectible_ids that have collectible_id and userId as foreign keys to array
+            const userCollectionRowExists = []
+            collectiblesRow.forEach((row) => userCollectionRowExists.push(row.collectible_id))
+
+            // collectibles that don't have collectible_id and userId as foreign keys
+            const collectiblesNoRow = await knex('collectible')
+            .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
+            .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+            .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))           
+            .whereNotIn('collectible_id', userCollectionRowExists)
+            .andWhere('collectible.name', 'ilike', `%${name}%`);
+
+            res.render('collectible', {
+                title: "Collector\'s Trading Platform | Search Results",
+                collector_id: req.signedCookies.user_id,
+                collectibleRow: collectiblesRow,
+                collectibleNoRow: collectiblesNoRow,
+                isLoggedIn,
+                nofilter: nofilter,
+                search,
+                name
+            });
+        }       
+    }
+    // if no results, inform user
+    else { 
+        res.render('collectible', { 
+                title: "Collector\'s Trading Platform | Search Results",
+                message: `No results matching your search term "${name}"`,
+                messageClass: 'alert-info',
+                nofilter: nofilter,
+                search,
+                name
             }
-            
-            // if no results, inform user
-            else { 
-                res.render('collectible', { 
-                        title: "Collector\'s Trading Platform | Search Results",
-                        message: `No results matching your search term "${name}"`,
-                        messageClass: 'alert-info',
-                        nofilter: nofilter,
-                    }
-                )
-                return;
-            }   
+        )
+        return;
+    }   
 });
 
 // individual collectible's page
@@ -44,7 +98,7 @@ router.get('/:id', async (req, res, next) => {
     
     const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
-        .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
+        .select('collectible.created_at', 'collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
     
     var signInToViewTrades = 1;
