@@ -27,30 +27,22 @@ router.post('/', async (req, res, next) => {
         )
         return
     }
-    console.log("HIII");
-    console.log(typeSelected);
     if (typeSelected == '1') {
-        console.log("HELLO");
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = '1';    
             var s = ids.includes(collectibleType);
-            console.log(s);
             if (s == true)   {
                 const collectorData = await knex('collector')
                 .select('username', 'email', 'phone_number', 'collector_id')
                 .where('collector_id', userId );
                 knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                    console.log(ids);     
                     const collectibleType = '1';  
                     var n = ids.includes(collectibleType);
-                    console.log(n);
                     const collectibleAll = '6';
                     var z = ids.includes(collectibleAll);
-                    console.log(z);
                     if (n == true || z == true)
                     {
                         await knex('collectible')
@@ -81,22 +73,17 @@ router.post('/', async (req, res, next) => {
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = '2';    
             var s = ids.includes(collectibleType);
-            console.log(s);
             if (s == true)   {
                 const collectorData = await knex('collector')
                 .select('username', 'email', 'phone_number', 'collector_id')
                 .where('collector_id', userId );
                 knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                    console.log(ids);     
                     const collectibleType = '2';  
                     var n = ids.includes(collectibleType);
-                    console.log(n);
                     const collectibleAll = '6';
                     var z = ids.includes(collectibleAll);
-                    console.log(z);
                     if (n == true || z == true)
                     {
                         await knex('collectible')
@@ -127,22 +114,17 @@ router.post('/', async (req, res, next) => {
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = '3';    
             var s = ids.includes(collectibleType);
-            console.log(s);
             if (s == true)   {
                 const collectorData = await knex('collector')
                 .select('username', 'email', 'phone_number', 'collector_id')
                 .where('collector_id', userId );
                 knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                    console.log(ids);     
                     const collectibleType = '3';  
                     var n = ids.includes(collectibleType);
-                    console.log(n);
                     const collectibleAll = '6';
                     var z = ids.includes(collectibleAll);
-                    console.log(z);
                     if (n == true || z == true)
                     {
                         await knex('collectible')
@@ -174,22 +156,17 @@ router.post('/', async (req, res, next) => {
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = '4';    
             var s = ids.includes(collectibleType);
-            console.log(s);
             if (s == true)   {
                 const collectorData = await knex('collector')
                 .select('username', 'email', 'phone_number', 'collector_id')
                 .where('collector_id', userId );
                 knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                    console.log(ids);     
                     const collectibleType = '4';  
                     var n = ids.includes(collectibleType);
-                    console.log(n);
                     const collectibleAll = '6';
                     var z = ids.includes(collectibleAll);
-                    console.log(z);
                     if (n == true || z == true)
                     {
                         await knex('collectible')
@@ -220,22 +197,17 @@ router.post('/', async (req, res, next) => {
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            console.log(ids);     
             const collectibleType = '5';    
             var s = ids.includes(collectibleType);
-            console.log(s);
             if (s == true)   {
                 const collectorData = await knex('collector')
                 .select('username', 'email', 'phone_number', 'collector_id')
                 .where('collector_id', userId );
                 knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                    console.log(ids);     
                     const collectibleType = '5';  
                     var n = ids.includes(collectibleType);
-                    console.log(n);
                     const collectibleAll = '6';
                     var z = ids.includes(collectibleAll);
-                    console.log(z);
                     if (n == true || z == true)
                     {
                         await knex('collectible')
