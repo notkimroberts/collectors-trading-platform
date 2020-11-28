@@ -22,7 +22,8 @@ router.get('/rating/:id', async (req, res, next) => {
         .where('collector_id', id );
 
     const collectorsRatings = await knex('collector_ratings')
-        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))       
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
@@ -68,7 +69,8 @@ router.post('/rating/:id', async (req, res, next) => {
     }
 
     const collectorsRatings = await knex('collector_ratings')
-        .select('collector_ratings.rating', 'collector_ratings.updated_at', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))         
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
@@ -93,6 +95,7 @@ return;
 
 router.get('/search', async (req, res, next) => {
   const { username } = req.query;
+  var search = 1;
   const collectors = await knex('collector')
     .select('collector.collector_id', 'collector.username', 'collector.email', 'collector.phone_number', 'collector.is_admin')
     .where('collector.username', 'ilike', `%${username}%`);
@@ -101,7 +104,10 @@ router.get('/search', async (req, res, next) => {
     if (collectors.length > 0) {
         res.render('collector', {
         title: `Collector\'s Trading Platform | Search Results`,
-        collector: collectors});
+        collector: collectors,
+        search,
+        username
+    });
         return;
     }
 
@@ -110,7 +116,9 @@ router.get('/search', async (req, res, next) => {
         res.render('collector', { 
                 title: `Collector\'s Trading Platform | Search Results`,
                 message: `No results matching your search term "${username}"`,
-                messageClass: 'alert-info'
+                messageClass: 'alert-info',
+                search,
+                username
             }
         )
         return;

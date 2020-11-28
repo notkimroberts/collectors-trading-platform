@@ -30,6 +30,7 @@ exports.up = (knex) => {
         table.bigInteger('has_quantity');
         table.bigInteger('willing_to_trade_quantity');
         table.bigInteger('wants_quantity');
+        table.datetime('created_at').defaultTo(knex.fn.now());
         table
             .foreign('collector_id')
             .references('collector_id')

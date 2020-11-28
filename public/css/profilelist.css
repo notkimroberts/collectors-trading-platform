@@ -18,8 +18,7 @@
     width: 50px;
 } 
 
-
- /*  overwrite bootstrap so can see many collectibles per row */
+ /*  overwrite bootstrap */
   .col-md-4 {
     flex: 100% !important;
     max-width: 100% !important;
