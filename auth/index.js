@@ -47,7 +47,6 @@ router.post('/register', (req, res, next) => {
                                             .create(collector)
                                             .then(collector_id => {
                                                 // console.log("successfully created new collector");
-                                                
                                             });
                                 
                                             res.render('login', {
