@@ -15,8 +15,9 @@
 }
 
 .choice-text {
-    padding: 2rem;
+    padding: 15px;
     width: 100%;
+    font-size: 20px;
 }
 
 .correct {
@@ -28,5 +29,4 @@
 }
 
 .question-text {
-    font-size: 2rem;
-}
+    font-size: 20px;}
