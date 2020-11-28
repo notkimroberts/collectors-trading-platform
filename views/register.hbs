@@ -8,29 +8,10 @@
         {{/if}}
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-            <p>Are you signing up as an Admin?</p>
-        <script type="text/javascript">
-        function yesnoCheck() {
-            if (document.getElementById('yesCheck').checked) {
-                document.getElementById('ifYes').style.display = 'block';
-            }
-            else if (document.getElementById('noCheck').checked) {
-                document.getElementById('ifYes').style.display = 'none';
-                $('#is_admin').val('0'); //value of your default option
-                $("#lego").hide()
-                $("#funko").hide()
-                $("#pusheen").hide()
-                $("#pokemon").hide()
-                $("#hotwheel").hide()
-                $("#all").hide()
-            }
-        }
-        </script>
-        Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
-        No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck" checked><br>
-        <div id="ifYes" style="display:none">
+ 
+        <div id="ifYes" style="display:block"> 
         <div class="form-example">
-            <label for="db">Choose type</label>
+            <label for="db">Choose Admin type</label>
                 <select name="is_admin" id="is_admin" required>
                     <option value="0" id="def" readonly:"readonly">None</option>
                     <option value="1">Lego</option>
@@ -40,7 +21,7 @@
                     <option value="5">Hot Wheels</option>
                     <option value="6">All</option>
             </select>
-            </script>            
+            </script>    
         <div id="lego" name="promo1" style="display:none;">
             <label for="promo1">Promo Code for LEGO Admin:</label>
             <input type="text" id="p1" title="Invalid Promo Code" pattern="AAA20" size="4" required>
@@ -68,16 +49,16 @@
         </div>  
         </div>
         <script>
-                if( document.getElementById('is_admin').value[0] ==="0")
-                {
-                    $("#p1").removeAttr("required");
-                    $("#p2").removeAttr("required");
-                    $("#p3").removeAttr("required");
-                    $("#p4").removeAttr("required");
-                    $("#p5").removeAttr("required");
-                    $("#p6").removeAttr("required");
-                }
                 $('#is_admin').on('change',function(){
+                    if( $(this).val()==="0"){
+                        $("#p1").removeAttr("required");
+                        $("#p2").removeAttr("required");
+                        $("#p3").removeAttr("required");
+                        $("#p4").removeAttr("required");
+                        $("#p5").removeAttr("required");
+                        $("#p6").removeAttr("required");
+                    }
+                    else
                     if( $(this).val()==="1"){
                         $("#lego").show()
                         $("#p2").removeAttr("required");
@@ -153,7 +134,6 @@
                         $("#p5").removeAttr("required");
                         $("#p6").removeAttr("required");
                     }
-
                 });            
         </script>
             <div class="form-group">
