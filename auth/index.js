@@ -46,15 +46,10 @@ router.post('/register', (req, res, next) => {
                                         Collector
                                             .create(collector)
                                             .then(collector_id => {
-                                                // console.log("successfully created new collector");
                                                 
                                             });
-                                
-                                            res.render('login', {
-                                                message: 'Successfully created user. Please login to continue',
-                                                messageClass: 'alert-danger'
-                                            });
-                                    });
+                                            res.redirect('/login');
+                                 });
 
                                 }
 
