@@ -58,7 +58,6 @@ router.post('/register', (req, res, next) => {
                                                     messageClass: 'alert-danger'
                                                 }
                                             )
-                                            return
                                         }
                                     }
                                     else if (req.body.is_admin === "2"){
@@ -68,7 +67,6 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
-                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "3"){
@@ -78,7 +76,6 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
-                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "4"){
@@ -88,7 +85,6 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
-                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "5"){
@@ -98,7 +94,6 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
-                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "6"){
@@ -109,7 +104,6 @@ router.post('/register', (req, res, next) => {
                                                     messageClass: 'alert-danger'
                                                 }
                                             )
-                                            return
                                         }
                                     }
                                     }
@@ -139,8 +133,6 @@ router.post('/register', (req, res, next) => {
                                         message: 'Username in use. Please input a different username.',
                                         messageClass: 'alert-danger'
                                     });
-                                    return
-
                                 }
 
                     });
@@ -152,7 +144,6 @@ router.post('/register', (req, res, next) => {
                         message: 'Email in use. Please input a different email.',
                         messageClass: 'alert-danger'
                     });
-                    return
                 }
                 
         });
@@ -165,7 +156,6 @@ router.post('/register', (req, res, next) => {
                     message: 'Invalid fields',
                     messageClass: 'alert-danger'
                 });
-                return
             }
     
 });
