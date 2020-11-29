@@ -188,8 +188,6 @@ router.post('/', async (req, res, next) => {
         await knex('collectible')
         .where({collectible_id: collectible_id})
         .update({collectible_type_id: typeSelected})
-        .where({collectible_id: collectible_id})
-        .update({collectible_type_id: collectibleType})
         .update({attributes: {  number: req.body.number, 
                                 line: req.body.line}})
         .update({updated_at: knex.fn.now()});
