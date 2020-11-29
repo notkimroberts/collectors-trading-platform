@@ -22,117 +22,19 @@
                     <option value="6">All</option>
             </select>
             </script>    
-        <div id="lego" name="promo1" style="display:none;">
-            <label for="promo1">Promo Code for LEGO Admin:</label>
-            <input type="text" id="p1" title="Invalid Promo Code" pattern="AAA20" size="4" required>
-        </div>
-        <div id="funko" name="promo2" style="display:none;">
-            <label for="promo2">Promo Code for FUNKO Admin:</label>
-            <input type="text" id="p2" title="Invalid Promo Code" pattern="BBB20" size="4" required>
-        </div>
-        <div id="pusheen" name="promo3" style="display:none;">
-            <label for="promo3">Promo Code for PUSHEEN Admin:</label>
-            <input type="text" id="p3" title="Invalid Promo Code" pattern="CCC20" size="4" required>
-        </div>
-        <div id="pokemon" name="promo4" style="display:none;">
-            <label for="promo4">Promo Code for POKEMON Admin:</label>
-            <input type="text" id="p4" title="Invalid Promo Code" pattern="RRR20" size="4" required>
-        </div>
-        <div id="hotwheel" name="promo5" style="display:none;">
-            <label for="promo5">Promo Code for HOT WHEEL Admin:</label>
-            <input type="text" id="p5" title="Invalid Promo Code" pattern="DDD20" size="4" required>
-        </div>
-        <div id="all" name="promo6" style="display:none;">
-            <label for="promo6">Promo Code for Super Admin:</label>
-            <input type="text" id="p6" title="Invalid Promo Code" pattern="REG20" size="4" required>
-        </div>
+        <div id="allpromos" name="allpromos" style="display:none;">
+            <label for="allpromos">Promo Code for Admin:</label>
+            <input type="text" id="allpromos" name="allpromos" title="Invalid Promo Code" size="4" required>
+
         </div>  
         </div>
         <script>
                 $('#is_admin').on('change',function(){
                     if( $(this).val()==="0"){
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
+                        $("#allpromos").removeAttr("required");
                     }
-                    else
-                    if( $(this).val()==="1"){
-                        $("#lego").show()
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
-                    }
-                    else{
-                        $("#lego").hide()
-                    }
-                    if( $(this).val()==="2"){
-                        $("#funko").show()
-                        $("#p1").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
-                    }
-                    else{
-                        $("#funko").hide()
-                    }
-                    if( $(this).val()==="3"){
-                        $("#pusheen").show()
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
-                    }
-                    else{
-                        $("#pusheen").hide()
-                    }
-                    if( $(this).val()==="4"){
-                        $("#pokemon").show()
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
-                    }
-                    else{
-                        $("#pokemon").hide()
-                    }
-                    if( $(this).val()==="5"){
-                        $("#hotwheel").show()
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p6").removeAttr("required");
-                    }
-                    else{
-                        $("#hotwheel").hide()
-                    }
-                    if( $(this).val()==="6"){
-                        $("#all").show()
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                    }
-                    else{
-                        $("#all").hide()
-                    }
-                    if( document.getElementById('is_admin').value[0] ="0")
-                    {
-                        $("#p1").removeAttr("required");
-                        $("#p2").removeAttr("required");
-                        $("#p3").removeAttr("required");
-                        $("#p4").removeAttr("required");
-                        $("#p5").removeAttr("required");
-                        $("#p6").removeAttr("required");
+                    else if( $(this).val()!="0"){
+                        $("#allpromos").show()
                     }
                 });            
         </script>
