@@ -13,14 +13,14 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
     const { collectible_id, name } = req.body;
    
-    const typeIs = req.body.collectible_type;
+    const typeSelected = req.body.collectible_type;
     const userId = req.signedCookies.user_id;
 
     const collectorData = await knex('collector')    
     .select('is_admin')
     .where({ collector_id: userId }).first();
 
-    const userAdmin = collectorData.is_admin;
+    const userAdminType = collectorData.is_admin;
     // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
         res.render('editcollectible', { 
@@ -44,7 +44,7 @@ router.post('/', async (req, res, next) => {
         )
         return
     }
-    if (thisIdcollectibleType != userAdmin && userAdmin !='6')
+    if (thisIdcollectibleType != userAdminType && userAdminType !='6')
     {
         res.render('editcollectible', { 
             message: 'User does not have the admin privilege to     edit',
@@ -53,7 +53,8 @@ router.post('/', async (req, res, next) => {
     )
     return
     }
-    if (typeIs == "none") {
+
+    if (typeSelected == "none") {
         if (!name && !req.files) {
             res.render('editcollectible', { 
                     message: 'Please enter a name or upload an image to update the collectible',
@@ -75,104 +76,82 @@ router.post('/', async (req, res, next) => {
              }
          }
         // update updated_at time
-          await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
-         res.redirect(`/collectible/${collectible_id}`);
-        }
-        if (thisIdcollectibleType == '1') {
-        knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
-            const collectibleType = '1';    
-            var s = ids.includes(collectibleType);
-            if (s == true)   {
-        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-            const collectibleType = '1';  
-            var n = ids.includes(collectibleType);
-            const collectibleAll = '6';
-            var z = ids.includes(collectibleAll);
-            if (n == true || z == true)
-            {
-                if (typeIs != "lego" && userAdmin !='6'){
-                    res.render('editcollectible', { 
-                        message: 'User does not have the admin privilege to edit',
+        await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
+        res.redirect(`/collectible/${collectible_id}`);
+    }
+
+    if (typeSelected == '1') {
+    
+            if (userAdminType != "1" && userAdminType !='6'){
+                res.render('editcollectible', { 
+                    message: 'User does not have the admin privilege to edit',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+            }
+
+            if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
+                res.render('editcollectible', { 
+                    message: 'User does not have the admin privilege to edit',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
+            }
+
+            if (!req.body.piece_count) {
+                res.render('editcollectible', { 
+                        message: 'Please add piece count',
                         messageClass: 'alert-danger'
                     }
                 )
                 return
-                }
-                else if (userAdmin == '6')
-                {
-                    await knex('collectible')
-                    .where({collectible_id: collectible_id})
-                    .update({collectible_type_id: collectibleType})
-                    .update({attributes: {  piece_count: req.body.piece_count, 
-                                            set_number: req.body.set_number, 
-                                            theme:  req.body.theme, 
-                                            designed_by: req.body.designed_by}})
-                    .update({updated_at: knex.fn.now()});
-
-                    res.redirect(`/collectible/${collectible_id}`);
-                }
-                else {
-                    if (!req.body.piece_count) {
-                        res.render('editcollectible', { 
-                                message: 'Please add piece count',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
-                    }
-        
-                    if (!req.body.set_number) {
-                        res.render('editcollectible', { 
-                                message: 'Please add set_number',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
-                    }
-        
-                    if (!req.body.theme) {
-                        res.render('editcollectible', { 
-                                message: 'Please add theme',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
-                    }
-        
-                    if (!req.body.designed_by) {
-                        res.render('editcollectible', { 
-                                message: 'Please add designer',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
-                    }
-                    
-                    await knex('collectible')
-                    .where({collectible_id: collectible_id})
-                    .update({collectible_type_id: collectibleType})
-                    .update({attributes: {  piece_count: req.body.piece_count, 
-                                            set_number: req.body.set_number, 
-                                            theme:  req.body.theme, 
-                                            designed_by: req.body.designed_by}})
-                    .update({updated_at: knex.fn.now()});
-
-                    res.redirect(`/collectible/${collectible_id}`);
-                }
             }
-                else{
-                    res.render('editcollectible', { 
-                        message: 'You do not have the admin privilege to edit this collectible',
+
+            if (!req.body.set_number) {
+                res.render('editcollectible', { 
+                        message: 'Please add set_number',
                         messageClass: 'alert-danger'
-                        }   
-                    )
-                        return
                     }
-                });
+                )
+                return
             }
-        });
+
+            if (!req.body.theme) {
+                res.render('editcollectible', { 
+                        message: 'Please add theme',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
+
+            if (!req.body.designed_by) {
+                res.render('editcollectible', { 
+                        message: 'Please add designer',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
+            
+        await knex('collectible')
+        .where({collectible_id: collectible_id})
+        .update({collectible_type_id: collectibleType})
+        .update({attributes: {  piece_count: req.body.piece_count, 
+                                set_number: req.body.set_number, 
+                                theme:  req.body.theme, 
+                                designed_by: req.body.designed_by}})
+        .update({updated_at: knex.fn.now()});
+
+        res.redirect(`/collectible/${collectible_id}`);
     }
-    else if (thisIdcollectibleType == '2') {
+
+});
+
+module.exports = router;
+    /* else if (thisIdcollectibleType == '2') {
         knex.table('collectible').pluck('collectible_type_id').where('collectible_id', collectible_id).then(async function(ids) { 
             const collectibleType = '2';    
             var s = ids.includes(collectibleType);
@@ -184,7 +163,7 @@ router.post('/', async (req, res, next) => {
             var z = ids.includes(collectibleAll);
             if (n == true || z == true)          
               {
-                if (typeIs != "funko" && userAdmin !='6'){
+                if (typeSelected != "funko" && userAdminType !='6'){
                     res.render('editcollectible', { 
                         message: 'User does not have the admin privilege to edit',
                         messageClass: 'alert-danger'
@@ -192,7 +171,7 @@ router.post('/', async (req, res, next) => {
                 )
                 return
                 }
-                else if (userAdmin == '6')
+                else if (userAdminType == '6')
                 {
                     await knex('collectible')
                     .where({collectible_id: collectible_id})
@@ -253,7 +232,7 @@ router.post('/', async (req, res, next) => {
                     var z = ids.includes(collectibleAll);
                     if (n == true || z == true)              
                     {
-                        if (typeIs != "pusheen" && userAdmin !='6'){
+                        if (typeSelected != "pusheen" && userAdminType !='6'){
                             res.render('editcollectible', { 
                                 message: 'User does not have the admin privilege to edit',
                                 messageClass: 'alert-danger'
@@ -261,7 +240,7 @@ router.post('/', async (req, res, next) => {
                         )
                         return
                         }
-                        else if (userAdmin == '6')
+                        else if (userAdminType == '6')
                         {
                             await knex('collectible')
                             .where({collectible_id: collectible_id})
@@ -323,7 +302,7 @@ router.post('/', async (req, res, next) => {
                     var z = ids.includes(collectibleAll);
                     if (n == true || z == true)             
                     {
-                        if (typeIs != "pokemon" && userAdmin !='6'){
+                        if (typeSelected != "pokemon" && userAdminType !='6'){
                             res.render('editcollectible', { 
                                 message: 'User does not have the admin privilege to edit',
                                 messageClass: 'alert-danger'
@@ -331,7 +310,7 @@ router.post('/', async (req, res, next) => {
                         )
                         return
                         }
-                        else if (userAdmin == '6')
+                        else if (userAdminType == '6')
                         {
                             await knex('collectible')
                             .where({collectible_id: collectible_id})
@@ -395,7 +374,7 @@ router.post('/', async (req, res, next) => {
                 var z = ids.includes(collectibleAll);
                 if (n == true || z == true)         
                 {
-                    if (typeIs != "hot_wheel" && userAdmin !='6'){
+                    if (typeSelected != "hot_wheel" && userAdminType !='6'){
                         res.render('editcollectible', { 
                             message: 'User does not have the admin privilege to edit',
                             messageClass: 'alert-danger'
@@ -403,7 +382,7 @@ router.post('/', async (req, res, next) => {
                     )
                       return
                     }
-                    else if (userAdmin == '6')
+                    else if (userAdminType == '6')
                     {
                         await knex('collectible')
                         .where({collectible_id: collectible_id})
@@ -414,7 +393,7 @@ router.post('/', async (req, res, next) => {
                         .update({updated_at: knex.fn.now()});
                         res.redirect(`/collectible/${collectible_id}`);
                     }
-                    else if (typeIs != "none") {
+                    else if (typeSelected != "none") {
                         if (!req.body.number1) {
                             res.render('editcollectible', { 
                                     message: 'Please add number',
@@ -458,19 +437,7 @@ router.post('/', async (req, res, next) => {
                 )
                 return
             }
-        }
-        else{
-            res.render('editcollectible', { 
-                message: 'You do not have the admin privilege to edit this collectible',
-                messageClass: 'alert-danger'
-                }   
-            )
-                return
-        }
-    });
-    }
-    });
-};
-});
+        } */
 
-module.exports = router;
+
+
