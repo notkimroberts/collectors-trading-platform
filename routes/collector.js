@@ -88,8 +88,32 @@ router.post('/rating/:id', async (req, res, next) => {
     }
 )  
 return;
+});
 
-
+router.get('/', async (req, res, next) => {
+    const collectors = await knex('collector')
+      .select('collector.collector_id', 'collector.username', 'collector.email', 'collector.phone_number', 'collector.is_admin')
+      .orderBy('collector.username');
+  
+      // if results, render collectibles
+      if (collectors.length > 0) {
+          res.render('collector', {
+          title: `Collector\'s Trading Platform | Collectors`,
+          collector: collectors,
+      });
+          return;
+      }
+  
+      // if no results, inform user
+      else {
+          res.render('collector', { 
+                  title: `Collector\'s Trading Platform | Collectors`,
+                  message: `No results`,
+                  messageClass: 'alert-info',
+              }
+          )
+          return;
+      }
 });
 
 router.get('/search', async (req, res, next) => {
