@@ -54,7 +54,7 @@ router.post('/', async (req, res, next) => {
     return
     }
 
-    if (typeSelected == "none") {
+    if (typeSelected == "0") {
         if (!name && !req.files) {
             res.render('editcollectible', { 
                     message: 'Please enter a name or upload an image to update the collectible',
