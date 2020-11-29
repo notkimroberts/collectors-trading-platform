@@ -200,8 +200,11 @@ router.get(['/', '/:filter'], async (req, res, next) => {
         filterTypes = [filterTypes]
     }
 
-    // get all collectibles
-    const collectibles = await knex('collectible')
+    // if user is not logged in, render all collectibles in database
+    if (userId == null) {
+        
+        // get all collectibles
+        const collectibles = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
@@ -211,9 +214,7 @@ router.get(['/', '/:filter'], async (req, res, next) => {
                 builder.whereIn('collectible_type.name', filterTypes)
             }
         });
-
-    // if user is not logged in, render all collectibles in database
-    if (userId == null) {
+        
         res.render('collectible', {
             title: "Collector\'s Trading Platform | Collectibles",
             collectible: collectibles,
@@ -269,11 +270,6 @@ router.get(['/', '/:filter'], async (req, res, next) => {
     }  
 });
 
-/*     res.render('collectible', {
-        title: "Collector\'s Trading Platform | Collectibles",
-        collectible: collectibles,
-    });
-}); */
 router.post('/update', async (req, res, next) => { 
     const userId = req.signedCookies.user_id;   
     const q1 = req.body.has_quantity;

@@ -195,7 +195,6 @@
                         <form action="/profile/has" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                             <p class="small">{{{typeName}}}</p>
-                            <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
                             <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
@@ -229,7 +228,6 @@
                         <form action="/profile/wants" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                             <p class="small">{{{typeName}}}</p>
-                            <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
                             <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
@@ -263,7 +261,6 @@
                         <form action="/profile/trades" method="post" class="form-example"> 
                             <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                             <p class="small">{{{typeName}}}</p>
-                            <br>
                             <img src=/collectible/image/{{{collectible_id}}}/>
                             <br>
                             <input type="hidden" name="collectible_id[]" id="collectible_id" value="{{{collectible_id}}}" readonly>
@@ -296,7 +293,6 @@
                     <td>
                         <a href="/collectible/{{{collectible_id}}}">{{{name}}}</a>
                         <p class="small">{{{typeName}}}</p>
-                        <br>
                         <img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px"/>
                         <br><a href="/collector/trade/images/{{{collector_id}}}">{{{username}}}</a> has
                         <br>{{{willing_to_trade_quantity}}} for trade.
