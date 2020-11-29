@@ -6,23 +6,23 @@ $(document).ready(function(){
                 $(".box").hide();
                 $(".none").show();
             }
-            if($(this).attr("value")=="lego"){
+            if($(this).attr("value")=="1"){
                 $(".box").hide();
                 $(".lego").show();
             }
-            if($(this).attr("value")=="funko"){
+            if($(this).attr("value")=="2"){
                 $(".box").hide();
                 $(".funko").show();
             }
-            if($(this).attr("value")=="pusheen"){
+            if($(this).attr("value")=="3"){
                 $(".box").hide();
                 $(".pusheen").show();
             }
-            if($(this).attr("value")=="pokemon"){
+            if($(this).attr("value")=="4"){
                 $(".box").hide();
                 $(".pokemon").show();
             }
-            if($(this).attr("value")=="hot_wheel"){
+            if($(this).attr("value")=="5"){
                 $(".box").hide();
                 $(".hot_wheel").show();
             }
