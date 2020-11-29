@@ -135,7 +135,20 @@ router.post('/', async (req, res, next) => {
                 )
                 return
             }
-            
+
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        }
+
         await knex('collectible')
         .where({collectible_id: collectible_id})
         .update({collectible_type_id: typeSelected})
@@ -183,6 +196,19 @@ router.post('/', async (req, res, next) => {
                 }
             )
             return
+        }
+
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
         }
 
         await knex('collectible')
@@ -234,6 +260,19 @@ router.post('/', async (req, res, next) => {
             return
         }
 
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        }
+
         await knex('collectible')
         .where({collectible_id: collectible_id})
         .update({collectible_type_id: typeSelected})
@@ -283,7 +322,19 @@ router.post('/', async (req, res, next) => {
             return
         }
         
-            
+        if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        }
+
         await knex('collectible')
         .where({collectible_id: collectible_id})
         .update({collectible_type_id: typeSelected})
@@ -332,7 +383,19 @@ router.post('/', async (req, res, next) => {
             return
         }
 
-            
+         if (name) {
+            // update name
+            await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+        }
+    
+        if (req.files) {
+            const {data} = req.files.pic;
+            if (data) {
+            // update image
+            await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+            }
+        }
+                   
         await knex('collectible')
         .where({collectible_id: collectible_id})
         .update({collectible_type_id: typeSelected})
