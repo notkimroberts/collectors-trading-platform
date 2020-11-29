@@ -1,5 +1,4 @@
-  
-<div class="row justify-content-md-center mt-2">
+  <div class="row justify-content-md-center mt-2">
     <div class="col col-md-4">
         <h2>Register</h2>
         {{#if message}}
@@ -9,54 +8,36 @@
         {{/if}}
         <form id="register_collector" action="/auth/register" method="POST">
         <p>Choose your user account type. *Note, admin accounts require approval from webmaster before creation:</p>
-            <div class="form-example">
-               <div class="show">
-                <label class="admin123" for="is_admin">Admin Status</label>
-                <select class="admin123" id="is_admin" name="is_admin">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                </select>
-                </div>
-                <table style="width:50%">
-                <tr>
-                    <th>Value</th>
-                    <th>Admin Status</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>Not admin</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Lego</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Funko</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Pusheen</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Pokemon</td>
-                </tr>    
-                <tr>
-                    <td>5</td>
-                    <td>Hot Wheels</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>All</td>
-                </tr>
-                </table>
-            </div>
+ 
+        <div id="ifYes" style="display:block"> 
+        <div class="form-example">
+            <label for="db">Choose Admin type</label>
+                <select name="is_admin" id="is_admin" required>
+                    <option value="0" id="def" readonly:"readonly">None</option>
+                    <option value="1">Lego</option>
+                    <option value="2">Funko</option>
+                    <option value="3">Pusheen</option>
+                    <option value="4">Pokemon</option>
+                    <option value="5">Hot Wheels</option>
+                    <option value="6">All</option>
+            </select>
+            </script>    
+        <div id="allpromos" name="allpromos" style="display:none;">
+            <label for="allpromos">Promo Code for Admin:</label>
+            <input type="text" id="allpromos" name="allpromos" title="Invalid Promo Code" size="4" required>
+
+        </div>  
+        </div>
+        <script>
+                $('#is_admin').on('change',function(){
+                    if( $(this).val()==="0"){
+                        $("#allpromos").removeAttr("required");
+                    }
+                    else if( $(this).val()!="0"){
+                        $("#allpromos").show()
+                    }
+                });            
+        </script>
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" class="form-control"  name="username" id="username" required>
@@ -64,7 +45,7 @@
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control"  name="email" id="email" required>
-            </div>    
+            </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
                 <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" required>
@@ -76,15 +57,14 @@
                 <label for="password">Confirm Password</label>
                 <input type="password"  id="password2" class="form-control" placeholder="Confirm Password" name="password2" title="Passwords do not match" required />
             </div>
-            <script type="text/javascript">
-//https://www.the-art-of-web.com/javascript/validate-password/
-        // polyfill for RegExp.escape
-        if(!RegExp.escape) {
-            RegExp.escape = function(s) {
-            return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
-            };
-        }
-
+        <script type="text/javascript">
+            //https://www.the-art-of-web.com/javascript/validate-password/
+            // polyfill for RegExp.escape
+            if(!RegExp.escape) {
+                RegExp.escape = function(s) {
+                return String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
+                };
+            }
         </script>
             <div>
                 <input type="submit" class="btn btn-primary" value="Register" name="register">

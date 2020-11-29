@@ -3,7 +3,7 @@
     margin: 20px;
     word-wrap: break-word;
     width: 250px;
-    height: 200px;
+    height: 240px;
     text-align: center;
   }
 
@@ -34,7 +34,6 @@
     width: 50px;
 } 
 
-
  /*  overwrite bootstrap so can see many collectibles per row */
   .col-md-4 {
     flex: 100% !important;
@@ -49,7 +48,7 @@
 }
 
 .btn-secondary {
-margin-top:20px
+margin-top:10px
 }
 
 .fa-star {

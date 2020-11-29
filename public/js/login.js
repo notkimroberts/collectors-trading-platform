@@ -2,7 +2,7 @@
 // https://www.youtube.com/watch?v=YFxsqHD6JUc&
 $(() => {
 
-    $('form').submit((event) => {
+    $('form').on("submit", callback)((event) => {
         event.preventDefault();
         const collector = getUserFromForm();
 

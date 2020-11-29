@@ -1,4 +1,31 @@
 <h3>Trade Matches</h3>
+<div>
+    <h6>Filter</h6>
+    <form method="GET" action="/collector/trade/images/{{{otherUser.collector_id}}}" id="filter-form">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">
+            <label class="form-check-label" for="legoFilter">Lego</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="funkoFilter" name="filter" value="funko">
+            <label class="form-check-label" for="funkoFilter">Funko</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="pusheenFilter" name="filter" value="pusheen">
+            <label class="form-check-label" for="pusheenFilter">Pusheen</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="pokemonFilter" name="filter" value="pokemon">
+            <label class="form-check-label" for="pokemonFilter">Pokemon</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="hotwheelFilter" name="filter" value="hot wheel">
+            <label class="form-check-label" for="hotwheelFilter">Hot Wheel</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a class="btn btn-success" href="/collector/trade/images/{{{otherUser.collector_id}}}" role="button">Reset</a>
+    </form>
+</div>
 <h7><a href="/collector/trade/{{{otherUser.collector_id}}}">view in text list format</a></h7>
 <div class="row">
     <div class="column">
