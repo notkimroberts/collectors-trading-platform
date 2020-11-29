@@ -120,7 +120,6 @@ router.post('/register', (req, res, next) => {
                                         Collector
                                             .create(collector)
                                             .then(collector_id => {
-                                                
                                             });
                                             res.redirect('/login');
                                  });

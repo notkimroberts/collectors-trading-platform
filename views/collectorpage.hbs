@@ -95,7 +95,6 @@
         {{/if}}
         <hr/>
     </div>
-
     <div class="col col-md-4">
         {{#if isLoggedInUser}}
         {{else}}
@@ -104,10 +103,36 @@
                 <hr/>
             {{/if}}
         {{/if}}
-    <p><a href="/collector/list/{{{collector_id}}}">view in text list format</a></p>
-    <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
+        <p><a href="/collector/list/{{{collector_id}}}">view in text list format</a></p>
+        <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
     </div>
-
+    <div>
+        <h3>Filter</h3>
+        <form method="GET" action="/collector/{{{collector_id}}}" id="filter-form">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">
+                <label class="form-check-label" for="legoFilter">Lego</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="funkoFilter" name="filter" value="funko">
+                <label class="form-check-label" for="funkoFilter">Funko</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pusheenFilter" name="filter" value="pusheen">
+                <label class="form-check-label" for="pusheenFilter">Pusheen</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="pokemonFilter" name="filter" value="pokemon">
+                <label class="form-check-label" for="pokemonFilter">Pokemon</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="hotwheelFilter" name="filter" value="hot wheel">
+                <label class="form-check-label" for="hotwheelFilter">Hot Wheel</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a class="btn btn-success" href="/collector/{{{collector_id}}}" role="button">Reset</a>
+        </form>
+    </div>
     <div id="have" class="col col-md-4 heading"><h3>{{#each collector}}{{{username}}}{{/each}}'s Have List</h3></div>
         {{#if showHasPublic}}
         <div class="col col-md-4">

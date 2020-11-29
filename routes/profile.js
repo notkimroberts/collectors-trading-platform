@@ -4,8 +4,12 @@ const router = express.Router();
 const { ensureLoggedIn } = require('../auth/middleware')
 
 
-router.get('/', ensureLoggedIn, async (req, res, next) => {
+router.get(['/list', '/list/:filter'], ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
+    }
 
     // get user's ratings by star count
     const rating1 = await knex('collector_ratings')
@@ -36,7 +40,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
     totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
     averageStars = starCount/totalRatings;
-
 
     if (averageStars >= '0' && averageStars < '0.25') {
         var zeroStar = 1;
@@ -119,6 +122,11 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.has_quantity', '>', 0);
 
     // user's wants collectibles if has_quantity is greater than 0
@@ -129,6 +137,11 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.wants_quantity', '>', 0);
 
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
@@ -139,6 +152,11 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
     const userWants = await knex('collection')
@@ -150,13 +168,18 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
 
     const matches = await knex('collection')
-        .select(['collectible_type.name as typeName', 'collection.collector_id', 'collector.username','collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collector_id', 'collector.username','collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
         .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
         .join('collector', 'collection.collector_id', 'collector.collector_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector.collector_id', '!=', userId)
         .andWhere('collector.trades_public', '=', 'true')
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0)
 
     var showHasButton = null;
@@ -183,7 +206,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         noMatches = 1;
     }
 
-    res.render('profile', { 
+    res.render('profilelist', { 
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,
@@ -212,9 +235,13 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     });
 });
 
-router.get('/list', ensureLoggedIn, async (req, res, next) => {
+router.get(['/', '/:filter'], ensureLoggedIn, async (req, res, next) => {
     const userId = req.signedCookies.user_id
-    
+    let filterTypes = req.query.filter
+    if (typeof filterTypes === 'string' || filterTypes instanceof String) {
+        filterTypes = [filterTypes]
+    }
+
     // get user's ratings by star count
     const rating1 = await knex('collector_ratings')
         .select('rating')
@@ -326,6 +353,11 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.has_quantity', '>', 0);
 
     // user's wants collectibles if has_quantity is greater than 0
@@ -336,6 +368,11 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.wants_quantity', '>', 0);
 
     // user's willing to trade collectibles if willing_to_trade_quantity is greater than 0
@@ -346,6 +383,11 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         .join('collectible', 'collectible.collectible_id', 'collection.collectible_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector_id', userId )
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0);
 
     const userWants = await knex('collection')
@@ -357,13 +399,18 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
     userWants.forEach((row) => userWantsCollectibleIds.push(row.collectible_id))
 
     const matches = await knex('collection')
-        .select(['collectible.attributes', 'collectible_type.name as typeName', 'collection.collector_id', 'collector.username','collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+        .select(['collectible_type.name as typeName', 'collection.collector_id', 'collector.username','collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
         .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
         .join('collector', 'collection.collector_id', 'collector.collector_id')
         .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
         .where('collector.collector_id', '!=', userId)
         .andWhere('collector.trades_public', '=', 'true')
         .whereIn('collection.collectible_id', userWantsCollectibleIds)
+        .modify((builder) => {
+            if (filterTypes && filterTypes.length) {
+                builder.whereIn('collectible_type.name', filterTypes)
+            }
+        })
         .andWhere('collection.willing_to_trade_quantity', '>', 0)
 
     var showHasButton = null;
@@ -390,7 +437,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         noMatches = 1;
     }
 
-    res.render('profilelist', { 
+    res.render('profile', { 
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,
@@ -415,7 +462,7 @@ router.get('/list', ensureLoggedIn, async (req, res, next) => {
         fourStar,
         fourhalfStar,
         fiveStar,
-        noRating
+        noRating,
     });
 });
 
@@ -424,7 +471,6 @@ router.post('/publictoggle', async (req, res, next) => {
     const selectedHas = req.body.has_public;
     const selectedWants = req.body.wants_public;
     const selectedTrades = req.body.trades_public;
-''
     await knex('collector')
         .where({ collector_id: userId })
         .update({ has_public: selectedHas })
@@ -494,7 +540,6 @@ router.post('/wants', async (req, res, next) => {
     const q3 = req.body.willing_to_trade_quantity;
     const collectible_id1 = req.body.collectible_id;
     const list = req.body.list;
-
     if (q1 != null) {
         var i;
         // for each collectible on the page

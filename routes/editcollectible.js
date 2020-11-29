@@ -81,7 +81,7 @@ router.post('/', async (req, res, next) => {
         res.redirect(`/collectible/${collectible_id}`);
     }
 
-    if (typeSelected == '1') {
+  if (typeSelected == '1') {
     
             if (userAdminType != "1" && userAdminType !='6'){
                 res.render('editcollectible', { 
@@ -251,6 +251,7 @@ router.post('/', async (req, res, next) => {
                 }
             )
             return
+
         }
         if (!req.body.season) {
             res.render('editcollectible', { 
@@ -347,6 +348,7 @@ router.post('/', async (req, res, next) => {
     }
 
     if (typeSelected == '5') {
+
         
         if (userAdminType != "5" && userAdminType !='6'){
             res.render('editcollectible', { 
@@ -354,7 +356,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-        return
+         return
         }
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {

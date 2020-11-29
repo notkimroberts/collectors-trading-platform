@@ -171,7 +171,6 @@ router.post('/', async (req, res, next) => {
                                 const collectibleAll = '6';
                                 var z = ids.includes(collectibleAll);
                                 if (n == true || z == true)                                {
-
                         if (!req.body.product_type1) {
                             res.render('addcollectible', { 
                                     message: 'Please add product type',
@@ -228,7 +227,6 @@ router.post('/', async (req, res, next) => {
                             const collectibleAll = '6';
                             var z = ids.includes(collectibleAll);
                             if (n == true || z == true)                            {
-
                         if (!req.body.product_type) {
                             res.render('addcollectible', { 
                                     message: 'Please add product type',
@@ -280,13 +278,13 @@ router.post('/', async (req, res, next) => {
                         const collectorData = await knex('collector')
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
-                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+
+                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) {    
                                 const collectibleType = '5';    
                                 var n = ids.includes(collectibleType);
                                 const collectibleAll = '6';
                                 var z = ids.includes(collectibleAll);
                                 if (n == true || z == true)                                {
-
                             if (!req.body.number1) {
                                 res.render('addcollectible', { 
                                         message: 'Please add number',
