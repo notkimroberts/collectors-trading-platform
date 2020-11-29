@@ -2,7 +2,7 @@
 $(document).ready(function(){
     $("select").change(function(){
         $( "select option:selected").each(function(){
-            if($(this).attr("value")=="none"){
+            if($(this).attr("value")=="0"){
                 $(".box").hide();
                 $(".none").show();
             }
