@@ -83,59 +83,59 @@ router.post('/', async (req, res, next) => {
 
     if (typeSelected == '1') {
     
-        if (userAdminType != "1" && userAdminType !='6'){
-            res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
-                messageClass: 'alert-danger'
+            if (userAdminType != "1" && userAdminType !='6'){
+                res.render('editcollectible', { 
+                    message: 'User does not have the admin privilege to edit to this collectible type',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
             }
-        )
-            return
-        }
 
-        if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
-            res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
-                messageClass: 'alert-danger'
+            if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
+                res.render('editcollectible', { 
+                    message: 'User does not have the admin privilege to edit to this collectible type',
+                    messageClass: 'alert-danger'
+                }
+            )
+            return
             }
-        )
-            return
-        }
 
-        if (!req.body.piece_count) {
-            res.render('editcollectible', { 
-                    message: 'Please add piece count',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.piece_count) {
+                res.render('editcollectible', { 
+                        message: 'Please add piece count',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.set_number) {
-            res.render('editcollectible', { 
-                    message: 'Please add set number',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.set_number) {
+                res.render('editcollectible', { 
+                        message: 'Please add set number',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.theme) {
-            res.render('editcollectible', { 
-                    message: 'Please add theme',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.theme) {
+                res.render('editcollectible', { 
+                        message: 'Please add theme',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
-        if (!req.body.designed_by) {
-            res.render('editcollectible', { 
-                    message: 'Please add designer',
-                    messageClass: 'alert-danger'
-                }
-            )
-            return
-        }
+            if (!req.body.designed_by) {
+                res.render('editcollectible', { 
+                        message: 'Please add designer',
+                        messageClass: 'alert-danger'
+                    }
+                )
+                return
+            }
 
         if (name) {
             // update name
@@ -170,7 +170,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
@@ -179,7 +179,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (!req.body.number) {
@@ -220,6 +220,7 @@ router.post('/', async (req, res, next) => {
         .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+
     }
 
 
@@ -231,7 +232,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
@@ -240,7 +241,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (!req.body.product_type1) {
@@ -281,6 +282,7 @@ router.post('/', async (req, res, next) => {
             .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+        return
     }
 
     if (typeSelected == '4') {
@@ -291,7 +293,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
@@ -300,7 +302,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (!req.body.product_type) {
@@ -352,7 +354,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-         return
+        return
         }
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
@@ -361,7 +363,7 @@ router.post('/', async (req, res, next) => {
                 messageClass: 'alert-danger'
             }
         )
-            return
+        return
         }
 
         if (!req.body.number1) {
