@@ -13,12 +13,11 @@ finalScore.innerText = currentScore
 
 // if score is not 4 out of 4, display failed message and retake button only
 if (currentScore != 4) {
-    resultPassFail.innerText = 'You failed, try again.'
-    goRegister.innerText = ''
+    resultPassFail.innerText = 'You failed. Do you want to try again?'
 }
 
 // if score is 4 out of 4, display passed message and registration button
 if (currentScore == 4) {
-    resultPassFail.innerText = 'You passed, you can now proceed with registration.'
+    resultPassFail.innerText = 'You passed! Thank you for reading the rules. Feel free to register if you would like to join our community.'
     takeQuizAgain.innerText = ''
 }

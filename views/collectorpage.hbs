@@ -4,9 +4,13 @@
         {{#each collector}}
         <h2>{{{username}}}</h2>
         <h2>collector id: {{{collector_id}}}</h2>
-        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
         {{/each}}
+        {{#if isAuthenticated}}
+        {{#each collector}}
+        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a></span>
         <br>
+        {{/each}}
+        {{/if}}
         <br>
         <span style="font-size:18px">Rating:</span>
         {{#if noRating}}
@@ -92,6 +96,8 @@
         <br>
         {{#if isAuthenticated}}
         <span><a href="/collector/rating/{{{collector_id}}}">Give or view ratings</a></span>
+        {{else}}
+        <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
         {{/if}}
         <hr/>
     </div>
@@ -106,8 +112,8 @@
         <p><a href="/collector/list/{{{collector_id}}}">view in text list format</a></p>
         <p><a href="#have">have</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#want">want</a> &nbsp;&nbsp; | &nbsp;&nbsp; <a href="#trade">for trade</a></p>
     </div>
-    <div>
-        <h3>Filter</h3>
+    <div class="col col-md-4">
+        <h6>Filter</h6>
         <form method="GET" action="/collector/{{{collector_id}}}" id="filter-form">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">

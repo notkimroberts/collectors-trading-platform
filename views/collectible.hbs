@@ -1,15 +1,18 @@
 <div class="row justify-content-md-center mt-2">
     <div class="col col-md-8">
-        <h2>Collectible</h2>
     {{#if message}}
         <div class="alert {{messageClass}}" role="alert">
             {{message}}
         </div>
     {{/if}}
-    {{#if nofilter}}
-    {{else}}
         <div>
-            <h3>Filter</h3>
+            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+        {{#if search}}
+        <h2>Search Results for "{{{name}}}"</h2>
+        {{else}}
+        <h2>Collectibles</h2>
+        <br>
+        <h6>Filter</h6>
             <form method="GET" action="/collectible" id="filter-form">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">
@@ -35,12 +38,6 @@
                 <a class="btn btn-success" href="/collectible" role="button">Reset</a>
             </form>
         </div>
-    {{/if}}
-            <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
-        {{#if search}}
-        <h2>Search Results for "{{{name}}}"</h2>
-        {{else}}
-        <h2>All Collectibles</h2>
         {{/if}}
         {{#each collector}}
         <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
@@ -50,24 +47,6 @@
             <div class="alert {{messageClass}}" role="alert">
                 {{message}}
             </div>
-        {{/if}}
-        {{#if nofilter}}
-        {{else}}
-        <form id='filter_type' action='/filter/:type_name' method='get'>
-            <label> Filter by type: </label>
-            <select id='type_filter' name="type_name"> 
-                {{#each collectibleByType}}
-                <option value="{{type_id}}">{{type_name}}</option>
-                {{/each}}
-            </select>
-            <br>
-            <input class="button" type="button" value="Filter" onclick="filterCollectiblesByType()">
-        </form>
-        {{/if}}
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
-
-        {{#if clearfilter}}
-        <a class="button" type="button" href="/collectible"><button>Clear filter</button></a>
         {{/if}}
         <br>
         <p>Click on the table headers to sort the collectibles by the clicked column. You may sort by collectible id, name, type, and date added.</p>
@@ -160,5 +139,4 @@
 </div>
 <link rel="stylesheet" href="/css/collectible.css"/>
 <script src="/js/sortTable.js"></script>
-<script src="/js/filterCollectibles.js"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js'></script>  {{!-- this needs to be here or else the font awesome for trade icon does not work --}}
