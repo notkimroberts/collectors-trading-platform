@@ -3,13 +3,12 @@
         {{#if isLoggedInUser}}
         <h2>Your ratings</h2>
         {{else}}
-        {{#if isAuthenticated}}
         {{#each collector}}
         <h2>{{username}}'s ratings</h2>
+        {{/each}}
+        {{#if isAuthenticated}}
         <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
         <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
-        {{/each}}
-
         {{#if message}}
             <div class="alert {{messageClass}}" role="alert">
                 {{message}}
