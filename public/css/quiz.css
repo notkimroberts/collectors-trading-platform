@@ -21,11 +21,11 @@
 }
 
 .correct {
-    background: darkslateblue;
+    background: rgb(88, 153, 165);
 }
 
 .incorrect {
-    background: darkslateblue;
+    background: rgb(88, 153, 165);
 }
 
 .question-text {
