@@ -24,7 +24,7 @@ router.post('/register', (req, res, next) => {
         Collector
             .getByEmail(req.body.email)
             .then(collector => {
-                
+
 
                 // if user not found, then it is a unique email
                 if(!collector) {
@@ -33,6 +33,80 @@ router.post('/register', (req, res, next) => {
                         .then(collector => {
                                 // if user not found, then it is a username
                                 if(!collector) {
+
+                                    if(req.body.is_admin == 0){
+
+                                        console.log("dont check for promocodes")
+                                    }
+
+                                    //else user is signing up as admin
+                                    else{
+                                        //promo codes go here
+                                        if (!req.body.allpromos){
+                                            res.render('register', {
+                                                message: 'Promo code field is blank. Please enter a valid promocode for admin type',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                        
+                                        return
+                                        }
+                                        else if (req.body.is_admin === "1"){
+                                            if (req.body.allpromos != "AAA20"){
+                                                res.render('register', {
+                                                message: 'Please enter valid promocode for hot wheel admin',
+                                                    messageClass: 'alert-danger'
+                                                }
+                                            )
+                                        }
+                                    }
+                                    else if (req.body.is_admin === "2"){
+                                        if (req.body.allpromos != "BBB20"){
+                                            res.render('register', {
+                                            message: 'Please enter valid promocode for hot wheel admin',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                    }
+                                }
+                                    else if (req.body.is_admin === "3"){
+                                        if (req.body.allpromos != "CCC20"){
+                                            res.render('register', {
+                                            message: 'Please enter valid promocode for hot wheel admin',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                    }
+                                }
+                                    else if (req.body.is_admin === "4"){
+                                        if (req.body.allpromos != "RRR20"){
+                                            res.render('register', {
+                                            message: 'Please enter valid promocode for hot wheel admin',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                    }
+                                }
+                                    else if (req.body.is_admin === "5"){
+                                        if (req.body.allpromos != "DDD20"){
+                                            res.render('register', {
+                                            message: 'Please enter valid promocode for hot wheel admin',
+                                                messageClass: 'alert-danger'
+                                            }
+                                        )
+                                    }
+                                }
+                                    else if (req.body.is_admin === "6"){
+                                        if (req.body.allpromos != "REG20"){
+                                            console.log(req.body.is_admin);
+                                            res.render('register', {
+                                                message: 'Please enter valid promocode for all admin type',
+                                                    messageClass: 'alert-danger'
+                                                }
+                                            )
+                                        }
+                                    }
+                                    }
                                     // hash password
                                     bcrypt.hash(req.body.password, 10)
                                     .then((hash) => {
@@ -46,14 +120,9 @@ router.post('/register', (req, res, next) => {
                                         Collector
                                             .create(collector)
                                             .then(collector_id => {
-                                                // console.log("successfully created new collector");
                                             });
-                                
-                                            res.render('login', {
-                                                message: 'Successfully created user. Please login to continue',
-                                                messageClass: 'alert-danger'
-                                            });
-                                    });
+                                            res.redirect('/login');
+                                 });
 
                                 }
 
@@ -115,11 +184,12 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
-                                res.json({
-                                    collector_id: collector.collector_id,
-                                    message: 'logged in'
-                                  });
-
+                            console.log("logged in");
+                                // ({
+                                //     collector_id: collector.collector_id,
+                                //     message: 'logged in'
+                                //   });
+                                res.redirect('../');
                             }
                             else {
                                 var err = new Error('Invalid login');

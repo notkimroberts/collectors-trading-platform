@@ -2,15 +2,6 @@ const knex = require('../connection')
 
 
 module.exports = {
-/*     create: (username, password, email, phone_number) => {
-        const collector = knex('collector')
-        .then(() => {
-            return knex('collector').insert([
-                { username: username, password: password, email: email, phone_number: phone_number },
-            ])
-        })
-        return Promise.all([collector])
-    }, */
     create: function(collector) {
         return knex('collector').insert(collector, 'collector_id').then(ids => {
           return ids[0];
@@ -24,7 +15,8 @@ module.exports = {
         return knex('collector').where('email', email).andWhere('password', hashedPassword).first()
     },
     getByUsername: (username) => knex('collector').where('username', username).first(),
-       
+
+    
     getAll(query) {
         const knexQuery = knex('collector');
 

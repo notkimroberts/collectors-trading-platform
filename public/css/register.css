@@ -6,5 +6,9 @@
     }
 
 .admin123 {
-    float:right;
+    float:left;
+}
+
+.table123{
+    float:center;
 }

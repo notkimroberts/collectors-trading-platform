@@ -278,6 +278,7 @@ router.post('/', async (req, res, next) => {
                         const collectorData = await knex('collector')
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
+
                             knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) {    
                                 const collectibleType = '5';    
                                 var n = ids.includes(collectibleType);

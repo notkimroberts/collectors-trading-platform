@@ -3,7 +3,6 @@ const FileType = require('file-type');
 const knex = require('../connection');
 const Collection = require('../models/collection')
 const router = express.Router();
-const { ensureLoggedIn } = require('../auth/middleware')
 
 
 // search for collectible
