@@ -275,14 +275,14 @@ router.post('/', async (req, res, next) => {
         }
 
         await knex('collectible')
-        .where({collectible_id: collectible_id})
-        .update({collectible_type_id: typeSelected})
-        .update({attributes: {  product_type: req.body.product_type1,
-                                season: req.body.season}})
-        .update({updated_at: knex.fn.now()});
+            .where({collectible_id: collectible_id})
+            .update({collectible_type_id: typeSelected})
+            .update({attributes: {  product_type: req.body.product_type1,
+                                    season: req.body.season}})
+            .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
-
+        return
     }
 
     if (typeSelected == '4') {
@@ -416,19 +416,6 @@ router.post('/', async (req, res, next) => {
 
         res.redirect(`/collectible/${collectible_id}`);
     }
-
-    else {
-        res.render('editcollectible', { 
-            message: 'an error ocurred',
-            messageClass: 'alert-danger'
-        }
-    )
-    return
-}
-
-    
-    
-
 });
 
 module.exports = router;
