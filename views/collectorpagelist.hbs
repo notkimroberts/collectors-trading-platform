@@ -4,9 +4,13 @@
         {{#each collector}}
         <h2>{{{username}}}</h2>
         <h2>collector id: {{{collector_id}}}</h2>
-        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
         {{/each}}
+        {{#if isAuthenticated}}
+        {{#each collector}}
+        <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a></span>
         <br>
+        {{/each}}
+        {{/if}}
         <br>
         <span style="font-size:18px">Rating:</span>
         {{#if noRating}}
@@ -92,6 +96,8 @@
         <br>
         {{#if isAuthenticated}}
         <span><a href="/collector/rating/{{{collector_id}}}">Give or view ratings</a></span>
+        {{else}}
+        <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
         {{/if}}
         <hr/>
     </div>

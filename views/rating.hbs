@@ -3,6 +3,7 @@
         {{#if isLoggedInUser}}
         <h2>Your ratings</h2>
         {{else}}
+        {{#if isAuthenticated}}
         {{#each collector}}
         <h2>{{username}}'s ratings</h2>
         <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
@@ -41,6 +42,7 @@
             <span>Click <a href="/collector/{{{id}}}">here </a>to return to collector's profile.</span>
 
         </form>
+        {{/if}}
         {{/if}}
         {{/if}}
         <br>
