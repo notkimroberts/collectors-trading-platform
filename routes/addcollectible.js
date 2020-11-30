@@ -40,7 +40,7 @@ router.post('/', async (req, res, next) => {
                     const { data } = req.files.pic;
                     const typeSelected = req.body.collectible_type;
                     const userId = req.signedCookies.user_id;
-                    if (typeSelected == "lego") {
+                    if (typeSelected == "1") {
                         const collectorData = await knex('collector')
                         .select('username', 'email', 'phone_number', 'collector_id')
                         .where('collector_id', userId );
@@ -109,103 +109,101 @@ router.post('/', async (req, res, next) => {
                         });
                     }
                         
-                        else if (typeSelected == "funko") {
-                            const collectorData = await knex('collector')
-                            .select('username', 'email', 'phone_number', 'collector_id')
-                            .where('collector_id', userId );
-                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                                const collectibleType = '2';    
-                                var n = ids.includes(collectibleType);
-                                const collectibleAll = '6';
-                                var z = ids.includes(collectibleAll);
-                                if (n == true || z == true)                                {
-                                    if (!req.body.number) {
-                                        res.render('addcollectible', { 
-                                                message: 'Please add number',
-                                                messageClass: 'alert-danger'
-                                            }
-                                        )
-                                        return
+                else if (typeSelected == "2") {
+                    const collectorData = await knex('collector')
+                    .select('username', 'email', 'phone_number', 'collector_id')
+                    .where('collector_id', userId );
+                    knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                        const collectibleType = '2';    
+                        var n = ids.includes(collectibleType);
+                        const collectibleAll = '6';
+                        var z = ids.includes(collectibleAll);
+                        if (n == true || z == true) {
+                            if (!req.body.number) {
+                                res.render('addcollectible', { 
+                                        message: 'Please add number',
+                                        messageClass: 'alert-danger'
                                     }
-                                    if (!req.body.line) {
-                                        res.render('addcollectible', { 
-                                                message: 'Please add line',
-                                                messageClass: 'alert-danger'
-                                            }
-                                        )
-                                        return
-                                    }
-                                    // obtain fields from form and store
-                                    const collectible = {
-                                        name: req.body.name,
-                                        collectible_type_id: collectibleType,
-                                        image: data,
-                                        attributes: 
-                                                    {
-                                                        number: req.body.number, 
-                                                        line: req.body.line
-                                                    }
-                                        };
-                                // create the new collectible entry
-                                const collectibleID = await Collectible.create(collectible);
-                                res.redirect(`/collectible/${collectibleID}`);
-                                    }
-                                    else{
-                                        res.render('addcollectible', { 
-                                            message: 'You do not have the admin privilege to edit this collectible',
-                                            messageClass: 'alert-danger'
-                                            }   
-                                        )
-                                            return
-                                    }
-                            });
+                                )
+                                return
                             }
-                                    
-                    else if (typeSelected == "pusheen") {
-                        const collectorData = await knex('collector')
-                            .select('username', 'email', 'phone_number', 'collector_id')
-                            .where('collector_id', userId );
-                            knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                                const collectibleType = '3';  
-                                var n = ids.includes(collectibleType);
-                                const collectibleAll = '6';
-                                var z = ids.includes(collectibleAll);
-                                if (n == true || z == true)                                {
-                        if (!req.body.product_type1) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add product type',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-
-                        if (!req.body.season) {
-                            res.render('addcollectible', { 
-                                    message: 'Please add season/holiday',
-                                    messageClass: 'alert-danger'
-                                }
-                            )
-                            return
-                        }
-                        
-
-                
-                        // obtain fields from form and store
-                        const collectible = {
-                            name: req.body.name,
-                            collectible_type_id: collectibleType,
-                            image: data,
-                            attributes: 
-                                        {
-                                            product_type: req.body.product_type1,
-                                            season: req.body.season 
-                                        }
-                            };
+                            if (!req.body.line) {
+                                res.render('addcollectible', { 
+                                        message: 'Please add line',
+                                        messageClass: 'alert-danger'
+                                    }
+                                )
+                                return
+                            }
+                            // obtain fields from form and store
+                            const collectible = {
+                                name: req.body.name,
+                                collectible_type_id: collectibleType,
+                                image: data,
+                                attributes: 
+                                            {
+                                                number: req.body.number, 
+                                                line: req.body.line
+                                            }
+                                };
                         // create the new collectible entry
                         const collectibleID = await Collectible.create(collectible);
                         res.redirect(`/collectible/${collectibleID}`);
+                            }
+                            else{
+                                res.render('addcollectible', { 
+                                    message: 'You do not have the admin privilege to edit this collectible',
+                                    messageClass: 'alert-danger'
+                                    }   
+                                )
+                                    return
+                            }
+                    });
+                }
+                                    
+                else if (typeSelected == "3") {
+                    const collectorData = await knex('collector')
+                        .select('username', 'email', 'phone_number', 'collector_id')
+                        .where('collector_id', userId );
+                        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
+                            const collectibleType = '3';  
+                            var n = ids.includes(collectibleType);
+                            const collectibleAll = '6';
+                            var z = ids.includes(collectibleAll);
+                            if (n == true || z == true) {
+                    if (!req.body.product_type1) {
+                        res.render('addcollectible', { 
+                                message: 'Please add product type',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
                     }
+
+                    if (!req.body.season) {
+                        res.render('addcollectible', { 
+                                message: 'Please add season/holiday',
+                                messageClass: 'alert-danger'
+                            }
+                        )
+                        return
+                    }
+                                    
+                    // obtain fields from form and store
+                    const collectible = {
+                        name: req.body.name,
+                        collectible_type_id: collectibleType,
+                        image: data,
+                        attributes: 
+                                    {
+                                        product_type: req.body.product_type1,
+                                        season: req.body.season 
+                                    }
+                        };
+                    // create the new collectible entry
+                    const collectibleID = await Collectible.create(collectible);
+                    res.redirect(`/collectible/${collectibleID}`);
+                }
                     else{
                         res.render('addcollectible', { 
                             message: 'You do not have the admin privilege to edit this collectible',
@@ -217,7 +215,7 @@ router.post('/', async (req, res, next) => {
                 });
                 }
                         
-                    else if (typeSelected == "pokemon") {
+                    else if (typeSelected == "4") {
                         const collectorData = await knex('collector')
                         .select('username', 'email', 'phone_number', 'collector_id')
                         .where('collector_id', userId );
@@ -274,7 +272,7 @@ router.post('/', async (req, res, next) => {
                         
 
 
-                    else if (typeSelected == "hot_wheel") { 
+                    else if (typeSelected == "5") { 
                         const collectorData = await knex('collector')
                             .select('username', 'email', 'phone_number', 'collector_id')
                             .where('collector_id', userId );
