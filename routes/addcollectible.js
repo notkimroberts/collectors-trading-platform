@@ -24,6 +24,14 @@ router.post('/', async (req, res, next) => {
     const userAdminType = collectorData.is_admin;
 
     if(validCollectible(req.body)) {
+        if(userAdminType !=typeSelected && userAdminType != "6"){
+            res.render('addcollectible', { 
+                message: 'You do not have the admin privilege to edit this collectible',
+                messageClass: 'alert-danger'
+                }   
+            )
+            return
+        }
         if (await Collectible.getByName(req.body.name)) {
             res.render('addcollectible', { 
                     message: 'That collectible name already exists in the database. Unique names only.',
@@ -45,14 +53,6 @@ router.post('/', async (req, res, next) => {
             .then(async (collectible) => {
                 if (!collectible) {
                     if (typeSelected == "1") {
-                        if(userAdminType !="1" && userAdminType != "6"){
-                            res.render('addcollectible', { 
-                                message: 'You do not have the admin privilege to edit this collectible',
-                                messageClass: 'alert-danger'
-                                }   
-                            )
-                            return
-                        }
                         if (!req.body.piece_count) {
                             res.render('addcollectible', { 
                                     message: 'Please add piece count',
@@ -101,14 +101,6 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectibleID}`);
                     }
                     else if (typeSelected == "2") {
-                        if(userAdminType !="2" && userAdminType != "6"){
-                             res.render('addcollectible', { 
-                                message: 'You do not have the admin privilege to edit this collectible',
-                                messageClass: 'alert-danger'
-                                }   
-                            )
-                            return
-                        }
                         if (!req.body.number) {
                             res.render('addcollectible', { 
                                     message: 'Please add number',
@@ -141,14 +133,6 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectibleID}`);
                     }      
                     else if (typeSelected == "3") {
-                        if(userAdminType !="3" && userAdminType != "6"){
-                            res.render('addcollectible', { 
-                                message: 'You do not have the admin privilege to edit this collectible',
-                                messageClass: 'alert-danger'
-                                }   
-                            )
-                            return
-                        }
                         if (!req.body.product_type1) {
                             res.render('addcollectible', { 
                                     message: 'Please add product type',
@@ -181,14 +165,6 @@ router.post('/', async (req, res, next) => {
                         res.redirect(`/collectible/${collectibleID}`);
                     }
                 else if (typeSelected == "4") {
-                    if(userAdminType !="4" && userAdminType != "6"){
-                        res.render('addcollectible', { 
-                            message: 'You do not have the admin privilege to edit this collectible',
-                            messageClass: 'alert-danger'
-                            }   
-                        )
-                        return
-                    }
                     if (!req.body.product_type) {
                         res.render('addcollectible', { 
                                 message: 'Please add product type',
@@ -222,14 +198,6 @@ router.post('/', async (req, res, next) => {
                     res.redirect(`/collectible/${collectibleID}`);
                 }
                 else if (typeSelected == "5") {
-                    if(userAdminType !="5" && userAdminType != "6"){
-                        res.render('addcollectible', { 
-                            message: 'You do not have the admin privilege to edit this collectible',
-                            messageClass: 'alert-danger'
-                            }   
-                        )
-                        return
-                    }
                     if (!req.body.number1) {
                         res.render('addcollectible', { 
                                 message: 'Please add number',
