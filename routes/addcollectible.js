@@ -87,7 +87,7 @@ router.post('/', async (req, res, next) => {
                         }
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: typeSelected,
+                            collectible_type_id: collectibleType,
                             image: data,
                             attributes: 
                             {
@@ -99,44 +99,6 @@ router.post('/', async (req, res, next) => {
                         };
                         const collectibleID = await Collectible.create(collectible);
                         res.redirect(`/collectible/${collectibleID}`);
-                            }
-                            else{
-                                res.render('addcollectible', { 
-                                    message: 'You do not have the admin privilege to edit this collectible',
-                                    messageClass: 'alert-danger'
-                                    }   
-                                )
-                                    return
-                            }
-                    });
-                }
-                                    
-                else if (typeSelected == "3") {
-                    const collectorData = await knex('collector')
-                        .select('username', 'email', 'phone_number', 'collector_id')
-                        .where('collector_id', userId );
-                        knex.table('collector').pluck('is_admin').where('collector_id', userId ).then(async function(ids) { 
-                            const collectibleType = '3';  
-                            var n = ids.includes(collectibleType);
-                            const collectibleAll = '6';
-                            var z = ids.includes(collectibleAll);
-                            if (n == true || z == true) {
-                    if (!req.body.product_type1) {
-                        res.render('addcollectible', { 
-                                message: 'Please add product type',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
-                    }
-
-                    if (!req.body.season) {
-                        res.render('addcollectible', { 
-                                message: 'Please add season/holiday',
-                                messageClass: 'alert-danger'
-                            }
-                        )
-                        return
                     }
                     else if (typeSelected == "2") {
                         if(userAdminType !="2" && userAdminType != "6"){
@@ -166,7 +128,7 @@ router.post('/', async (req, res, next) => {
                         // obtain fields from form and store
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: typeSelected,
+                            collectible_type_id: collectibleType,
                             image: data,
                             attributes: 
                             {
@@ -206,7 +168,7 @@ router.post('/', async (req, res, next) => {
                         // obtain fields from form and store
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: typeSelected,
+                            collectible_type_id: collectibleType,
                             image: data,
                             attributes: 
                             {
@@ -247,7 +209,7 @@ router.post('/', async (req, res, next) => {
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
-                        collectible_type_id: typeSelected,
+                        collectible_type_id: collectibleType,
                         image: data,
                         attributes: 
                                     {
@@ -295,7 +257,7 @@ router.post('/', async (req, res, next) => {
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
-                        collectible_type_id: typeSelected,
+                        collectible_type_id: collectibleType,
                         image: data,
                         attributes: 
                         {
@@ -324,6 +286,7 @@ router.post('/', async (req, res, next) => {
         
     });
 }
+
     // else name is not valid
     else {
         res.render('addcollectible', { 
@@ -334,5 +297,8 @@ router.post('/', async (req, res, next) => {
         return
     }
 });
+
+
+
 
 module.exports = router;
