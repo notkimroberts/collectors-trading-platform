@@ -38,7 +38,6 @@ router.post('/register', (req, res, next) => {
                         if (req.body.is_admin != 0) {
                             // if user did not enter promocode
                             if (!req.body.allpromos) {
-                                console.log("no code");
                                 res.render('register', {
                                     message: 'Please enter a promocode for the admin type selected',
                                     messageClass: 'alert-danger'
@@ -49,7 +48,6 @@ router.post('/register', (req, res, next) => {
 
                             if (req.body.is_admin === "1") {
                                 if (req.body.allpromos != "AAA20"){
-                                    console.log("wrong code");
                                     res.render('register', {
                                         message: 'Please enter valid promocode for Lego admin',
                                         messageClass: 'alert-danger'
@@ -61,7 +59,6 @@ router.post('/register', (req, res, next) => {
 
                             if (req.body.is_admin === "2") {
                                 if (req.body.allpromos != "BBB20"){
-                                    console.log("wrong code");
                                     res.render('register', {
                                         message: 'Please enter valid promocode for Funko admin',
                                         messageClass: 'alert-danger'
@@ -73,7 +70,6 @@ router.post('/register', (req, res, next) => {
 
                             if (req.body.is_admin === "3") {
                                 if (req.body.allpromos != "CCC20") {
-                                    console.log("wrong code");
                                     res.render('register', {
                                         message: 'Please enter valid promocode for Pusheen admin',
                                         messageClass: 'alert-danger'
@@ -85,7 +81,6 @@ router.post('/register', (req, res, next) => {
 
                             if (req.body.is_admin === "4") {
                                 if (req.body.allpromos != "RRR20"){
-                                    console.log("wrong code");
                                     res.render('register', {
                                         message: 'Please enter valid promocode for Pokemon admin',
                                         messageClass: 'alert-danger'
@@ -97,7 +92,6 @@ router.post('/register', (req, res, next) => {
 
                             if (req.body.is_admin === "5") {
                                 if (req.body.allpromos != "DDD20") {
-                                    console.log("wrong code");
                                     res.render('register', {
                                         message: 'Please enter valid promocode for Hot Wheels admin',
                                         messageClass: 'alert-danger'
@@ -108,7 +102,6 @@ router.post('/register', (req, res, next) => {
                             }
                             if (req.body.is_admin === "6") {
                                 if (req.body.allpromos != "REG20") {
-                                    console.log("wrong code");
                                     res.render('register', {
                                             message: 'Please enter valid promocode for all admin type',
                                             messageClass: 'alert-danger'
