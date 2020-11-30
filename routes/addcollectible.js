@@ -87,7 +87,7 @@ router.post('/', async (req, res, next) => {
                         }
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: collectibleType,
+                            collectible_type_id: typeSelected,
                             image: data,
                             attributes: 
                             {
@@ -128,7 +128,7 @@ router.post('/', async (req, res, next) => {
                         // obtain fields from form and store
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: collectibleType,
+                            collectible_type_id: typeSelected,
                             image: data,
                             attributes: 
                             {
@@ -168,7 +168,7 @@ router.post('/', async (req, res, next) => {
                         // obtain fields from form and store
                         const collectible = {
                             name: req.body.name,
-                            collectible_type_id: collectibleType,
+                            collectible_type_id: typeSelected,
                             image: data,
                             attributes: 
                             {
@@ -209,7 +209,7 @@ router.post('/', async (req, res, next) => {
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
-                        collectible_type_id: collectibleType,
+                        collectible_type_id: typeSelected,
                         image: data,
                         attributes: 
                                     {
@@ -257,7 +257,7 @@ router.post('/', async (req, res, next) => {
                     // obtain fields from form and store
                     const collectible = {
                         name: req.body.name,
-                        collectible_type_id: collectibleType,
+                        collectible_type_id: typeSelected,
                         image: data,
                         attributes: 
                         {
