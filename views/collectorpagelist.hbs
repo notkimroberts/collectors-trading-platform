@@ -94,7 +94,9 @@
         <span class="fa fa-star"></span>
         {{/if}}
         <br>
-        {{#if isAuthenticated}}
+        {{#if isLoggedInUser}}
+        <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
+        {{else if isAuthenticated}}
         <span><a href="/collector/rating/{{{collector_id}}}">Give or view ratings</a></span>
         {{else}}
         <span><a href="/collector/rating/{{{collector_id}}}">view ratings</a></span>
