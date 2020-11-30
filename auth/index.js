@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 // check to make sure user entered valid text in email and password fields
 function validUser(collector) {
     const validEmail = typeof collector.email == 'string' && collector.email.trim() != '';
-    const validPassword = typeof collector.password == 'string' && collector.password.trim() != '' && collector.password.trim().length >=6;
+    const validPassword = typeof collector.password == 'string' && collector.password.trim() != '' && collector.password.trim().length >=8;
 
     return validEmail && validPassword;
 }
