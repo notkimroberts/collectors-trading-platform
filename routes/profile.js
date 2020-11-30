@@ -342,7 +342,7 @@ router.get(['/', '/:filter'], ensureLoggedIn, async (req, res, next) => {
     }
 
     const collectorData = await knex('collector')
-        .select('username', 'email', 'phone_number', 'collector_id')
+        .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', userId );
 
     // user's has collectibles if has_quantity is greater than 0
