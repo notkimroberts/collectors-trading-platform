@@ -125,7 +125,13 @@ router.post('/register', (req, res, next) => {
                                             .create(collector)
                                             .then(collector_id => {
                                             });
-                                            res.redirect('/login');
+                                            res.render('login', {
+                                                message: 'Successfully created account. Please login to continue.',
+                                                messageClass: 'alert-danger'
+                                                }
+                                            );
+                                            return
+                                        
                                  });
 
                                 }
@@ -164,69 +170,6 @@ router.post('/register', (req, res, next) => {
                 return
             }
     
-});
-
-function setUserIdCookie(req, res, id) {
-    const isSecure = req.app.get('env') != 'development';
-    res.cookie('user_id', id, {
-        httpOnly: true,
-        secure: isSecure,
-        signed: true
-    });
-}
-
-
-router.post('/login', (req, res, next) => {
-    // check to see if user is in database
-    if(validUser(req.body)) {
-        Collector    
-            .getByEmail(req.body.email)
-            .then(collector => {
-                if (collector) {
-                    // check password against hashed password
-                    bcrypt
-                        .compare(req.body.password, collector.password)
-                        .then((result) => {
-                            // if the passwords matched
-                            if(result) {
-                                // set set-cookie header
-                                setUserIdCookie(req, res, collector.collector_id);
-                            console.log("logged in");
-                                // ({
-                                //     collector_id: collector.collector_id,
-                                //     message: 'logged in'
-                                //   });
-                                res.redirect('/profile');
-                            }
-                            else {
-                                res.render('login', {
-                                    message: 'Invalid login1',
-                                    messageClass: 'alert-danger'
-                                    }
-                                );
-                                return
-                            }
-                        
-                        });
-                }
-                else {
-                      res.render('login', {
-                        message: 'Invalid login2',
-                        messageClass: 'alert-danger'
-                        }
-                    );
-                    return
-                }
-            });
-    }
-    else {
-        res.render('login', {
-            message: 'Invalid login3',
-            messageClass: 'alert-danger'
-            }
-        );
-        return
-    }
 });
 
 

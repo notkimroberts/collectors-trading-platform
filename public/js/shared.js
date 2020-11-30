@@ -16,9 +16,9 @@ function getHostURL() {
     } else {
       return 'https://collectors-trading-platform.herokuapp.com';
     }
-  }
+  } 
 
-  function showAdminSelect(){
+ /*  function showAdminSelect(){
    if(document.getElementById("no").checked = true)
    {
       $(".show").show()
@@ -42,9 +42,9 @@ function getHostURL() {
     const $errorMessage =$('#errorMessage');
     $errorMessage.text(message);
     $errorMessage.show();
-  }
+  } */
 
-  function redirectIfLoggedIn() {
+/*   function redirectIfLoggedIn() {
 
     if (sessionStorage.user_id) {
     window.location=`/`;
@@ -56,10 +56,10 @@ function getHostURL() {
     sessionStorage.user_id = result.collector_id;
     window.location='/profile';
   }
-
+ */
 
   function logout() {
-      sessionStorage.removeItem('user_id');
+/*       sessionStorage.removeItem('user_id'); */
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
             window.location = '/login';

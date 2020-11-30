@@ -1,6 +1,6 @@
 /* const { error } = require("jquery"); */
 // https://www.youtube.com/watch?v=YFxsqHD6JUc&
-$(() => {
+/* $(() => {
 
     $('form').on("submit", callback)((event) => {
         event.preventDefault();
@@ -20,4 +20,4 @@ $(() => {
 
 function login(collector) {
     return $.post(`${AUTH_URL}/login`, collector); 
-}
+} */
