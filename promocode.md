@@ -2,5 +2,5 @@ AAA20 - Lego
 BBB20 - Funko
 CCC20 - Pusheen
 RRR20 - Pokemon
-DDD20 - Hot Wheel
+DDD20 - Hot Wheels
 REG20 - All Admin Account
