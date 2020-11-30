@@ -25,7 +25,6 @@ router.post('/register', (req, res, next) => {
             .getByEmail(req.body.email)
             .then(collector => {
 
-
                 // if user not found, then it is a unique email
                 if(!collector) {
                     Collector
@@ -48,43 +47,46 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
-                                        
                                         return
                                         }
                                         else if (req.body.is_admin === "1"){
                                             if (req.body.allpromos != "AAA20"){
                                                 res.render('register', {
-                                                message: 'Please enter valid promocode for hot wheel admin',
+                                                message: 'Please enter valid promocode for lego admin',
                                                     messageClass: 'alert-danger'
                                                 }
                                             )
+                                            return
                                         }
                                     }
                                     else if (req.body.is_admin === "2"){
                                         if (req.body.allpromos != "BBB20"){
                                             res.render('register', {
-                                            message: 'Please enter valid promocode for hot wheel admin',
+                                            message: 'Please enter valid promocode for funko admin',
                                                 messageClass: 'alert-danger'
                                             }
                                         )
+                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "3"){
                                         if (req.body.allpromos != "CCC20"){
                                             res.render('register', {
-                                            message: 'Please enter valid promocode for hot wheel admin',
+                                            message: 'Please enter valid promocode for pusheen admin',
                                                 messageClass: 'alert-danger'
                                             }
                                         )
+                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "4"){
                                         if (req.body.allpromos != "RRR20"){
                                             res.render('register', {
-                                            message: 'Please enter valid promocode for hot wheel admin',
+                                            message: 'Please enter valid promocode for pokemon admin',
                                                 messageClass: 'alert-danger'
                                             }
                                         )
+                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "5"){
@@ -94,6 +96,7 @@ router.post('/register', (req, res, next) => {
                                                 messageClass: 'alert-danger'
                                             }
                                         )
+                                        return
                                     }
                                 }
                                     else if (req.body.is_admin === "6"){
@@ -104,6 +107,7 @@ router.post('/register', (req, res, next) => {
                                                     messageClass: 'alert-danger'
                                                 }
                                             )
+                                            return
                                         }
                                     }
                                     }
@@ -132,6 +136,7 @@ router.post('/register', (req, res, next) => {
                                         message: 'Username in use. Please input a different username.',
                                         messageClass: 'alert-danger'
                                     });
+                                    return
                                 }
 
                     });
@@ -143,6 +148,7 @@ router.post('/register', (req, res, next) => {
                         message: 'Email in use. Please input a different email.',
                         messageClass: 'alert-danger'
                     });
+                    return
                 }
                 
         });
@@ -155,6 +161,7 @@ router.post('/register', (req, res, next) => {
                     message: 'Invalid fields',
                     messageClass: 'alert-danger'
                 });
+                return
             }
     
 });
@@ -192,25 +199,39 @@ router.post('/login', (req, res, next) => {
                                 res.redirect('../');
                             }
                             else {
-                                var err = new Error('Invalid login');
-                                err.status = 401;
-                                next(err);
+                                console.log("Hell32o");
+
+                                res.render('login', {
+                                    message: 'Invalid login',
+                                    messageClass: 'alert-danger'
+                                    }
+                                );
+                                return
                             }
                         
                         });
                 }
                 else {
-                    var err = new Error('Invalid login');
-                    err.status = 401;
-                    next(err);
+                    console.log("Hell111o");
 
-                }       
+                    res.render('./login', {
+                        message: 'Invalid login',
+                        messageClass: 'alert-danger'
+                        }
+                    );
+                    return
+                }
             });
     }
     else {
-        var err = new Error('Invalid login');
-        err.status = 401;
-        next(err);
+        console.log("Hello");
+
+        res.render('login', {
+            message: 'Invalid login',
+            messageClass: 'alert-danger'
+            }
+        );
+        return
     }
 });
 
