@@ -196,13 +196,11 @@ router.post('/login', (req, res, next) => {
                                 //     collector_id: collector.collector_id,
                                 //     message: 'logged in'
                                 //   });
-                                res.redirect('../');
+                                res.redirect('/profile');
                             }
                             else {
-                                console.log("Hell32o");
-
                                 res.render('login', {
-                                    message: 'Invalid login',
+                                    message: 'Invalid login1',
                                     messageClass: 'alert-danger'
                                     }
                                 );
@@ -212,10 +210,8 @@ router.post('/login', (req, res, next) => {
                         });
                 }
                 else {
-                    console.log("Hell111o");
-
-                    res.render('./login', {
-                        message: 'Invalid login',
+                      res.render('login', {
+                        message: 'Invalid login2',
                         messageClass: 'alert-danger'
                         }
                     );
@@ -224,10 +220,8 @@ router.post('/login', (req, res, next) => {
             });
     }
     else {
-        console.log("Hello");
-
         res.render('login', {
-            message: 'Invalid login',
+            message: 'Invalid login3',
             messageClass: 'alert-danger'
             }
         );
