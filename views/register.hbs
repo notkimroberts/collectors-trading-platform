@@ -39,15 +39,16 @@
         </script>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control"  name="username" id="username" required>
+                <small id="usernameHelp" class="form-text text-muted mb-1">Must be between 3-25 characters long.</small>
+                <input type="text" class="form-control"  name="username" id="username" minlength="3" maxlength="25" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control"  name="email" id="email" required>
+                <input type="email" class="form-control"  name="email" id="email" maxlength="128" required>
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
-                <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" required>
+                <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" maxlength="15" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
