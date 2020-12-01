@@ -43,6 +43,7 @@ router.post('/', (req, res, next) => {
                         // set set-cookie header
                         setUserIdCookie(req, res, collector.collector_id);
                         res.redirect('/profile');
+                        return;
                     }
                     else {
                         // password does not match what we have in our database for that email address

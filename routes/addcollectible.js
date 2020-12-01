@@ -131,6 +131,7 @@ router.post('/', async (req, res, next) => {
                     };
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/${collectibleID}`);
+                    return;
                 }
                 else if (typeSelected == "2") {
                     if (!req.body.number) {
@@ -163,6 +164,7 @@ router.post('/', async (req, res, next) => {
                     // create the new collectible entry
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/${collectibleID}`);
+                    return;
                 }      
                 else if (typeSelected == "3") {
                     if (!req.body.product_type1) {
@@ -195,6 +197,7 @@ router.post('/', async (req, res, next) => {
                     // create the new collectible entry
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/${collectibleID}`);
+                    return;
                 }
                 else if (typeSelected == "4") {
                     if (!req.body.product_type) {
@@ -228,6 +231,7 @@ router.post('/', async (req, res, next) => {
                     // create the new collectible entry
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/${collectibleID}`);
+                    return;
                 }
                 else if (typeSelected == "5") {
                     if (!req.body.number1) {
@@ -269,6 +273,7 @@ router.post('/', async (req, res, next) => {
                     // create the new collectible entry
                     const collectibleID = await Collectible.create(collectible);
                     res.redirect(`/collectible/${collectibleID}`);
+                    return;
                 }
                 else {
                     res.render('addcollectible', { 

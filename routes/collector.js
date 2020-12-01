@@ -21,6 +21,12 @@ router.get('/rating/:id', async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', id );
 
+    // if no such collector, redirect to hompage
+    if (collectorData.length == 0) {
+        res.redirect('/');
+        return;
+    }
+
     const collectorsRatings = await knex('collector_ratings')
         .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
         .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))       
@@ -40,7 +46,7 @@ router.get('/rating/:id', async (req, res, next) => {
 // post request to give user a rating
 router.post('/rating/:id', async (req, res, next) => { 
     const { id } = req.params;
-    const toUser = req.body.toUser;
+    const toUser = id;
     const fromUser = req.signedCookies.user_id;
     const stars = req.body.stars;
     const userComment = req.body.comment;
@@ -49,10 +55,42 @@ router.post('/rating/:id', async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', id );
 
+    // if no such collector, redirect to hompage
+    if (collectorData.length == 0) {
+        res.redirect('/');
+        return;
+    }
     const getRatingFromLoggedInUser = await knex('collector_ratings')
         .select('rating')
         .where('to_user_id', '=', id)
         .andWhere('from_user_id', '=', fromUser);
+
+
+    // ensure to user and from user are not the same, otherwise render error
+    if (toUser == fromUser) {
+        var isLoggedInUser = 1;
+
+        const collectorsRatings = await knex('collector_ratings')
+        .select('collector_ratings.rating', 'collector_ratings.comment', 'collector_ratings.from_user_id', 'collector.collector_id', 'collector.username')
+        .select(knex.raw("to_char(collector_ratings.updated_at, 'YYYY-MM-DD') as updated_at"))         
+        .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
+        .where('to_user_id', '=', id)
+
+
+        res.render('rating', { 
+            title: `Collector\'s Trading Platform | Rating`,
+            message: 'Error: You cannot give yourself a rating',
+            messageClass: 'alert-danger',
+            collector: collectorData,
+            id,
+            fromUser,
+            ratings: collectorsRatings,
+            isLoggedInUser
+        });
+        return;
+    }
+
+
 
     // update rating if logged in user already gave a rating
     if (getRatingFromLoggedInUser.length > 0) {
@@ -159,6 +197,11 @@ router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', id );
 
+    // if no such collector, redirect to hompage
+    if (collectorData.length == 0) {
+        res.redirect('/');
+        return;
+    }
 
     // get user's ratings by star count
     const rating1 = await knex('collector_ratings')
@@ -437,6 +480,11 @@ router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
         .where('collector_id', id );
 
+    // if no such collector, redirect to hompage
+    if (collectorData.length == 0) {
+        res.redirect('/');
+        return;
+    }
     const wantsPublic = await knex('collector')
         .select('wants_public')
         .where('wants_public', 'true')
@@ -574,9 +622,21 @@ router.get(['/trade/:id', '/trade/:id?:filter'], ensureLoggedIn, async (req, res
     const currentUserId = req.signedCookies.user_id
     const otherUserId = req.params.id
 
+    const collectorData = await knex('collector')
+    .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
+    .where('collector_id', otherUserId );
+
+    // if no such collector, redirect to hompage
+    if (collectorData.length == 0) {
+        res.redirect('/');
+        return;
+    }
+
     if (otherUserId === currentUserId) {
         res.redirect('/profile')
+        return;
     }
+
 
     let filterTypes = req.query.filter
     if (typeof filterTypes === 'string' || filterTypes instanceof String) {
@@ -592,7 +652,7 @@ router.get(['/trade/:id', '/trade/:id?:filter'], ensureLoggedIn, async (req, res
     const otherUser = await knex('collector')
         .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
         .where({ collector_id: otherUserId }).first()
-
+    
     const currentUserWants = await knex('collection')
         .select(['collectible_id'])
         .where('collector_id', '=', currentUserId)
@@ -687,9 +747,20 @@ router.get(['/trade/:id', '/trade/:id?:filter'], ensureLoggedIn, async (req, res
 router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, async (req, res, next) => {
         const currentUserId = req.signedCookies.user_id
         const otherUserId = req.params.id
+        console.log(otherUserId);
+        
+        const collectorData = await knex('collector')
+        .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
+        .where('collector_id', otherUserId );
     
+        // if no such collector, redirect to hompage
+        if (collectorData.length == 0) {
+            res.redirect('/');
+            return;
+        }
         if (otherUserId === currentUserId) {
             res.redirect('/profile')
+            return;
         }
 
         let filterTypes = req.query.filter
@@ -706,7 +777,7 @@ router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, a
         const otherUser = await knex('collector')
             .select('collector_id', 'username', 'email', 'phone_number', 'is_admin')
             .where({ collector_id: otherUserId }).first()
-    
+
         const currentUserWants = await knex('collection')
             .select(['collectible_id'])
             .where('collector_id', '=', currentUserId)

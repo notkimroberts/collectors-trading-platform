@@ -164,6 +164,7 @@ router.post('/', async (req, res, next) => {
         // update updated_at time
         await knex('collectible').where({collectible_id: collectible_id}).update({updated_at: knex.fn.now()});
         res.redirect(`/collectible/${collectible_id}`);
+        return;
     }
 
   if (typeSelected == '1') {
@@ -397,6 +398,7 @@ router.post('/', async (req, res, next) => {
         .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+        return;
     }
 
     if (typeSelected == '2') {
@@ -564,6 +566,7 @@ router.post('/', async (req, res, next) => {
         .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+        return;
 
     }
 
@@ -895,6 +898,7 @@ router.post('/', async (req, res, next) => {
         .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+        return;
     }
 
     if (typeSelected == '5') {
@@ -1091,6 +1095,7 @@ router.post('/', async (req, res, next) => {
         .update({updated_at: knex.fn.now()});
 
         res.redirect(`/collectible/${collectible_id}`);
+        return;
     }
 });
 

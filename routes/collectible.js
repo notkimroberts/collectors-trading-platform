@@ -95,6 +95,11 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.created_at', 'collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
+
+    if (collectibles.length == 0) {
+        res.redirect('/');
+        return;
+    }
     
     var signInToViewTrades = 1;
 
