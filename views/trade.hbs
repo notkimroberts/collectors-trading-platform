@@ -29,7 +29,7 @@
 <h7><a href="/collector/trade/images/{{{otherUser.collector_id}}}">view in image list format</a></h7>
 <div class="row">
     <div class="column">
-        <h4>Collectibles you have that <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
+        <h4>Collectibles you have for trade that <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> wants:</h4>
         {{#if wantsPublic}}
         {{#if currentUserMatchesExist}}
         <table class="table table-striped">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="column">
-        <h4>Collectibles <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has that you want:</h4>
+        <h4>Collectibles <a href="/collector/list/{{{otherUser.collector_id}}}">{{{otherUser.username}}}</a> has for trade that you want:</h4>
         {{#if tradesPublic}}
         {{#if otherUserMatchesExist}}
         <table class="table table-striped">
