@@ -41,7 +41,7 @@ router.get('/rating/:id', async (req, res, next) => {
 router.post('/rating/:id', async (req, res, next) => { 
     const { id } = req.params;
     const toUser = req.body.toUser;
-    const fromUser = req.body.fromUser;
+    const fromUser = req.signedCookies.user_id;
     const stars = req.body.stars;
     const userComment = req.body.comment;
 

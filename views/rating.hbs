@@ -21,7 +21,6 @@
         <form id="rating" action="/collector/rating/{{id}}" enctype="multipart/form-data" method="POST">
             <div class="form-group">
                 <input type="hidden" name="toUser" id="toUser" value="{{id}}" readonly>
-                <input type="hidden" name="fromUser" id="fromUser" value="{{fromUser}}" readonly>
                 <label for="collectible_id">Rating: </label>
                 <select name='stars' style='height: 45px; font-family:Arial, FontAwesome;'>
                     <option value='1' style='color:orange;'>&#xf005; &nbsp;</option>
