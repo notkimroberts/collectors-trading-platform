@@ -167,9 +167,41 @@ router.post('/', async (req, res, next) => {
         return;
     }
 
-  if (typeSelected == '1') {
+    else if (typeSelected == '1') {
     
-            if (userAdminType != "1" && userAdminType !='6'){
+        if (userAdminType != "1" && userAdminType !='6'){
+            res.render('editcollectible', { 
+            title: "edit collectible", 
+            id,
+            selectLego,
+            selectFunko,
+            selectPusheen,
+            selectPokemon,
+            selectHotWheels,
+            message: 'You do not have the admin privilege to edit to this collectible type',
+            messageClass: 'alert-danger'
+            }
+        )
+        return
+        }
+
+        if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
+            res.render('editcollectible', { 
+            title: "edit collectible", 
+            id,
+            selectLego,
+            selectFunko,
+            selectPusheen,
+            selectPokemon,
+            selectHotWheels,
+            message: 'You do not have the admin privilege to edit to this collectible type',
+            messageClass: 'alert-danger'
+            }
+        )
+        return
+        }
+        if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
+            if (!req.body.piece_count) {
                 res.render('editcollectible', { 
                 title: "edit collectible", 
                 id,
@@ -178,208 +210,176 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
-                message: 'You do not have the admin privilege to edit to this collectible type',
+                message: 'Please add piece count. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
-            )
-            return
-            }
-
-            if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
-                res.render('editcollectible', { 
-                title: "edit collectible", 
-                id,
-                selectLego,
-                selectFunko,
-                selectPusheen,
-                selectPokemon,
-                selectHotWheels,
-                message: 'You do not have the admin privilege to edit to this collectible type',
-                messageClass: 'alert-danger'
-                }
-            )
-            return
-            }
-            if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
-                if (!req.body.piece_count) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add piece count. You must enter all type attribute fields if you are changing the collectible\'s type',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-
-                if (!req.body.set_number) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add set number. You must enter all type attribute fields if you are changing the collectible\'s type',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-
-                if (!req.body.theme) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add theme. You must enter all type attribute fields if you are changing the collectible\'s type',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-
-                if (!req.body.designed_by) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add designer. You must enter all type attribute fields if you are changing the collectible\'s type',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-
-
-
-            }
-
-            else if (!req.body.piece_count && !req.body.set_number && !req.body.theme && !req.body.designed_by) {
-                if (!name && !req.files) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-    
-                if (name) {
-                    // update name
-                    await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
-                }
-            
-                if (req.files) {
-                    const {data} = req.files.pic;
-                    if (data) {
-                    // update image
-                    await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
-                    }
-                }
-    
-                await knex('collectible')
-                .where({collectible_id: collectible_id})
-                .update({collectible_type_id: typeSelected})
-                .update({updated_at: knex.fn.now()});
-                
-                res.redirect(`/collectible/${collectible_id}`);
+                )
                 return
-    
             }
+
+            if (!req.body.set_number) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add set number. You must enter all type attribute fields if you are changing the collectible\'s type',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+            if (!req.body.theme) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add theme. You must enter all type attribute fields if you are changing the collectible\'s type',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+            if (!req.body.designed_by) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add designer. You must enter all type attribute fields if you are changing the collectible\'s type',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+
+
+        }
+
+        else if (!req.body.piece_count && !req.body.set_number && !req.body.theme && !req.body.designed_by) {
+            if (!name && !req.files) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+            if (name) {
+                // update name
+                await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
+            }
+        
+            if (req.files) {
+                const {data} = req.files.pic;
+                if (data) {
+                // update image
+                await knex('collectible').where({collectible_id: collectible_id}).update({image: data});
+                }
+            }
+
+            await knex('collectible')
+            .where({collectible_id: collectible_id})
+            .update({collectible_type_id: typeSelected})
+            .update({updated_at: knex.fn.now()});
             
-            else {
-                if (!req.body.piece_count) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add piece count',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
+            res.redirect(`/collectible/${collectible_id}`);
+            return
 
-                if (!req.body.set_number) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add set number',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
+        }
+        
+        else {
+            if (!req.body.piece_count) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add piece count',
+                messageClass: 'alert-danger'
                 }
-
-                if (!req.body.theme) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add theme',
-                    messageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
-
-                if (!req.body.designed_by) {
-                    res.render('editcollectible', { 
-                    title: "edit collectible", 
-                    id,
-                    selectLego,
-                    selectFunko,
-                    selectPusheen,
-                    selectPokemon,
-                    selectHotWheels,
-                    message: 'Please add designer',
-                        essageClass: 'alert-danger'
-                    }
-                    )
-                    return
-                }
+                )
+                return
             }
+
+            if (!req.body.set_number) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add set number',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+            if (!req.body.theme) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add theme',
+                messageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+
+            if (!req.body.designed_by) {
+                res.render('editcollectible', { 
+                title: "edit collectible", 
+                id,
+                selectLego,
+                selectFunko,
+                selectPusheen,
+                selectPokemon,
+                selectHotWheels,
+                message: 'Please add designer',
+                    essageClass: 'alert-danger'
+                }
+                )
+                return
+            }
+        }
 
         if (name) {
             // update name
             await knex('collectible').where({collectible_id: collectible_id}).update({name: name});
         }
-    
+
         if (req.files) {
             const {data} = req.files.pic;
             if (data) {
@@ -401,7 +401,7 @@ router.post('/', async (req, res, next) => {
         return;
     }
 
-    if (typeSelected == '2') {
+    else if (typeSelected == '2') {
 
         if (userAdminType != "2" && userAdminType !='6'){
             res.render('editcollectible', { 
@@ -571,7 +571,7 @@ router.post('/', async (req, res, next) => {
     }
 
 
-    if (typeSelected == '3') {
+    else if (typeSelected == '3') {
 
         if (userAdminType != "3" && userAdminType !='6'){
             res.render('editcollectible', { 
@@ -677,9 +677,8 @@ router.post('/', async (req, res, next) => {
 
             res.redirect(`/collectible/${collectible_id}`);
             return
-
-
         }
+
         else {
             if (!req.body.product_type1) {
                 res.render('editcollectible', { 
@@ -737,7 +736,7 @@ router.post('/', async (req, res, next) => {
         return
     }
 
-    if (typeSelected == '4') {
+    else if (typeSelected == '4') {
     
         if (userAdminType != "4" && userAdminType !='6'){
             res.render('editcollectible', { 
@@ -901,7 +900,7 @@ router.post('/', async (req, res, next) => {
         return;
     }
 
-    if (typeSelected == '5') {
+    else if (typeSelected == '5') {
 
         
         if (userAdminType != "5" && userAdminType !='6'){
@@ -1096,6 +1095,15 @@ router.post('/', async (req, res, next) => {
 
         res.redirect(`/collectible/${collectible_id}`);
         return;
+    }
+
+    else {
+        res.render('editcollectible', { 
+            message: 'that collectible type does not exist',
+            messageClass: 'alert-danger'
+            }   
+        )
+        return
     }
 });
 

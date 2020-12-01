@@ -331,7 +331,7 @@ router.post('/update', async (req, res, next) => {
                 res.redirect('/');
                 return;
             }
-            
+
             // if user input a number in at least one of the quantities, insert new row
             if (qa[c] != 0 || qb[c] != 0 || qc[c] != 0) {
             // if no row exists for this collecible_id and userId, create new row
