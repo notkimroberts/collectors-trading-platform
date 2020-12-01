@@ -507,6 +507,16 @@ router.post('/has', async (req, res, next) => {
         var i;
         // for each collectible on the page
         for (i = 0; i < q1.length; i++) {
+
+        const collectibles = await knex('collectible')
+        .select('collectible.collectible_id')
+        .where({ collectible_id: collectible_id1[i] });
+    
+        if (collectibles.length == 0) {
+            res.redirect('/');
+            return;
+        }
+
         // update row
         await knex('collection')
         .where({ collector_id: userId })
@@ -544,6 +554,16 @@ router.post('/wants', async (req, res, next) => {
         var i;
         // for each collectible on the page
         for (i = 0; i < q1.length; i++) {
+
+        const collectibles = await knex('collectible')
+        .select('collectible.collectible_id')
+        .where({ collectible_id: collectible_id1[i] });
+    
+        if (collectibles.length == 0) {
+            res.redirect('/');
+            return;
+        }
+                
         // update row
         await knex('collection')
         .where({ collector_id: userId })
@@ -581,6 +601,16 @@ router.post('/trades', async (req, res, next) => {
         var i;
         // for each collectible on the page
         for (i = 0; i < q1.length; i++) {
+        
+            const collectibles = await knex('collectible')
+            .select('collectible.collectible_id')
+            .where({ collectible_id: collectible_id1[i] });
+        
+            if (collectibles.length == 0) {
+                res.redirect('/');
+                return;
+            }
+
         // update row
         await knex('collection')
         .where({ collector_id: userId })
