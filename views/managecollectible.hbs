@@ -1,5 +1,5 @@
 <div class="row justify-content-md-center mt-2">
-        <div class="col col-md-10">
+        <div class="col col-md-11">
             <h2>Collectibles Management for Admins</h2>
             {{#if message}}
                 <div class="alert {{messageClass}}" role="alert">
@@ -26,7 +26,7 @@
                     {{/if}}
                     {{#if showPusheenAttributes}}
                     <th >Product Type</th>
-                    <th >Season/holiday</th>
+                    <th >Season/ holiday</th>
                     {{/if}}
                     {{#if showPokemonAttributes}}
                     <th >Product Type</th>
@@ -37,20 +37,8 @@
                     <th >Series</th>
                     <th >Year Released</th>                  
                     {{/if}}  
-                    {{#if showAllAttributes}}
-{{!--                     <th >piece count</th>
-                    <th >set number</th>
-                    <th >theme</th>
-                    <th >designed by</th>
-                    <th >number</th>
-                    <th >line</th>
-                    <th >product type</th>
-                    <th >season/holiday</th>
-                    <th >generation</th>                  
-                    <th >series</th>
-                    <th >year released</th>      --}}
-                    {{/if}}
-                    <th>Date added to database</th>
+                    <th>Date Added to Database</th>
+                    <th>Date Last Updated</th>
                     <th>Image</th>
                     <th>Delete</th>
                     <th>Update</th>
@@ -69,6 +57,7 @@
                         <td >{{attributes.theme}}</td>
                         <td >{{attributes.designed_by}}</td>
                         <td>{{{created_at}}}</td>
+                        <td>{{{updated_at}}}</td>
                         <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
                         <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
                         <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
@@ -89,6 +78,7 @@
                         <td >{{attributes.number}}</td>
                         <td >{{attributes.line}}</td>             
                         <td>{{{created_at}}}</td>
+                        <td>{{{updated_at}}}</td>
                         <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
                         <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
                         <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
@@ -109,6 +99,7 @@
                         <td >{{attributes.product_type}}</td>
                         <td >{{attributes.season}}</td>
                         <td>{{{created_at}}}</td>
+                        <td>{{{updated_at}}}</td>
                         <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
                         <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
                         <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
@@ -128,6 +119,7 @@
                         <td >{{attributes.product_type}}</td>
                         <td >{{attributes.generation}}</td>
                         <td>{{{created_at}}}</td>
+                        <td>{{{updated_at}}}</td>
                         <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
                         <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
                         <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
@@ -156,8 +148,6 @@
                 {{/each}}
                 {{/if}}  
 
-
-
                 {{#if showAllAttributes}}
                 {{#each collectibles}}
                 <form action='/manage-collectible' method='post' class="form-example">
@@ -166,26 +156,8 @@
                         <td>{{{collectible_id}}}</td>
                         <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
                         <td>{{{type_name}}}</td>
-{{!--                         <td >{{attributes.piece_count}}</td>
-                        <td >{{attributes.set_number}}</td>
-                        <td >{{attributes.theme}}</td>
-                        <td >{{attributes.designed_by}}</td>
-
-                        <td >{{attributes.number}}</td>
-                        <td >{{attributes.line}}</td>
-
-
-                        <td >{{attributes.product_type}}</td>
-                        <td >{{attributes.season}}</td>
-
-                        <td >{{attributes.generation}}</td>
-
-
-                        <td >{{attributes.series}}</td>
-                        <td >{{attributes.year_released}}</td> --}}
-
-
                         <td>{{{created_at}}}</td>
+                        <td>{{{updated_at}}}</td>
                         <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
                         <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
                         <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>

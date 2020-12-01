@@ -23,6 +23,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
     .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
     .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+    .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
     res.render('managecollectible', { 
         title: "delete collectible",
         collectibles: collectiblesUserCanDelete,
@@ -58,6 +59,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+        .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
         .where({ 'collectible.collectible_type_id': collectorData.is_admin });
 
         res.render('managecollectible', { 
@@ -118,7 +120,8 @@ router.post('/', async (req, res, next) => {
             const collectiblesUserCanDelete = await knex('collectible')
             .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
             .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-            .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"));
+            .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+            .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
 
             res.render('managecollectible', { 
             message: 'You do not have the admin privilege to delete this collectible',
@@ -159,6 +162,7 @@ router.post('/', async (req, res, next) => {
             .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
             .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
             .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+            .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
             .where({ 'collectible.collectible_type_id': collectorData.is_admin });
 
             res.render('managecollectible', { 
@@ -198,7 +202,8 @@ router.post('/', async (req, res, next) => {
         const collectiblesUserCanDelete = await knex('collectible')
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
-        .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"));
+        .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+        .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
         res.render('managecollectible', { 
             message: 'Collectible has been deleted',
             messageClass: 'alert-success',
@@ -237,6 +242,7 @@ router.post('/', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
+        .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
         .where({ 'collectible.collectible_type_id': collectorData.is_admin });
 
         res.render('managecollectible', { 
