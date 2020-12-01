@@ -277,7 +277,7 @@ router.post('/', async (req, res, next) => {
                 }
                 else {
                     res.render('addcollectible', { 
-                        message: 'No collectible with that type',
+                        message: 'That collectible type does not exist',
                         messageClass: 'alert-danger'
                         }   
                     )
