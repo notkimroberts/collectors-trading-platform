@@ -2,9 +2,10 @@ const express = require('express');
 const knex = require('../connection')
 const router = express.Router();
 const Collectible = require('../models/collectible');
+const { ensureLoggedIn } = require('../auth/middleware')
 
 
-router.get('/', (req, res, next) => {
+router.get('/', ensureLoggedIn, (req, res, next) => {
     res.render('deletecollectible', { title: "delete collectible" });
 });
 
@@ -36,11 +37,11 @@ router.post('/', async (req, res, next) => {
     // if the admin type does not match the collectible type and the admin type is not an all admin, render error
     if (collectibleType != adminType && adminType != 6) {
         res.render('deletecollectible', { 
-            message: 'You do not have the admin privilege to edit this collectible',
-            messageClass: 'alert-danger'
-            }   
+        message: 'You do not have the admin privilege to delete this collectible',
+        messageClass: 'alert-danger'
+        }   
         )
-            return
+        return
     }
 
     // delete collectible

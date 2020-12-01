@@ -3,14 +3,46 @@ const FileType = require('file-type');
 const express = require('express');
 const router = express.Router();
 const knex = require('../connection')
+const { ensureLoggedIn } = require('../auth/middleware')
+
 
 function validCollectible(collectible) {
     const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
     return validName;
 }
 
-router.get('/', (req, res, next) => {
-    res.render('addcollectible');
+router.get('/', ensureLoggedIn, async (req, res, next) => {
+    const userId = req.signedCookies.user_id;
+    const collectorData = await knex('collector')    
+    .select('is_admin')
+    .where({ collector_id: userId }).first();
+
+    if (collectorData.is_admin == 1) {
+        var selectLego = 1;
+    }
+
+    if (collectorData.is_admin == 2) {
+        var selectFunko = 1;
+    }
+    if (collectorData.is_admin == 3) {
+        var selectPusheen = 1;
+    }
+
+    if (collectorData.is_admin == 4) {
+        var selectPokemon = 1;
+    }
+    else if  (collectorData.is_admin == 5) {
+        var selectHotWheels = 1;
+    }
+
+    res.render('addcollectible', {
+        title: "add collectible", 
+        selectLego,
+        selectFunko,
+        selectPusheen,
+        selectPokemon,
+        selectHotWheels,
+    });
 });
 
 router.post('/', async (req, res, next) => {
