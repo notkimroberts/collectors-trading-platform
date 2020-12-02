@@ -19,6 +19,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     if (collectorData.is_admin == 6) {
         var showAllAttributes = 1;  
 
+    //show the collectibles by id type
     const collectiblesUserCanDelete = await knex('collectible')
     .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
     .select('collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.attributes', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
@@ -31,7 +32,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
      });
 
     }
-
+    //based on admin show the specific collectible by type
     else if (collectorData.is_admin > 0 && collectorData.is_admin < 6) {
         if (collectorData.is_admin == 1) {
             var showLegoAttributes = 1;
@@ -95,7 +96,7 @@ router.post('/', async (req, res, next) => {
 
     console.log(collectibleData);
 
-
+    //if collectible not available
     if (collectibleData == undefined) {
         res.render('managecollectible', { 
             message: 'No collectible with that id exists. Click on the Manage Collectibles link in the nav bar to refresh the table.',
@@ -111,7 +112,7 @@ router.post('/', async (req, res, next) => {
     .select('is_admin')
     .where('collector_id', userId ).first();
 
-
+    //if no admin privilege
     if (collectorData.is_admin != collectibleData.collectible_type_id && collectorData.is_admin != 6) {
 
         if (collectorData.is_admin == 6) {

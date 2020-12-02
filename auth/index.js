@@ -24,7 +24,7 @@ function validUser(collector) {
 router.post('/register', (req, res, next) => {
     if(validUser(req.body)) {
         Collector
-        .getByEmail(req.body.email)
+        .getByEmail(req.body.email) //validates email
         .then(collector => {
 
             // if user not found, then it is a unique email
@@ -47,7 +47,7 @@ router.post('/register', (req, res, next) => {
                             }
 
                             if (req.body.is_admin === "1") {
-                                if (req.body.allpromos != "AAA20"){
+                                if (req.body.allpromos != "AAA20"){ //admin code for lego
                                     res.render('register', {
                                         message: 'Please enter valid code for Lego admin',
                                         messageClass: 'alert-danger'
@@ -58,7 +58,7 @@ router.post('/register', (req, res, next) => {
                             }
 
                             if (req.body.is_admin === "2") {
-                                if (req.body.allpromos != "BBB20"){
+                                if (req.body.allpromos != "BBB20"){ //admin code for funko
                                     res.render('register', {
                                         message: 'Please enter valid code for Funko admin',
                                         messageClass: 'alert-danger'
@@ -69,7 +69,7 @@ router.post('/register', (req, res, next) => {
                             }
 
                             if (req.body.is_admin === "3") {
-                                if (req.body.allpromos != "CCC20") {
+                                if (req.body.allpromos != "CCC20") { //admin code for pusheen
                                     res.render('register', {
                                         message: 'Please enter valid code for Pusheen admin',
                                         messageClass: 'alert-danger'
@@ -80,7 +80,7 @@ router.post('/register', (req, res, next) => {
                             }
 
                             if (req.body.is_admin === "4") {
-                                if (req.body.allpromos != "RRR20"){
+                                if (req.body.allpromos != "RRR20"){ //admin code for pokemon
                                     res.render('register', {
                                         message: 'Please enter valid code for Pokemon admin',
                                         messageClass: 'alert-danger'
@@ -91,7 +91,7 @@ router.post('/register', (req, res, next) => {
                             }
 
                             if (req.body.is_admin === "5") {
-                                if (req.body.allpromos != "DDD20") {
+                                if (req.body.allpromos != "DDD20") { //admin code for hot wheels
                                     res.render('register', {
                                         message: 'Please enter valid code for Hot Wheels admin',
                                         messageClass: 'alert-danger'
@@ -101,7 +101,7 @@ router.post('/register', (req, res, next) => {
                                 }
                             }
                             if (req.body.is_admin === "6") {
-                                if (req.body.allpromos != "REG20") {
+                                if (req.body.allpromos != "REG20") { //admin code for admin type
                                     res.render('register', {
                                             message: 'Please enter valid code for all admin type',
                                             messageClass: 'alert-danger'
@@ -123,7 +123,7 @@ router.post('/register', (req, res, next) => {
                                 is_admin: req.body.is_admin
                             };
                             Collector
-                            .create(collector)
+                            .create(collector) //create a collector
                             .then(collector_id => {
                             });
                             res.render('login', {

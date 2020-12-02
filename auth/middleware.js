@@ -1,3 +1,4 @@
+//this function checks to see if user is signed in based on cookies
 function ensureLoggedIn(req, res, next) {
     if (req.signedCookies.user_id) {
         next();
@@ -7,7 +8,7 @@ function ensureLoggedIn(req, res, next) {
     }
 }
 
-
+//to allow user to sign in 
 function allowAccess(req, res, next) {
     if (req.signedCookies.user_id == req.params.id) {
         next();
@@ -17,6 +18,7 @@ function allowAccess(req, res, next) {
     }
 }
 
+//redirect to main page after logging in
 function restrictIfLoggedIn(req, res, next) {
     if (req.signedCookies.user_id) {
         res.redirect('/');
