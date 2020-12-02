@@ -18,6 +18,6 @@ if (currentScore != 4) {
 
 // if score is 4 out of 4, display passed message and registration button
 if (currentScore == 4) {
-    resultPassFail.innerText = 'You passed! Thank you for reading the rules. Feel free to register if you would like to join our community.'
+    resultPassFail.innerText = 'You passed! Thank you for reading the rules. If you have not yet registered, we welcome you to do so!'
     takeQuizAgain.innerText = ''
 }

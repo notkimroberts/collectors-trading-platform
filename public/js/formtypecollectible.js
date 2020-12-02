@@ -24,7 +24,7 @@ $(document).ready(function(){
             }
             if($(this).attr("value")=="5"){
                 $(".box").hide();
-                $(".hot_wheel").show();
+                $(".hot_wheels").show();
             }
         });
     }).change();

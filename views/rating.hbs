@@ -2,26 +2,28 @@
     <div class="col col-md-6">
         {{#if isLoggedInUser}}
         <h2>Your ratings</h2>
+        {{#if message}}
+        <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+        </div>
+        {{/if}}
         {{else}}
         {{#each collector}}
         <h2>{{username}}'s ratings</h2>
         {{/each}}
-        {{#if isAuthenticated}}
-        <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
-        <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
         {{#if message}}
-            <div class="alert {{messageClass}}" role="alert">
-                {{message}}
-            </div>
+        <div class="alert {{messageClass}}" role="alert">
+        {{message}}
+        </div>
         {{/if}}
-
+        {{#if isAuthenticated}}
         {{#if ratingGiven}}
         <span>Click <a href="/collector/{{{id}}}">here </a>to return to collector's profile.</span>
         {{else}}
+        <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
+        <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
         <form id="rating" action="/collector/rating/{{id}}" enctype="multipart/form-data" method="POST">
             <div class="form-group">
-                <input type="hidden" name="toUser" id="toUser" value="{{id}}" readonly>
-                <input type="hidden" name="fromUser" id="fromUser" value="{{fromUser}}" readonly>
                 <label for="collectible_id">Rating: </label>
                 <select name='stars' style='height: 45px; font-family:Arial, FontAwesome;'>
                     <option value='1' style='color:orange;'>&#xf005; &nbsp;</option>

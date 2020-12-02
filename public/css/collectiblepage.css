@@ -4,3 +4,14 @@ img{
     height:auto;
     width:auto;
 }
+
+.fa-star {
+    color: orange;
+  }
+  .fa-star-o {
+    color: orange;
+  }
+  
+  .fa-star-half-o {
+    color: orange;
+  }

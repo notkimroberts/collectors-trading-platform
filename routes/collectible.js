@@ -95,6 +95,11 @@ router.get('/:id', async (req, res, next) => {
         .join('collectible_type', 'collectible.collectible_type_id', '=', 'collectible_type.collectible_type_id')
         .select('collectible.created_at', 'collectible.collectible_id', 'collectible_type.name as type_name', 'collectible.name', 'collectible.attributes', 'collectible.image', 'collectible.collectible_type_id')
         .where({ collectible_id: id });
+
+    if (collectibles.length == 0) {
+        res.redirect('/');
+        return;
+    }
     
     var signInToViewTrades = 1;
 
@@ -280,6 +285,16 @@ router.post('/update', async (req, res, next) => {
         var i;
         // for each collectible on the page
         for (i = 0; i < q1.length; i++) {
+
+        const collectibles = await knex('collectible')
+        .select('collectible.collectible_id')
+        .where({ collectible_id: collectible_id1[i] });
+    
+        if (collectibles.length == 0) {
+            res.redirect('/');
+            return;
+        }
+
         // update existing row
                 await knex('collection')
                 .where({ collector_id: userId })
@@ -304,8 +319,19 @@ router.post('/update', async (req, res, next) => {
     const collectible_id2 = req.body.collectible_id2;
 
     if (qa != null) {
+
         var c;
         for (c = 0; c < qa.length; c++) {
+
+            const collectibles = await knex('collectible')
+            .select('collectible.collectible_id')
+            .where({ collectible_id: collectible_id2[c] });
+        
+            if (collectibles.length == 0) {
+                res.redirect('/');
+                return;
+            }
+
             // if user input a number in at least one of the quantities, insert new row
             if (qa[c] != 0 || qb[c] != 0 || qc[c] != 0) {
             // if no row exists for this collecible_id and userId, create new row
@@ -321,6 +347,15 @@ router.post('/update', async (req, res, next) => {
 router.post('/:id', async (req, res, next) => {   
     const userId = req.signedCookies.user_id;
     const collectible_id = req.body.collectible_id;
+    
+    const collectibles = await knex('collectible')
+        .select('collectible.collectible_id')
+        .where({ collectible_id: collectible_id });
+
+    if (collectibles.length == 0) {
+        res.redirect('/');
+        return;
+    }
 
     // see if there's already a collector_id and collectible_id pair in the table
     const collectionExists = await knex('collection')

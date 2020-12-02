@@ -11,9 +11,9 @@
  
         <div id="ifYes" style="display:block"> 
         <div class="form-example">
-            <label for="db">Choose Admin type</label>
+            <label for="db">Choose Admin Type</label>
                 <select name="is_admin" id="is_admin" required>
-                    <option value="0" id="def" readonly:"readonly">None</option>
+                    <option value="0" id="def">None</option>
                     <option value="1">Lego</option>
                     <option value="2">Funko</option>
                     <option value="3">Pusheen</option>
@@ -23,32 +23,32 @@
             </select>
             </script>    
         <div id="allpromos" name="allpromos" style="display:none;">
-            <label for="allpromos">Promo Code for Admin:</label>
-            <input type="text" id="allpromos" name="allpromos" title="Invalid Promo Code" size="4" required>
-
+            <label for="allpromos">Admin Code:</label>
+            <input type="text" id="allpromos" name="allpromos" title="Invalid Code" size="4">
         </div>  
         </div>
         <script>
                 $('#is_admin').on('change',function(){
                     if( $(this).val()==="0"){
-                        $("#allpromos").removeAttr("required");
+                        $("#allpromos").hide()
                     }
-                    else if( $(this).val()!="0"){
+                    else{
                         $("#allpromos").show()
                     }
                 });            
         </script>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control"  name="username" id="username" required>
+                <small id="usernameHelp" class="form-text text-muted mb-1">Must be between 3-25 characters long.</small>
+                <input type="text" class="form-control"  name="username" id="username" minlength="3" maxlength="25" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control"  name="email" id="email" required>
+                <input type="email" class="form-control"  name="email" id="email" maxlength="128" required>
             </div>
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
-                <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" required>
+                <input type="phone_number" class="form-control"  name="phone_number" id="phone_number" maxlength="15" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
