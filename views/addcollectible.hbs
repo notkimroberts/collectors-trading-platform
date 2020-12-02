@@ -17,11 +17,31 @@
             <div class="form-group">
                 <label for="collectible_id">Type: </label>
                 <select id='option_type' class="form-control" name="collectible_type" required>
-                    <option value="1">Lego</option>
+{{#if selectLego}}                              
+                    <option value="1" selected>Lego</option>
+                    {{else}}
+                    <option value="1">Lego</option>                    
+                    {{/if}}
+                    {{#if selectFunko}}                    
+                    <option value="2" selected>Funko</option>
+                    {{else}}
                     <option value="2">Funko</option>
+                    {{/if}}
+                    {{#if selectPusheen}}
+                    <option value="3" selected>Pusheen</option>
+                    {{else}}
                     <option value="3">Pusheen</option>
+                    {{/if}}
+                    {{#if selectPokemon}}
+                    <option value="4" selected>Pokemon</option>
+                    {{else}}
                     <option value="4">Pokemon</option>
+                    {{/if}}
+                    {{#if selectHotWheels}}
+                    <option value="5" selected>Hot Wheels</option>
+                    {{else}}
                     <option value="5">Hot Wheels</option>
+                    {{/if}}
                 </select>
             </div>
 

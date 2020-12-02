@@ -2,7 +2,7 @@
 
     <div class="col col-md-4">
         <h2>Edit an existing collectible</h2>
-        <p>Collectible id and at least one other field are required</p>
+        <p>Collectible id and at least one other field are required.  Fields left blank will not be updated.</p>
         {{#if message}}
             <div class="alert {{messageClass}}" role="alert">
                 {{message}}
@@ -14,8 +14,13 @@
 
 
             <div class="form-group">
+                {{#if id}}
+                <label for="collectible_id">Collectible id (required): </label>
+                <input class="form-control" type="number" name="collectible_id" id="collectible_id" value={{id}} required>
+                {{else}}
                 <label for="collectible_id">Collectible id (required): </label>
                 <input class="form-control" type="number" name="collectible_id" id="collectible_id" required>
+                {{/if}}
             </div>
 
             <div class="form-group">
@@ -27,13 +32,34 @@
                 <label for="collectible_id">Type: </label>
                 <select id='option_type' class="form-control" name="collectible_type">
                     <option value="0">select type to update type and attributes</option>
-                    <option value="1">Lego</option>
+                    {{#if selectLego}}                              
+                    <option value="1" selected>Lego</option>
+                    {{else}}
+                    <option value="1">Lego</option>                    
+                    {{/if}}
+                    {{#if selectFunko}}                    
+                    <option value="2" selected>Funko</option>
+                    {{else}}
                     <option value="2">Funko</option>
+                    {{/if}}
+                    {{#if selectPusheen}}
+                    <option value="3" selected>Pusheen</option>
+                    {{else}}
                     <option value="3">Pusheen</option>
+                    {{/if}}
+                    {{#if selectPokemon}}
+                    <option value="4" selected>Pokemon</option>
+                    {{else}}
                     <option value="4">Pokemon</option>
+                    {{/if}}
+                    {{#if selectHotWheels}}
+                    <option value="5" selected>Hot Wheels</option>
+                    {{else}}
                     <option value="5">Hot Wheels</option>
+                    {{/if}}
                 </select>
             </div>
+
             {{!--None --}}
             <div class="form-group none box" id='none'>
             </div>
@@ -41,7 +67,7 @@
 
             {{!-- Lego --}}
             <div class="form-group lego box" id='lego'>
-                <p>All attribute fields must be filled out if you selected a type</p>
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out.</p>
                 <label for="piece_count">Piece count</label>
                 <input class="form-control" type="number" name="piece_count" id="piece_count" maxlength="40"/>
                 <label for="set_number">Set number</label>
@@ -54,7 +80,7 @@
 
             {{!-- Funko --}}
             <div class="form-group funko box" id='funko'>
-                <p>All attribute fields must be filled out if you selected a type</p>
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="Number">Number</label>
                 <input class="form-control" type="number" name="number" id="number" maxlength="40"/>
                 <label for="Line">Line</label>
@@ -63,7 +89,7 @@
 
              {{!-- Pusheen --}}
             <div class="form-group pusheen box" id='pusheen'>
-                <p>All attribute fields must be filled out if you selected a type</p>
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="product_type">Product type</label>
                 <input class="form-control" type="text" name="product_type1" id="product_type1" maxlength="40"/>
                 <label for="season">Season/holiday</label>
@@ -72,7 +98,7 @@
 
              {{!-- Pokemon --}}
             <div class="form-group pokemon box" id='pokemon'>
-                <p>All attribute fields must be filled out if you selected a type</p>
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="product_type">Product type</label>
                 <input class="form-control" type="text" name="product_type" id="product_type" maxlength="40"/>
                 <label for="generation">Generation</label>
@@ -81,7 +107,7 @@
 
             {{!-- Hot Wheels --}}
             <div class="form-group hot_wheels box" id="hot_wheels">
-                <p>All attribute fields must be filled out if you selected a type</p>
+                <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="number">Number</label>
                 <input class="form-control" type="text" name="number1" id="number1" maxlength="40"/>
                 <label for="series">Series</label>
