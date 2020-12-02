@@ -19,7 +19,6 @@ router.post('/', async (req, res, next) => {
 
     // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
-        console.log("Hello");
         res.render('deletecollectible', { 
                 message: 'That collectible id does not exist',
                 messageClass: 'alert-danger'
@@ -151,7 +150,6 @@ router.post('/', async (req, res, next) => {
                     });
                 }
                 if (typeSelected == '4') {
-                    console.log('hello');
         const collectibleData = await knex('collectible')
         .select('collectible_id', 'collectible_type_id')
         .where({collectible_id: collectible_id});

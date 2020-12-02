@@ -36,7 +36,6 @@ router.post('/register', (req, res, next) => {
 
                                     if(req.body.is_admin == 0){
 
-                                        console.log("dont check for promocodes")
                                     }
 
                                     //else user is signing up as admin
@@ -98,7 +97,6 @@ router.post('/register', (req, res, next) => {
                                 }
                                     else if (req.body.is_admin === "6"){
                                         if (req.body.allpromos != "REG20"){
-                                            console.log(req.body.is_admin);
                                             res.render('register', {
                                                 message: 'Please enter valid promocode for all admin type',
                                                     messageClass: 'alert-danger'
@@ -172,7 +170,7 @@ function setUserIdCookie(req, res, id) {
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
-        Collector    
+        Collector
             .getByEmail(req.body.email)
             .then(collector => {
                 if (collector) {
@@ -184,7 +182,6 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
-                            console.log("logged in");
                                 // ({
                                 //     collector_id: collector.collector_id,
                                 //     message: 'logged in'
