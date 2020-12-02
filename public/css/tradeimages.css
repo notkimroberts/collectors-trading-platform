@@ -19,15 +19,14 @@
     float: left;
     margin-bottom: 20px;
     word-wrap: break-word;
-    width: 200px;
-    height: 200px;
+    width: 245px;
+    height: 230px;
     text-align: center;
   }
   
   img{
     max-height:120px;
     max-width:120px;
-    margin: 10px;
     height:auto;
     width:auto;
 }

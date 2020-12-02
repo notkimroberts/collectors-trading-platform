@@ -17,63 +17,63 @@
             <div class="form-group">
                 <label for="collectible_id">Type: </label>
                 <select id='option_type' class="form-control" name="collectible_type" required>
-                    <option value="lego">Lego</option>
-                    <option value="funko">Funko</option>
-                    <option value="pusheen">Pusheen</option>
-                    <option value="pokemon">Pokemon</option>
-                    <option value="hot_wheel">Hot Wheel</option>
+                    <option value="1">Lego</option>
+                    <option value="2">Funko</option>
+                    <option value="3">Pusheen</option>
+                    <option value="4">Pokemon</option>
+                    <option value="5">Hot Wheels</option>
                 </select>
             </div>
 
             {{!-- Lego --}}
             <div class="form-group lego box" id='lego'>
                 <label for="piece_count">Piece count</label>
-                <input class="form-control" type="number" name="piece_count" id="piece_count">
+                <input class="form-control" type="number" name="piece_count" id="piece_count" maxlength="40"/>
                 <label for="set_number">Set number</label>
-                <input class="form-control" type="number" name="set_number" id="set_number">
+                <input class="form-control" type="number" name="set_number" id="set_number" maxlength="40"/>
                 <label for="theme">Theme</label>
-                <input class="form-control" type="text" name="theme" id="theme"/>
+                <input class="form-control" type="text" name="theme" id="theme" maxlength="40"/>
                 <label for="designed_by">Designer</label>
-                <input class="form-control" type="text" name="designed_by" id="designed_by"/>
+                <input class="form-control" type="text" name="designed_by" id="designed_by" maxlength="40"/>
             </div>
 
             {{!-- Funko --}}
             <div class="form-group funko box" id='funko'>
                 <label for="Number">Number</label>
-                <input class="form-control" type="number" name="number" id="number"/>
+                <input class="form-control" type="number" name="number" id="number" maxlength="40"/>
                 <label for="Line">Line</label>
-                <input class="form-control" type="text" name="line" id="line"/>
+                <input class="form-control" type="text" name="line" id="line" maxlength="40"/>
             </div>
 
 
              {{!-- Pusheen --}}
             <div class="form-group pusheen box" id='pusheen'>
                 <label for="product_type">Product type</label>
-                <input class="form-control" type="text" name="product_type1" id="product_type1"/>
+                <input class="form-control" type="text" name="product_type1" id="product_type1" maxlength="40"/>
                 <label for="season">Season/holiday</label>
-                <input class="form-control" type="text" name="season" id="season"/>
+                <input class="form-control" type="text" name="season" id="season" maxlength="40"/>
             </div>
 
             {{!-- Pokemon --}}
             <div class="form-group pokemon box" id='pokemon'>
                 <label for="product_type">Product type</label>
-                <input class="form-control" type="text" name="product_type" id="product_type"/>
+                <input class="form-control" type="text" name="product_type" id="product_type" maxlength="40"/>
                 <label for="generation">Generation</label>
-                <input class="form-control" type="text" name="generation" id="generation"/>
+                <input class="form-control" type="text" name="generation" id="generation" maxlength="40"/>
             </div>
 
             {{!-- Hot Wheels --}}
-            <div class="form-group hot_wheel box" id="hot_wheel">
+            <div class="form-group hot_wheels box" id="hot_wheels">
                 <label for="number">Number</label>
-                <input class="form-control" type="text" name="number1" id="number1"/>
+                <input class="form-control" type="text" name="number1" id="number1" maxlength="40"/>
                 <label for="series">Series</label>
-                <input class="form-control" type="text" name="series" id="series"/>
+                <input class="form-control" type="text" name="series" id="series" maxlength="40"/>
                 <label for="year_released">Year released</label>
-                <input class="form-control" type="text" name="year_released1" id="year_released1"/>
+                <input class="form-control" type="text" name="year_released1" id="year_released1" maxlength="40"/>
             </div>
             
             <div class="form-group">
-                <p class="text-muted">Select a jpeg image of the collectible</p>
+                <p class="text-muted">Select a jpeg image of the collectible. Maximum size is 40 KB.</p>
                 <input class="form-control-file" type="file" name="pic" id="image" accept="image/jpeg" required/>
             </div>
             <button type="submit" class="btn btn-success">Add</button>
@@ -83,5 +83,3 @@
 <script src="/js/jquery-3.5.1.js"></script>
 <script src="/js/formtypecollectible.js"></script>
 <script src="/js/checkimagesize.js"></script>
-
-

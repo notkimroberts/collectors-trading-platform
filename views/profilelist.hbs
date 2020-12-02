@@ -3,12 +3,13 @@
     <div class="col col-md-4">
         {{#each collector}}
         <h2>{{{username}}}</h2>
-        <h2>collector id: {{{collector_id}}}</h2>
+        <h5>collector id: {{{collector_id}}}</h5>
+        <h5>admin status: {{{is_admin}}}</h5>
         <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
         {{/each}}
         <br>
         <br>
-        <span style="font-size:18px">Rating:</span>
+        <span>Rating:</span>
         {{#if noRating}}
         <span>no ratings received</span>
         {{/if}} 
@@ -164,24 +165,24 @@
         <h6>Filter</h6>
         <form method="GET" action="/profile/list" id="filter-form">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="lego">
+                <input class="form-check-input" type="checkbox" id="legoFilter" name="filter" value="Lego">
                 <label class="form-check-label" for="legoFilter">Lego</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="funkoFilter" name="filter" value="funko">
+                <input class="form-check-input" type="checkbox" id="funkoFilter" name="filter" value="Funko">
                 <label class="form-check-label" for="funkoFilter">Funko</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pusheenFilter" name="filter" value="pusheen">
+                <input class="form-check-input" type="checkbox" id="pusheenFilter" name="filter" value="Pusheen">
                 <label class="form-check-label" for="pusheenFilter">Pusheen</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="pokemonFilter" name="filter" value="pokemon">
+                <input class="form-check-input" type="checkbox" id="pokemonFilter" name="filter" value="Pokemon">
                 <label class="form-check-label" for="pokemonFilter">Pokemon</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="hotwheelFilter" name="filter" value="hot wheel">
-                <label class="form-check-label" for="hotwheelFilter">Hot Wheel</label>
+                <input class="form-check-input" type="checkbox" id="hotwheelsFilter" name="filter" value="Hot Wheels">
+                <label class="form-check-label" for="hotwheelsFilter">Hot Wheels</label>
             </div>
             <button type="submit" class="btn btn-primary">Filter</button>
             <a class="btn btn-success" href="/profile/list" role="button">Reset</a>

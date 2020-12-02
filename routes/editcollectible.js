@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
     if (thisIdcollectibleType != userAdminType && userAdminType !='6')
     {
         res.render('editcollectible', { 
-            message: 'User does not have the admin privilege to edit this collectible',
+            message: 'You do not have the admin privilege to edit this collectible',
             messageClass: 'alert-danger'
         }
     )
@@ -48,7 +48,7 @@ router.post('/', async (req, res, next) => {
 
     if (await Collectible.getByName(name)) {
         res.render('editcollectible', { 
-                message: 'That collectible name already exists in the database. Unique names only.',
+                message: 'That collectible name already exists in the database. Unique names only',
                 messageClass: 'alert-danger'
             }
         )
@@ -85,7 +85,7 @@ router.post('/', async (req, res, next) => {
     
             if (userAdminType != "1" && userAdminType !='6'){
                 res.render('editcollectible', { 
-                    message: 'User does not have the admin privilege to edit to this collectible type',
+                    message: 'You do not have the admin privilege to edit to this collectible type',
                     messageClass: 'alert-danger'
                 }
             )
@@ -94,7 +94,7 @@ router.post('/', async (req, res, next) => {
 
             if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
                 res.render('editcollectible', { 
-                    message: 'User does not have the admin privilege to edit to this collectible type',
+                    message: 'You do not have the admin privilege to edit to this collectible type',
                     messageClass: 'alert-danger'
                 }
             )
@@ -166,7 +166,7 @@ router.post('/', async (req, res, next) => {
 
         if (userAdminType != "2" && userAdminType !='6'){
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -175,7 +175,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -228,7 +228,7 @@ router.post('/', async (req, res, next) => {
 
         if (userAdminType != "3" && userAdminType !='6'){
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -237,7 +237,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -290,7 +290,7 @@ router.post('/', async (req, res, next) => {
     
         if (userAdminType != "4" && userAdminType !='6'){
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -299,7 +299,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -352,7 +352,7 @@ router.post('/', async (req, res, next) => {
         
         if (userAdminType != "5" && userAdminType !='6'){
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
@@ -361,7 +361,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-                message: 'User does not have the admin privilege to edit to this collectible type',
+                message: 'You do not have the admin privilege to edit to this collectible type',
                 messageClass: 'alert-danger'
             }
         )
