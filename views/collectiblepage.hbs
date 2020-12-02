@@ -79,14 +79,14 @@
                 {{#each collectionHas}}
                     <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
                     <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="has_quantity" id="q1" value="{{{has_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                     <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
                     {{!-- https://stackoverflow.com/questions/7967075/regex-for-not-empty-and-not-whitespace --}}
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="wants_quantity" id="q2" value="{{{wants_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                     <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="willing_to_trade_quantity" id="q3" value="{{{willing_to_trade_quantity}}}" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                     <br>
                     <input type="submit" class="btn btn-secondary" value="Update Collection">
@@ -100,13 +100,13 @@
             <form action="/collectible/{{id}}" method="post" class="form-example">
                     <input type="hidden" name="collectible_id" id="collectible_id" value="{{{id}}}" readonly>
                     <label for="willing_to_trade_quantity"><i class="fas fa-check"></i> :</label>
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="has_quantity" id="qa" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*"inputmode="" required>
                     <label for="willing_to_trade_quantity"><i class="fas fa-heart"></i> :</label>
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="wants_quantity" id="qb" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                     <label for="willing_to_trade_quantity"><i class='fas fa-people-arrows'></i> :</label>
-                    <input type="number" step="1" min="0" max="500"
+                    <input type="number" step="1" min="0" max="20"
                     name="willing_to_trade_quantity" id="qc" value="0" title="Qty" class="input-text qty text" size="3" pattern="(.|\s)*\S(.|\s)*" inputmode="" required>
                     <br>
                     <input type="submit" class="btn btn-secondary" value="Update Collection">

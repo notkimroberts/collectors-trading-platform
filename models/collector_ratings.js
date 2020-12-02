@@ -1,5 +1,6 @@
 const knex = require('../connection')
 
+//knex queries for collector ratings
 module.exports = {
     create: (fromUser, toUser, stars, comment) => {
     const Collector_ratings = knex('collector_ratings')

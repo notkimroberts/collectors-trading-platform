@@ -1,4 +1,5 @@
 // https://stackoverflow.com/questions/18353574/how-to-show-hide-div-on-selection-of-any-drop-down-value
+//script to allow to show selected options
 $(document).ready(function(){
     $("select").change(function(){
         $( "select option:selected").each(function(){
