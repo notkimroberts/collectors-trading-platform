@@ -9,6 +9,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/collectible" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Collectibles</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/collectible"><i class="fa fa-eye"></i> View Collectible</a>
                         <a class="dropdown-item" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
                         <a class="dropdown-item" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
                         <a class="dropdown-item" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
@@ -29,8 +30,9 @@
         <ul class="navbar-nav justify-content-end mr-2">
             {{#if isAuthenticated}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/profile" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                    <a class="nav-link dropdown-toggle" href="/profile" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/profile">Profile</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
                 </li>
