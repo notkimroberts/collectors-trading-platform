@@ -55,15 +55,18 @@
                 <th>Date</th>
                 <th>Comment</th>
             </tr>
-                    {{#each ratings}}
-                    <tr>
-                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
-                        <td>{{{rating}}}/5</td>
-                        <td>{{{updated_at}}}</td>
-                        <td style="word-break: break-word;">{{{comment}}}</td>
-                    </tr>
-                    {{/each}}
+            {{#each ratings}}
+            <tr>
+                <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                <td>{{{rating}}}/5</td>
+                <td>{{{updated_at}}}</td>
+                <td style="word-break: break-word;">{{{comment}}}</td>
+            </tr>
+            {{/each}}
         </table>
+        {{#if noRatingsToList}}
+        <p>No ratings received</p>
+        {{/if}}
     </div>
 </div>
 

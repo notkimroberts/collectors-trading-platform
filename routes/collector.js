@@ -33,13 +33,18 @@ router.get('/rating/:id', async (req, res, next) => {
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
+    if (collectorsRatings.length == 0) {
+        var noRatingsToList = 1;
+    }
+
     res.render('rating', { 
         title: `Collector\'s Trading Platform | Rating`,
         collector: collectorData,
         id,
         fromUser,
         ratings: collectorsRatings,
-        isLoggedInUser
+        isLoggedInUser,
+        noRatingsToList
     });
 });
 
