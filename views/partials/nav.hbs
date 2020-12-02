@@ -1,61 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Collector's Trading Platform</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/collectible">Collectibles</a>
-            </li>
-            {{#if isAuthenticated}}
-            <li class="nav-item">
-                <a class="nav-link" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/manage-collectible"></i>Manage Collectibles</a>
-            </li>
-            <li class="nav-item">
-                <span style="color: rgba(0,0,0,.5); display: block; padding: .5rem .5rem;">|</span>
-            </li>
-            {{/if}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/collectible" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Collectibles</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/collectible"><i class="fa fa-eye"></i> View Collectible</a>
+                        {{#if isAuthenticated}}
+                            {{#if isAdmin}}
+                                <a class="dropdown-item" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
+                                <a class="dropdown-item" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
+                                <a class="dropdown-item" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
+                                <a class="dropdown-item" href="/manage-collectible">Manage Collectibles</a>
+                            {{/if}}
+                        {{/if}}
+                    </div>
+                </li>
             <li class="nav-item">
                 <a class="nav-link" href="/collector">Collectors</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/rules">Rules</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
         </ul>
-        <ul class="nav justify-content-end">
+        <ul class="navbar-nav justify-content-end mr-2">
             {{#if isAuthenticated}}
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/profile" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
                 </li>
             {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <form action="/register" method="GET" class="form-inline my-2 my-lg-0 mr-3">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</button>
+                    <button class="btn btn-primary my-2 my-sm-0" type="submit">Register</button>
                 </form>
             {{/if}}
         </ul>
         <form action="/collectible/search" method="GET" class="form-inline my-2 my-lg-0 mr-3">
             <input class="form-control mr-sm-2" name="name" type="text" placeholder="Search Collectible" aria-label="Search Collectibles">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="search">Search Collectible</button>
+            <button class="btn btn-success my-2 my-sm-0" type="search">Search Collectible</button>
         </form>
         <form action="/collector/search" method="GET" class="form-inline my-2 my-lg-0 mr-3">
             <input class="form-control mr-sm-2" name="username" type="text" placeholder="Search Collector" aria-label="Search Collectors">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="search">Search Collector</button>
+            <button class="btn btn-success my-2 my-sm-0" type="search">Search Collector</button>
         </form>
     </div>
 </nav>

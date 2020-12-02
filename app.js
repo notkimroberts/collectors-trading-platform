@@ -16,6 +16,7 @@ const addCollectibleRouter = require('./routes/addcollectible');
 const collectibleRouter = require('./routes/collectible');
 const collectorRouter = require('./routes/collector');
 const collectorListRouter = require('./routes/collectorpagelist');
+const contactRouter = require('./routes/contact');
 const deleteCollectibleRouter = require('./routes/deletecollectible');
 const editcollectibleRouter = require('./routes/editcollectible');
 const indexRouter = require('./routes/index');
@@ -56,9 +57,20 @@ app.use(cors({
     credentials: true
 }));
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     if (req.signedCookies.user_id) {
         res.locals.isAuthenticated = true;
+    }
+    next();
+});
+
+app.use(async (req, res, next) => {
+    if (req.signedCookies.user_id) {
+        const knex = require('./connection')
+        const user = await knex('collector').where('collector.collector_id', req.signedCookies.user_id).first()
+        if (user.is_admin !== '0') {
+            res.locals.isAdmin = true;
+        }
     }
     next();
 });
@@ -69,6 +81,7 @@ app.use('/add-collectible', addCollectibleRouter);
 app.use('/collectible', collectibleRouter);
 app.use('/collector', collectorRouter); 
 app.use('/collector-list', collectorListRouter); 
+app.use('/contact', contactRouter); 
 app.use('/delete-collectible', deleteCollectibleRouter);
 app.use('/edit-collectible', editcollectibleRouter); 
 app.use('/login', loginRouter);
