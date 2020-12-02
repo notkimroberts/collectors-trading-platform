@@ -35,10 +35,12 @@
                 <div class="container">
                 <h1>Collect. Match. Trade.</h1>
                 <p class="lead text-muted">We invite all collectors to utilize our database of collectibles. Collectors can manage their collections by updating the have, want, and for trade quantity of any collectible in the database, as well use our trade match functionality to find fellow collectors who have collectibles they want, and want collectibles they have.</p>
-                <p>
-                    <a href="/register" class="btn btn-primary my-2">Register</a>
-                    <a href="/login" class="btn btn-secondary my-2">Login</a>
-                </p>
+                {{#unless isAuthenticated}}
+                    <p>
+                        <a href="/register" class="btn btn-primary my-2">Register</a>
+                        <a href="/login" class="btn btn-secondary my-2">Login</a>
+                    </p>
+                {{/unless}}
                 </div>
             </section>
             <div class="album py-5 bg-light">
