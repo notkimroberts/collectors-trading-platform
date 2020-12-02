@@ -640,7 +640,7 @@ router.post('/', async (req, res, next) => {
 
         }
 
-        else if (!product_type1 && !req.body.season) {
+        else if (!req.body.product_type1 && !req.body.season) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
                 title: "edit collectible", 

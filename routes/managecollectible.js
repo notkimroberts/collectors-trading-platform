@@ -25,7 +25,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
     .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
     res.render('managecollectible', { 
-        title: "delete collectible",
+        title: "manage collectible",
         collectibles: collectiblesUserCanDelete,
         showAllAttributes
      });
@@ -63,7 +63,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .where({ 'collectible.collectible_type_id': collectorData.is_admin });
 
         res.render('managecollectible', { 
-            title: "delete collectible",
+            title: "manage collectible",
             collectibles: collectiblesUserCanDelete,
             showLegoAttributes,
             showFunkoAttributes,
@@ -75,7 +75,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     else {
 
         res.render('managecollectible', { 
-            title: "delete collectible",
+            title: "manage collectible",
          });
     }
 
@@ -126,7 +126,7 @@ router.post('/', async (req, res, next) => {
             res.render('managecollectible', { 
             message: 'You do not have the admin privilege to delete this collectible',
             messageClass: 'alert-danger',
-            title: "delete collectible",
+            title: "manage collectible",
             collectibles: collectiblesUserCanDelete,
             showAllAttributes
             }   

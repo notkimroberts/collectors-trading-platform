@@ -9,163 +9,210 @@
             {{/if}}
             <p>You can manage the collectibles for your admin type on this page.  You will only see collectibles that you have permission to update in this table.</p>
             <p>Click on the table headers to sort the collectibles by the clicked column.</p>
-            <table class="table table-striped">
-                <tr>
-                    <th>Collectible id</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    {{#if showLegoAttributes}}
-                    <th >Piece Count</th>
-                    <th >Set Number</th>
-                    <th >Theme</th>
-                    <th >Designer</th>
-                    {{/if}}
-                    {{#if showFunkoAttributes}}
-                    <th >Number</th>
-                    <th >Line</th>
-                    {{/if}}
-                    {{#if showPusheenAttributes}}
-                    <th >Product Type</th>
-                    <th >Season/ holiday</th>
-                    {{/if}}
-                    {{#if showPokemonAttributes}}
-                    <th >Product Type</th>
-                    <th >Generation</th>
-                    {{/if}}
-                    {{#if showHotWheelsAttributes}}                    
-                    <th >Number</th>
-                    <th >Series</th>
-                    <th >Year Released</th>                  
-                    {{/if}}  
-                    <th>Date Added to Database</th>
-                    <th>Date Last Updated</th>
-                    <th>Image</th>
-                    <th>Delete</th>
-                    <th>Update</th>
-                </tr>
 
-                {{#if showLegoAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+            {{#if showAllAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
                     <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td >{{attributes.piece_count}}</td>
-                        <td >{{attributes.set_number}}</td>
-                        <td >{{attributes.theme}}</td>
-                        <td >{{attributes.designed_by}}</td>
-                        <td>{{{created_at}}}</td>
-                        <td>{{{updated_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>                       
 
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
 
-                {{#if showFunkoAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+            {{#if showLegoAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
                     <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td >{{attributes.number}}</td>
-                        <td >{{attributes.line}}</td>             
-                        <td>{{{created_at}}}</td>
-                        <td>{{{updated_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Piece Count</th>
+                        <th>Set Number</th>
+                        <th>Theme</th>
+                        <th>Designer</th>
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>                       
+                            <td>{{attributes.piece_count}}</td>
+                            <td>{{attributes.set_number}}</td>
+                            <td>{{attributes.theme}}</td>
+                            <td>{{attributes.designed_by}}</td>
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
 
-
-                {{#if showPusheenAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+            {{#if showFunkoAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
                     <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td >{{attributes.product_type}}</td>
-                        <td >{{attributes.season}}</td>
-                        <td>{{{created_at}}}</td>
-                        <td>{{{updated_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Number</th>
+                        <th>Line</th>
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
-
-                {{#if showPokemonAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>                       
+                            <td {{attributes.number}}</td>
+                            <td>{{attributes.line}}</td>
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
+            {{#if showPusheenAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
                     <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td >{{attributes.product_type}}</td>
-                        <td >{{attributes.generation}}</td>
-                        <td>{{{created_at}}}</td>
-                        <td>{{{updated_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Product Type</th>
+                        <th>Season / holiday</th>
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>                       
+                            <td>{{attributes.product_type}}</td>
+                            <td>{{attributes.season}}</td>
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
 
-                {{#if showHotWheelsAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
-                    <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td >{{attributes.number}}</td>
-                        <td >{{attributes.series}}</td>
-                        <td >{{attributes.year_released}}</td>
-                        <td>{{{created_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
-                    </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
 
-                {{#if showAllAttributes}}
-                {{#each collectibles}}
-                <form action='/manage-collectible' method='post' class="form-example">
-                <input type="hidden" name="collectible_id" id="collectible_id" value="{{{collectible_id}}}" readonly>
+            {{#if showPokemonAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
                     <tr>
-                        <td>{{{collectible_id}}}</td>
-                        <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
-                        <td>{{{type_name}}}</td>
-                        <td>{{{created_at}}}</td>
-                        <td>{{{updated_at}}}</td>
-                        <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
-                        <td><input type="submit" class="btn btn-secondary" value="Delete Collectible"></td>
-                        <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Product Type</th>
+                        <th>Generation</th>
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
-                </form>
-                {{/each}}
-                {{/if}}  
-            </table>
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>                       
+                            <td {{attributes.product_type}}</td>
+                            <td>{{attributes.generation}}</td>
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
+
+
+            {{#if showHotWheelsAttributes}}
+            <form action='/manage-collectible' method='post' class="form-example">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Collectible id</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Number</th>
+                        <th>Series</th>
+                        <th>Year Released</th> 
+                        <th>Date Added to Database</th>
+                        <th>Date Last Updated</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                    {{#each collectibles}}
+                        <tr>
+                            <td>{{{collectible_id}}}</td>
+                            <td style="word-break:break-all;"><a href="/collectible/{{{collectible_id}}}">{{{name}}}</a></td>
+                            <td>{{{type_name}}}</td>
+                            <td>{{attributes.number}}</td>
+                            <td>{{attributes.series}}</td>
+                            <td>{{attributes.year_released}}</td>
+                            <td>{{{created_at}}}</td>
+                            <td>{{{updated_at}}}</td>
+                            <td ><img src=/collectible/image/{{{collectible_id}}} width="100px" height="100px" /></td>
+                            <td><input name="collectible_id" type="submit" class="btn btn-secondary" value="{{{collectible_id}}}"></td>
+                            <td><a href="/edit-collectible/{{{collectible_id}}}">Update Collectible</a></td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </form>
+            {{/if}} 
+
+
         </div>      
     </div>
 </div>
