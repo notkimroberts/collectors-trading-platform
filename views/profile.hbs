@@ -2,7 +2,7 @@
     
     <div class="col col-md-4">
         {{#each collector}}
-        <h2>{{{username}}}</h2>
+        <h2 class="display-4">{{{username}}}</h2>
         <h5>collector id: {{{collector_id}}}</h5>
         <h5>admin status: {{{is_admin}}}</h5>
         <span><i class="fa fa-paper-plane"></i> <a href="mailto:{{{email}}}?subject=Collector's%20Trading%20Platform%20">{{{email}}}</a> • <i class="fa fa-phone"></i> <a href="tel:{{{phone_number}}}">{{{phone_number}}}</a></span>
@@ -91,7 +91,7 @@
         <span class="fa fa-star"></span>
         {{/if}}
         <br>
-        <span><a href="/collector/rating/{{{collector_id}}}">View your ratings</a></span>
+        <span><a href="/collector/rating/{{{collector_id}}}">view your ratings</a></span>
         <hr/>
         
         <form action="/profile/publictoggle" method="post" class="form-example"> 
