@@ -17,11 +17,11 @@
         </div>
         {{/if}}
         {{#if isAuthenticated}}
-        <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
-        <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
         {{#if ratingGiven}}
         <span>Click <a href="/collector/{{{id}}}">here </a>to return to collector's profile.</span>
         {{else}}
+        <p>If you've traded with this collector, give them a rating to let others know how the trade went.</p>
+        <p>Rating a collector again will overwrite the previous rating and comment you've given.</p>
         <form id="rating" action="/collector/rating/{{id}}" enctype="multipart/form-data" method="POST">
             <div class="form-group">
                 <label for="collectible_id">Rating: </label>
