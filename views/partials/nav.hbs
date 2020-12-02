@@ -10,10 +10,12 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="/collectible"><i class="fa fa-eye"></i> View Collectible</a>
                         {{#if isAuthenticated}}
-                        <a class="dropdown-item" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
-                        <a class="dropdown-item" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
-                        <a class="dropdown-item" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
-                        <a class="dropdown-item" href="/manage-collectible">Manage Collectibles</a>
+                            {{#if isAdmin}}
+                                <a class="dropdown-item" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
+                                <a class="dropdown-item" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
+                                <a class="dropdown-item" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
+                                <a class="dropdown-item" href="/manage-collectible">Manage Collectibles</a>
+                            {{/if}}
                         {{/if}}
                     </div>
                 </li>

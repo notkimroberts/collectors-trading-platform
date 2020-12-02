@@ -57,9 +57,20 @@ app.use(cors({
     credentials: true
 }));
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     if (req.signedCookies.user_id) {
         res.locals.isAuthenticated = true;
+    }
+    next();
+});
+
+app.use(async (req, res, next) => {
+    if (req.signedCookies.user_id) {
+        const knex = require('./connection')
+        const user = await knex('collector').where('collector.collector_id', req.signedCookies.user_id).first()
+        if (user.is_admin !== '0') {
+            res.locals.isAdmin = true;
+        }
     }
     next();
 });
