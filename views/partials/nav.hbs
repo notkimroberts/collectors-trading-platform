@@ -5,18 +5,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            {{#if isAuthenticated}}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/collectible" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Collectibles</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="/collectible"><i class="fa fa-eye"></i> View Collectible</a>
+                        {{#if isAuthenticated}}
                         <a class="dropdown-item" href="/add-collectible"><i class="fa fa-plus-circle"></i> Collectible</a>
                         <a class="dropdown-item" href="/edit-collectible"><i class="fa fa-pencil-square-o"></i> Collectible</a>
                         <a class="dropdown-item" href="/delete-collectible"><i class="fa fa-minus-circle"></i> Collectible</a>
                         <a class="dropdown-item" href="/manage-collectible">Manage Collectibles</a>
+                        {{/if}}
                     </div>
                 </li>
-            {{/if}}
             <li class="nav-item">
                 <a class="nav-link" href="/collector">Collectors</a>
             </li>
