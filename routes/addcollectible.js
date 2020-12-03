@@ -206,7 +206,7 @@ router.post('/', async (req, res, next) => {
                                 theSetNumber,
                                 theTheme,
                                 theDesigner,
-                                message: 'Please add set_number',
+                                message: 'Please add set number',
                                 messageClass: 'alert-danger'
                             }
                         )
