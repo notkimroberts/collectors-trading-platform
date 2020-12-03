@@ -11,34 +11,30 @@
         </div>
         {{/if}}
         <table class="table table-striped">
-            <thead>
-                <th>Collector id</th>
-                <th>Username</th>
-                <th>Admin Status</th>
-                {{#if isAuthenticated}}
-                <th>Email</th>
-                {{/if}}
-            </thead>
-            <tbody>
-                {{#if isAuthenticated}}
-                {{#each collector}}
-                    <tr>
-                        <td>{{{collector_id}}}</td>
-                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
-                        <td>{{{is_admin}}}</td>
-                        <td>{{{email}}}</td>
-                  </tr>
-                {{/each}}
-                {{else}}
-                {{#each collector}}
-                    <tr>
-                        <td>{{{collector_id}}}</td>
-                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
-                        <td>{{{is_admin}}}</td>
-                  </tr>
-                {{/each}}
-                {{/if}}
-            </tbody>
+            <th>Collector id</th>
+            <th>Username</th>
+            <th>Admin Status</th>
+            {{#if isAuthenticated}}
+            <th>Email</th>
+            {{/if}}
+            {{#if isAuthenticated}}
+            {{#each collector}}
+                <tr>
+                    <td>{{{collector_id}}}</td>
+                    <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                    <td>{{{is_admin}}}</td>
+                    <td>{{{email}}}</td>
+                </tr>
+            {{/each}}
+            {{else}}
+            {{#each collector}}
+                <tr>
+                    <td>{{{collector_id}}}</td>
+                    <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                    <td>{{{is_admin}}}</td>
+                </tr>
+            {{/each}}
+            {{/if}}
         </table>
     </div>
 </div>
