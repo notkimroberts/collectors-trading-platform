@@ -13,9 +13,6 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     .select('is_admin')
     .where('collector_id', userId ).first();
 
-    console.log(collectorData.is_admin);
-
-
     if (collectorData.is_admin == 6) {
         var showAllAttributes = 1;  
 
@@ -85,16 +82,11 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     const collectible_id  = req.body.collectible_id;
-    console.log(collectible_id);
-
-
     const userId = req.signedCookies.user_id;
 
     const collectibleData = await knex('collectible')    
     .select('collectible_type_id')
     .where({ collectible_id: collectible_id }).first();
-
-    console.log(collectibleData);
 
     //if collectible not available
     if (collectibleData == undefined) {

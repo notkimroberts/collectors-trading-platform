@@ -754,7 +754,6 @@ router.get(['/trade/:id', '/trade/:id?:filter'], ensureLoggedIn, async (req, res
 router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, async (req, res, next) => {
         const currentUserId = req.signedCookies.user_id
         const otherUserId = req.params.id
-        console.log(otherUserId);
         
         const collectorData = await knex('collector')
         .select('username', 'email', 'phone_number', 'collector_id', 'is_admin')
