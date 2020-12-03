@@ -15,9 +15,9 @@ router.get('/:id', ensureLoggedIn, async (req, res, next) => {
     const id = req.params.id;
 
     const collectibleData = await knex('collectible')    
-    .select('collectible_type_id')
+    .select('collectible_type_id', 'name', 'attributes', 'collectible_id')
     .where({ collectible_id: id }).first();
-
+ 
     if (collectibleData.collectible_type_id == 1) {
         var selectLego = 1;
     }
@@ -44,6 +44,7 @@ router.get('/:id', ensureLoggedIn, async (req, res, next) => {
         selectPusheen,
         selectPokemon,
         selectHotWheels,
+        thisCollectible: collectibleData
     });
 });
 
@@ -76,7 +77,7 @@ router.post('/', async (req, res, next) => {
         return
     }
     const collectibleData = await knex('collectible')    
-    .select('collectible_type_id')
+    .select('collectible_type_id', 'name', 'attributes', 'collectible_id')
     .where({ collectible_id: collectible_id }).first();
 
     if (collectibleData.collectible_type_id == 1) {
@@ -105,11 +106,6 @@ router.post('/', async (req, res, next) => {
         res.render('editcollectible', { 
         title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
-        selectLego,
-        selectFunko,
-        selectPusheen,
-        selectPokemon,
-        selectHotWheels,
         message: 'You do not have the admin privilege to edit this collectible',
         messageClass: 'alert-danger'
         }
@@ -117,7 +113,12 @@ router.post('/', async (req, res, next) => {
     return
     }
 
-    if (await Collectible.getByName(name)) {
+    const nameOfCollectible = await knex('collectible')    
+    .select('name')
+    .where({ collectible_id: id }).first();
+
+    // if there that name already in the database and it is not the current collectible, render error
+    if (await Collectible.getByName(name) && (nameOfCollectible.name != name)) {
         res.render('editcollectible', { 
         title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
@@ -126,6 +127,7 @@ router.post('/', async (req, res, next) => {
         selectPusheen,
         selectPokemon,
         selectHotWheels,
+        thisCollectible: collectibleData,
         message: 'That collectible name already exists in the database. Unique names only',
         messageClass: 'alert-danger'
         }
@@ -143,6 +145,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
             messageClass: 'alert-danger'
             }
@@ -178,6 +181,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -194,6 +198,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -210,6 +215,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add piece count. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -226,6 +232,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add set number. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -242,6 +249,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add theme. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -258,6 +266,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add designer. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -279,6 +288,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
                 messageClass: 'alert-danger'
                 }
@@ -319,6 +329,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add piece count',
                 messageClass: 'alert-danger'
                 }
@@ -335,6 +346,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add set number',
                 messageClass: 'alert-danger'
                 }
@@ -351,6 +363,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add theme',
                 messageClass: 'alert-danger'
                 }
@@ -367,6 +380,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add designer',
                     essageClass: 'alert-danger'
                 }
@@ -412,6 +426,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -428,6 +443,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -446,6 +462,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add number. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -461,6 +478,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add line. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger',
                 }
@@ -482,6 +500,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
                 messageClass: 'alert-danger'
                 }
@@ -522,6 +541,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add number',
                 messageClass: 'alert-danger'
                 }
@@ -537,6 +557,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add line',
                 messageClass: 'alert-danger',
                 }
@@ -582,6 +603,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -598,6 +620,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -615,6 +638,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add product type. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -631,6 +655,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add season/holiday. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -650,6 +675,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
                 messageClass: 'alert-danger'
                 }
@@ -689,6 +715,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add product type',
                 messageClass: 'alert-danger'
                 }
@@ -705,6 +732,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add season/holiday',
                 messageClass: 'alert-danger'
                     }
@@ -747,6 +775,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -763,6 +792,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -779,6 +809,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add product type. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -795,6 +826,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add generation. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -813,6 +845,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
                 messageClass: 'alert-danger'
                 }
@@ -852,6 +885,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add product type',
                 messageClass: 'alert-danger'
                 }
@@ -868,6 +902,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add generation',
                 messageClass: 'alert-danger'
                 }
@@ -912,6 +947,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -928,6 +964,7 @@ router.post('/', async (req, res, next) => {
             selectPusheen,
             selectPokemon,
             selectHotWheels,
+            thisCollectible: collectibleData,
             message: 'You do not have the admin privilege to edit to this collectible type',
             messageClass: 'alert-danger'
             }
@@ -945,6 +982,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add number. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -961,6 +999,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add series. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -977,6 +1016,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add year released. You must enter all type attribute fields if you are changing the collectible\'s type',
                 messageClass: 'alert-danger'
                 }
@@ -995,6 +1035,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please do one of the following to update the collectible: enter a name, upload an image, or enter all the attribute fields',
                 messageClass: 'alert-danger'
                 }
@@ -1032,6 +1073,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add number',
                 messageClass: 'alert-danger'
                 }
@@ -1048,6 +1090,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add series',
                 messageClass: 'alert-danger'
                 }
@@ -1064,6 +1107,7 @@ router.post('/', async (req, res, next) => {
                 selectPusheen,
                 selectPokemon,
                 selectHotWheels,
+                thisCollectible: collectibleData,
                 message: 'Please add year released',
                 messageClass: 'alert-danger'
                 }

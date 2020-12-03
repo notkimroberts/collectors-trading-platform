@@ -12,20 +12,14 @@
 
         <form id="edit_collectible" action="/edit-collectible" enctype="multipart/form-data" method="POST">
 
-
             <div class="form-group">
-                {{#if id}}
                 <label for="collectible_id">Collectible id (required): </label>
-                <input class="form-control" type="number" name="collectible_id" id="collectible_id" value={{id}} required>
-                {{else}}
-                <label for="collectible_id">Collectible id (required): </label>
-                <input class="form-control" type="number" name="collectible_id" id="collectible_id" required>
-                {{/if}}
+                <input class="form-control" type="number" name="collectible_id" id="collectible_id" value="{{thisCollectible.collectible_id}}" required>
             </div>
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input class="form-control" type="text" name="name" id="name" pattern="([a-zA-Z0-9]+[a-zA-Z0-9 ]+)" placeholder="alphanumeric characters only and 2-40 characters long" maxlength="40">
+                <input class="form-control" type="text" name="name" id="name" pattern="([a-zA-Z0-9]+[a-zA-Z0-9 ]+)" placeholder="alphanumeric characters only and 2-40 characters long" value="{{thisCollectible.name}}" maxlength="40">
             </div>
 
             <div class="form-group">
@@ -64,56 +58,56 @@
             <div class="form-group none box" id='none'>
             </div>
 
-
             {{!-- Lego --}}
             <div class="form-group lego box" id='lego'>
+                
                 <p>If you fill out any of the type's attribute fields, you must fill all of them out.</p>
                 <label for="piece_count">Piece count</label>
-                <input class="form-control" type="number" name="piece_count" id="piece_count" maxlength="40"/>
+                <input class="form-control" type="number" name="piece_count" id="piece_count" value="{{thisCollectible.attributes.piece_count}}" maxlength="40"/>
                 <label for="set_number">Set number</label>
-                <input class="form-control" type="number" name="set_number" id="set_number" maxlength="40"/>
+                <input class="form-control" type="number" name="set_number" id="set_number" value="{{thisCollectible.attributes.set_number}}"maxlength="40"/>
                 <label for="theme">Theme</label>
-                <input class="form-control" type="text" name="theme" id="theme" maxlength="40"/>
+                <input class="form-control" type="text" name="theme" id="theme" value="{{thisCollectible.attributes.theme}}" maxlength="40"/>
                 <label for="designed_by">Designer</label>
-                <input class="form-control" type="text" name="designed_by" id="designed_by" maxlength="40"/>
+                <input class="form-control" type="text" name="designed_by" id="designed_by" value="{{thisCollectible.attributes.designed_by}}" maxlength="40"/>
             </div>
 
             {{!-- Funko --}}
             <div class="form-group funko box" id='funko'>
                 <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="Number">Number</label>
-                <input class="form-control" type="number" name="number" id="number" maxlength="40"/>
+                <input class="form-control" type="number" name="number" id="number" value="{{thisCollectible.attributes.number}}" maxlength="40"/>
                 <label for="Line">Line</label>
-                <input class="form-control" type="text" name="line" id="line" maxlength="40"/>
+                <input class="form-control" type="text" name="line" id="line" value="{{thisCollectible.attributes.line}}" maxlength="40"/>
             </div>
 
              {{!-- Pusheen --}}
             <div class="form-group pusheen box" id='pusheen'>
                 <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="product_type">Product type</label>
-                <input class="form-control" type="text" name="product_type1" id="product_type1" maxlength="40"/>
+                <input class="form-control" type="text" name="product_type1" id="product_type1" value="{{thisCollectible.attributes.product_type}}" maxlength="40"/>
                 <label for="season">Season/holiday</label>
-                <input class="form-control" type="text" name="season" id="season" maxlength="40"/>
+                <input class="form-control" type="text" name="season" id="season" value="{{thisCollectible.attributes.season}}" maxlength="40"/>
             </div>
 
              {{!-- Pokemon --}}
             <div class="form-group pokemon box" id='pokemon'>
                 <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="product_type">Product type</label>
-                <input class="form-control" type="text" name="product_type" id="product_type" maxlength="40"/>
+                <input class="form-control" type="text" name="product_type" id="product_type" value="{{thisCollectible.attributes.product_type}}" maxlength="40"/>
                 <label for="generation">Generation</label>
-                <input class="form-control" type="text" name="generation" id="generation" maxlength="40"/>
+                <input class="form-control" type="text" name="generation" id="generation" value="{{thisCollectible.attributes.generation}}" maxlength="40"/>
             </div>
 
             {{!-- Hot Wheels --}}
             <div class="form-group hot_wheels box" id="hot_wheels">
                 <p>If you fill out any of the type's attribute fields, you must fill all of them out. </p>
                 <label for="number">Number</label>
-                <input class="form-control" type="text" name="number1" id="number1" maxlength="40"/>
+                <input class="form-control" type="text" name="number1" id="number1" value="{{thisCollectible.attributes.number}}" maxlength="40"/>
                 <label for="series">Series</label>
-                <input class="form-control" type="text" name="series" id="series" maxlength="40"/>
+                <input class="form-control" type="text" name="series" id="series" value="{{thisCollectible.attributes.series}}" maxlength="40"/>
                 <label for="year_released">Year released</label>
-                <input class="form-control" type="text" name="year_released1" id="year_released1" maxlength="40"/>
+                <input class="form-control" type="text" name="year_released1" id="year_released1" value="{{thisCollectible.attributes.year_released}}" maxlength="40"/>
             </div>
             <div class="form-group">
                 <p class="text-muted">Select a jpeg image of the collectible. Maximum size is 40 KB.</p>
