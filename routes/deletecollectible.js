@@ -6,7 +6,7 @@ const { ensureLoggedIn } = require('../auth/middleware')
 
 
 router.get('/', ensureLoggedIn, (req, res, next) => {
-    res.render('deletecollectible', { title: "delete collectible" });
+    res.render('deletecollectible', { title: "Collector\'s Trading Platform | Delete Collectible" });
 });
 
 router.post('/', async (req, res, next) => {

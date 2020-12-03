@@ -209,6 +209,7 @@ router.get(['/list', '/list/:filter'], ensureLoggedIn, async (req, res, next) =>
     }
 
     res.render('profilelist', { 
+        title: "Collector\'s Trading Platform | Profile",
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,
@@ -440,6 +441,7 @@ router.get(['/', '/:filter'], ensureLoggedIn, async (req, res, next) => {
     }
 
     res.render('profile', { 
+        title: "Collector\'s Trading Platform | Profile",
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,

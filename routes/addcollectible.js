@@ -37,7 +37,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     }
 
     res.render('addcollectible', {
-        title: "add collectible", 
+        title: "Collector\'s Trading Platform | Add Collectible", 
         selectLego,
         selectFunko,
         selectPusheen,

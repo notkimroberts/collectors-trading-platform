@@ -26,7 +26,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     .select(knex.raw("to_char(collectible.created_at, 'YYYY-MM-DD') as created_at"))
     .select(knex.raw("to_char(collectible.updated_at, 'YYYY-MM-DD') as updated_at"))
     res.render('managecollectible', { 
-        title: "manage collectible",
+        title: "Collector\'s Trading Platform | Manage Collectibles",
         collectibles: collectiblesUserCanDelete,
         showAllAttributes
      });
@@ -64,7 +64,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
         .where({ 'collectible.collectible_type_id': collectorData.is_admin });
 
         res.render('managecollectible', { 
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             collectibles: collectiblesUserCanDelete,
             showLegoAttributes,
             showFunkoAttributes,
@@ -76,7 +76,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     else {
 
         res.render('managecollectible', { 
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
          });
     }
 
@@ -101,7 +101,7 @@ router.post('/', async (req, res, next) => {
         res.render('managecollectible', { 
             message: 'No collectible with that id exists. Click on the Manage Collectibles link in the nav bar to refresh the table.',
             messageClass: 'alert-danger',
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             }   
             )
             return
@@ -127,7 +127,7 @@ router.post('/', async (req, res, next) => {
             res.render('managecollectible', { 
             message: 'You do not have the admin privilege to delete this collectible',
             messageClass: 'alert-danger',
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             collectibles: collectiblesUserCanDelete,
             showAllAttributes
             }   
@@ -169,7 +169,7 @@ router.post('/', async (req, res, next) => {
             res.render('managecollectible', { 
             message: 'You do not have the admin privilege to delete this collectible',
             messageClass: 'alert-danger',
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             collectibles: collectiblesUserCanDelete,
             showLegoAttributes,
             showFunkoAttributes,
@@ -185,7 +185,7 @@ router.post('/', async (req, res, next) => {
             res.render('managecollectible', { 
                 message: 'You do not have the admin privilege to delete this collectible',
                 messageClass: 'alert-danger',
-                title: "manage collectible",
+                title: "Collector\'s Trading Platform | Manage Collectibles",
              });
         }
     }
@@ -208,7 +208,7 @@ router.post('/', async (req, res, next) => {
         res.render('managecollectible', { 
             message: 'Collectible has been deleted',
             messageClass: 'alert-success',
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             collectibles: collectiblesUserCanDelete,
             showAllAttributes
         });
@@ -249,7 +249,7 @@ router.post('/', async (req, res, next) => {
         res.render('managecollectible', { 
             message: 'Collectible has been deleted',
             messageClass: 'alert-success',
-            title: "manage collectible",
+            title: "Collector\'s Trading Platform | Manage Collectibles",
             collectibles: collectiblesUserCanDelete,
             showLegoAttributes,
             showFunkoAttributes,
