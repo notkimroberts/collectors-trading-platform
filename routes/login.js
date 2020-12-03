@@ -48,7 +48,7 @@ router.post('/', (req, res, next) => {
                     else {
                         // password does not match what we have in our database for that email address
                         res.render('login', {
-                            message: 'Invalid login or password',
+                            message: 'Invalid login or password. Email and password are case sensitive.',
                             messageClass: 'alert-danger'
                             }
                         );
@@ -60,7 +60,7 @@ router.post('/', (req, res, next) => {
             // email does not exist in our database
             else {
                     res.render('login', {
-                    message: 'Invalid login or password',
+                    message: 'Invalid login or password. Email and password are case sensitive.',
                     messageClass: 'alert-danger'
                     }
                 );
