@@ -7,6 +7,9 @@
         {{message}}
         </div>
         {{/if}}
+        <br>
+        <span>Click <a href="/profile">here </a>to return to your profile.</span>
+        <br>
         {{else}}
         {{#each collector}}
         <h2>{{username}}'s ratings</h2>
@@ -55,15 +58,18 @@
                 <th>Date</th>
                 <th>Comment</th>
             </tr>
-                    {{#each ratings}}
-                    <tr>
-                        <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
-                        <td>{{{rating}}}/5</td>
-                        <td>{{{updated_at}}}</td>
-                        <td style="word-break: break-word;">{{{comment}}}</td>
-                    </tr>
-                    {{/each}}
+            {{#each ratings}}
+            <tr>
+                <td><a href="/collector/{{{collector_id}}}">{{{username}}}</a></td>
+                <td>{{{rating}}}/5</td>
+                <td>{{{updated_at}}}</td>
+                <td style="word-break: break-word;">{{{comment}}}</td>
+            </tr>
+            {{/each}}
         </table>
+        {{#if noRatingsToList}}
+        <p>No ratings received</p>
+        {{/if}}
     </div>
 </div>
 

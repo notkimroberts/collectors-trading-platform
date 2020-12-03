@@ -8,7 +8,7 @@ const { ensureLoggedIn } = require('../auth/middleware')
 
 
 router.get('/', ensureLoggedIn, (req, res, next) => {
-    res.render('editcollectible', { title: "edit collectible" });
+    res.render('editcollectible', { title: "Collector\'s Trading Platform | Edit Collectible" });
 });
 
 router.get('/:id', ensureLoggedIn, async (req, res, next) => {
@@ -37,7 +37,7 @@ router.get('/:id', ensureLoggedIn, async (req, res, next) => {
     }
 
     res.render('editcollectible', { 
-        title: "edit collectible", 
+        title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
         selectLego,
         selectFunko,
@@ -62,7 +62,7 @@ router.post('/', async (req, res, next) => {
     // Check if existing collectible_id
     if (!(await Collectible.getById(collectible_id))) {
         res.render('editcollectible', { 
-        title: "edit collectible", 
+        title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
         selectLego,
         selectFunko,
@@ -103,7 +103,7 @@ router.post('/', async (req, res, next) => {
     if (thisIdcollectibleType != userAdminType && userAdminType !='6')
     {
         res.render('editcollectible', { 
-        title: "edit collectible", 
+        title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
         selectLego,
         selectFunko,
@@ -119,7 +119,7 @@ router.post('/', async (req, res, next) => {
 
     if (await Collectible.getByName(name)) {
         res.render('editcollectible', { 
-        title: "edit collectible", 
+        title: "Collector\'s Trading Platform | Edit Collectible", 
         id,
         selectLego,
         selectFunko,
@@ -136,7 +136,7 @@ router.post('/', async (req, res, next) => {
     if (typeSelected == "0") {
         if (!name && !req.files) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -171,7 +171,7 @@ router.post('/', async (req, res, next) => {
     
         if (userAdminType != "1" && userAdminType !='6'){
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -187,7 +187,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -203,7 +203,7 @@ router.post('/', async (req, res, next) => {
         if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
             if (!req.body.piece_count) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -219,7 +219,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.set_number) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -235,7 +235,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.theme) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -251,7 +251,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.designed_by) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -272,7 +272,7 @@ router.post('/', async (req, res, next) => {
         else if (!req.body.piece_count && !req.body.set_number && !req.body.theme && !req.body.designed_by) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -312,7 +312,7 @@ router.post('/', async (req, res, next) => {
         else {
             if (!req.body.piece_count) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -328,7 +328,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.set_number) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -344,7 +344,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.theme) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -360,7 +360,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.designed_by) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -405,7 +405,7 @@ router.post('/', async (req, res, next) => {
 
         if (userAdminType != "2" && userAdminType !='6'){
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -421,7 +421,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -439,7 +439,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.number) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -454,7 +454,7 @@ router.post('/', async (req, res, next) => {
             }
             if (!req.body.line) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -475,7 +475,7 @@ router.post('/', async (req, res, next) => {
         else if (!req.body.number && !req.body.line) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -515,7 +515,7 @@ router.post('/', async (req, res, next) => {
         else {
             if (!req.body.number) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -530,7 +530,7 @@ router.post('/', async (req, res, next) => {
             }
             if (!req.body.line) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -575,7 +575,7 @@ router.post('/', async (req, res, next) => {
 
         if (userAdminType != "3" && userAdminType !='6'){
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -591,7 +591,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -608,7 +608,7 @@ router.post('/', async (req, res, next) => {
         if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
             if (!req.body.product_type1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -624,7 +624,7 @@ router.post('/', async (req, res, next) => {
             }
             if (!req.body.season) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -643,7 +643,7 @@ router.post('/', async (req, res, next) => {
         else if (!req.body.product_type1 && !req.body.season) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -682,7 +682,7 @@ router.post('/', async (req, res, next) => {
         else {
             if (!req.body.product_type1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -698,7 +698,7 @@ router.post('/', async (req, res, next) => {
             }
             if (!req.body.season) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -740,7 +740,7 @@ router.post('/', async (req, res, next) => {
     
         if (userAdminType != "4" && userAdminType !='6'){
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -756,7 +756,7 @@ router.post('/', async (req, res, next) => {
 
         if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -772,7 +772,7 @@ router.post('/', async (req, res, next) => {
         if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
             if (!req.body.product_type) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -788,7 +788,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.generation) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -806,7 +806,7 @@ router.post('/', async (req, res, next) => {
         else if (!req.body.product_type && !req.body.generation) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -845,7 +845,7 @@ router.post('/', async (req, res, next) => {
         else {
             if (!req.body.product_type) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -861,7 +861,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.generation) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -905,7 +905,7 @@ router.post('/', async (req, res, next) => {
         
         if (userAdminType != "5" && userAdminType !='6'){
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -921,7 +921,7 @@ router.post('/', async (req, res, next) => {
 
        if (thisIdcollectibleType != typeSelected && userAdminType != 6) {
             res.render('editcollectible', { 
-            title: "edit collectible", 
+            title: "Collector\'s Trading Platform | Edit Collectible", 
             id,
             selectLego,
             selectFunko,
@@ -938,7 +938,7 @@ router.post('/', async (req, res, next) => {
         if (thisIdcollectibleType != typeSelected && userAdminType == 6) {
             if (!req.body.number1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -954,7 +954,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.series) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -970,7 +970,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.year_released1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -988,7 +988,7 @@ router.post('/', async (req, res, next) => {
         else if (!req.body.number1 && !req.body.series && !req.body.year_released1) {
             if (!name && !req.files) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -1025,7 +1025,7 @@ router.post('/', async (req, res, next) => {
         else {
             if (!req.body.number1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -1041,7 +1041,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.series) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,
@@ -1057,7 +1057,7 @@ router.post('/', async (req, res, next) => {
 
             if (!req.body.year_released1) {
                 res.render('editcollectible', { 
-                title: "edit collectible", 
+                title: "Collector\'s Trading Platform | Edit Collectible", 
                 id,
                 selectLego,
                 selectFunko,

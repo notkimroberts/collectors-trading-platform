@@ -1,6 +1,6 @@
 const knex = require('../connection')
 
-
+//knex queries for collector
 module.exports = {
     create: function(collector) {
         return knex('collector').insert(collector, 'collector_id').then(ids => {

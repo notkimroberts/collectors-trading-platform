@@ -6,7 +6,7 @@ const { ensureLoggedIn } = require('../auth/middleware')
 
 
 router.get('/', ensureLoggedIn, (req, res, next) => {
-    res.render('deletecollectible', { title: "delete collectible" });
+    res.render('deletecollectible', { title: "Collector\'s Trading Platform | Delete Collectible" });
 });
 
 router.post('/', async (req, res, next) => {
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
     const adminType = collectorData.is_admin;
 
     // if the admin type does not match the collectible type and the admin type is not an all admin, render error
-    if (collectibleType != adminType && adminType != 6) {
+    if (collectibleType != adminType && adminType != 6) { 
         res.render('deletecollectible', { 
         message: 'You do not have the admin privilege to delete this collectible',
         messageClass: 'alert-danger'

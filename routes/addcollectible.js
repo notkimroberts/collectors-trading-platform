@@ -5,7 +5,7 @@ const router = express.Router();
 const knex = require('../connection')
 const { ensureLoggedIn } = require('../auth/middleware')
 
-
+//determines valid collectible based on name
 function validCollectible(collectible) {
     const validName = typeof collectible.name == 'string' && collectible.name.trim() != '';
     return validName;
@@ -17,6 +17,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     .select('is_admin')
     .where({ collector_id: userId }).first();
 
+    //auto populates type selection on add collectible screen
     if (collectorData.is_admin == 1) {
         var selectLego = 1;
     }
@@ -36,7 +37,7 @@ router.get('/', ensureLoggedIn, async (req, res, next) => {
     }
 
     res.render('addcollectible', {
-        title: "add collectible", 
+        title: "Collector\'s Trading Platform | Add Collectible", 
         selectLego,
         selectFunko,
         selectPusheen,
@@ -56,7 +57,7 @@ router.post('/', async (req, res, next) => {
     const userAdminType = collectorData.is_admin;
 
     if(validCollectible(req.body)) {
-        if(userAdminType !=typeSelected && userAdminType != "6") {
+        if(userAdminType !=typeSelected && userAdminType != "6") { //if user admin is not the collectible type or if not all admin
             res.render('addcollectible', { 
                 message: 'You do not have the admin privilege to edit this collectible',
                 messageClass: 'alert-danger'
@@ -64,7 +65,7 @@ router.post('/', async (req, res, next) => {
             )
             return
         }
-        if (await Collectible.getByName(req.body.name)) {
+        if (await Collectible.getByName(req.body.name)) { //name already exists
             res.render('addcollectible', { 
                     message: 'That collectible name already exists in the database. Unique names only.',
                     messageClass: 'alert-danger'
@@ -73,7 +74,7 @@ router.post('/', async (req, res, next) => {
             return
         }
         if (!req.files) {
-            res.render('addcollectible', { 
+            res.render('addcollectible', {  //need to upload image
                     message: 'Please choose a jpeg image to upload',
                     messageClass: 'alert-danger'
                 }
@@ -84,7 +85,7 @@ router.post('/', async (req, res, next) => {
         .getByName(req.body.name)
         .then(async (collectible) => {
             if (!collectible) {
-                if (typeSelected == "1") {
+                if (typeSelected == "1") { //if lego input below lego attributes
                     if (!req.body.piece_count) {
                         res.render('addcollectible', { 
                                 message: 'Please add piece count',
@@ -129,11 +130,11 @@ router.post('/', async (req, res, next) => {
                             designed_by: req.body.designed_by
                         }
                     };
-                    const collectibleID = await Collectible.create(collectible);
+                    const collectibleID = await Collectible.create(collectible); //creates collectible
                     res.redirect(`/collectible/${collectibleID}`);
                     return;
                 }
-                else if (typeSelected == "2") {
+                else if (typeSelected == "2") { 
                     if (!req.body.number) {
                         res.render('addcollectible', { 
                                 message: 'Please add number',

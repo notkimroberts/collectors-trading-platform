@@ -37,10 +37,12 @@ router.get(['/list', '/list/:filter'], ensureLoggedIn, async (req, res, next) =>
     var totalRatings = 0;
     var averageStars = 0;
 
+    //formula for stars
     starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
     totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
     averageStars = starCount/totalRatings;
 
+    //show star rating on profile
     if (averageStars >= '0' && averageStars < '0.25') {
         var zeroStar = 1;
     }
@@ -207,6 +209,7 @@ router.get(['/list', '/list/:filter'], ensureLoggedIn, async (req, res, next) =>
     }
 
     res.render('profilelist', { 
+        title: "Collector\'s Trading Platform | Profile",
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,
@@ -438,6 +441,7 @@ router.get(['/', '/:filter'], ensureLoggedIn, async (req, res, next) => {
     }
 
     res.render('profile', { 
+        title: "Collector\'s Trading Platform | Profile",
         collector: collectorData,
         collector_id: req.signedCookies.user_id,
         collectionHas: collectionsHas,

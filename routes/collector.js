@@ -33,13 +33,18 @@ router.get('/rating/:id', async (req, res, next) => {
         .join('collector', 'collector.collector_id', 'collector_ratings.from_user_id')
         .where('to_user_id', '=', id)
 
+    if (collectorsRatings.length == 0) {
+        var noRatingsToList = 1;
+    }
+
     res.render('rating', { 
         title: `Collector\'s Trading Platform | Rating`,
         collector: collectorData,
         id,
         fromUser,
         ratings: collectorsRatings,
-        isLoggedInUser
+        isLoggedInUser,
+        noRatingsToList
     });
 });
 
@@ -229,11 +234,12 @@ router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
     var totalRatings = 0;
     var averageStars = 0;
 
+    //formula for calculating stars
     starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
     totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
     averageStars = starCount/totalRatings;
 
-
+    //showing the number of stars on profile page
     if (averageStars >= '0' && averageStars < '0.25') {
         var zeroStar = 1;
     }
@@ -434,11 +440,12 @@ router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
     var totalRatings = 0;
     var averageStars = 0;
 
+    //formula for stars
     starCount = (1*rating1.length) + (2*rating2.length) + (3*rating3.length) + (4*rating4.length) + (5*rating5.length);
     totalRatings = rating1.length + rating2.length + rating3.length + rating4.length + rating5.length;
     averageStars = starCount/totalRatings;
 
-
+    //showing star rating on profile page
     if (averageStars >= '0' && averageStars < '0.25') {
         var zeroStar = 1;
     }

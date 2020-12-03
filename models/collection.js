@@ -1,5 +1,6 @@
 const knex = require('../connection')
 
+//knex queries for collection
 module.exports = {
     create: (collector_id, collectible_id, has_quantity, wants_quantity, willing_to_trade_quantity) => {
         const collection = knex('collection')
