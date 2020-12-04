@@ -268,7 +268,7 @@ router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
         var fourStar = 1;
     }
     else if (averageStars >= '4.25' && averageStars < '4.75') {
-        var fourhalfStar = 1;
+        var fourHalfStar = 1;
     }
     else if (averageStars >= '4.75' && averageStars <= '5') {
         var fiveStar = 1;
@@ -401,7 +401,7 @@ router.get(['/:id', '/:id?:filter'], async (req, res, next) => {
         threeStar,
         threeHalfStar,
         fourStar,
-        fourhalfStar,
+        fourHalfStar,
         fiveStar,
         noRating
     });
@@ -474,7 +474,7 @@ router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
         var fourStar = 1;
     }
     else if (averageStars >= '4.25' && averageStars < '4.75') {
-        var fourhalfStar = 1;
+        var fourHalfStar = 1;
     }
     else if (averageStars >= '4.75' && averageStars <= '5') {
         var fiveStar = 1;
@@ -619,7 +619,7 @@ router.get(['/list/:id', '/list/:id/:filter'], async (req, res, next) => {
         threeStar,
         threeHalfStar,
         fourStar,
-        fourhalfStar,
+        fourHalfStar,
         fiveStar,
         noRating
     });
