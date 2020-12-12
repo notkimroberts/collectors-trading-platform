@@ -166,6 +166,52 @@ router.post('/register', (req, res, next) => {
     }  
 });
 
+router.post('/login', (req, res, next) => {
+    // check to see if user is in database
+    if(validUser(req.body)) {
+        Collector    
+            .getByEmail(req.body.email)
+            .then(collector => {
+                if (collector) {
+                    // check password against hashed password
+                    bcrypt
+                        .compare(req.body.password, collector.password)
+                        .then((result) => {
+                            // if the passwords matched
+                            if(result) {
+                                // set set-cookie header
+                                setUserIdCookie(req, res, collector.collector_id);
+                                console.log('req.signedCookies: ', req.signedCookies)
+                                console.log('res.signedCookies: ', res.signedCookies)
+                                res.json({
+                                    collector_id: collector.collector_id,
+                                    message: 'logged in'
+                                  });
+
+                            }
+                            else {
+                                var err = new Error('Invalid login');
+                                err.status = 401;
+                                next(err);
+                            }
+                        
+                        });
+                }
+                else {
+                    var err = new Error('Invalid login');
+                    err.status = 401;
+                    next(err);
+
+                }       
+            });
+    }
+    else {
+        var err = new Error('Invalid login');
+        err.status = 401;
+        next(err);
+    }
+});
+
 // logout user
 router.get('/logout', (req, res) => {
     // clear cookie
