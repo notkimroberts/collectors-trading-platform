@@ -166,12 +166,24 @@ router.post('/register', (req, res, next) => {
     }  
 });
 
+function setUserIdCookie(req, res, id) {
+    const isSecure = req.app.get('env') != 'development';
+    res.cookie('user_id', id, {
+        httpOnly: true,
+        secure: isSecure,
+        signed: true
+
+    });
+}
 router.post('/login', (req, res, next) => {
     // check to see if user is in database
     if(validUser(req.body)) {
         Collector    
             .getByEmail(req.body.email)
             .then(collector => {
+
+
+
                 if (collector) {
                     // check password against hashed password
                     bcrypt
@@ -181,8 +193,6 @@ router.post('/login', (req, res, next) => {
                             if(result) {
                                 // set set-cookie header
                                 setUserIdCookie(req, res, collector.collector_id);
-                                console.log('req.signedCookies: ', req.signedCookies)
-                                console.log('res.signedCookies: ', res.signedCookies)
                                 res.json({
                                     collector_id: collector.collector_id,
                                     message: 'logged in'
@@ -190,25 +200,24 @@ router.post('/login', (req, res, next) => {
 
                             }
                             else {
-                                var err = new Error('Invalid login');
-                                err.status = 401;
-                                next(err);
+                                next(Error("Invalid login1"));
                             }
-                        
-                        });
-                }
-                else {
-                    var err = new Error('Invalid login');
-                    err.status = 401;
-                    next(err);
 
-                }       
-            });
-    }
+
+                    });
+
+
+                }
+
+                else {
+                    next(Error("Invalid login2"));
+                }
+
+
+    });
+}
     else {
-        var err = new Error('Invalid login');
-        err.status = 401;
-        next(err);
+        next(new Error('Invalid login3'));
     }
 });
 

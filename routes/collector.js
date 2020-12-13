@@ -801,7 +801,8 @@ router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, a
 
         // get wants of other user that matches current user trades
         const currentUserToOtherUser = await knex('collection')
-            .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+            .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 
+            'collectible.name', 'collection.willing_to_trade_quantity'])
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
             .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
             .where('collector_id','=', currentUserId)
@@ -815,7 +816,8 @@ router.get(['/trade/images/:id', '/trade/images/:id?:filter'], ensureLoggedIn, a
  
         // get trades of other user that matches current user wants    
         const otherUserToCurrentUser = await knex('collection')
-            .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 'collectible.name', 'collection.willing_to_trade_quantity'])
+            .select(['collectible_type.name as typeName', 'collection.collector_id', 'collection.collectible_id', 
+            'collectible.name', 'collection.willing_to_trade_quantity'])
             .join('collectible', 'collection.collectible_id', 'collectible.collectible_id')
             .join('collectible_type', 'collectible_type.collectible_type_id', 'collectible.collectible_type_id')
             .where('collector_id','=', otherUserId)

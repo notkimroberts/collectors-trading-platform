@@ -1,4 +1,4 @@
-$.ajaxSetup({
+  $.ajaxSetup({
     crossDomain: true,
     xhrFields: {
        withCredentials: true
@@ -6,7 +6,6 @@ $.ajaxSetup({
 
 });
 
-// https://www.youtube.com/watch?v=2ZcP3kO5kkE
 const API_URL = getHostURL();
 const AUTH_URL = `${API_URL}/auth`
 
@@ -16,9 +15,38 @@ function getHostURL() {
     } else {
       return 'https://collectors-trading-platform.herokuapp.com';
     }
-  } 
+  }
+  
+
+  function getUserFromForm() {
+
+    const email = $('#email').val();
+    const password = $('#password').val();
+
+    const collector = {
+        email,
+        password
+    };
+
+    return collector;
+  }
+
+  function showErrorMessage(message) {
+
+    const $errorMessage =$(`#errorMessage`);
+    $errorMessage.text(message);
+    $errorMessage.show();
+  }
+
+
+  function setIdRedirect(result) {
+    sessionStorage.user_id = result.collector_id;
+    window.location=`/`;
+  }
+
 
   function logout() {
+      sessionStorage.removeItem('user_id');
       $.get(`${AUTH_URL}/logout`)
         .then(result => {
             window.location = '/login';
